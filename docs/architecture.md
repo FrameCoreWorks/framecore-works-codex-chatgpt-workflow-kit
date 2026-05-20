@@ -20,7 +20,7 @@ flowchart TD
 
 ## Layer Responsibilities
 
-- Pipeline core: role routing, review gates, handoffs, project state, and artifact templates.
+- Pipeline core: role routing, review gates, handoffs, project state, artifact templates, and artifact schema validation.
 - Production skills: brief, reference, research, direction, copy, prompt, QA, delivery, Humanizer, and HyperFrames workflow knowledge.
 - Expansion layer: lightweight Hipson Adapter for research maps, internet mapping packets, bounded instruction packets, review packets, and execution packets.
 - Governance layer: explicit workflow self-improvement logs and change proposals. It is report-only unless the user asks for a specific change.
@@ -38,6 +38,8 @@ Each `SKILL.md` is an operational contract. It tells Codex:
 - what handoff fields the next role needs.
 
 The contract keeps runtime behavior predictable without turning each skill into a long manual. Detailed examples and domain references belong in `references/`, `templates/`, or `examples/` when they are too large for the skill body.
+
+Artifact contracts are tracked separately in `config/artifact-schemas.json`. Validation checks that gate-required artifacts, template sections, and registered example fixtures keep the same required fields.
 
 ## Installation Model
 

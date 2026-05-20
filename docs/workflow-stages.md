@@ -18,7 +18,7 @@ Read each row as an operational contract: the owner receives input, produces the
 | Copy | `copy-voice` | direction, tone, audience | Copy Pack | `copy_fit` | prompt role |
 | Prompting | `image-prompting`, `video-prompting` | direction, copy, references | Prompt Pack | `promptability_fit` | `tool-routing-cost` or QA |
 | Tool routing | `tool-routing-cost` | prompt pack, approval status | Tool Routing Plan | `schema_pricing_fit` | `execution-manifest` |
-| Execution manifest | `execution-manifest`, `hyperframes-producer` | selected tool, approved inputs | Execution Manifest or Production Brief | `execution_manifest_fit` | `asset-manifest` |
+| Execution manifest | `execution-manifest`, `hyperframes-producer` | selected tool, approved inputs | Execution Manifest or HyperFrames Production Brief | `execution_manifest_fit` | `asset-manifest` |
 | Asset manifest | `asset-manifest` | output files, source notes | Asset Manifest | `asset_manifest_fit` | `qa-iteration` |
 | QA / iteration | `qa-iteration` | artifacts, assets, criteria | QA / Iteration Report | `post_execution_fit` | delivery or loopback |
 | Delivery | `delivery-documentation` | accepted assets and caveats | Delivery Manifest | `delivery_fit` | user-facing final response |

@@ -131,6 +131,17 @@
 - errors:
 - next_handoff:
 
+## HyperFrames Production Brief
+
+- composition_goal:
+- scene_structure:
+- timing:
+- animation_system:
+- caption_or_overlay_plan:
+- render_constraints:
+- QA_checks:
+- handoff_to:
+
 ## Asset Manifest
 
 - files:

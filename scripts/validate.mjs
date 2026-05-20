@@ -40,6 +40,10 @@ function markdownSlug(value) {
     .replace(/\s+/g, "-");
 }
 
+function isPlainObject(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
 function anchorsFor(text) {
   const anchors = new Set();
   for (const match of text.matchAll(/^#{1,6}\s+(.+)$/gm)) {
@@ -105,6 +109,26 @@ function artifactAlternatives(value) {
 
 function markdownSections(text) {
   return new Set([...text.matchAll(/^##\s+(.+)$/gm)].map((match) => match[1].trim()));
+}
+
+function markdownSectionBody(text, section) {
+  const lines = text.split(/\r?\n/);
+  const body = [];
+  let active = false;
+  for (const line of lines) {
+    const heading = line.match(/^##\s+(.+)$/);
+    if (heading) {
+      if (active) break;
+      active = heading[1].trim() === section;
+      continue;
+    }
+    if (active) body.push(line);
+  }
+  return body.join("\n");
+}
+
+function artifactFieldSet(text) {
+  return new Set([...text.matchAll(/^-\s+([A-Za-z][A-Za-z0-9_ /-]*):/gm)].map((match) => match[1].trim()));
 }
 
 const requiredRoles = JSON.parse(readFileSync(join(validationRoot, "config/agent-naming.schema.json"), "utf8")).roles;
@@ -175,8 +199,31 @@ for (const file of skillFiles) {
 const gateRegistry = join(validationRoot, ".agents/skills/pipeline-core/references/gate-registry.md");
 const handoffMatrix = join(validationRoot, ".agents/skills/pipeline-core/references/handoff-matrix.md");
 const artifactTemplates = join(validationRoot, ".agents/skills/pipeline-core/templates/artifact-templates.md");
+const artifactSchemasPath = join(validationRoot, "config/artifact-schemas.json");
 for (const file of [gateRegistry, handoffMatrix, artifactTemplates]) {
   if (!existsSync(file)) addFinding("MISSING_PIPELINE_FILE", "Required pipeline core file is missing.", [file]);
+}
+
+let artifactSchemas = null;
+let artifactSchemaNames = new Set();
+if (existsSync(artifactSchemasPath)) {
+  try {
+    artifactSchemas = JSON.parse(read(artifactSchemasPath));
+  } catch (error) {
+    addFinding("INVALID_ARTIFACT_SCHEMA_REGISTRY", `Artifact schema registry must be valid JSON: ${error.message}`, [artifactSchemasPath]);
+  }
+} else {
+  addFinding("MISSING_REPO_FILE", "Required public repo file is missing: config/artifact-schemas.json", [artifactSchemasPath]);
+}
+if (artifactSchemas) {
+  if (artifactSchemas.schema_version !== 1) {
+    addFinding("INVALID_ARTIFACT_SCHEMA_REGISTRY", "Artifact schema registry schema_version must be 1.", [artifactSchemasPath]);
+  }
+  if (!isPlainObject(artifactSchemas.artifacts)) {
+    addFinding("INVALID_ARTIFACT_SCHEMA_REGISTRY", "Artifact schema registry must define an artifacts object.", [artifactSchemasPath]);
+  } else {
+    artifactSchemaNames = new Set(Object.keys(artifactSchemas.artifacts));
+  }
 }
 
 if (existsSync(gateRegistry)) {
@@ -212,6 +259,10 @@ if (existsSync(gateRegistry)) {
       const hasTemplate = artifactAlternatives(row.requiredArtifact).some((artifact) => sections.has(artifact));
       if (!hasTemplate) {
         addFinding("MISSING_GATE_ARTIFACT_TEMPLATE", `Gate ${row.gate} requires artifact without a matching template: ${row.requiredArtifact}`, [gateRegistry, artifactTemplates]);
+      }
+      const hasSchema = artifactAlternatives(row.requiredArtifact).some((artifact) => artifactSchemaNames.has(artifact));
+      if (artifactSchemaNames.size > 0 && !hasSchema) {
+        addFinding("MISSING_ARTIFACT_SCHEMA", `Gate ${row.gate} requires artifact without a matching schema: ${row.requiredArtifact}`, [gateRegistry, artifactSchemasPath]);
       }
     }
   }
@@ -262,8 +313,52 @@ if (existsSync(handoffMatrix)) {
 if (existsSync(artifactTemplates)) {
   const text = read(artifactTemplates);
   const sections = markdownSections(text);
-  for (const section of ["Task Confirmation", "Brief Contract", "Reference Pack", "Instruction Packet", "Storyboard Contract", "Board Artifact Prompt", "Prompt Pack", "Execution Manifest", "QA / Iteration Report", "Delivery Manifest"]) {
+  for (const section of ["Task Confirmation", "Brief Contract", "Reference Pack", "Instruction Packet", "Storyboard Contract", "Board Artifact Prompt", "Prompt Pack", "Execution Manifest", "HyperFrames Production Brief", "QA / Iteration Report", "Delivery Manifest"]) {
     if (!sections.has(section)) addFinding("MISSING_TEMPLATE_SECTION", `Artifact template section is missing: ${section}`, [artifactTemplates]);
+  }
+  if (artifactSchemas?.artifacts) {
+    for (const [artifactName, schema] of Object.entries(artifactSchemas.artifacts)) {
+      if (!sections.has(artifactName)) {
+        addFinding("ARTIFACT_SCHEMA_WITHOUT_TEMPLATE", `Artifact schema has no matching template section: ${artifactName}`, [artifactSchemasPath, artifactTemplates]);
+        continue;
+      }
+      if (!isPlainObject(schema) || !Array.isArray(schema.required_fields) || schema.required_fields.length === 0) {
+        addFinding("INVALID_ARTIFACT_SCHEMA", `Artifact schema must define required_fields: ${artifactName}`, [artifactSchemasPath]);
+        continue;
+      }
+      const templateFields = artifactFieldSet(markdownSectionBody(text, artifactName));
+      for (const field of schema.required_fields) {
+        if (typeof field !== "string" || field.trim().length === 0) {
+          addFinding("INVALID_ARTIFACT_SCHEMA", `Artifact schema required_fields must contain non-empty strings: ${artifactName}`, [artifactSchemasPath]);
+          continue;
+        }
+        if (!templateFields.has(field)) {
+          addFinding("ARTIFACT_SCHEMA_FIELD_MISSING_TEMPLATE", `Artifact ${artifactName} requires field missing from its template: ${field}`, [artifactSchemasPath, artifactTemplates]);
+        }
+      }
+      for (const examplePath of schema.example_paths ?? []) {
+        if (typeof examplePath !== "string" || examplePath.startsWith("/") || examplePath.split(/[\\/]+/).includes("..")) {
+          addFinding("INVALID_ARTIFACT_SCHEMA", `Artifact schema example path must be repo-relative and safe: ${artifactName}`, [artifactSchemasPath]);
+          continue;
+        }
+        const exampleFile = join(validationRoot, examplePath);
+        if (!existsSync(exampleFile)) {
+          addFinding("MISSING_ARTIFACT_EXAMPLE", `Artifact example file is missing: ${examplePath}`, [artifactSchemasPath]);
+          continue;
+        }
+        const exampleFields = artifactFieldSet(read(exampleFile));
+        for (const field of schema.required_fields) {
+          if (!exampleFields.has(field)) {
+            addFinding("EXAMPLE_ARTIFACT_MISSING_FIELD", `Example artifact ${examplePath} is missing required field: ${field}`, [exampleFile, artifactSchemasPath]);
+          }
+        }
+      }
+    }
+    for (const section of sections) {
+      if (!artifactSchemaNames.has(section)) {
+        addFinding("TEMPLATE_SECTION_MISSING_SCHEMA", `Artifact template section has no matching schema: ${section}`, [artifactTemplates, artifactSchemasPath]);
+      }
+    }
   }
 }
 
@@ -272,6 +367,7 @@ const requiredDocs = [
   "docs/troubleshooting.md",
   "docs/release.md",
   "docs/architecture.md",
+  "docs/artifact-schemas.md",
   "docs/workflow-stages.md",
   "docs/onboarding.md",
   "docs/customization.md",
@@ -297,6 +393,7 @@ const requiredRepoFiles = [
   "SECURITY.md",
   "SUPPORT.md",
   "CODE_OF_CONDUCT.md",
+  "config/artifact-schemas.json",
   "scripts/doctor.mjs",
   "scripts/manifest.mjs"
 ];

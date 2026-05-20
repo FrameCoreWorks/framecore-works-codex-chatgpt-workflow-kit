@@ -14,7 +14,7 @@
 | `copy_fit` | `copy-voice` | Copy Pack |
 | `promptability_fit` | `image-prompting`, `video-prompting` | Prompt Pack |
 | `schema_pricing_fit` | `tool-routing-cost` | Tool Routing Plan |
-| `execution_manifest_fit` | `execution-manifest`, `hyperframes-producer` | Execution Manifest or Production Brief |
+| `execution_manifest_fit` | `execution-manifest`, `hyperframes-producer` | Execution Manifest or HyperFrames Production Brief |
 | `asset_manifest_fit` | `asset-manifest` | Asset Manifest |
 | `post_execution_fit` | `qa-iteration` | QA / Iteration Report |
 | `delivery_fit` | `delivery-documentation` | Delivery Manifest |

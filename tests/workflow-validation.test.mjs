@@ -396,6 +396,42 @@ test("validation rejects duplicate gate and handoff rows", () => {
   assert.match(`${result.stderr}${result.stdout}`, /DUPLICATE_HANDOFF/);
 });
 
+test("validation rejects missing artifact schemas for gate-required artifacts", () => {
+  const dir = copyRepoFixture("framecore-validate-artifact-schema-missing-");
+  const schemaFile = join(dir, "config/artifact-schemas.json");
+  const schema = JSON.parse(readFileSync(schemaFile, "utf8"));
+  delete schema.artifacts["Brief Contract"];
+  writeFileSync(schemaFile, JSON.stringify(schema, null, 2));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /MISSING_ARTIFACT_SCHEMA/);
+});
+
+test("validation rejects artifact schema fields missing from templates", () => {
+  const dir = copyRepoFixture("framecore-validate-artifact-schema-field-");
+  const schemaFile = join(dir, "config/artifact-schemas.json");
+  const schema = JSON.parse(readFileSync(schemaFile, "utf8"));
+  schema.artifacts["Brief Contract"].required_fields.push("missing_field");
+  writeFileSync(schemaFile, JSON.stringify(schema, null, 2));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /ARTIFACT_SCHEMA_FIELD_MISSING_TEMPLATE/);
+  assert.match(`${result.stderr}${result.stdout}`, /EXAMPLE_ARTIFACT_MISSING_FIELD/);
+});
+
+test("validation rejects example artifact fixtures missing required fields", () => {
+  const dir = copyRepoFixture("framecore-validate-artifact-example-");
+  const file = join(dir, "examples/end-to-end-creative-workflow/artifacts/brief-contract.md");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text.replace("- objective: Prepare", "- goal: Prepare"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /EXAMPLE_ARTIFACT_MISSING_FIELD/);
+});
+
 test("validation rejects agent templates with unknown review gates", () => {
   const dir = copyRepoFixture("framecore-validate-agent-gate-");
   const file = join(dir, ".codex/agents/brief-architect.toml.template");
