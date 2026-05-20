@@ -116,15 +116,24 @@ test("privacy audit catches private paths, emails, secrets, provider remnants, a
   const other = hidden("TWFnbmlmaWM=");
   const tool = ["gen", "media"].join("");
   const localPath = ["/", "Users", "/", "example", "/", "private"].join("");
+  const linuxPath = ["/", "home", "/", "example", "/", "private"].join("");
+  const windowsPath = ["C:", "\\", "Users", "\\", "example", "\\", "private"].join("");
   const email = ["person", "@", "example", ".", "com"].join("");
   const secret = ["api", "_", "key", "=", "abcdefghijklmnopqrstuvwxyz"].join("");
+  const cloud = [
+    "https://drive.google.com/drive/folders/",
+    "1AaBbCcDdEeFfGgHhIiJjKkLlMm"
+  ].join("");
   writeFileSync(join(dir, "bad.md"), [
     banned,
     other,
     tool,
     localPath,
+    linuxPath,
+    windowsPath,
     email,
-    secret
+    secret,
+    cloud
   ].join("\n"));
   writeFileSync(join(dir, "._bad.md"), "");
   const result = failRun(["scripts/audit-privacy.mjs", dir]);
@@ -133,7 +142,69 @@ test("privacy audit catches private paths, emails, secrets, provider remnants, a
   assert.match(`${result.stderr}${result.stdout}`, /LOCAL_ABSOLUTE_PATH/);
   assert.match(`${result.stderr}${result.stdout}`, /EMAIL_ADDRESS/);
   assert.match(`${result.stderr}${result.stdout}`, /SECRET_LIKE_VALUE/);
+  assert.match(`${result.stderr}${result.stdout}`, /PRIVATE_CLOUD_REFERENCE/);
   assert.match(`${result.stderr}${result.stdout}`, /APPLEDOUBLE_FILE/);
+});
+
+test("privacy audit catches secret filenames and credential-shaped values", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-audit-secret-files-"));
+  const privateKey = ["-----BEGIN ", "OPENSSH PRIVATE KEY", "-----"].join("");
+  const token = ["ghp_", "abcdefghijklmnopqrstuvwxyz123456"].join("");
+  writeFileSync(join(dir, ".env"), "LOCAL_ONLY=1\n");
+  writeFileSync(join(dir, "credentials.pem"), privateKey);
+  writeFileSync(join(dir, "tokens.txt"), token);
+
+  const result = failRun(["scripts/audit-privacy.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /SECRET_FILE_NAME/);
+  assert.match(`${result.stderr}${result.stdout}`, /SECRET_LIKE_VALUE/);
+});
+
+test("validation rejects unknown handoff roles", () => {
+  const dir = copyRepoFixture("framecore-validate-handoff-");
+  const file = join(dir, ".agents/skills/pipeline-core/references/handoff-matrix.md");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, `${text}\n| image-prompting | fake-role | prompt_pack |\n`);
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /UNKNOWN_HANDOFF_ROLE/);
+});
+
+test("validation rejects gate registry drift", () => {
+  const dir = copyRepoFixture("framecore-validate-gate-");
+  const file = join(dir, ".agents/skills/pipeline-core/references/gate-registry.md");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text.replace("`brief-architect` | Brief Contract", "`unknown-role` | Missing Artifact"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /UNKNOWN_GATE_OWNER_ROLE/);
+  assert.match(`${result.stderr}${result.stdout}`, /MISSING_GATE_ARTIFACT_TEMPLATE/);
+});
+
+test("validation rejects duplicate gate and handoff rows", () => {
+  const dir = copyRepoFixture("framecore-validate-duplicates-");
+  const gateFile = join(dir, ".agents/skills/pipeline-core/references/gate-registry.md");
+  const handoffFile = join(dir, ".agents/skills/pipeline-core/references/handoff-matrix.md");
+  writeFileSync(gateFile, `${readFileSync(gateFile, "utf8")}\n| \`intent_lock\` | \`intent-confirmation\` | Task Confirmation |\n`);
+  writeFileSync(handoffFile, `${readFileSync(handoffFile, "utf8")}\n| intent-confirmation | workflow-orchestrator | confirmed_goal |\n`);
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /DUPLICATE_GATE/);
+  assert.match(`${result.stderr}${result.stdout}`, /DUPLICATE_HANDOFF/);
+});
+
+test("validation rejects agent templates with unknown review gates", () => {
+  const dir = copyRepoFixture("framecore-validate-agent-gate-");
+  const file = join(dir, ".codex/agents/brief-architect.toml.template");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text.replace("Review gate: brief_completeness.", "Review gate: missing_gate."));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /UNKNOWN_AGENT_REVIEW_GATE/);
 });
 
 test("onboarding renders project-local config and agent templates", () => {

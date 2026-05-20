@@ -8,6 +8,16 @@
 - expected_output:
 - immediate_next_step:
 
+## Project State
+
+- workflow_blueprint:
+- active_roles:
+- completed_or_existing_artifacts:
+- required_handoffs:
+- review_gates:
+- next_role:
+- next_action:
+
 ## Brief Contract
 
 - objective:
@@ -58,13 +68,23 @@
 - asset_matrix:
 - handoff_needs:
 
-## Structure Contract
+## Storyboard Contract
 
 - beats:
 - scenes:
 - shot_cards:
 - timing:
 - continuity:
+
+## Board Artifact Prompt
+
+- panel_count:
+- panel_hierarchy:
+- exact_board_text:
+- shot_labels:
+- safe_margins:
+- visual_style:
+- acceptance_criteria:
 
 ## Copy Pack
 

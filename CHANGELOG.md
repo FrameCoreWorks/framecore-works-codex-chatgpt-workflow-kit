@@ -9,6 +9,8 @@
 - Added deeper quickstart, troubleshooting, architecture, workflow stages, structured examples, and an end-to-end creative workflow specimen.
 - Expanded all core `SKILL.md` files into operational contracts with inputs, outputs, process, decision rules, guardrails, handoffs, and QA checklists.
 - Added validation and tests that reject stub skills, missing skill contract sections, and frontmatter name drift.
+- Strengthened privacy audit coverage for cross-platform local paths, secret-bearing filenames, credential-shaped values, and private cloud references.
+- Replaced fragile gate and handoff string checks with structured Markdown table validation for workflow registry files.
 
 ## 0.1.0 - 2026-05-20
 

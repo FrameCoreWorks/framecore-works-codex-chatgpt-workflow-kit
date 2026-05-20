@@ -14,9 +14,23 @@ npm test
 
 Use the failure category to decide the next step:
 
-- `audit:privacy` failure: remove AppleDouble sidecar files, local machine paths, email addresses, secrets, or excluded provider/tool remnants from public source files.
-- `validate` failure: a required agent template, skill file, pipeline reference, gate, handoff, or text-image policy marker is missing.
+- `audit:privacy` failure: remove AppleDouble sidecar files, local machine paths, email addresses, secret files, secret-like values, private cloud URLs/IDs, or excluded provider/tool remnants from public source files.
+- `validate` failure: a required agent template, skill file, pipeline reference, gate, handoff, artifact template, or text-image policy marker is missing or inconsistent.
 - `npm test` failure: inspect the named test and keep fixes focused on the behavior under test.
+
+## Privacy Audit Categories
+
+The privacy audit is intentionally strict for public-source safety. Common categories:
+
+- `APPLEDOUBLE_FILE`: remove macOS metadata sidecars with `npm run cleanup:appledouble -- --apply`.
+- `LOCAL_ABSOLUTE_PATH`: replace machine-specific macOS, Linux, Windows, WSL, UNC, or `file://` paths with portable examples.
+- `EMAIL_ADDRESS`: remove personal or private emails from source examples and docs.
+- `SECRET_FILE_NAME`: remove files such as `.env`, `.npmrc`, private keys, or certificate/key material.
+- `SECRET_LIKE_VALUE`: remove API keys, bearer tokens, private key blocks, GitHub/OpenAI/AWS/Google-style tokens, JWT-like values, and similar credentials.
+- `PRIVATE_CLOUD_REFERENCE`: remove private Drive/Docs, Notion, Dropbox, SharePoint, Azure blob, S3, or GCS links and IDs.
+- `BANNED_TERM`: remove private project names, private agent names, or excluded provider/tool remnants.
+
+Do not paste the sensitive value into an issue or pull request while asking for help. Report only the finding code and affected file path.
 
 ## Node Version Is Too Old
 

@@ -54,7 +54,45 @@ function validateMarkdownLinks(files) {
   }
 }
 
+function cleanCell(value) {
+  return value.trim().replace(/^`|`$/g, "").trim();
+}
+
+function parseMarkdownTable(text, headerNames) {
+  const lines = text.split(/\r?\n/).filter((line) => line.trim().startsWith("|"));
+  const rows = [];
+  let header = null;
+
+  for (const line of lines) {
+    const cells = line
+      .trim()
+      .replace(/^\|/, "")
+      .replace(/\|$/, "")
+      .split("|")
+      .map((cell) => cell.trim());
+    if (cells.length === 0) continue;
+    if (cells.every((cell) => /^:?-{3,}:?$/.test(cell))) continue;
+    if (!header) {
+      header = cells;
+      continue;
+    }
+    if (cells.length !== header.length) continue;
+    rows.push(Object.fromEntries(headerNames.map((name, index) => [name, cleanCell(cells[index] ?? "")])));
+  }
+
+  return rows;
+}
+
+function artifactAlternatives(value) {
+  return value.split(/\s+or\s+/i).map((item) => item.trim()).filter(Boolean);
+}
+
+function markdownSections(text) {
+  return new Set([...text.matchAll(/^##\s+(.+)$/gm)].map((match) => match[1].trim()));
+}
+
 const requiredRoles = JSON.parse(readFileSync(join(validationRoot, "config/agent-naming.schema.json"), "utf8")).roles;
+const requiredRoleSet = new Set(requiredRoles);
 const agentDir = join(validationRoot, ".codex/agents");
 const missingAgents = requiredRoles
   .map((role) => join(agentDir, `${role}.toml.template`))
@@ -63,6 +101,7 @@ if (missingAgents.length > 0) {
   addFinding("MISSING_AGENT_TEMPLATE", "Required role-based agent template is missing.", missingAgents);
 }
 
+const agentTemplateGates = new Map();
 for (const role of requiredRoles) {
   const file = join(agentDir, `${role}.toml.template`);
   if (!existsSync(file)) continue;
@@ -71,6 +110,12 @@ for (const role of requiredRoles) {
     if (!text.includes(marker)) {
       addFinding("WEAK_AGENT_TEMPLATE", `Agent template ${role} is missing marker ${marker}`, [file]);
     }
+  }
+  const gateMatch = text.match(/Review gate:\s*`?([a-z0-9_]+)`?\./);
+  if (!gateMatch) {
+    addFinding("MISSING_AGENT_REVIEW_GATE", `Agent template ${role} must declare a review gate.`, [file]);
+  } else {
+    agentTemplateGates.set(role, gateMatch[1]);
   }
 }
 
@@ -120,22 +165,89 @@ for (const file of [gateRegistry, handoffMatrix, artifactTemplates]) {
 
 if (existsSync(gateRegistry)) {
   const text = read(gateRegistry);
+  if (!text.includes("| Gate | Owner role | Required artifact |")) {
+    addFinding("WEAK_GATE_TABLE", "Gate registry must use columns: Gate, Owner role, Required artifact.", [gateRegistry]);
+  }
+  const gateRows = parseMarkdownTable(text, ["gate", "ownerRoles", "requiredArtifact"]);
+  const seenGates = new Set();
+  const gates = new Map(gateRows.map((row) => [row.gate, row]));
   for (const gate of ["intent_lock", "workflow_route", "brief_completeness", "reference_authority_fit", "evidence_fit", "instruction_packet_fit", "direction_fit", "structure_fit", "storyboard_board_fit", "copy_fit", "promptability_fit", "schema_pricing_fit", "execution_manifest_fit", "asset_manifest_fit", "post_execution_fit", "delivery_fit"]) {
-    if (!text.includes(`\`${gate}\``)) addFinding("MISSING_GATE", `Gate is missing: ${gate}`, [gateRegistry]);
+    if (!gates.has(gate)) addFinding("MISSING_GATE", `Gate is missing: ${gate}`, [gateRegistry]);
+  }
+  for (const row of gateRows) {
+    if (seenGates.has(row.gate)) {
+      addFinding("DUPLICATE_GATE", `Gate is duplicated: ${row.gate}`, [gateRegistry]);
+    }
+    seenGates.add(row.gate);
+    if (!row.gate || !row.ownerRoles || !row.requiredArtifact) {
+      addFinding("WEAK_GATE_ROW", "Gate registry rows must include gate, owner role, and required artifact.", [gateRegistry]);
+      continue;
+    }
+    const owners = row.ownerRoles.split(",").map((role) => cleanCell(role)).filter(Boolean);
+    for (const owner of owners) {
+      if (!requiredRoleSet.has(owner)) {
+        addFinding("UNKNOWN_GATE_OWNER_ROLE", `Gate ${row.gate} references unknown owner role: ${owner}`, [gateRegistry]);
+      }
+    }
+  }
+  if (existsSync(artifactTemplates)) {
+    const sections = markdownSections(read(artifactTemplates));
+    for (const row of gateRows) {
+      const hasTemplate = artifactAlternatives(row.requiredArtifact).some((artifact) => sections.has(artifact));
+      if (!hasTemplate) {
+        addFinding("MISSING_GATE_ARTIFACT_TEMPLATE", `Gate ${row.gate} requires artifact without a matching template: ${row.requiredArtifact}`, [gateRegistry, artifactTemplates]);
+      }
+    }
+  }
+  for (const [role, gate] of agentTemplateGates) {
+    const row = gates.get(gate);
+    if (!row) {
+      addFinding("UNKNOWN_AGENT_REVIEW_GATE", `Agent ${role} references unknown review gate: ${gate}`, [join(agentDir, `${role}.toml.template`)]);
+      continue;
+    }
+    const owners = row.ownerRoles.split(",").map((owner) => cleanCell(owner)).filter(Boolean);
+    if (!owners.includes(role)) {
+      addFinding("AGENT_GATE_OWNER_MISMATCH", `Agent ${role} uses gate ${gate}, but gate owner list is: ${owners.join(", ")}`, [join(agentDir, `${role}.toml.template`), gateRegistry]);
+    }
   }
 }
 
 if (existsSync(handoffMatrix)) {
   const text = read(handoffMatrix);
-  for (const fragment of ["intent-confirmation | workflow-orchestrator", "image-prompting | tool-routing-cost", "video-prompting | tool-routing-cost", "qa-iteration | delivery-documentation", "instruction-packet-factory"]) {
-    if (!text.includes(fragment)) addFinding("MISSING_HANDOFF", `Handoff fragment is missing: ${fragment}`, [handoffMatrix]);
+  if (!text.includes("| From | To | Required fields |")) {
+    addFinding("WEAK_HANDOFF_TABLE", "Handoff matrix must use columns: From, To, Required fields.", [handoffMatrix]);
+  }
+  const handoffRows = parseMarkdownTable(text, ["from", "to", "requiredFields"]);
+  const seenHandoffs = new Set();
+  for (const row of handoffRows) {
+    const pair = `${row.from}->${row.to}`;
+    if (seenHandoffs.has(pair)) {
+      addFinding("DUPLICATE_HANDOFF", `Handoff is duplicated: ${pair}`, [handoffMatrix]);
+    }
+    seenHandoffs.add(pair);
+    if (!requiredRoleSet.has(row.from)) {
+      addFinding("UNKNOWN_HANDOFF_ROLE", `Handoff references unknown From role: ${row.from}`, [handoffMatrix]);
+    }
+    if (!requiredRoleSet.has(row.to)) {
+      addFinding("UNKNOWN_HANDOFF_ROLE", `Handoff references unknown To role: ${row.to}`, [handoffMatrix]);
+    }
+    if (!row.requiredFields || row.requiredFields === "-") {
+      addFinding("HANDOFF_FIELD_EMPTY", `Handoff ${row.from} -> ${row.to} must list required fields.`, [handoffMatrix]);
+    }
+  }
+  const handoffPairs = new Set(handoffRows.map((row) => `${row.from}->${row.to}`));
+  for (const pair of ["intent-confirmation->workflow-orchestrator", "workflow-orchestrator->instruction-packet-factory", "image-prompting->tool-routing-cost", "video-prompting->tool-routing-cost", "qa-iteration->delivery-documentation"]) {
+    if (!handoffPairs.has(pair)) {
+      addFinding("MISSING_HANDOFF", `Required handoff is missing: ${pair}`, [handoffMatrix]);
+    }
   }
 }
 
 if (existsSync(artifactTemplates)) {
   const text = read(artifactTemplates);
-  for (const section of ["Task Confirmation", "Brief Contract", "Reference Pack", "Instruction Packet", "Prompt Pack", "Execution Manifest", "QA / Iteration Report", "Delivery Manifest"]) {
-    if (!text.includes(`## ${section}`)) addFinding("MISSING_TEMPLATE_SECTION", `Artifact template section is missing: ${section}`, [artifactTemplates]);
+  const sections = markdownSections(text);
+  for (const section of ["Task Confirmation", "Brief Contract", "Reference Pack", "Instruction Packet", "Storyboard Contract", "Board Artifact Prompt", "Prompt Pack", "Execution Manifest", "QA / Iteration Report", "Delivery Manifest"]) {
+    if (!sections.has(section)) addFinding("MISSING_TEMPLATE_SECTION", `Artifact template section is missing: ${section}`, [artifactTemplates]);
   }
 }
 

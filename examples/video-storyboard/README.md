@@ -45,7 +45,7 @@ Prepare a six-shot storyboard and video prompt pack for a short product reveal c
 ## Artifacts Produced
 
 - Motion Direction Contract
-- Structure Contract
+- Storyboard Contract
 - Copy Pack
 - Video Prompt Pack
 - QA / Iteration Report
