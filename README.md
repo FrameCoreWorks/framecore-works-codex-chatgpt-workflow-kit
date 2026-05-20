@@ -25,7 +25,16 @@ Provider-neutral means this kit does not ship external paid media-provider clien
 - Humanizer for natural copy polish and voice consistency.
 - HyperFrames workflow knowledge for coded video planning, scene structure, animation guidance, caption planning, render QA, and delivery manifests.
 - Hipson Adapter for research maps, internet mapping packets, bounded instruction packets, review packets, and execution packets.
-- Validation and privacy audit scripts.
+
+Project-local install writes only exact FrameCore-managed files:
+
+- `.agents/skills/<framecore-skill>/...`
+- `.codex/agents/<role-id>.toml`
+- `AGENTS.md` when no project `AGENTS.md` exists yet
+- `AGENTS.framecore.md` when the project already has its own `AGENTS.md`
+- `.framecore/manifest.json`
+
+The repo also includes validation and privacy audit scripts for checking this kit before installation or contribution.
 
 ## Privacy And Scope
 
@@ -40,17 +49,21 @@ This kit contains reusable workflow assets: role-based agents, skills, templates
    npm run install:dry-run -- --target /path/to/your/project
    ```
 
-3. Run onboarding:
+3. Review the planned writes. The installer refuses to overwrite user-owned files by default.
+
+4. Run onboarding:
 
    ```bash
    node scripts/onboard.mjs --target /path/to/your/project
    ```
 
-4. Install project-local:
+5. Install project-local:
 
    ```bash
    node scripts/install.mjs --mode project-local --target /path/to/your/project
    ```
+
+If your project already has `AGENTS.md`, the installer writes `AGENTS.framecore.md` instead. Use `--force` only when you intentionally want FrameCore to overwrite a conflicting user-owned file.
 
 Global install is available for advanced users:
 
@@ -60,16 +73,36 @@ node scripts/install.mjs --mode global
 
 Use `--mode dry-run` first for every install target.
 
+## Repair And Uninstall
+
+Repair/update mode rewrites only FrameCore-managed files recorded in `.framecore/manifest.json`:
+
+```bash
+node scripts/install.mjs --mode repair --target /path/to/your/project
+```
+
+Uninstall previews removals by default:
+
+```bash
+node scripts/install.mjs --mode uninstall --target /path/to/your/project
+```
+
+Apply uninstall with:
+
+```bash
+node scripts/install.mjs --mode uninstall --target /path/to/your/project --yes
+```
+
+Uninstall removes only exact files recorded in the manifest. It refuses directory removals and unsafe paths.
+
 ## First-Run Onboarding
 
 Onboarding collects:
 
 - working language and response tone
-- primary workflow types
 - local display names for role-based agents
 - output folder
 - QA strictness
-- delivery behavior
 - optional recurring workflow self-improvement review
 - optional full Hipson expansion
 

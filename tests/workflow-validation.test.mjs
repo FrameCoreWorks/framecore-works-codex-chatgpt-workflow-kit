@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync, spawn, spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
@@ -113,6 +113,60 @@ test("installer dry run reports writes without mutating target", () => {
   assert.equal(existsSync(join(dir, "AGENTS.md")), false);
 });
 
+test("installer dry run fails on user-owned file conflicts", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-conflict-"));
+  mkdirSync(join(dir, ".agents/skills/humanizer"), { recursive: true });
+  writeFileSync(join(dir, ".agents/skills/humanizer/SKILL.md"), "user-owned humanizer\n");
+  const result = failRun(["scripts/install.mjs", "--mode", "dry-run", "--target", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /refusing to overwrite user-owned file/);
+  assert.equal(readFileSync(join(dir, ".agents/skills/humanizer/SKILL.md"), "utf8"), "user-owned humanizer\n");
+});
+
+test("install and uninstall preserve user-owned skills, agents, and AGENTS.md", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-owned-"));
+  mkdirSync(join(dir, ".agents/skills/user-skill"), { recursive: true });
+  mkdirSync(join(dir, ".codex/agents"), { recursive: true });
+  writeFileSync(join(dir, ".agents/skills/user-skill/SKILL.md"), "user skill\n");
+  writeFileSync(join(dir, ".codex/agents/user-agent.toml"), "name = \"user-agent\"\n");
+  writeFileSync(join(dir, "AGENTS.md"), "user project instructions\n");
+
+  run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+  run(["scripts/install.mjs", "--mode", "project-local", "--target", dir]);
+
+  assert.equal(readFileSync(join(dir, "AGENTS.md"), "utf8"), "user project instructions\n");
+  assert.ok(existsSync(join(dir, "AGENTS.framecore.md")));
+
+  const manifest = JSON.parse(readFileSync(join(dir, ".framecore/manifest.json"), "utf8"));
+  assert.equal(manifest.managed_paths.includes(".agents/skills"), false);
+  assert.equal(manifest.managed_paths.includes(".codex/agents"), false);
+  assert.ok(manifest.managed_paths.includes("AGENTS.framecore.md"));
+
+  run(["scripts/install.mjs", "--mode", "uninstall", "--target", dir, "--yes"]);
+
+  assert.equal(readFileSync(join(dir, "AGENTS.md"), "utf8"), "user project instructions\n");
+  assert.ok(existsSync(join(dir, ".agents/skills/user-skill/SKILL.md")));
+  assert.ok(existsSync(join(dir, ".codex/agents/user-agent.toml")));
+  assert.equal(existsSync(join(dir, "AGENTS.framecore.md")), false);
+  assert.equal(existsSync(join(dir, ".agents/skills/pipeline-core/SKILL.md")), false);
+});
+
+test("uninstall rejects managed paths outside the target", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-hostile-"));
+  const outside = join(tmpdir(), "framecore-hostile-outside.txt");
+  mkdirSync(join(dir, ".framecore"), { recursive: true });
+  writeFileSync(outside, "keep\n");
+  writeFileSync(join(dir, ".framecore/manifest.json"), JSON.stringify({
+    schema_version: 1,
+    managed_paths: ["../framecore-hostile-outside.txt"]
+  }));
+
+  const result = failRun(["scripts/install.mjs", "--mode", "uninstall", "--target", dir, "--yes"]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /refusing unsafe managed path/);
+  assert.equal(readFileSync(outside, "utf8"), "keep\n");
+});
+
 test("repair install backs up user-owned files", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-repair-"));
   run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
@@ -120,6 +174,24 @@ test("repair install backs up user-owned files", () => {
   writeFileSync(join(dir, "AGENTS.md"), "local user content\n");
   run(["scripts/install.mjs", "--mode", "repair", "--target", dir]);
   assert.match(readFileSync(join(dir, "AGENTS.md.bak"), "utf8"), /local user content/);
+});
+
+test("agent rendering escapes local display names and config values", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-render-"));
+  writeFileSync(join(dir, "framecore.config.json"), JSON.stringify({
+    agent_display_names: {
+      "intent-confirmation": "Agent \"Quoted\"\nname = \"evil\""
+    },
+    working_language: "en",
+    response_tone: "calm \"quoted\" tone",
+    output_dir: "output/\"quoted\""
+  }));
+
+  run(["scripts/render-agents.mjs", "--target", dir]);
+  const rendered = readFileSync(join(dir, ".codex/agents/intent-confirmation.toml"), "utf8");
+  assert.equal(rendered.match(/^name = /gm).length, 1);
+  assert.doesNotMatch(rendered, /\nname = "evil"/);
+  assert.match(rendered, /Agent \\"Quoted\\" name = \\"evil\\"/);
 });
 
 test("workflow self-improvement is explicit and proposal-only", () => {

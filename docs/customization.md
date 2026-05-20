@@ -12,3 +12,5 @@ Safe customizations:
 - optional integrations outside this repo
 
 Do not commit user-specific config, secrets, local paths, private project context, or generated outputs.
+
+Installer ownership is tracked in `.framecore/manifest.json`. Do not add user-owned files to this manifest. Uninstall removes only exact manifest paths and refuses directory removals.

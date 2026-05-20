@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join, relative } from "node:path";
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { homedir } from "node:os";
-import { repoRoot } from "./common.mjs";
+import { repoRoot, walkFiles } from "./common.mjs";
 import { renderAgents } from "./render-agents.mjs";
 
 function argValue(name, fallback) {
@@ -15,63 +15,151 @@ function targetForMode(mode) {
   return argValue("--target", process.cwd());
 }
 
-function writeManagedFile(destination, content, dryRun, planned) {
+function toManifestPath(target, destination) {
+  return relative(target, destination).replaceAll(sep, "/");
+}
+
+function resolveManagedPath(target, entry) {
+  if (typeof entry !== "string" || entry.length === 0 || isAbsolute(entry) || entry.split(/[\\/]+/).includes("..")) {
+    throw new Error(`refusing unsafe managed path: ${entry}`);
+  }
+  const root = resolve(target);
+  const resolved = resolve(root, entry);
+  if (resolved === root || !resolved.startsWith(`${root}${sep}`)) {
+    throw new Error(`refusing managed path outside target: ${entry}`);
+  }
+  return resolved;
+}
+
+function readManifest(target) {
+  const manifestPath = join(target, ".framecore/manifest.json");
+  if (!existsSync(manifestPath)) return null;
+  return JSON.parse(readFileSync(manifestPath, "utf8"));
+}
+
+function nextBackupPath(destination) {
+  const first = `${destination}.bak`;
+  if (!existsSync(first)) return first;
+  let index = 1;
+  while (existsSync(`${first}.${index}`)) index += 1;
+  return `${first}.${index}`;
+}
+
+function writeManagedFile({ target, destination, content, dryRun, planned, managed, previousManaged, force }) {
+  const rel = toManifestPath(target, destination);
   planned.push(destination);
+  managed.push(rel);
+
+  if (existsSync(destination) && !previousManaged.has(rel) && !force) {
+    throw new Error(`refusing to overwrite user-owned file: ${rel}. Re-run with --force only if this is intentional.`);
+  }
+
   if (dryRun) return;
+
   mkdirSync(dirname(destination), { recursive: true });
   if (existsSync(destination)) {
-    writeFileSync(`${destination}.bak`, readFileSync(destination, "utf8"));
+    writeFileSync(nextBackupPath(destination), readFileSync(destination, "utf8"));
   }
   writeFileSync(destination, content);
 }
 
-function copyDir(source, destination, dryRun, planned) {
-  planned.push(destination);
-  if (dryRun) return;
-  mkdirSync(dirname(destination), { recursive: true });
-  if (existsSync(destination)) {
-    cpSync(destination, `${destination}.bak`, { recursive: true, force: true });
+function copySkillFiles({ target, source, destination, dryRun, planned, managed, previousManaged, force }) {
+  for (const file of walkFiles(source)) {
+    const rel = relative(source, file);
+    writeManagedFile({
+      target,
+      destination: join(destination, rel),
+      content: readFileSync(file, "utf8"),
+      dryRun,
+      planned,
+      managed,
+      previousManaged,
+      force,
+    });
   }
-  cpSync(source, destination, { recursive: true, force: true });
+}
+
+function chooseAgentsInstructionPath({ target, previousManaged, force }) {
+  const primary = join(target, "AGENTS.md");
+  const primaryRel = toManifestPath(target, primary);
+  if (!existsSync(primary) || previousManaged.has(primaryRel) || force) return primary;
+  return join(target, "AGENTS.framecore.md");
 }
 
 function install({ mode }) {
   const dryRun = mode === "dry-run";
   const target = targetForMode(mode);
+  const force = process.argv.includes("--force");
   const planned = [];
+  const managed = [];
 
   if (mode === "uninstall") {
-    const manifestPath = join(target, ".framecore/manifest.json");
-    if (!existsSync(manifestPath)) {
+    const manifest = readManifest(target);
+    if (!manifest) {
       console.log("no manifest found");
       return;
     }
-    const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-    for (const file of manifest.managed_paths ?? []) {
-      console.log(`remove ${file}`);
-      if (!process.argv.includes("--yes")) continue;
-      rmSync(join(target, file), { recursive: true, force: true });
+    const removals = (manifest.managed_paths ?? []).map((entry) => ({
+      entry,
+      path: resolveManagedPath(target, entry),
+    }));
+    for (const item of removals) {
+      if (existsSync(item.path) && statSync(item.path).isDirectory()) {
+        throw new Error(`refusing to remove directory managed path: ${item.entry}`);
+      }
+    }
+    for (const item of removals) {
+      console.log(`remove ${item.entry}`);
+      if (process.argv.includes("--yes")) rmSync(item.path, { force: true });
     }
     return;
   }
 
   const configPath = join(target, "framecore.config.json");
+  if (!existsSync(configPath) && !dryRun) {
+    console.log("warning: framecore.config.json not found; rendering agents with built-in defaults. Run onboarding first for tuned preferences.");
+  }
   const skillsTarget = mode === "global" ? join(homedir(), ".agents/skills") : join(target, ".agents/skills");
-  const agentsTarget = mode === "global" ? join(homedir(), ".codex/agents") : join(target, ".codex/agents");
+  const installTarget = mode === "global" ? homedir() : target;
+  const previousManifest = readManifest(target);
+  const previousManaged = new Set(previousManifest?.managed_paths ?? []);
 
-  copyDir(join(repoRoot, ".agents/skills"), skillsTarget, dryRun, planned);
-  planned.push(...renderAgents({ target: mode === "global" ? homedir() : target, configPath, dryRun }));
-  writeManagedFile(join(target, "AGENTS.md"), readFileSync(join(repoRoot, "AGENTS.template.md"), "utf8"), dryRun, planned);
+  copySkillFiles({
+    target,
+    source: join(repoRoot, ".agents/skills"),
+    destination: skillsTarget,
+    dryRun,
+    planned,
+    managed,
+    previousManaged,
+    force,
+  });
+
+  const renderedAgents = renderAgents({ target: installTarget, configPath, dryRun, previousManaged, force });
+  planned.push(...renderedAgents);
+  managed.push(...renderedAgents.map((file) => toManifestPath(target, file)));
+
+  writeManagedFile({
+    target,
+    destination: chooseAgentsInstructionPath({ target, previousManaged, force }),
+    content: readFileSync(join(repoRoot, "AGENTS.template.md"), "utf8"),
+    dryRun,
+    planned,
+    managed,
+    previousManaged,
+    force,
+  });
+
+  const manifestPath = join(target, ".framecore/manifest.json");
+  const manifestRel = toManifestPath(target, manifestPath);
+  planned.push(manifestPath);
+  managed.push(manifestRel);
 
   if (!dryRun) {
     mkdirSync(join(target, ".framecore"), { recursive: true });
-    writeFileSync(join(target, ".framecore/manifest.json"), `${JSON.stringify({
+    writeFileSync(manifestPath, `${JSON.stringify({
       schema_version: 1,
-      managed_paths: [
-        relative(target, skillsTarget),
-        relative(target, agentsTarget),
-        "AGENTS.md"
-      ]
+      managed_paths: [...new Set(managed)].sort()
     }, null, 2)}\n`);
   }
 
@@ -87,4 +175,9 @@ if (!allowed.has(mode)) {
   process.exit(1);
 }
 
-install({ mode: mode === "update" || mode === "repair" ? "project-local" : mode });
+try {
+  install({ mode: mode === "update" || mode === "repair" ? "project-local" : mode });
+} catch (error) {
+  console.error(error.message);
+  process.exit(1);
+}

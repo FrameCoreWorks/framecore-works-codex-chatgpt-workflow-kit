@@ -6,12 +6,14 @@ It collects:
 
 - working language
 - response tone
-- common workflow types
 - local display names for agents
 - output directory
 - QA strictness
-- delivery rules
 - optional recurring workflow self-improvement review
 - optional full Hipson setup guidance
 
 Default choices are conservative: project-local install, no automatic upload, standard QA, lightweight Hipson Adapter only, and recurring self-improvement review disabled.
+
+Onboarding writes `framecore.config.json`. The installer reads this file when rendering local agent files. If the file is missing, install can still run with built-in defaults, but tuned preferences will not be applied.
+
+Existing project instructions are protected. If a target workspace already has `AGENTS.md`, project-local install writes FrameCore instructions to `AGENTS.framecore.md` unless the user explicitly passes `--force`.
