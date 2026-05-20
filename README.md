@@ -16,6 +16,8 @@ Do not use global install and do not enable external execution tools unless I ex
 
 FrameCore Works Skill Kit is a provider-neutral workflow system for Codex. It installs role-based agents, skills, templates, handoff rules, QA gates, Humanizer, HyperFrames workflow knowledge, a lightweight Hipson Adapter, and an explicit workflow self-improvement loop.
 
+Provider-neutral means this kit does not ship external paid media-provider clients, endpoint catalogs, provider CLIs, API-key workflows, or paid execution routes. The text-bearing image rule may still route to the native Codex/ChatGPT image generator when that built-in capability is available.
+
 ## What It Installs
 
 - Role-based Codex agent templates with local display-name customization.
@@ -75,7 +77,9 @@ Agent source files in this repo use neutral role IDs only. User-specific display
 
 ## Text-Bearing Image Policy
 
-Static raster graphics with visible text must use `openai/gpt-image-2` in one pass with all visible text included directly in the generated image. The workflow must not generate a text-free background first and add typography later with overlays, compositing, design tools, or manual editing.
+Static raster graphics with visible text must use the built-in Codex/ChatGPT image generation capability powered by GPT Image 2 in one pass, with all visible text included directly in the generated image.
+
+This is a native chat-window generation path, not an external provider integration, API key requirement, CLI, or paid media-provider workflow. The workflow must not generate a text-free background first and add typography later with overlays, compositing, design tools, or manual editing unless the user explicitly asks for a coded or vector artifact.
 
 ## Hipson Adapter
 

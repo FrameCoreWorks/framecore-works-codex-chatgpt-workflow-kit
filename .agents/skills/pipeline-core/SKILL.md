@@ -28,7 +28,7 @@ Read only what is needed:
 
 - Use role IDs and local display names from onboarding.
 - Do not skip upstream gates.
-- Static raster graphics with visible text must use `openai/gpt-image-2` in one pass with text included.
+- Static raster graphics with visible text must use the native Codex/ChatGPT image generator powered by GPT Image 2 in one pass with text included.
 - Delivery follows QA when generated assets exist.
 - Upload, publish, or external delivery requires an explicit current user request.
 - Workflow self-improvement creates proposals, not automatic mutations.

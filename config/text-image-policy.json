@@ -1,6 +1,8 @@
 {
   "schema_version": 1,
-  "model": "openai/gpt-image-2",
+  "execution_path": "native Codex/ChatGPT image generation",
+  "native_model": "gpt-image-2",
+  "provider_classification": "built-in chat image generator, not an external provider integration",
   "applies_to": [
     "poster",
     "social graphic",
@@ -11,11 +13,14 @@
   ],
   "required": [
     "one-pass generation",
+    "native Codex/ChatGPT image generator when available",
     "all visible text included directly in the generated image",
     "exact final copy in the prompt",
     "safe margins and hierarchy specified"
   ],
   "forbidden": [
+    "external paid media-provider routing by default",
+    "API key or provider CLI requirement",
     "text-free background first",
     "later text overlays",
     "manual typography after generation",

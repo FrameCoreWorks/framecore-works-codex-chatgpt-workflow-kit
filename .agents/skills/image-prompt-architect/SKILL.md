@@ -14,4 +14,4 @@ Create image prompt packs with:
 - expected observables
 - QA checks
 
-Do not execute generation. For visible text in raster graphics, require `openai/gpt-image-2` in one pass.
+Do not execute generation. For visible text in raster graphics, require the native Codex/ChatGPT GPT Image 2 path in one pass when available.

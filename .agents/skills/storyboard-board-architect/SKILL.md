@@ -14,4 +14,4 @@ Create a Board Artifact Prompt and Board Copy with:
 - visual style
 - acceptance criteria
 
-For raster boards with visible text, enforce the `openai/gpt-image-2` one-pass policy.
+For raster boards with visible text, enforce the native Codex/ChatGPT GPT Image 2 one-pass policy.

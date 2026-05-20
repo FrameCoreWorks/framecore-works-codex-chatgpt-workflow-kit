@@ -69,8 +69,8 @@ if (existsSync(artifactTemplates)) {
 }
 
 const textPolicy = readFileSync(join(repoRoot, "config/text-image-policy.json"), "utf8");
-if (!textPolicy.includes("openai/gpt-image-2") || !textPolicy.includes("one-pass generation")) {
-  addFinding("WEAK_TEXT_IMAGE_POLICY", "Text-image policy is missing required model or one-pass rule.", [join(repoRoot, "config/text-image-policy.json")]);
+if (!textPolicy.includes("gpt-image-2") || !textPolicy.includes("native Codex/ChatGPT image generator") || !textPolicy.includes("one-pass generation")) {
+  addFinding("WEAK_TEXT_IMAGE_POLICY", "Text-image policy is missing required native generator, model reference, or one-pass rule.", [join(repoRoot, "config/text-image-policy.json")]);
 }
 
 process.exit(reportFindings(findings, "workflow validation passed"));
