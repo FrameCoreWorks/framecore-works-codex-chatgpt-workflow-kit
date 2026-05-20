@@ -1,0 +1,12 @@
+{
+  "adapter_enabled": true,
+  "full_repo_url": "https://github.com/Hipson47/Hipson.git",
+  "connect_full_repo": false,
+  "adapter_scope": [
+    "research maps",
+    "internet mapping packets",
+    "bounded instruction packets",
+    "review packets",
+    "execution packets"
+  ]
+}

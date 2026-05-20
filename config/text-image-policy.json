@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "model": "openai/gpt-image-2",
+  "applies_to": [
+    "poster",
+    "social graphic",
+    "banner",
+    "infographic",
+    "storyboard board",
+    "static raster graphic with visible text"
+  ],
+  "required": [
+    "one-pass generation",
+    "all visible text included directly in the generated image",
+    "exact final copy in the prompt",
+    "safe margins and hierarchy specified"
+  ],
+  "forbidden": [
+    "text-free background first",
+    "later text overlays",
+    "manual typography after generation",
+    "coded or composited artwork as a substitute for the final raster"
+  ]
+}

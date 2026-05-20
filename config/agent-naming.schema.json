@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source_policy": "Repo source uses neutral role IDs only. Local display names are generated during onboarding.",
+  "roles": [
+    "intent-confirmation",
+    "workflow-orchestrator",
+    "brief-architect",
+    "reference-curator",
+    "research-evidence",
+    "instruction-packet-factory",
+    "static-direction",
+    "motion-direction",
+    "music-video-direction",
+    "storyboard-architect",
+    "storyboard-board-architect",
+    "copy-voice",
+    "image-prompting",
+    "video-prompting",
+    "tool-routing-cost",
+    "execution-manifest",
+    "asset-manifest",
+    "qa-iteration",
+    "delivery-documentation",
+    "hyperframes-producer"
+  ]
+}

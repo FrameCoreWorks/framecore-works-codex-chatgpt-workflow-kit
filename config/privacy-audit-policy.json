@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "encoded_banned_terms_base64": [
+    "ZmFsLmFp",
+    "TWFnbmlmaWM=",
+    "Z2VubWVkaWE=",
+    "Q2VsYXJv",
+    "QnJpY2tzNEtpZHo=",
+    "S25vY2tLbm9jaw==",
+    "QWthZGVtaWEgeiBQYXNqYQ==",
+    "RkFMX0tFWQ==",
+    "TUFHTklGSUNfQVBJX0tFWQ=="
+  ],
+  "encoded_private_agent_names_base64": [
+    "QW50ZWs=",
+    "T3NrYXI=",
+    "QmFzaWE=",
+    "UmVuYXRh",
+    "RXJ5aw==",
+    "V2lrdG9y",
+    "TWFyZWs=",
+    "TWlyYQ==",
+    "U3RlZmFu",
+    "Qmxhbmth",
+    "S2xhcmE=",
+    "SWdh",
+    "V2l0ZWs=",
+    "Q2VsaW5h",
+    "R3J6ZWdvcnc=",
+    "TWFydGE=",
+    "T2xnYQ==",
+    "RGFyZWs="
+  ],
+  "scan_excludes": [
+    ".git",
+    "node_modules",
+    ".framecore/tmp",
+    "coverage"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "required_fields": [
+    "working_language",
+    "response_tone",
+    "output_dir",
+    "qa_strictness",
+    "delivery",
+    "agent_display_names",
+    "hipson",
+    "workflow_self_improvement"
+  ],
+  "qa_strictness_values": ["light", "standard", "strict"],
+  "install_scope_values": ["project-local", "global"]
+}

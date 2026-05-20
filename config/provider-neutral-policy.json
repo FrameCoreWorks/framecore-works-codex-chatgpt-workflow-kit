@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "policy": "No paid external execution provider integration ships in v1.",
+  "allowed": [
+    "provider-neutral planning",
+    "tool-neutral execution manifests",
+    "user-configured local adapters outside this repo",
+    "HyperFrames coded-video workflow knowledge"
+  ],
+  "forbidden": [
+    "bundled paid media provider clients",
+    "provider credentials",
+    "provider-specific activation phrases",
+    "provider-specific endpoint catalogs"
+  ]
+}

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Workflow Self-Improvement"
+  short_description: "Retrospectives and approval-gated workflow change proposals."
+  default_prompt: "Use $workflow-self-improvement to review this workflow and propose process improvements without editing files."
+
+policy:
+  allow_implicit_invocation: false

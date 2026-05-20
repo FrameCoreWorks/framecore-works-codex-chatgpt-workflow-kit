@@ -1,0 +1,139 @@
+# Artifact Templates
+
+## Task Confirmation
+
+- confirmed_goal:
+- excluded_scope:
+- work_mode:
+- expected_output:
+- immediate_next_step:
+
+## Brief Contract
+
+- objective:
+- audience:
+- deliverables:
+- constraints:
+- exclusions:
+- unknowns:
+- acceptance_criteria:
+
+## Reference Pack
+
+- canonical_references:
+- aliases:
+- continuity_anchors:
+- suppression_rules:
+- conflicts:
+- source_notes:
+
+## Evidence Note
+
+- question:
+- sources:
+- freshness:
+- confidence:
+- limits:
+- unresolved_unknowns:
+
+## Instruction Packet
+
+- packet_id:
+- target_role:
+- goal:
+- context:
+- exclusions:
+- required_inputs:
+- method:
+- evidence_rules:
+- acceptance_criteria:
+- output_schema:
+- handoff_to:
+
+## Direction Contract
+
+- thesis:
+- system:
+- constraints:
+- asset_matrix:
+- handoff_needs:
+
+## Structure Contract
+
+- beats:
+- scenes:
+- shot_cards:
+- timing:
+- continuity:
+
+## Copy Pack
+
+- headlines:
+- body_copy:
+- VO:
+- dialogue:
+- supers:
+- CTA:
+- exact_text_locks:
+
+## Prompt Pack
+
+- prompts:
+- constraints:
+- expected_observables:
+- acceptance_criteria:
+
+## Image Prompt Contract
+
+- model_policy:
+- exact_visible_text:
+- final_prompt:
+- negative_constraints:
+- QA_checks:
+
+## Tool Routing Plan
+
+- selected_tool:
+- approval_status:
+- required_inputs:
+- cost_note:
+- risk_note:
+- output_plan:
+- handoff_to:
+
+## Execution Manifest
+
+- tool:
+- params_summary:
+- source_assets:
+- output_files:
+- redaction_status:
+- errors:
+- next_handoff:
+
+## Asset Manifest
+
+- files:
+- versions:
+- sources:
+- checksums:
+- excluded_files:
+- traceability_notes:
+
+## QA / Iteration Report
+
+- accepted_assets:
+- excluded_assets:
+- defects:
+- corrected_instruction_packets:
+- rerun_guidance:
+- allowlist:
+
+## Delivery Manifest
+
+- final_files:
+- QA_status:
+- excluded_files:
+- source_list:
+- usage_notes:
+- known_caveats:

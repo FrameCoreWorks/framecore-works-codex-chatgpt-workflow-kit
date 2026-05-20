@@ -1,0 +1,10 @@
+{
+  "name": "framecore-workflow-self-improvement-review",
+  "cadence": "24h",
+  "scope": "selected workspace or project",
+  "mode": "report-and-proposals-only",
+  "mutation": false,
+  "uploads": false,
+  "external_execution": false,
+  "prompt": "Review the active or recently completed workflow for unresolved process issues. Do not edit files. Return a short Workflow Improvement Alert with evidence labels, recommended next action, and whether the issue is informational, needs workflow-orchestrator review, or needs user approval."
+}
