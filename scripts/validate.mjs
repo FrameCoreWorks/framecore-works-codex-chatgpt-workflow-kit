@@ -436,24 +436,50 @@ if (existsSync(packageJsonPath)) {
   }
 }
 
+const unsafeWorkflowPatterns = [
+  /pull_request_target/,
+  /contents:\s*write/,
+  /id-token:\s*write/,
+  /packages:\s*write/,
+  /\bsecrets\./,
+  /\bnpm\s+publish\b/,
+  /\bgh\s+release\s+create\b/,
+  /softprops\/action-gh-release/,
+  /actions\/upload-artifact/,
+];
+
+const validateWorkflow = join(validationRoot, ".github/workflows/validate.yml");
+if (existsSync(validateWorkflow)) {
+  const text = read(validateWorkflow);
+  if (
+    !text.includes("pull_request:") ||
+    !text.includes("push:") ||
+    !text.includes("branches: [main]") ||
+    !text.includes("ubuntu-latest") ||
+    !text.includes("node-version: [20, 22]") ||
+    !text.includes("npm run audit:privacy") ||
+    !text.includes("npm run validate") ||
+    !text.includes("npm test") ||
+    !text.includes("npm pack --dry-run") ||
+    !/permissions:\s*\n\s*contents:\s*read/.test(text)
+  ) {
+    addFinding("WEAK_VALIDATE_WORKFLOW", "validate workflow must be push/PR-triggered, read-only, Linux-based, test Node 20/22, and run audit, validation, tests, and package dry-run.", [validateWorkflow]);
+  }
+  if (/\$\{\{\s*runner\./.test(text)) {
+    addFinding("UNSAFE_VALIDATE_WORKFLOW", "validate workflow must not use runner context in workflow or job-level expressions.", [validateWorkflow]);
+  }
+  if (unsafeWorkflowPatterns.some((pattern) => pattern.test(text))) {
+    addFinding("UNSAFE_VALIDATE_WORKFLOW", "validate workflow must not publish, upload artifacts, use secrets, or request write permissions.", [validateWorkflow]);
+  }
+}
+
 const releaseWorkflow = join(validationRoot, ".github/workflows/release-check.yml");
 if (existsSync(releaseWorkflow)) {
   const text = read(releaseWorkflow);
   if (!text.includes("workflow_dispatch") || !text.includes("tags:") || !text.includes("npm run release:check") || !/permissions:\s*\n\s*contents:\s*read/.test(text)) {
     addFinding("WEAK_RELEASE_WORKFLOW", "release-check workflow must be manual/tag-triggered, read-only, and run npm run release:check.", [releaseWorkflow]);
   }
-  const unsafePatterns = [
-    /pull_request_target/,
-    /contents:\s*write/,
-    /id-token:\s*write/,
-    /packages:\s*write/,
-    /\bsecrets\./,
-    /\bnpm\s+publish\b/,
-    /\bgh\s+release\s+create\b/,
-    /softprops\/action-gh-release/,
-    /actions\/upload-artifact/,
-  ];
-  if (unsafePatterns.some((pattern) => pattern.test(text))) {
+  if (unsafeWorkflowPatterns.some((pattern) => pattern.test(text))) {
     addFinding("UNSAFE_RELEASE_WORKFLOW", "release-check workflow must not publish, upload artifacts, use secrets, or request write permissions.", [releaseWorkflow]);
   }
 }
@@ -464,18 +490,7 @@ if (existsSync(crossPlatformWorkflow)) {
   if (!text.includes("workflow_dispatch") || !text.includes("ubuntu-latest") || !text.includes("macos-latest") || !text.includes("windows-latest") || !/permissions:\s*\n\s*contents:\s*read/.test(text)) {
     addFinding("WEAK_CROSS_PLATFORM_WORKFLOW", "cross-platform workflow must be manual, read-only, and cover Ubuntu, macOS, and Windows.", [crossPlatformWorkflow]);
   }
-  const unsafePatterns = [
-    /pull_request_target/,
-    /contents:\s*write/,
-    /id-token:\s*write/,
-    /packages:\s*write/,
-    /\bsecrets\./,
-    /\bnpm\s+publish\b/,
-    /\bgh\s+release\s+create\b/,
-    /softprops\/action-gh-release/,
-    /actions\/upload-artifact/,
-  ];
-  if (unsafePatterns.some((pattern) => pattern.test(text))) {
+  if (unsafeWorkflowPatterns.some((pattern) => pattern.test(text))) {
     addFinding("UNSAFE_CROSS_PLATFORM_WORKFLOW", "cross-platform workflow must not publish, upload artifacts, use secrets, or request write permissions.", [crossPlatformWorkflow]);
   }
 }

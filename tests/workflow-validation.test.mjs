@@ -583,6 +583,30 @@ test("validation rejects weak cross-platform workflow safety", () => {
   assert.match(`${result.stderr}${result.stdout}`, /UNSAFE_CROSS_PLATFORM_WORKFLOW/);
 });
 
+test("validation rejects weak default validate workflow safety", () => {
+  const dir = copyRepoFixture("framecore-validate-main-workflow-weak-");
+  const workflow = join(dir, ".github/workflows/validate.yml");
+  writeFileSync(workflow, [
+    "name: validate",
+    "on:",
+    "  push:",
+    "permissions:",
+    "  contents: write",
+    "jobs:",
+    "  validate:",
+    "    runs-on: ubuntu-latest",
+    "    env:",
+    "      NPM_CONFIG_CACHE: ${{ runner.temp }}/npm-cache",
+    "    steps:",
+    "      - run: npm publish",
+  ].join("\n"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_VALIDATE_WORKFLOW/);
+  assert.match(`${result.stderr}${result.stdout}`, /UNSAFE_VALIDATE_WORKFLOW/);
+});
+
 test("onboarding renders project-local config and agent templates", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-onboard-"));
   run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
