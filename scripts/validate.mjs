@@ -512,6 +512,17 @@ for (const file of requiredRepoFiles) {
   if (!existsSync(join(validationRoot, file))) addFinding("MISSING_REPO_FILE", `Required public repo file is missing: ${file}`, [join(validationRoot, file)]);
 }
 
+const contributingDoc = join(validationRoot, "CONTRIBUTING.md");
+if (existsSync(contributingDoc)) {
+  const text = read(contributingDoc);
+  for (const phrase of ["default validate workflow", "Ubuntu with Node 20 and 22", "manual cross-platform workflow", "Ubuntu, macOS, and Windows with Node 20"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_CONTRIBUTING_CI_DOC", `Contributing guide must accurately describe CI coverage: ${phrase}`, [contributingDoc]);
+  }
+  if (/CI runs the same checks on Linux, macOS, and Windows with Node 20 and 22/.test(text)) {
+    addFinding("WEAK_CONTRIBUTING_CI_DOC", "Contributing guide must not imply every PR runs cross-platform Node 20/22 checks.", [contributingDoc]);
+  }
+}
+
 const dependabotConfig = join(validationRoot, ".github/dependabot.yml");
 if (existsSync(dependabotConfig)) {
   const text = read(dependabotConfig);

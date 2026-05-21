@@ -664,6 +664,7 @@ test("validation rejects weak release readiness docs and workflow safety", () =>
 test("validation rejects weak cross-platform workflow safety", () => {
   const dir = copyRepoFixture("framecore-validate-cross-platform-weak-");
   const workflow = join(dir, ".github/workflows/cross-platform.yml");
+  const contributing = join(dir, "CONTRIBUTING.md");
   writeFileSync(workflow, [
     "name: cross-platform",
     "on:",
@@ -676,11 +677,13 @@ test("validation rejects weak cross-platform workflow safety", () => {
     "    steps:",
     "      - run: npm publish",
   ].join("\n"));
+  writeFileSync(contributing, readFileSync(contributing, "utf8").replace("default validate workflow", "CI"));
 
   const result = failRun(["scripts/validate.mjs", dir]);
   assert.notEqual(result.status, 0);
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_CROSS_PLATFORM_WORKFLOW/);
   assert.match(`${result.stderr}${result.stdout}`, /UNSAFE_CROSS_PLATFORM_WORKFLOW/);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_CONTRIBUTING_CI_DOC/);
 });
 
 test("validation rejects weak default validate workflow safety", () => {

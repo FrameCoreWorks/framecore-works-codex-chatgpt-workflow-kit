@@ -32,7 +32,7 @@ npm run release:check
 npm pack --dry-run
 ```
 
-CI runs the same checks on Linux, macOS, and Windows with Node 20 and 22. Keep path handling portable and avoid shell-specific assumptions in scripts and tests.
+The default validate workflow runs on pull requests and pushes to `main` on Ubuntu with Node 20 and 22. The manual cross-platform workflow covers Ubuntu, macOS, and Windows with Node 20 before releases or path-handling changes. Keep path handling portable and avoid shell-specific assumptions in scripts and tests.
 
 Pull requests should explain:
 
