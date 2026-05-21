@@ -17,7 +17,7 @@ jobs:
       matrix:
         node-version: [20, 22]
     env:
-      NPM_CONFIG_CACHE: ${{ runner.temp }}/npm-cache
+      NPM_CONFIG_CACHE: /tmp/framecore-npm-cache
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
