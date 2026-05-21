@@ -440,6 +440,7 @@ if (existsSync(readmePath)) {
 }
 
 const requiredRepoFiles = [
+  ".github/dependabot.yml",
   ".github/workflows/validate.yml",
   ".github/workflows/release-check.yml",
   ".github/workflows/cross-platform.yml",
@@ -455,6 +456,14 @@ const requiredRepoFiles = [
 ];
 for (const file of requiredRepoFiles) {
   if (!existsSync(join(validationRoot, file))) addFinding("MISSING_REPO_FILE", `Required public repo file is missing: ${file}`, [join(validationRoot, file)]);
+}
+
+const dependabotConfig = join(validationRoot, ".github/dependabot.yml");
+if (existsSync(dependabotConfig)) {
+  const text = read(dependabotConfig);
+  for (const phrase of ["version: 2", "package-ecosystem: github-actions", "package-ecosystem: npm", "directory: /", "interval: weekly"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_DEPENDABOT_CONFIG", `Dependabot config is missing required phrase: ${phrase}`, [dependabotConfig]);
+  }
 }
 
 const releaseDoc = join(validationRoot, "docs/release.md");

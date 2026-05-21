@@ -530,6 +530,21 @@ test("validation rejects missing release readiness files", () => {
   assert.match(`${result.stderr}${result.stdout}`, /MISSING_REPO_FILE/);
 });
 
+test("validation rejects weak Dependabot config", () => {
+  const dir = copyRepoFixture("framecore-validate-dependabot-");
+  const file = join(dir, ".github/dependabot.yml");
+  writeFileSync(file, [
+    "version: 2",
+    "updates:",
+    "  - package-ecosystem: npm",
+    "    directory: /",
+  ].join("\n"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_DEPENDABOT_CONFIG/);
+});
+
 test("validation rejects weak onboarding guide and assisted install prompt", () => {
   const dir = copyRepoFixture("framecore-validate-onboarding-docs-");
   const readme = join(dir, "README.md");
