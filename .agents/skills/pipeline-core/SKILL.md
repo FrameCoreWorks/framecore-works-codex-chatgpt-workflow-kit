@@ -58,6 +58,7 @@ Read only what is needed:
 
 - `references/agent-roster.md` for role list and responsibilities.
 - `references/workflow-operating-model.md` for stage order and review gates.
+- `references/workflow-blueprints.md` for common task routes and loopback boundaries.
 - `references/handoff-matrix.md` for allowed handoffs and required fields.
 - `references/gate-registry.md` for canonical gate names.
 - `references/text-image-generation-policy.md` for visible text in raster graphics.
@@ -67,6 +68,7 @@ Read only what is needed:
 ## Decision Rules
 
 - Prefer the smallest route that preserves gates and handoffs.
+- Start from a workflow blueprint when the request matches a known pattern, then shrink or expand it based on available artifacts.
 - Use role IDs from the public kit and local display names only from onboarding config.
 - Do not skip upstream gates when later roles depend on their artifacts.
 - Route text, VO, captions, and user-facing polish through `humanizer` when copy quality matters.

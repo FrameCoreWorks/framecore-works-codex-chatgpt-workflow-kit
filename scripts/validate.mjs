@@ -215,9 +215,10 @@ for (const file of skillFiles) {
 
 const gateRegistry = join(validationRoot, ".agents/skills/pipeline-core/references/gate-registry.md");
 const handoffMatrix = join(validationRoot, ".agents/skills/pipeline-core/references/handoff-matrix.md");
+const workflowBlueprints = join(validationRoot, ".agents/skills/pipeline-core/references/workflow-blueprints.md");
 const artifactTemplates = join(validationRoot, ".agents/skills/pipeline-core/templates/artifact-templates.md");
 const artifactSchemasPath = join(validationRoot, "config/artifact-schemas.json");
-for (const file of [gateRegistry, handoffMatrix, artifactTemplates]) {
+for (const file of [gateRegistry, handoffMatrix, workflowBlueprints, artifactTemplates]) {
   if (!existsSync(file)) addFinding("MISSING_PIPELINE_FILE", "Required pipeline core file is missing.", [file]);
 }
 
@@ -328,6 +329,13 @@ if (existsSync(handoffMatrix)) {
     if (!handoffPairs.has(pair)) {
       addFinding("MISSING_HANDOFF", `Required handoff is missing: ${pair}`, [handoffMatrix]);
     }
+  }
+}
+
+if (existsSync(workflowBlueprints)) {
+  const sections = markdownSections(read(workflowBlueprints));
+  for (const section of ["Static Campaign Or E-Commerce Graphic", "Video Campaign Or Storyboard", "Storyboard Board Artifact", "HyperFrames Coded Video", "Prompt Pack Without Execution", "QA And Delivery Only", "Workflow Self-Improvement Review"]) {
+    if (!sections.has(section)) addFinding("WEAK_WORKFLOW_BLUEPRINTS", `Workflow blueprints are missing required section: ${section}`, [workflowBlueprints]);
   }
 }
 

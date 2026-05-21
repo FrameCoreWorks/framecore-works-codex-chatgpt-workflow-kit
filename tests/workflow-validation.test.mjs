@@ -396,6 +396,17 @@ test("validation rejects duplicate gate and handoff rows", () => {
   assert.match(`${result.stderr}${result.stdout}`, /DUPLICATE_HANDOFF/);
 });
 
+test("validation rejects weak workflow blueprints", () => {
+  const dir = copyRepoFixture("framecore-validate-blueprints-");
+  const file = join(dir, ".agents/skills/pipeline-core/references/workflow-blueprints.md");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text.replace("## HyperFrames Coded Video", "## Coded Video"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_WORKFLOW_BLUEPRINTS/);
+});
+
 test("validation rejects missing artifact schemas for gate-required artifacts", () => {
   const dir = copyRepoFixture("framecore-validate-artifact-schema-missing-");
   const schemaFile = join(dir, "config/artifact-schemas.json");

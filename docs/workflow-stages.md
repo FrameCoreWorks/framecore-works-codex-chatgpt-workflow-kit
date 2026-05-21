@@ -36,9 +36,14 @@ Read each row as an operational contract: the owner receives input, produces the
 
 The workflow remains useful without external execution. In no-provider mode, stop at planning artifacts such as Brief Contract, Reference Pack, Direction Contract, Prompt Pack, QA criteria, and Delivery Manifest.
 
+## Common Blueprints
+
+Common workflow routes live in [Workflow Blueprints](../.agents/skills/pipeline-core/references/workflow-blueprints.md). Use them as starting routes for static/e-commerce graphics, video storyboards, storyboard boards, HyperFrames coded video, prompt packs without execution, QA/delivery-only work, and explicit workflow self-improvement reviews.
+
 ## Related Files
 
 - [Gate Registry](../.agents/skills/pipeline-core/references/gate-registry.md)
 - [Handoff Matrix](../.agents/skills/pipeline-core/references/handoff-matrix.md)
+- [Workflow Blueprints](../.agents/skills/pipeline-core/references/workflow-blueprints.md)
 - [Artifact Templates](../.agents/skills/pipeline-core/templates/artifact-templates.md)
 - [End-To-End Creative Workflow Example](../examples/end-to-end-creative-workflow/README.md)

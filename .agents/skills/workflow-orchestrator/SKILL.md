@@ -47,9 +47,10 @@ Produce Project State with:
 
 1. Start from `intent-confirmation`.
 2. Inspect which artifacts already exist and which gates are blocked.
-3. Choose the smallest role route that can produce the next useful artifact.
-4. Assign specialist work without taking over specialist outputs.
-5. Decide loopback or delivery only after gates are satisfied.
+3. Select the closest workflow blueprint when the task matches a common route.
+4. Shrink or expand the route based on available artifacts and explicit user scope.
+5. Assign specialist work without taking over specialist outputs.
+6. Decide loopback or delivery only after gates are satisfied.
 
 ## Decision Rules
 
@@ -58,6 +59,7 @@ Produce Project State with:
 - If references are required but unresolved, route to `reference-curator`.
 - If outputs exist, route to `qa-iteration` before delivery.
 - Use `instruction-packet-factory` when delegation needs a bounded packet.
+- Use workflow blueprints as defaults, not as rigid scripts.
 
 ## Guardrails
 
