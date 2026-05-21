@@ -170,6 +170,22 @@ test("privacy audit catches secret filenames and credential-shaped values", () =
   assert.match(`${result.stderr}${result.stdout}`, /SECRET_LIKE_VALUE/);
 });
 
+test("package audit passes on repo package and rejects local config package files", () => {
+  assert.match(run(["scripts/package-audit.mjs"]), /package audit passed/);
+
+  const dir = copyRepoFixture("framecore-package-audit-");
+  const packageJson = join(dir, "package.json");
+  const pkg = JSON.parse(readFileSync(packageJson, "utf8"));
+  pkg.files.push("framecore.config.json");
+  writeFileSync(packageJson, `${JSON.stringify(pkg, null, 2)}\n`);
+  writeFileSync(join(dir, "framecore.config.json"), "{}\n");
+
+  const result = failRun(["scripts/package-audit.mjs"], { cwd: dir });
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /PACKAGE_AUDIT/);
+  assert.match(`${result.stderr}${result.stdout}`, /framecore\.config\.json/);
+});
+
 test("cli scripts expose non-mutating help output", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-help-"));
   const sidecar = join(root, "._framecore-help-test");
@@ -183,6 +199,7 @@ test("cli scripts expose non-mutating help output", () => {
       "scripts/render-agents.mjs",
       "scripts/validate.mjs",
       "scripts/audit-privacy.mjs",
+      "scripts/package-audit.mjs",
       "scripts/cleanup-appledouble.mjs",
     ]) {
       const output = run([script, "--help", "--target", dir]);
@@ -633,6 +650,7 @@ test("validation rejects weak release readiness docs and workflow safety", () =>
   ].join("\n"));
   const pkg = JSON.parse(readFileSync(packageJson, "utf8"));
   pkg.scripts["release:check"] = "npm test";
+  delete pkg.scripts["package:audit"];
   writeFileSync(packageJson, JSON.stringify(pkg, null, 2));
 
   const result = failRun(["scripts/validate.mjs", dir]);

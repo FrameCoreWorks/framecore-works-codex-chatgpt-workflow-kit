@@ -56,8 +56,9 @@
     "install:guided": "node scripts/guided-install.mjs",
     "install:dry-run": "node scripts/install.mjs --mode dry-run",
     "onboard:defaults": "node scripts/onboard.mjs --defaults",
+    "package:audit": "node scripts/package-audit.mjs",
     "render:agents": "node scripts/render-agents.mjs",
-    "release:check": "npm run check && npm pack --dry-run",
+    "release:check": "npm run check && npm run package:audit",
     "test": "node --test",
     "validate": "node scripts/validate.mjs",
     "check": "npm run audit:privacy && npm run validate && npm test"

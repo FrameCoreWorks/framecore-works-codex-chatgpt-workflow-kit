@@ -502,6 +502,7 @@ const requiredRepoFiles = [
   "config/artifact-schemas.json",
   "scripts/doctor.mjs",
   "scripts/guided-install.mjs",
+  "scripts/package-audit.mjs",
   "scripts/manifest.mjs"
 ];
 for (const file of requiredRepoFiles) {
@@ -526,9 +527,13 @@ if (existsSync(releaseDoc)) {
 
 const packageJsonPath = join(validationRoot, "package.json");
 if (existsSync(packageJsonPath)) {
-  const releaseCheck = JSON.parse(read(packageJsonPath)).scripts?.["release:check"] ?? "";
-  if (!releaseCheck.includes("npm run check") || !releaseCheck.includes("npm pack --dry-run")) {
-    addFinding("WEAK_RELEASE_CHECK_SCRIPT", "package.json release:check must run npm run check and npm pack --dry-run.", [packageJsonPath]);
+  const scripts = JSON.parse(read(packageJsonPath)).scripts ?? {};
+  const releaseCheck = scripts["release:check"] ?? "";
+  if (!releaseCheck.includes("npm run check") || !releaseCheck.includes("npm run package:audit")) {
+    addFinding("WEAK_RELEASE_CHECK_SCRIPT", "package.json release:check must run npm run check and npm run package:audit.", [packageJsonPath]);
+  }
+  if (!String(scripts["package:audit"] ?? "").includes("scripts/package-audit.mjs")) {
+    addFinding("WEAK_RELEASE_CHECK_SCRIPT", "package.json must expose package:audit using scripts/package-audit.mjs.", [packageJsonPath]);
   }
 }
 
@@ -556,10 +561,10 @@ if (existsSync(validateWorkflow)) {
     !text.includes("npm run audit:privacy") ||
     !text.includes("npm run validate") ||
     !text.includes("npm test") ||
-    !text.includes("npm pack --dry-run") ||
+    !text.includes("npm run package:audit") ||
     !/permissions:\s*\n\s*contents:\s*read/.test(text)
   ) {
-    addFinding("WEAK_VALIDATE_WORKFLOW", "validate workflow must be push/PR-triggered, read-only, Linux-based, test Node 20/22, and run audit, validation, tests, and package dry-run.", [validateWorkflow]);
+    addFinding("WEAK_VALIDATE_WORKFLOW", "validate workflow must be push/PR-triggered, read-only, Linux-based, test Node 20/22, and run audit, validation, tests, and package audit.", [validateWorkflow]);
   }
   if (/\$\{\{\s*runner\./.test(text)) {
     addFinding("UNSAFE_VALIDATE_WORKFLOW", "validate workflow must not use runner context in workflow or job-level expressions.", [validateWorkflow]);

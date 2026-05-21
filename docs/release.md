@@ -23,18 +23,24 @@ This project uses GitHub releases as the public release record. npm publication 
    npm run release:check
    ```
 
-5. Inspect package contents:
+5. Audit package contents:
+
+   ```bash
+   npm run package:audit
+   ```
+
+6. Inspect package contents when you want the raw npm dry-run list:
 
    ```bash
    npm pack --dry-run
    ```
 
-6. Confirm the package contains only intended source, docs, examples, scripts, tests, and config files.
-7. Confirm the privacy audit passes without allowlisting sensitive content.
-8. Confirm the text-bearing image policy still references native Codex/ChatGPT image generation powered by GPT Image 2.
-9. Confirm Hipson remains a lightweight adapter unless a user explicitly connects the separate full Hipson repo.
-10. Confirm public examples include validated `workflow.json` manifests.
-11. Confirm workflow self-improvement remains explicit-only and proposal-only.
+7. Confirm the package contains only intended source, docs, examples, scripts, tests, and config files.
+8. Confirm the privacy audit passes without allowlisting sensitive content.
+9. Confirm the text-bearing image policy still references native Codex/ChatGPT image generation powered by GPT Image 2.
+10. Confirm Hipson remains a lightweight adapter unless a user explicitly connects the separate full Hipson repo.
+11. Confirm public examples include validated `workflow.json` manifests.
+12. Confirm workflow self-improvement remains explicit-only and proposal-only.
 
 ## Required Checks
 
@@ -45,6 +51,7 @@ npm run audit:privacy
 npm run validate
 npm test
 npm run check
+npm run package:audit
 npm run release:check
 npm pack --dry-run
 ```
@@ -55,7 +62,9 @@ Run the manual `cross-platform` workflow before a public version tag, after chan
 
 ## Package Contents Review
 
-Review the `npm pack --dry-run` file list before each release. The package should contain source skills, agent templates, config examples, docs, examples, scripts, and tests. It should not contain local configs, generated outputs, caches, backups, machine metadata, or user-specific files.
+Review the `npm run package:audit` result before each release. The package should contain source skills, agent templates, config examples, docs, examples, scripts, and tests. It should not contain local configs, generated outputs, caches, backups, machine metadata, archives, logs, or user-specific files.
+
+`package:audit` parses `npm pack --json --dry-run` with a temporary npm cache and rejects unexpected package roots or forbidden package file patterns. Use `npm pack --dry-run` only when you want to manually inspect the raw npm file list.
 
 Example folders should include their `workflow.json` manifests. These are source fixtures used by validation, not generated outputs.
 

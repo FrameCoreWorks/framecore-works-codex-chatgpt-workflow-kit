@@ -53,6 +53,24 @@ npm pack --dry-run
 
 If this passes, the package contents are valid and the failure is local npm cache state. Clear or replace the default npm cache before release work.
 
+## `npm run package:audit` Fails
+
+`package:audit` parses `npm pack --json --dry-run` and rejects package file paths that should never ship in the public kit.
+
+Common causes:
+
+- local config files such as `framecore.config.json`
+- generated outputs, build folders, caches, logs, archives, or backups
+- AppleDouble sidecars such as `._README.md`
+- secret-shaped filenames such as `.env`, `.npmrc`, `credentials.pem`, or token files
+- unexpected package roots outside the public source/docs/examples/scripts/test set
+
+Fix the package file list or remove the unintended file, then rerun:
+
+```bash
+npm run package:audit
+```
+
 ## Privacy Audit Categories
 
 The privacy audit is intentionally strict for public-source safety. Common categories:

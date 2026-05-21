@@ -29,5 +29,5 @@ jobs:
         run: npm run validate
       - name: Tests
         run: npm test
-      - name: Package contents check
-        run: npm pack --dry-run
+      - name: Package audit
+        run: npm run package:audit
