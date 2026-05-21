@@ -6,6 +6,8 @@ Onboarding creates local configuration for one workspace. It should run before i
 
 The goal is not to change the public workflow logic. The goal is to tune how the installed workflow behaves in this one workspace: language, tone, output location, QA strictness, local agent display names, delivery preferences, and optional expansion choices.
 
+The guided installer invokes onboarding before dry-run and project-local install. That order matters because rendered agent files should use the final local config, not generic defaults.
+
 ## Defaults
 
 Default choices are conservative:
@@ -18,6 +20,12 @@ Default choices are conservative:
 - neutral role IDs kept as display names unless the user chooses local names
 
 If onboarding is skipped, the installer can still render agents with built-in defaults. That is useful for automation, but it gives the user a less personalized setup.
+
+Use `--defaults` for a non-interactive guided setup when the target workspace should start with conservative defaults:
+
+```bash
+npm run install:guided -- --target /path/to/your/project --defaults --yes
+```
 
 ## Interactive Questions
 

@@ -15,9 +15,34 @@ For command help:
 
 ```bash
 node scripts/install.mjs --help
+node scripts/guided-install.mjs --help
 node scripts/onboard.mjs --help
 node scripts/doctor.mjs --help
 ```
+
+## Beginner-Friendly Guided Quickstart
+
+1. Open a terminal in this repository.
+
+2. Choose an existing target workspace:
+
+   ```bash
+   export FRAMECORE_TARGET=/path/to/your/project
+   ```
+
+3. Run the guided installer:
+
+   ```bash
+   npm run install:guided -- --target "$FRAMECORE_TARGET"
+   ```
+
+   The guided installer runs the canonical sequence: repository checks, doctor/preflight, onboarding, install dry-run after onboarding, and project-local install. It refuses missing target folders, stops on the first failed check, does not run global install, and does not enable external execution tools.
+
+   For a non-interactive default setup:
+
+   ```bash
+   npm run install:guided -- --target "$FRAMECORE_TARGET" --defaults --yes
+   ```
 
 ## Beginner-Friendly Manual Quickstart
 
@@ -103,12 +128,14 @@ From the Codex workspace where you want to install the kit, paste this instructi
 Clone https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit.git into a temporary or tools folder, read its README and docs/quickstart.md, then install it into my current workspace.
 
 Follow this order:
-1. Run npm run check in the kit repo.
-2. Run doctor/preflight against my current workspace.
-3. Run onboarding for my current workspace.
-4. Run install dry-run against my current workspace after onboarding.
-5. Install project-local only.
-6. Show me the changed files and the final installed tree.
+1. Run the guided project-local installer if available.
+2. If guided install is not available, use the manual fallback below.
+3. Run npm run check in the kit repo.
+4. Run doctor/preflight against my current workspace.
+5. Run onboarding for my current workspace.
+6. Run install dry-run against my current workspace after onboarding.
+7. Install project-local only.
+8. Show me the changed files and the final installed tree.
 
 Do not use global install and do not enable external execution tools unless I explicitly ask for them.
 ```

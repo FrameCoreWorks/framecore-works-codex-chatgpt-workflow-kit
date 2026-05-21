@@ -9,11 +9,13 @@ From the Codex workspace where you want to install the kit, give Codex this inst
 Clone https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit.git into a temporary or tools folder, read its README, then install it into my current workspace.
 
 Follow this order:
-1. Run the repository checks.
-2. Run doctor/preflight against my current workspace.
-3. Run onboarding for my current workspace.
-4. Run install dry-run against my current workspace after onboarding.
-5. Install project-local only.
+1. Run the guided project-local installer if available.
+2. If guided install is not available, use this manual fallback:
+   - Run the repository checks.
+   - Run doctor/preflight against my current workspace.
+   - Run onboarding for my current workspace.
+   - Run install dry-run against my current workspace after onboarding.
+   - Install project-local only.
 
 Do not use global install and do not enable external execution tools unless I explicitly ask for them.
 ```
@@ -65,6 +67,22 @@ This kit contains reusable workflow assets: role-based agents, skills, templates
 Public docs and source assets are English. Installed workspaces can still use local language and tone preferences through onboarding.
 
 ## Install Flow
+
+For the beginner-safe guided path, run:
+
+```bash
+npm run install:guided -- --target /path/to/your/project
+```
+
+For a non-interactive default setup in an existing target workspace:
+
+```bash
+npm run install:guided -- --target /path/to/your/project --defaults --yes
+```
+
+The guided installer refuses missing targets, runs repository checks, runs doctor/preflight, runs onboarding, performs a post-onboarding dry-run, asks before the final install unless `--yes` is used, and installs project-local only.
+
+Manual fallback:
 
 1. Clone or download this repo.
 2. Check the repository:

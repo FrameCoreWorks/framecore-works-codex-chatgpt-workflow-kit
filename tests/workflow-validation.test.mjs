@@ -177,6 +177,7 @@ test("cli scripts expose non-mutating help output", () => {
   try {
     for (const script of [
       "scripts/install.mjs",
+      "scripts/guided-install.mjs",
       "scripts/doctor.mjs",
       "scripts/onboard.mjs",
       "scripts/render-agents.mjs",
@@ -600,7 +601,7 @@ test("validation rejects weak onboarding guide and assisted install prompt", () 
   const readme = join(dir, "README.md");
   const onboardingDoc = join(dir, "docs/onboarding.md");
   const quickstartDoc = join(dir, "docs/quickstart.md");
-  writeFileSync(readme, readFileSync(readme, "utf8").replace("2. Run doctor/preflight", "2. Run install dry-run"));
+  writeFileSync(readme, readFileSync(readme, "utf8").replace("Run doctor/preflight", "Run install dry-run"));
   writeFileSync(onboardingDoc, readFileSync(onboardingDoc, "utf8").replace("## Interactive Questions", "## Setup Questions"));
   writeFileSync(quickstartDoc, readFileSync(quickstartDoc, "utf8").replace("project-local only", "project-local"));
 
@@ -760,6 +761,35 @@ test("installer dry run fails on user-owned file conflicts", () => {
   assert.notEqual(result.status, 0);
   assert.match(`${result.stderr}${result.stdout}`, /refusing to overwrite user-owned file/);
   assert.equal(readFileSync(join(dir, ".agents/skills/humanizer/SKILL.md"), "utf8"), "user-owned humanizer\n");
+});
+
+test("guided installer runs the safe project-local default path", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-guided-"));
+  const output = run(["scripts/guided-install.mjs", "--target", dir, "--defaults", "--yes", "--skip-check"]);
+  assert.match(output, /FrameCore guided project-local install/);
+  assert.match(output, /Doctor preflight/);
+  assert.match(output, /Onboarding/);
+  assert.match(output, /Install dry-run/);
+  assert.match(output, /Project-local install/);
+  assert.match(output, /Installed managed tree/);
+  assert.match(output, /Guided install complete/);
+  assert.equal(output.includes(dir), false);
+  assert.ok(existsSync(join(dir, "framecore.config.json")));
+  assert.ok(existsSync(join(dir, ".framecore/manifest.json")));
+  assert.ok(existsSync(join(dir, ".codex/agents/workflow-orchestrator.toml")));
+});
+
+test("guided installer rejects missing targets and kit repo self-install", () => {
+  const parent = mkdtempSync(join(tmpdir(), "framecore-guided-missing-parent-"));
+  const missing = join(parent, "missing-target");
+  const missingResult = failRun(["scripts/guided-install.mjs", "--target", missing, "--defaults", "--yes", "--skip-check"]);
+  assert.notEqual(missingResult.status, 0);
+  assert.match(`${missingResult.stderr}${missingResult.stdout}`, /target workspace does not exist/);
+  assert.equal(existsSync(missing), false);
+
+  const selfResult = failRun(["scripts/guided-install.mjs", "--target", root, "--defaults", "--yes", "--skip-check"]);
+  assert.notEqual(selfResult.status, 0);
+  assert.match(`${selfResult.stderr}${selfResult.stdout}`, /must be outside this kit repository/);
 });
 
 test("install and uninstall preserve user-owned skills, agents, and AGENTS.md", () => {

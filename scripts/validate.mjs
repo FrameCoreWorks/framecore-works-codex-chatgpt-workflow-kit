@@ -472,7 +472,7 @@ if (existsSync(onboardingDoc)) {
 const quickstartDoc = join(validationRoot, "docs/quickstart.md");
 if (existsSync(quickstartDoc)) {
   const text = read(quickstartDoc);
-  for (const phrase of ["## Codex-Assisted Quickstart", "temporary or tools folder", "npm run check", "doctor/preflight", "onboarding", "install dry-run", "after onboarding", "project-local only", "Do not use global install", "Show me the changed files", "PowerShell"]) {
+  for (const phrase of ["## Beginner-Friendly Guided Quickstart", "npm run install:guided", "## Codex-Assisted Quickstart", "temporary or tools folder", "npm run check", "doctor/preflight", "onboarding", "install dry-run", "after onboarding", "project-local only", "Do not use global install", "Show me the changed files", "PowerShell"]) {
     if (!text.includes(phrase)) addFinding("WEAK_INSTALL_PROMPT", `Codex-assisted quickstart is missing required safety phrase: ${phrase}`, [quickstartDoc]);
   }
   if (!appearsInOrder(text, ["Run npm run check", "Run doctor/preflight", "Run onboarding", "Run install dry-run", "after onboarding", "Install project-local only"])) {
@@ -501,6 +501,7 @@ const requiredRepoFiles = [
   "CODE_OF_CONDUCT.md",
   "config/artifact-schemas.json",
   "scripts/doctor.mjs",
+  "scripts/guided-install.mjs",
   "scripts/manifest.mjs"
 ];
 for (const file of requiredRepoFiles) {

@@ -2,6 +2,24 @@
 
 This page covers common installation and workflow issues for FrameCore Works Skill Kit.
 
+## Guided Install Fails At A Step
+
+The guided installer runs the safe beginner sequence:
+
+```bash
+npm run install:guided -- --target /path/to/your/project
+```
+
+It stops on the first failed step. Match the step name to the fix:
+
+- `Repository checks`: use the `npm run check` section below.
+- `Doctor preflight`: fix the target readiness issue before installing.
+- `Onboarding`: regenerate or repair `framecore.config.json`.
+- `Install dry-run`: resolve user-owned file conflicts before real install.
+- `Project-local install`: rerun dry-run, then inspect the exact installer error.
+
+The guided installer refuses missing target folders and refuses installing into this kit repo itself. Create or choose the real Codex workspace first, then rerun the command.
+
 ## `npm run check` Fails
 
 Run the parts separately to identify the failing gate:
