@@ -8,6 +8,8 @@ The goal is not to change the public workflow logic. The goal is to tune how the
 
 The guided installer invokes onboarding before dry-run and project-local install. That order matters because rendered agent files should use the final local config, not generic defaults.
 
+Onboarding requires an existing target workspace by default. Use `--create-target` only when you intentionally want the onboarding command to create a new folder.
+
 ## Defaults
 
 Default choices are conservative:
@@ -47,6 +49,8 @@ Onboarding itself writes:
 
 - `framecore.config.json`
 - `.framecore/automation-recipes/workflow-self-improvement-review.json` only when the recurring review is explicitly enabled
+
+When `framecore.config.json` already exists, onboarding writes a numbered backup before replacing it, starting with `framecore.config.json.bak`, then `framecore.config.json.bak.1`, and so on.
 
 The later project-local install writes the managed FrameCore workflow assets, rendered agent files, project instructions, and `.framecore/manifest.json`.
 

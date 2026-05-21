@@ -68,7 +68,7 @@ node scripts/doctor.mjs --help
    export FRAMECORE_TARGET=/path/to/your/project
    ```
 
-   You can also replace `$FRAMECORE_TARGET` in the commands below with the actual target path.
+   You can also replace `$FRAMECORE_TARGET` in the commands below with the actual target path. The target folder must already exist unless you explicitly pass `--create-target` to the lower-level onboarding or install scripts.
 
 4. Run preflight:
 

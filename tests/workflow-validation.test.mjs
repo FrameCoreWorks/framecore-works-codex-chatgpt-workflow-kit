@@ -720,6 +720,33 @@ test("onboarding renders project-local config and agent templates", () => {
   assert.match(sample, /intent-confirmation/);
 });
 
+test("onboarding rejects missing targets unless explicitly created", () => {
+  const parent = mkdtempSync(join(tmpdir(), "framecore-onboard-missing-parent-"));
+  const missing = join(parent, "missing-target");
+
+  const result = failRun(["scripts/onboard.mjs", "--defaults", "--target", missing]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /target workspace does not exist/);
+  assert.equal(existsSync(missing), false);
+
+  run(["scripts/onboard.mjs", "--defaults", "--target", missing, "--create-target"]);
+  assert.ok(existsSync(join(missing, "framecore.config.json")));
+});
+
+test("onboarding rotates config backups instead of overwriting them", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-onboard-backup-"));
+  const configPath = join(dir, "framecore.config.json");
+  run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+
+  writeFileSync(configPath, "first config\n");
+  run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+  writeFileSync(configPath, "second config\n");
+  run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+
+  assert.equal(readFileSync(join(dir, "framecore.config.json.bak"), "utf8"), "first config\n");
+  assert.equal(readFileSync(join(dir, "framecore.config.json.bak.1"), "utf8"), "second config\n");
+});
+
 test("config validation rejects invalid local config before rendering", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-bad-config-"));
   const config = JSON.parse(readFileSync(join(root, "config/defaults.example.json"), "utf8"));
@@ -748,6 +775,20 @@ test("install rejects invalid local config before writing managed files", () => 
   assert.equal(existsSync(join(dir, ".agents/skills/pipeline-core/SKILL.md")), false);
   assert.equal(existsSync(join(dir, ".codex/agents/intent-confirmation.toml")), false);
   assert.equal(existsSync(join(dir, ".framecore/manifest.json")), false);
+});
+
+test("install rejects missing targets unless explicitly created", () => {
+  const parent = mkdtempSync(join(tmpdir(), "framecore-install-missing-parent-"));
+  const missing = join(parent, "missing-target");
+
+  const result = failRun(["scripts/install.mjs", "--mode", "dry-run", "--target", missing]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /target workspace does not exist/);
+  assert.equal(existsSync(missing), false);
+
+  const output = run(["scripts/install.mjs", "--mode", "dry-run", "--target", missing, "--create-target"]);
+  assert.match(output, /would write/);
+  assert.ok(existsSync(missing));
 });
 
 test("interactive onboarding explains the workflow and can keep default role names", async () => {

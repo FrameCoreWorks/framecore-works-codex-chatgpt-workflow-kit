@@ -17,6 +17,19 @@ function targetForMode(mode) {
   return argValue("--target", process.cwd());
 }
 
+function ensureTarget(target, mode, createTarget) {
+  if (mode === "global") return;
+  if (!existsSync(target)) {
+    if (!createTarget) {
+      throw new Error("target workspace does not exist. Create or choose the workspace first, or rerun with --create-target.");
+    }
+    mkdirSync(target, { recursive: true });
+  }
+  if (!statSync(target).isDirectory()) {
+    throw new Error("target workspace is not a directory.");
+  }
+}
+
 function toManifestPath(target, destination) {
   return relative(target, destination).replaceAll(sep, "/");
 }
@@ -113,6 +126,7 @@ function install({ mode }) {
   const update = mode === "update";
   const target = targetForMode(mode);
   const force = process.argv.includes("--force");
+  ensureTarget(target, mode, process.argv.includes("--create-target"));
   const planned = [];
   const managed = [];
   const previousManifest = readManifest(target);
@@ -206,7 +220,7 @@ const mode = argValue("--mode", "dry-run");
 if (hasHelpFlag()) {
   printHelpAndExit(`
 Usage:
-  node scripts/install.mjs --mode <dry-run|project-local|global|update|repair|uninstall> [--target <path>] [--force] [--yes]
+  node scripts/install.mjs --mode <dry-run|project-local|global|update|repair|uninstall> [--target <path>] [--force] [--yes] [--create-target]
 
 Purpose:
   Install, update, repair, preview, or uninstall FrameCore-managed workflow files.
@@ -216,6 +230,7 @@ Options:
   --target <path>  Target workspace for project-local, dry-run, update, repair, or uninstall.
   --force          Allow overwriting user-owned conflicting files after creating backups.
   --yes            Apply uninstall removals after preview.
+  --create-target  Create a missing target folder before project-local install or dry-run.
 
 Modes:
   dry-run        Report planned writes without changing files.
@@ -227,6 +242,7 @@ Modes:
 
 Safety:
   --force only bypasses user-owned file overwrite protection. It does not bypass config validation.
+  By default, project-local modes require an existing target workspace.
 `);
 }
 const allowed = new Set(["dry-run", "project-local", "global", "update", "repair", "uninstall"]);

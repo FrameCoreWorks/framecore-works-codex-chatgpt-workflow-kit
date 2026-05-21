@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
@@ -9,6 +9,26 @@ import { assertValidFrameCoreConfig } from "./config-validation.mjs";
 function argValue(name, fallback) {
   const index = process.argv.indexOf(name);
   return index >= 0 ? process.argv[index + 1] : fallback;
+}
+
+function ensureTarget(target, createTarget) {
+  if (!existsSync(target)) {
+    if (!createTarget) {
+      throw new Error("target workspace does not exist. Create or choose the workspace first, or rerun with --create-target.");
+    }
+    mkdirSync(target, { recursive: true });
+  }
+  if (!statSync(target).isDirectory()) {
+    throw new Error("target workspace is not a directory.");
+  }
+}
+
+function nextBackupPath(destination) {
+  const first = `${destination}.bak`;
+  if (!existsSync(first)) return first;
+  let index = 1;
+  while (existsSync(`${first}.${index}`)) index += 1;
+  return `${first}.${index}`;
 }
 
 async function ask(rl, prompt, fallback) {
@@ -61,7 +81,8 @@ and a larger Hipson knowledge base. The adapter is enough to use this workflow n
 `);
 }
 
-export async function runOnboarding({ target = process.cwd(), defaults = false } = {}) {
+export async function runOnboarding({ target = process.cwd(), defaults = false, createTarget = false } = {}) {
+  ensureTarget(target, createTarget);
   const defaultsConfig = readJson(join(repoRoot, "config/defaults.example.json"));
   const configPath = join(target, "framecore.config.json");
   const config = structuredClone(defaultsConfig);
@@ -95,8 +116,7 @@ export async function runOnboarding({ target = process.cwd(), defaults = false }
   assertValidFrameCoreConfig(config);
 
   if (existsSync(configPath)) {
-    const backup = `${configPath}.bak`;
-    writeFileSync(backup, readFileSync(configPath, "utf8"));
+    writeFileSync(nextBackupPath(configPath), readFileSync(configPath, "utf8"));
   }
 
   mkdirSync(dirname(configPath), { recursive: true });
@@ -118,7 +138,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   if (hasHelpFlag()) {
     printHelpAndExit(`
 Usage:
-  node scripts/onboard.mjs [--target <path>] [--defaults]
+  node scripts/onboard.mjs [--target <path>] [--defaults] [--create-target]
 
 Purpose:
   Create a local framecore.config.json with workspace preferences.
@@ -126,6 +146,7 @@ Purpose:
 Options:
   --target <path>  Workspace where framecore.config.json should be written.
   --defaults       Write default preferences without interactive questions.
+  --create-target  Create the target folder if it does not exist.
 
 Output:
   Writes framecore.config.json and, when explicitly enabled, an optional report-only automation recipe.
@@ -134,5 +155,6 @@ Output:
   await runOnboarding({
     target: argValue("--target", process.cwd()),
     defaults: process.argv.includes("--defaults"),
+    createTarget: process.argv.includes("--create-target"),
   });
 }

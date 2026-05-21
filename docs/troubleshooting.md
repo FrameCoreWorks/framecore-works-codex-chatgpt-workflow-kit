@@ -117,6 +117,19 @@ npm run install:dry-run -- --target /path/to/your/project
 
 If doctor reports missing or changed managed files, inspect local edits before running `repair` or `update`, because those modes can recreate FrameCore-managed files and write backups.
 
+## Target Workspace Does Not Exist
+
+Guided install, onboarding, and project-local install expect an existing Codex workspace folder by default. Create the project folder first or choose the correct existing workspace path.
+
+The lower-level onboarding and install scripts support `--create-target` for intentional folder creation:
+
+```bash
+node scripts/onboard.mjs --target /path/to/new/project --defaults --create-target
+node scripts/install.mjs --mode dry-run --target /path/to/new/project --create-target
+```
+
+Do not use `--create-target` when you meant to install into an existing project and may have mistyped the path.
+
 ## Dry Run Reports User-Owned File Conflicts
 
 The installer refuses to overwrite files that were not previously recorded in `.framecore/manifest.json`.
