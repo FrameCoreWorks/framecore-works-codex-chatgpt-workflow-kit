@@ -60,6 +60,7 @@ Public examples should cover the main workflow categories:
 - minimal workflow
 - end-to-end creative workflow
 - static campaign
+- ecommerce product visual
 - video storyboard
 - image prompt pack
 - HyperFrames coded-video workflow

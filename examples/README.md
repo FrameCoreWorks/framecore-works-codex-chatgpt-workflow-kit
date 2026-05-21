@@ -10,6 +10,7 @@ Additional minimal contract fixtures live under `contract-fixtures/artifacts/`. 
 | --- | --- | --- | --- | --- |
 | [Minimal Workflow](minimal-workflow/README.md) | Small planning task or first install check | intent, route, brief | Task Confirmation, Brief Contract | stops at planning |
 | [Static Campaign](static-campaign/README.md) | Ecommerce, social, launch, or product visuals | brief, references, static direction, image prompting | Brief Contract, Reference Pack, Direction Contract, Prompt Pack | prompts only unless user executes |
+| [Ecommerce Product Visual](ecommerce-product-visual/README.md) | Product hero, lifestyle, feature close-up, and marketplace assets | brief, references, static direction, copy, image prompting | Brief Contract, Reference Pack, Direction Contract, Copy Pack, Prompt Pack | prompt-ready plan only |
 | [Video Storyboard](video-storyboard/README.md) | Video ad, launch clip, explainer, or sequence | brief, references, motion direction, storyboard, video prompting | Direction Contract, Storyboard Contract, Prompt Pack | prompts only unless user executes |
 | [HyperFrames Video](hyperframes-video/README.md) | Coded-video or HTML-to-video workflow | storyboard, HyperFrames planning, render QA | HyperFrames Production Brief, Asset Manifest, QA / Iteration Report | coded-video plan unless user renders |
 | [Image Prompt Pack](image-prompt-pack/README.md) | Final prompt pack for static image generation | references, direction, image prompting | Prompt Pack, Image Prompt Contract, QA / Iteration Report | no generation by default |

@@ -264,6 +264,7 @@ See also:
 - [End-To-End Creative Workflow Example](examples/end-to-end-creative-workflow/README.md)
 - [Minimal Workflow Example](examples/minimal-workflow/README.md)
 - [Static Campaign Example](examples/static-campaign/README.md)
+- [Ecommerce Product Visual Example](examples/ecommerce-product-visual/README.md)
 - [Video Storyboard Example](examples/video-storyboard/README.md)
 - [HyperFrames Video Example](examples/hyperframes-video/README.md)
 - [Image Prompt Pack Example](examples/image-prompt-pack/README.md)
