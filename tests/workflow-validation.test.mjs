@@ -50,7 +50,7 @@ function runInteractiveOnboarding(dir) {
     });
     let stdout = "";
     let stderr = "";
-    const answers = ["", "", "", "", "", "", "", "yes"];
+    const answers = ["", "", "", "", "", "", "", "", "", "", "", "yes"];
     let answerIndex = 0;
 
     child.stdout.on("data", (chunk) => {
@@ -971,11 +971,16 @@ test("interactive onboarding explains the workflow and can keep default role nam
   assert.match(result.stdout, /This installer adds a structured creative workflow/);
   assert.match(result.stdout, /How this improves your work/);
   assert.match(result.stdout, /Hipson in this setup/);
+  assert.match(result.stdout, /What will not be configured/);
+  assert.match(result.stdout, /Require QA approval before generated asset delivery/);
   assert.match(result.stdout, /local manifest/);
   assert.doesNotMatch(result.stdout, /validation and privacy audit scripts/);
   assert.match(result.stdout, /Use default role names/);
   const config = JSON.parse(readFileSync(join(dir, "framecore.config.json"), "utf8"));
   assert.deepEqual(config.agent_display_names, {});
+  assert.equal(config.delivery.auto_upload, false);
+  assert.equal(config.delivery.delivery_requires_current_user_request, true);
+  assert.equal(config.delivery.require_qa_allowlist_for_generated_assets, true);
 });
 
 test("installer dry run reports writes without mutating target", () => {

@@ -44,6 +44,16 @@ async function askChoice(rl, prompt, fallback, choices) {
   }
 }
 
+async function askYesNo(rl, prompt, fallback) {
+  const fallbackText = fallback ? "yes" : "no";
+  while (true) {
+    const value = (await ask(rl, prompt, fallbackText)).toLowerCase();
+    if (["yes", "y"].includes(value)) return true;
+    if (["no", "n"].includes(value)) return false;
+    console.log("Choose yes or no.");
+  }
+}
+
 function printIntro() {
   console.log(`
 FrameCore Works Skill Kit setup
@@ -59,6 +69,12 @@ What will be installed project-locally:
 - HyperFrames workflow knowledge for coded video planning
 - a local framecore.config.json with your preferences
 - a local manifest so update, repair, and uninstall know what FrameCore manages
+
+What will not be configured:
+- external paid execution providers
+- provider credentials or API keys
+- private cloud delivery settings
+- automatic uploads unless you explicitly opt into that local behavior
 
 How this improves your work:
 - Codex starts by confirming the task instead of rushing into output
@@ -96,6 +112,9 @@ export async function runOnboarding({ target = process.cwd(), defaults = false, 
     config.response_tone = await ask(rl, "Response tone", defaultsConfig.response_tone);
     config.output_dir = await ask(rl, "Output directory", defaultsConfig.output_dir);
     config.qa_strictness = await askChoice(rl, "QA strictness", defaultsConfig.qa_strictness, ["light", "standard", "strict"]);
+    config.delivery.auto_upload = await askYesNo(rl, "Allow automatic delivery uploads if you later add a delivery integration? yes/no", defaultsConfig.delivery.auto_upload);
+    config.delivery.delivery_requires_current_user_request = await askYesNo(rl, "Require an explicit user request before delivery/export? yes/no", defaultsConfig.delivery.delivery_requires_current_user_request);
+    config.delivery.require_qa_allowlist_for_generated_assets = await askYesNo(rl, "Require QA approval before generated asset delivery? yes/no", defaultsConfig.delivery.require_qa_allowlist_for_generated_assets);
     const recurring = await ask(rl, "Enable 24-hour workflow self-improvement review? yes/no", "no");
     config.workflow_self_improvement.recurring_review_enabled = /^y/i.test(recurring);
     const fullHipson = await ask(rl, "Connect full Hipson now? yes/no", "no");

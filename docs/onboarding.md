@@ -37,6 +37,9 @@ Interactive onboarding asks:
 - `Response tone`, the preferred communication style.
 - `Output directory`, the local folder for workflow outputs and delivery material.
 - `QA strictness`, one of `light`, `standard`, or `strict`.
+- `Allow automatic delivery uploads if you later add a delivery integration?`, disabled by default.
+- `Require an explicit user request before delivery/export?`, enabled by default.
+- `Require QA approval before generated asset delivery?`, enabled by default.
 - `Enable 24-hour workflow self-improvement review?`, disabled by default.
 - `Connect full Hipson now?`, disabled by default.
 - `Use default role names?`, enabled by default.
@@ -82,6 +85,8 @@ Onboarding does not change public workflow logic:
 - provider-neutral boundary
 - privacy rules
 - installer safety rules
+
+Delivery preferences only shape local behavior. They do not add cloud credentials, upload targets, external execution tools, or provider-specific delivery integrations.
 
 Existing project instructions are protected. If a target workspace already has `AGENTS.md`, project-local install writes FrameCore instructions to `AGENTS.framecore.md` unless the user explicitly passes `--force`.
 

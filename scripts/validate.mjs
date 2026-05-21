@@ -468,9 +468,13 @@ for (const doc of requiredDocs) {
 
 const onboardingDoc = join(validationRoot, "docs/onboarding.md");
 if (existsSync(onboardingDoc)) {
-  const sections = markdownSections(read(onboardingDoc));
+  const text = read(onboardingDoc);
+  const sections = markdownSections(text);
   for (const section of ["Purpose", "Defaults", "Interactive Questions", "Installed Files", "Hipson Adapter And Full Hipson", "Safety Boundaries", "Generated Files"]) {
     if (!sections.has(section)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required section: ${section}`, [onboardingDoc]);
+  }
+  for (const phrase of ["Allow automatic delivery uploads", "Require an explicit user request before delivery/export", "Require QA approval before generated asset delivery", "Delivery preferences only shape local behavior"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required delivery-preference phrase: ${phrase}`, [onboardingDoc]);
   }
 }
 
