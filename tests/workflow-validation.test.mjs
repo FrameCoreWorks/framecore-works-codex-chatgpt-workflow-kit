@@ -661,6 +661,21 @@ test("validation rejects weak release readiness docs and workflow safety", () =>
   assert.match(`${result.stderr}${result.stdout}`, /UNSAFE_RELEASE_WORKFLOW/);
 });
 
+test("validation rejects weak repository settings documentation", () => {
+  const dir = copyRepoFixture("framecore-validate-repo-settings-");
+  const repoSettingsDoc = join(dir, "docs/repository-settings.md");
+  writeFileSync(
+    repoSettingsDoc,
+    readFileSync(repoSettingsDoc, "utf8")
+      .replace("## Recommended Minimum", "## Basic Setup")
+      .replace("Block force pushes", "Allow force pushes")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_REPOSITORY_SETTINGS_DOC/);
+});
+
 test("validation rejects weak cross-platform workflow safety", () => {
   const dir = copyRepoFixture("framecore-validate-cross-platform-weak-");
   const workflow = join(dir, ".github/workflows/cross-platform.yml");

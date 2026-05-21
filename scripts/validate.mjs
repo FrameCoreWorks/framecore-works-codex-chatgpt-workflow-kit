@@ -455,6 +455,7 @@ const requiredDocs = [
   "docs/workflow-self-improvement.md",
   "docs/migration-guide.md",
   "docs/agent-roster.md",
+  "docs/repository-settings.md",
   "examples/README.md"
 ];
 for (const doc of requiredDocs) {
@@ -542,6 +543,18 @@ if (existsSync(releaseDoc)) {
   const sections = markdownSections(read(releaseDoc));
   for (const section of ["Purpose", "Release Principles", "Pre-Release Checklist", "Required Checks", "Package Contents Review", "Privacy And Provider-Neutral Gate", "Halt Conditions", "Maintainer Sign-Off", "Tag And Release Flow", "Release Check Workflow", "Rollback"]) {
     if (!sections.has(section)) addFinding("MISSING_RELEASE_DOC_SECTION", `Release guide is missing required section: ${section}`, [releaseDoc]);
+  }
+}
+
+const repositorySettingsDoc = join(validationRoot, "docs/repository-settings.md");
+if (existsSync(repositorySettingsDoc)) {
+  const text = read(repositorySettingsDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Recommended Minimum", "Stronger PR Workflow", "GitHub Actions", "Public Issue Hygiene", "Before Release", "What Stays Optional", "When To Revisit"]) {
+    if (!sections.has(section)) addFinding("WEAK_REPOSITORY_SETTINGS_DOC", `Repository settings guide is missing required section: ${section}`, [repositorySettingsDoc]);
+  }
+  for (const phrase of ["GitHub Desktop", "direct pushes", "Restrict deletions", "Block force pushes", "Require status checks", "read-only permissions", "repository secrets", "fork pull requests", "rotate exposed secrets", "npm run release:check", "npm run package:audit"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_REPOSITORY_SETTINGS_DOC", `Repository settings guide is missing required maintenance phrase: ${phrase}`, [repositorySettingsDoc]);
   }
 }
 

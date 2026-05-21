@@ -42,6 +42,7 @@ Onboarding does not rewrite that workflow logic. It tunes the local workspace: l
 - Maintaining example routes: use each example's checked `workflow.json`.
 - Maintaining artifact contracts: read [Artifact Schemas](docs/artifact-schemas.md).
 - Preparing a release or repo maintenance change: read [Release Guide](docs/release.md).
+- Configuring GitHub protections for this public repo: read [Repository Settings](docs/repository-settings.md).
 - Already installing: use the short install flow below.
 
 ## What It Installs
@@ -245,6 +246,7 @@ See also:
 - [Workflow Self-Improvement](docs/workflow-self-improvement.md)
 - [Migration Guide](docs/migration-guide.md)
 - [Agent Roster](docs/agent-roster.md)
+- [Repository Settings](docs/repository-settings.md)
 - [Examples Index](examples/README.md)
 - [End-To-End Creative Workflow Example](examples/end-to-end-creative-workflow/README.md)
 - [Minimal Workflow Example](examples/minimal-workflow/README.md)
