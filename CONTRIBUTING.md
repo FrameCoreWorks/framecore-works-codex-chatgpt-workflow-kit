@@ -52,6 +52,7 @@ If a pull request changes a skill contract, role, gate, handoff, artifact templa
 - `docs/workflow-stages.md`
 - `docs/architecture.md`
 - `docs/onboarding.md`
+- `docs/example-authoring.md`
 - `docs/release.md`
 - `examples/README.md`
 - the closest workflow example under `examples/`

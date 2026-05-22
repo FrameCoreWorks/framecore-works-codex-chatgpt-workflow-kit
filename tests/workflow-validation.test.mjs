@@ -754,6 +754,21 @@ test("validation rejects weak post-install usage guide", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_USING_THE_KIT_DOC/);
 });
 
+test("validation rejects weak example authoring guide", () => {
+  const dir = copyRepoFixture("framecore-validate-example-authoring-");
+  const doc = join(dir, "docs/example-authoring.md");
+  writeFileSync(
+    doc,
+    readFileSync(doc, "utf8")
+      .replace("## `workflow.json` Contract", "## Workflow File")
+      .replace("neutral role IDs", "role names")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_EXAMPLE_AUTHORING_DOC/);
+});
+
 test("validation rejects weak agent roster guide", () => {
   const dir = copyRepoFixture("framecore-validate-agent-roster-");
   const doc = join(dir, "docs/agent-roster.md");

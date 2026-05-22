@@ -49,6 +49,7 @@ Onboarding does not rewrite that workflow logic. It tunes the local workspace: l
 - Using the kit with a team: read [Team Configuration](docs/team-configuration.md).
 - Want to see a complete workflow specimen: open [End-To-End Creative Workflow Example](examples/end-to-end-creative-workflow/README.md).
 - Maintaining example routes: use each example's checked `workflow.json`.
+- Adding or maintaining public examples: read [Example Authoring](docs/example-authoring.md).
 - Maintaining artifact contracts: read [Artifact Schemas](docs/artifact-schemas.md).
 - Preparing a release or repo maintenance change: read [Release Guide](docs/release.md).
 - Migrating reusable workflow logic from another setup: read [Migration Guide](docs/migration-guide.md).
@@ -253,6 +254,7 @@ See also:
 - [Roadmap](docs/roadmap.md)
 - [Architecture](docs/architecture.md)
 - [Artifact Schemas](docs/artifact-schemas.md)
+- [Example Authoring](docs/example-authoring.md)
 - [Workflow Stages](docs/workflow-stages.md)
 - [Onboarding](docs/onboarding.md)
 - [Customization](docs/customization.md)

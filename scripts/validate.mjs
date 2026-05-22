@@ -452,6 +452,7 @@ const requiredDocs = [
   "docs/release-notes-template.md",
   "docs/architecture.md",
   "docs/artifact-schemas.md",
+  "docs/example-authoring.md",
   "docs/workflow-stages.md",
   "docs/onboarding.md",
   "docs/customization.md",
@@ -544,6 +545,18 @@ if (existsSync(usingTheKitDoc)) {
   }
   for (const phrase of ["Read AGENTS.md", "AGENTS.framecore.md", "project-local", "Do not use external execution tools", "GPT Image 2", "Full Hipson remains separate and optional", "workflow-self-improvement", "QA And Delivery Review", "workflow.json", "neutral role IDs"]) {
     if (!text.includes(phrase)) addFinding("WEAK_USING_THE_KIT_DOC", `Using The Kit guide is missing required usage phrase: ${phrase}`, [usingTheKitDoc]);
+  }
+}
+
+const exampleAuthoringDoc = join(validationRoot, "docs/example-authoring.md");
+if (existsSync(exampleAuthoringDoc)) {
+  const text = read(exampleAuthoringDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "When To Add An Example", "Required Files", "`workflow.json` Contract", "README Structure", "Route And Handoff Rules", "Privacy Requirements", "Validation Steps", "Review Checklist"]) {
+    if (!sections.has(section)) addFinding("WEAK_EXAMPLE_AUTHORING_DOC", `Example authoring guide is missing required section: ${section}`, [exampleAuthoringDoc]);
+  }
+  for (const phrase of ["README.md", "workflow.json", "example_id", "Workflow Blueprints", "Gate Registry", "Handoff Matrix", "neutral role IDs", "npm run cleanup:appledouble -- --apply", "npm run release:check", "private cloud links or IDs"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_EXAMPLE_AUTHORING_DOC", `Example authoring guide is missing required authoring phrase: ${phrase}`, [exampleAuthoringDoc]);
   }
 }
 

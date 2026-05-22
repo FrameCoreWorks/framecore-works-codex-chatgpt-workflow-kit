@@ -63,6 +63,7 @@ Public examples should cover the main workflow categories:
 - static campaign
 - ecommerce product visual
 - video storyboard
+- storyboard board artifact
 - image prompt pack
 - HyperFrames coded-video workflow
 - document workflow
@@ -80,6 +81,7 @@ v1.0 docs should give a new user a complete path:
 - Using The Kit gives post-install starter prompts, route choice guidance, execution boundaries, Hipson Adapter prompts, and safety reminders
 - Troubleshooting covers common install, privacy, package, config, Codex loading, update, repair, uninstall, and text-image issues
 - Architecture explains roles, skills, gates, handoffs, artifacts, examples, and provider boundaries
+- Example Authoring explains how maintainers add validated public examples without weakening privacy or route checks
 - Compatibility explains Node.js, OS expectations, Codex assumptions, install modes, manifests, external tool boundary, and support baseline
 - Migration Guide explains role ID migration, local config boundaries, manifest lifecycle, update, repair, rollback, validation, and release notes
 - Release, Roadmap, Repository Settings, Security, Support, and Contributing stay aligned with current behavior

@@ -23,6 +23,7 @@ Additional minimal contract fixtures live under `contract-fixtures/artifacts/`. 
 ## How To Read The Examples
 
 - Treat each example as a workflow route, not a fixed template for every task.
+- When adding or changing examples, follow [Example Authoring](../docs/example-authoring.md).
 - For starter prompts after installation, read [Using The Kit](../docs/using-the-kit.md).
 - Use the listed artifacts to understand what the next role expects.
 - Treat `workflow.json` as the canonical checked route when contributing changes.
