@@ -59,6 +59,7 @@ npm run audit:privacy
 npm run validate
 npm test
 npm run check
+npm run smoke:install
 npm run package:audit
 npm run package:list
 npm run release:readiness
@@ -66,6 +67,8 @@ npm run release:check
 ```
 
 The release-check workflow must remain non-publishing, read-only, and secret-free. It should verify the same local gate a maintainer runs before release.
+
+`smoke:install` creates a temporary target, runs default onboarding through the guided project-local installer, verifies expected installed files and manifest hashes, runs doctor, and previews uninstall without removing files.
 
 `release:readiness` checks package metadata, required package file roots, changelog coverage for the package version, and optional release tag alignment. In GitHub tag workflows, the tag must match `v` plus the `package.json` version.
 

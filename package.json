@@ -63,7 +63,8 @@
     "package:list": "node scripts/package-list.mjs",
     "render:agents": "node scripts/render-agents.mjs",
     "release:readiness": "node scripts/release-readiness.mjs",
-    "release:check": "npm run check && npm run package:audit && npm run release:readiness",
+    "release:check": "npm run check && npm run smoke:install && npm run package:audit && npm run release:readiness",
+    "smoke:install": "node scripts/smoke-install.mjs",
     "test": "node --test",
     "validate": "node scripts/validate.mjs",
     "check": "npm run audit:privacy && npm run validate && npm test"

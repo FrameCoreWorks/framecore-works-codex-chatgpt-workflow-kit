@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, sep } from "node:path";
-import { hasHelpFlag, printHelpAndExit, repoRoot, readJson } from "./common.mjs";
+import { assertNoSymlinkPath, hasHelpFlag, printHelpAndExit, repoRoot, readJson } from "./common.mjs";
 import { assertValidFrameCoreConfig } from "./config-validation.mjs";
 
 function toManifestPath(target, destination) {
@@ -27,6 +27,7 @@ function safeTemplateValue(value) {
 
 function writeRenderedFile({ target, destination, content, dryRun, previousManaged, force }) {
   const rel = toManifestPath(target, destination);
+  assertNoSymlinkPath(target, destination);
   if (existsSync(destination) && !previousManaged.has(rel) && !force) {
     throw new Error(`refusing to overwrite user-owned file: ${rel}. Re-run with --force only if this is intentional.`);
   }

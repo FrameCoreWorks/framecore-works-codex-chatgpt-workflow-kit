@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "no
 import { dirname, join } from "node:path";
 import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { hasHelpFlag, printHelpAndExit, repoRoot, readJson } from "./common.mjs";
+import { assertNoSymlinkPath, hasHelpFlag, printHelpAndExit, repoRoot, readJson } from "./common.mjs";
 import { assertValidFrameCoreConfig } from "./config-validation.mjs";
 
 function argValue(name, fallback) {
@@ -148,6 +148,7 @@ export async function runOnboarding({ target = process.cwd(), defaults = false, 
   }
 
   assertValidFrameCoreConfig(config);
+  assertNoSymlinkPath(target, configPath);
 
   if (existsSync(configPath)) {
     writeFileSync(nextBackupPath(configPath), readFileSync(configPath, "utf8"));
@@ -159,6 +160,7 @@ export async function runOnboarding({ target = process.cwd(), defaults = false, 
   if (config.workflow_self_improvement.recurring_review_enabled) {
     const recipeSource = join(repoRoot, "config/automation-recipes/workflow-self-improvement-review.example.json");
     const recipeTarget = join(target, ".framecore/automation-recipes/workflow-self-improvement-review.json");
+    assertNoSymlinkPath(target, recipeTarget);
     mkdirSync(dirname(recipeTarget), { recursive: true });
     writeFileSync(recipeTarget, readFileSync(recipeSource, "utf8"));
   }

@@ -23,6 +23,7 @@ Default recommendation: use the guided project-local installer unless you have a
 | `npm run validate` | workflow structure validation | no |
 | `npm test` | automated tests | no repo writes expected |
 | `npm run release:check` | full release gate | no repo writes expected |
+| `npm run smoke:install` | temporary project-local install smoke test | writes only to a temporary target |
 | `npm run package:list` | npm package dry-run preview | no |
 | `npm run package:audit` | package contents gate | no |
 | `npm run cleanup:appledouble -- --apply` | remove AppleDouble sidecars | yes, only `._*` metadata files |
@@ -49,6 +50,7 @@ Use these before editing or releasing:
 - `npm run check`
 - `npm run package:audit`
 - `npm run release:check`
+- `npm run smoke:install`
 - `node scripts/doctor.mjs --target <path>`
 - `node scripts/install.mjs --mode dry-run --target <path>`
 
@@ -89,7 +91,7 @@ npm run release:check
 npm run package:list
 ```
 
-`release:check` runs privacy audit, workflow validation, tests, package audit, and release readiness. `package:list` is a read-only npm package dry-run preview so maintainers can inspect exactly what would ship.
+`release:check` runs privacy audit, workflow validation, tests, install smoke test, package audit, and release readiness. `package:list` is a read-only npm package dry-run preview so maintainers can inspect exactly what would ship.
 
 ## Safety Rules
 

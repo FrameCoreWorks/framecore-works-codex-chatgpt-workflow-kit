@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, lstatSync, readFileSync } from "node:fs";
 import { isAbsolute, resolve, sep } from "node:path";
 
 function isPlainObject(value) {
@@ -43,8 +43,13 @@ export function validateManifest(target, manifest) {
     seen.add(entry);
     try {
       const resolved = resolveManagedPath(target, entry);
-      if (existsSync(resolved) && statSync(resolved).isDirectory()) {
-        errors.push(`manifest managed path points to a directory: ${entry}`);
+      if (existsSync(resolved)) {
+        const stats = lstatSync(resolved);
+        if (stats.isSymbolicLink()) {
+          errors.push(`manifest managed path points to a symlink: ${entry}`);
+        } else if (stats.isDirectory()) {
+          errors.push(`manifest managed path points to a directory: ${entry}`);
+        }
       }
     } catch {
       errors.push("manifest contains an unsafe managed path entry");

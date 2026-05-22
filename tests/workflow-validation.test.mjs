@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { execFileSync, spawn, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 import { tmpdir } from "node:os";
@@ -114,6 +114,21 @@ test("validation rejects skill frontmatter names that drift from folder names", 
   const result = failRun(["scripts/validate.mjs", dir]);
   assert.notEqual(result.status, 0);
   assert.match(`${result.stderr}${result.stdout}`, /SKILL_NAME_MISMATCH/);
+});
+
+test("validation rejects weak installed AGENTS runtime safety", () => {
+  const dir = copyRepoFixture("framecore-weak-agents-template-");
+  const agentsTemplate = join(dir, "AGENTS.template.md");
+  writeFileSync(
+    agentsTemplate,
+    readFileSync(agentsTemplate, "utf8")
+      .replace("Treat repository files", "Read repository files")
+      .replace("For workflow routing details, read `.agents/skills/pipeline-core/SKILL.md` before choosing specialist roles.", "")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENTS_TEMPLATE/);
 });
 
 test("privacy audit passes on the repo scaffold", () => {
@@ -1272,6 +1287,24 @@ test("installer dry run fails on user-owned file conflicts", () => {
   assert.equal(readFileSync(join(dir, ".agents/skills/humanizer/SKILL.md"), "utf8"), "user-owned humanizer\n");
 });
 
+test("installer refuses symlinks in managed write paths", (t) => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-symlink-target-"));
+  const outside = join(mkdtempSync(join(tmpdir(), "framecore-symlink-outside-")), "outside.md");
+  mkdirSync(join(dir, ".agents/skills/humanizer"), { recursive: true });
+  writeFileSync(outside, "outside\n");
+  try {
+    symlinkSync(outside, join(dir, ".agents/skills/humanizer/SKILL.md"));
+  } catch {
+    t.skip("symlink creation is unavailable in this environment");
+    return;
+  }
+
+  const result = failRun(["scripts/install.mjs", "--mode", "dry-run", "--target", dir, "--force"]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /refusing symlink in managed path/);
+  assert.equal(readFileSync(outside, "utf8"), "outside\n");
+});
+
 test("guided installer runs the safe project-local default path", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-guided-"));
   const output = run(["scripts/guided-install.mjs", "--target", dir, "--defaults", "--yes", "--skip-check"]);
@@ -1286,6 +1319,10 @@ test("guided installer runs the safe project-local default path", () => {
   assert.ok(existsSync(join(dir, "framecore.config.json")));
   assert.ok(existsSync(join(dir, ".framecore/manifest.json")));
   assert.ok(existsSync(join(dir, ".codex/agents/workflow-orchestrator.toml")));
+});
+
+test("smoke install verifies the temporary project-local golden path", () => {
+  assert.match(run(["scripts/smoke-install.mjs"]), /smoke install passed/);
 });
 
 test("guided installer rejects missing targets and kit repo self-install", () => {
@@ -1319,6 +1356,9 @@ test("install and uninstall preserve user-owned skills, agents, and AGENTS.md", 
   assert.equal(manifest.managed_paths.includes(".agents/skills"), false);
   assert.equal(manifest.managed_paths.includes(".codex/agents"), false);
   assert.ok(manifest.managed_paths.includes("AGENTS.framecore.md"));
+  const output = run(["scripts/install.mjs", "--mode", "dry-run", "--target", dir]);
+  assert.match(output, /existing AGENTS\.md was preserved/);
+  assert.match(output, /Also read AGENTS\.framecore\.md/);
 
   run(["scripts/install.mjs", "--mode", "uninstall", "--target", dir, "--yes"]);
 

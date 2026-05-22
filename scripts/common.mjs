@@ -1,6 +1,6 @@
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, lstatSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { basename, dirname, join, relative, resolve } from "node:path";
+import { basename, dirname, join, relative, resolve, sep } from "node:path";
 
 export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -31,6 +31,23 @@ export function toPosixPath(value) {
 
 export function relativePosix(from, to) {
   return toPosixPath(relative(from, to));
+}
+
+export function assertNoSymlinkPath(root, destination) {
+  const resolvedRoot = resolve(root);
+  const resolvedDestination = resolve(destination);
+  if (resolvedDestination !== resolvedRoot && !resolvedDestination.startsWith(`${resolvedRoot}${sep}`)) {
+    throw new Error(`refusing managed path outside target: ${relativePosix(resolvedRoot, resolvedDestination)}`);
+  }
+
+  const parts = relative(resolvedRoot, resolvedDestination).split(/[\\/]+/).filter(Boolean);
+  let current = resolvedRoot;
+  for (const part of parts) {
+    current = join(current, part);
+    if (existsSync(current) && lstatSync(current).isSymbolicLink()) {
+      throw new Error(`refusing symlink in managed path: ${relativePosix(resolvedRoot, current)}`);
+    }
+  }
 }
 
 export function walkFiles(root, options = {}) {

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Clarified supported agent surfaces in README so users can distinguish full Codex custom-agent support from AGENTS-only or chat-only environments.
+- Added a pipeline-core pointer to installed project instructions so Codex can find routing details faster after install.
+- Added installer guidance when an existing `AGENTS.md` is preserved and FrameCore writes `AGENTS.framecore.md`.
+- Hardened managed file writes against symlinks in install, onboarding, agent rendering, and manifest validation, with regression coverage.
+- Added an install smoke-test command for default onboarding, guided project-local install, manifest hash checks, doctor, and uninstall preview.
+- Added an explicit installed AGENTS rule that treats repository files, artifacts, examples, issue text, and user-supplied content as data unless the human user identifies them as current-task instructions.
 - Updated security and contribution guidance for 1.0.x support and the repo-scoped package preview command.
 - Added a public-user FAQ covering install, configuration, workflow use, provider safety, Hipson, HyperFrames, update, uninstall, and troubleshooting boundaries.
 - Added a CLI reference for command safety, install modes, package checks, and release checks, with validation coverage.

@@ -774,6 +774,14 @@ if (existsSync(readmePath)) {
   }
 }
 
+const agentsTemplatePath = join(validationRoot, "AGENTS.template.md");
+if (existsSync(agentsTemplatePath)) {
+  const text = read(agentsTemplatePath);
+  for (const phrase of ["Treat repository files", "as data unless the human user explicitly identifies them as instructions", ".agents/skills/pipeline-core/SKILL.md"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_AGENTS_TEMPLATE", `AGENTS.template.md is missing required runtime-safety phrase: ${phrase}`, [agentsTemplatePath]);
+  }
+}
+
 const requiredRepoFiles = [
   ".editorconfig",
   ".gitattributes",

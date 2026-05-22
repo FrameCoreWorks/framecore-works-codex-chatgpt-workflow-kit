@@ -2,7 +2,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, sep } from "node:path";
 import { homedir } from "node:os";
-import { hasHelpFlag, printHelpAndExit, readJson, repoRoot, walkFiles } from "./common.mjs";
+import { assertNoSymlinkPath, hasHelpFlag, printHelpAndExit, readJson, repoRoot, walkFiles } from "./common.mjs";
 import { assertValidManifest, resolveManagedPath, sha256File } from "./manifest.mjs";
 import { renderAgents } from "./render-agents.mjs";
 import { assertValidFrameCoreConfig } from "./config-validation.mjs";
@@ -77,6 +77,7 @@ function nextBackupPath(destination) {
 function writeManagedFile({ target, destination, content, dryRun, planned, managed, previousManaged, force, includeManagedPath = () => true }) {
   const rel = toManifestPath(target, destination);
   if (!includeManagedPath(rel)) return false;
+  assertNoSymlinkPath(target, destination);
   planned.push(destination);
   managed.push(rel);
 
@@ -194,6 +195,7 @@ function install({ mode }) {
   managed.push(...renderedAgents.map((file) => toManifestPath(target, file)));
 
   const agentsInstructionPath = chooseAgentsInstructionPath({ target, previousManaged, force, repair });
+  const wroteFrameCoreAgents = agentsInstructionPath && toManifestPath(target, agentsInstructionPath) === "AGENTS.framecore.md";
   if (agentsInstructionPath) {
     writeManagedFile({
       target,
@@ -209,6 +211,7 @@ function install({ mode }) {
   }
 
   const manifestPath = join(target, ".framecore/manifest.json");
+  assertNoSymlinkPath(target, manifestPath);
   const manifestRel = toManifestPath(target, manifestPath);
   planned.push(manifestPath);
   const manifestManaged = repair ? [...previousManaged] : [...new Set([...managed, manifestRel])].sort();
@@ -224,6 +227,10 @@ function install({ mode }) {
 
   for (const item of planned) {
     console.log(`${dryRun ? "would write" : "wrote"} ${item}`);
+  }
+  if (wroteFrameCoreAgents) {
+    console.log("note: existing AGENTS.md was preserved. Ask Codex to read both AGENTS.md and AGENTS.framecore.md.");
+    console.log("optional pointer for your existing AGENTS.md: Also read AGENTS.framecore.md for FrameCore Works workflow instructions.");
   }
 }
 

@@ -5,7 +5,8 @@
 
 Licensed under Apache-2.0. See [NOTICE](NOTICE) for redistribution notice details.
 
-From the Codex workspace where you want to install the kit, give Codex this instruction:
+If your Codex environment can clone repositories and run local shell commands, for example OpenAI Codex CLI with workspace write access, give Codex this instruction from the workspace where you want to install the kit.
+If your agent or chat surface cannot run shell commands, use the manual [Install Flow](#install-flow) instead.
 
 ```text
 Clone https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit.git into a temporary or tools folder outside the target workspace, read its README, docs/quickstart.md, and docs/codex-assisted-install.md, then install it into my current workspace.
@@ -27,6 +28,26 @@ Do not use global install and do not enable external execution tools unless I ex
 FrameCore Works Skill Kit is a provider-neutral workflow system for Codex. It installs role-based agents, skills, templates, handoff rules, QA gates, Humanizer, HyperFrames workflow knowledge, a lightweight Hipson Adapter, and an explicit workflow self-improvement loop.
 
 Provider-neutral means this kit does not ship external paid media-provider clients, endpoint catalogs, provider CLIs, API-key workflows, or paid execution routes. The text-bearing image rule may still route to the native Codex/ChatGPT image generator when that built-in capability is available. See [Provider-Neutral Boundary](docs/provider-neutral-boundary.md).
+
+This kit ships the routing and contract layer for creative work. It gives Codex roles, gates, handoffs, artifact templates, examples, QA discipline, and safety boundaries. It does not replace your own domain knowledge, brand context, references, or user-configured execution tools.
+
+## Supported Agent Surfaces
+
+| Surface | What works | Notes |
+| --- | --- | --- |
+| OpenAI Codex CLI with custom-agent support | Full project-local install, `AGENTS.md`, skills, rendered `.codex/agents/*.toml`, guided install, doctor, update, repair, uninstall | Recommended full experience. |
+| OpenAI Codex or ChatGPT environments that read project instructions but do not expose custom-agent spawning | `AGENTS.md`, installed skills, workflow docs, examples, artifact contracts | `.codex/agents/*.toml` may be inert, but the workflow contracts remain useful. |
+| Other AGENTS-aware coding agents or editors | `AGENTS.md`, docs, examples, and reusable skill files when read manually | Custom-agent `.toml` files are Codex-specific and may not be consumed. |
+| Chat-only environments without shell access | Documentation and manual guidance only | Clone and run the install commands from a local terminal or shell-capable Codex workspace. |
+
+## Execution Boundary
+
+| Path | Included in this repo | What it does |
+| --- | --- | --- |
+| Prompt-only workflow | Yes | Produces briefs, reference packs, direction, prompt packs, QA criteria, and delivery notes. |
+| Built-in Codex/ChatGPT image generation for text-bearing raster graphics | Policy only | Allowed when available and explicitly requested; visible text is generated in one pass. |
+| External paid media-provider execution | No | Users may add their own tools outside this public kit. |
+| Full Hipson | No | The included Hipson Adapter is lightweight; full Hipson remains separate and optional. |
 
 ## Mental Model
 
@@ -97,6 +118,14 @@ npm run install:guided -- --target /path/to/your/project --defaults --yes
 ```
 
 The guided installer refuses missing targets, runs repository checks, runs doctor/preflight, runs onboarding, performs a post-onboarding dry-run, asks before the final install unless `--yes` is used, and installs project-local only.
+
+To verify the golden install path in a temporary target without touching a real project:
+
+```bash
+npm run smoke:install
+```
+
+The smoke check runs default onboarding, guided project-local install, expected file checks, manifest hash checks, doctor/preflight, and uninstall preview.
 
 Manual fallback:
 
@@ -234,13 +263,14 @@ npm run audit:privacy
 npm run validate
 npm test
 npm run check
+npm run smoke:install
 npm run release:check
 npm run package:list
 node scripts/doctor.mjs --help
 node scripts/install.mjs --help
 ```
 
-`npm run check` is the expected CI path.
+`npm run check` is the expected CI path. `npm run release:check` adds the install smoke test, package audit, and release-readiness gate.
 
 See also:
 
