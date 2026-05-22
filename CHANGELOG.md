@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Updated security and contribution guidance for 1.0.x support and the repo-scoped package preview command.
 - Added a public-user FAQ covering install, configuration, workflow use, provider safety, Hipson, HyperFrames, update, uninstall, and troubleshooting boundaries.
 - Added a CLI reference for command safety, install modes, package checks, and release checks, with validation coverage.
 - Expanded artifact schema and workflow stage docs with validation coverage for contract and routing guidance.

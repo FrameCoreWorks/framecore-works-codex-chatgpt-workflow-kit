@@ -68,7 +68,7 @@ Before creating a public tag or GitHub release:
 ```bash
 npm run release:check
 npm run package:audit
-npm pack --dry-run
+npm run package:list
 ```
 
 Then confirm:

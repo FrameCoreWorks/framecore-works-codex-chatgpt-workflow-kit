@@ -1040,6 +1040,7 @@ test("validation rejects weak support and security docs", () => {
     securityDoc,
     readFileSync(securityDoc, "utf8")
       .replace("## Response Process", "## Handling")
+      .replace("1.0.x", "0.1.x")
       .replace("version, tag, or commit SHA", "version")
   );
 
@@ -1056,12 +1057,28 @@ test("validation rejects weak repository settings documentation", () => {
     repoSettingsDoc,
     readFileSync(repoSettingsDoc, "utf8")
       .replace("## Recommended Minimum", "## Basic Setup")
+      .replace("npm run package:list", "npm pack --dry-run")
       .replace("Block force pushes", "Allow force pushes")
   );
 
   const result = failRun(["scripts/validate.mjs", dir]);
   assert.notEqual(result.status, 0);
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_REPOSITORY_SETTINGS_DOC/);
+});
+
+test("validation rejects weak pull request template", () => {
+  const dir = copyRepoFixture("framecore-validate-pr-template-");
+  const template = join(dir, ".github/pull_request_template.md");
+  writeFileSync(
+    template,
+    readFileSync(template, "utf8")
+      .replace("npm run package:list", "npm pack --dry-run")
+      .replace("Release Impact", "Release Notes")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_PULL_REQUEST_TEMPLATE/);
 });
 
 test("validation rejects weak cross-platform workflow safety", () => {

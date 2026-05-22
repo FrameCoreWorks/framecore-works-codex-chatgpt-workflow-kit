@@ -34,7 +34,7 @@
 
 - [ ] `npm run check`
 - [ ] `npm run release:check`
-- [ ] `npm pack --dry-run`
+- [ ] `npm run package:list`
 
 ## Notes
 

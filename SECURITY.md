@@ -6,7 +6,8 @@ Do not commit secrets, private keys, credentials, raw private URLs, personal clo
 
 | Version | Status |
 | --- | --- |
-| 0.1.x | Supported for security reports and privacy fixes |
+| 1.0.x | Supported for security reports and privacy fixes |
+| 0.1.x | Security reports accepted; upgrade to 1.0.x is recommended |
 
 ## Reporting A Vulnerability
 
@@ -42,7 +43,7 @@ npm run audit:privacy
 npm run validate
 npm test
 npm run release:check
-npm pack --dry-run
+npm run package:list
 ```
 
 The privacy audit is intentionally strict. If it blocks a release, remove the sensitive content or move the test case into a temporary fixture generated at test time.

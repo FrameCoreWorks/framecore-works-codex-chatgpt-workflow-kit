@@ -807,11 +807,19 @@ for (const file of requiredRepoFiles) {
 const contributingDoc = join(validationRoot, "CONTRIBUTING.md");
 if (existsSync(contributingDoc)) {
   const text = read(contributingDoc);
-  for (const phrase of ["default validate workflow", "Ubuntu with Node 20 and 22", "manual cross-platform workflow", "Ubuntu, macOS, and Windows with Node 20", ".editorconfig", ".gitattributes"]) {
+  for (const phrase of ["default validate workflow", "Ubuntu with Node 20 and 22", "manual cross-platform workflow", "Ubuntu, macOS, and Windows with Node 20", ".editorconfig", ".gitattributes", "npm run package:list"]) {
     if (!text.includes(phrase)) addFinding("WEAK_CONTRIBUTING_CI_DOC", `Contributing guide must accurately describe CI coverage: ${phrase}`, [contributingDoc]);
   }
   if (/CI runs the same checks on Linux, macOS, and Windows with Node 20 and 22/.test(text)) {
     addFinding("WEAK_CONTRIBUTING_CI_DOC", "Contributing guide must not imply every PR runs cross-platform Node 20/22 checks.", [contributingDoc]);
+  }
+}
+
+const pullRequestTemplate = join(validationRoot, ".github/pull_request_template.md");
+if (existsSync(pullRequestTemplate)) {
+  const text = read(pullRequestTemplate);
+  for (const phrase of ["npm run check", "npm run release:check", "npm run package:list", "No secrets", "Neutral role IDs", "Text-bearing image policy", "Release Impact"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_PULL_REQUEST_TEMPLATE", `Pull request template is missing required review phrase: ${phrase}`, [pullRequestTemplate]);
   }
 }
 
@@ -897,7 +905,7 @@ if (existsSync(securityDoc)) {
   for (const section of ["Supported Versions", "Reporting A Vulnerability", "Response Process", "Useful Evidence", "Release Checks", "Scope"]) {
     if (!sections.has(section)) addFinding("WEAK_SECURITY_DOC", `Security guide is missing required section: ${section}`, [securityDoc]);
   }
-  for (const phrase of ["private vulnerability reporting", "acknowledge", "sanitized", "version, tag, or commit SHA", "operating system and Node.js version"]) {
+  for (const phrase of ["1.0.x", "private vulnerability reporting", "acknowledge", "sanitized", "version, tag, or commit SHA", "operating system and Node.js version", "npm run package:list"]) {
     if (!text.includes(phrase)) addFinding("WEAK_SECURITY_DOC", `Security guide is missing required reporting phrase: ${phrase}`, [securityDoc]);
   }
 }
@@ -909,7 +917,7 @@ if (existsSync(repositorySettingsDoc)) {
   for (const section of ["Purpose", "Recommended Minimum", "Stronger PR Workflow", "GitHub Actions", "Public Issue Hygiene", "Before Release", "What Stays Optional", "When To Revisit"]) {
     if (!sections.has(section)) addFinding("WEAK_REPOSITORY_SETTINGS_DOC", `Repository settings guide is missing required section: ${section}`, [repositorySettingsDoc]);
   }
-  for (const phrase of ["GitHub Desktop", "direct pushes", "Restrict deletions", "Block force pushes", "Require status checks", "read-only permissions", "repository secrets", "fork pull requests", "rotate exposed secrets", "npm run release:check", "npm run package:audit"]) {
+  for (const phrase of ["GitHub Desktop", "direct pushes", "Restrict deletions", "Block force pushes", "Require status checks", "read-only permissions", "repository secrets", "fork pull requests", "rotate exposed secrets", "npm run release:check", "npm run package:audit", "npm run package:list"]) {
     if (!text.includes(phrase)) addFinding("WEAK_REPOSITORY_SETTINGS_DOC", `Repository settings guide is missing required maintenance phrase: ${phrase}`, [repositorySettingsDoc]);
   }
 }
