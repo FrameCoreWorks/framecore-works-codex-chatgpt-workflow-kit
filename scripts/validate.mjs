@@ -547,6 +547,21 @@ if (existsSync(usingTheKitDoc)) {
   }
 }
 
+const agentRosterDoc = join(validationRoot, "docs/agent-roster.md");
+if (existsSync(agentRosterDoc)) {
+  const text = read(agentRosterDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "How Role Selection Works", "Role Roster", "Common Selection Patterns", "Local Display Names", "Handoff Discipline", "Provider-Neutral Boundaries", "Related Docs"]) {
+    if (!sections.has(section)) addFinding("WEAK_AGENT_ROSTER_DOC", `Agent roster guide is missing required section: ${section}`, [agentRosterDoc]);
+  }
+  for (const role of requiredRoles) {
+    if (!text.includes(`\`${role}\``)) addFinding("WEAK_AGENT_ROSTER_DOC", `Agent roster guide must document role ID: ${role}`, [agentRosterDoc]);
+  }
+  for (const phrase of ["neutral role IDs", "local display names", "Task Confirmation", "Project State", "Review gate", "Common handoff", "Stop before `tool-routing-cost`", "GPT Image 2 one-pass policy", "Handoff Matrix"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_AGENT_ROSTER_DOC", `Agent roster guide is missing required role-selection phrase: ${phrase}`, [agentRosterDoc]);
+  }
+}
+
 const compatibilityDoc = join(validationRoot, "docs/compatibility.md");
 if (existsSync(compatibilityDoc)) {
   const text = read(compatibilityDoc);

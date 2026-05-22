@@ -745,6 +745,22 @@ test("validation rejects weak post-install usage guide", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_USING_THE_KIT_DOC/);
 });
 
+test("validation rejects weak agent roster guide", () => {
+  const dir = copyRepoFixture("framecore-validate-agent-roster-");
+  const doc = join(dir, "docs/agent-roster.md");
+  writeFileSync(
+    doc,
+    readFileSync(doc, "utf8")
+      .replace("## How Role Selection Works", "## Role Notes")
+      .replace("`workflow-orchestrator`", "`route-owner`")
+      .replace("local display names", "local names")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENT_ROSTER_DOC/);
+});
+
 test("validation rejects weak compatibility documentation", () => {
   const dir = copyRepoFixture("framecore-validate-compatibility-");
   const compatibilityDoc = join(dir, "docs/compatibility.md");
