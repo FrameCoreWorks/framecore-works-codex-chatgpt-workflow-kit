@@ -4,6 +4,14 @@ FrameCore Works routes work through explicit stages. Each stage has a role, an i
 
 Read each row as an operational contract: the owner receives input, produces the artifact, passes the gate, then hands off only to an allowed next role.
 
+## Purpose
+
+This guide gives maintainers and new users a compact map of the default pipeline. It does not replace the gate registry, handoff matrix, workflow blueprints, artifact schemas, or agent templates. Those files remain the canonical source for validation.
+
+Use this page when deciding where a task should enter the pipeline, which artifact should exist before the next role acts, and which stage owns a loopback.
+
+## Stage Matrix
+
 | Stage | Owner Role | Input | Output Artifact | Gate | Next Handoff |
 | --- | --- | --- | --- | --- | --- |
 | Intent lock | `intent-confirmation` | raw user request | Task Confirmation | `intent_lock` | `workflow-orchestrator` |
@@ -32,13 +40,35 @@ Read each row as an operational contract: the owner receives input, produces the
 - If a generated or produced asset fails QA, return to the role that can correct the source instruction.
 - If delivery is requested without QA for generated assets, route through `qa-iteration` first.
 
+Loopbacks should preserve accepted upstream artifacts unless the failed gate proves that an upstream decision is wrong or incomplete.
+
 ## No-Provider Mode
 
 The workflow remains useful without external execution. In no-provider mode, stop at planning artifacts such as Brief Contract, Reference Pack, Direction Contract, Prompt Pack, QA criteria, and Delivery Manifest.
 
+Do not route into `tool-routing-cost`, `execution-manifest`, or provider-specific execution unless the user explicitly asks for execution and the project has a separate provider policy.
+
 ## Common Blueprints
 
 Common workflow routes live in [Workflow Blueprints](../.agents/skills/pipeline-core/references/workflow-blueprints.md). Use them as starting routes for static/e-commerce graphics, video storyboards, storyboard boards, HyperFrames coded video, prompt packs without execution, QA/delivery-only work, and explicit workflow self-improvement reviews.
+
+## Example Routes
+
+Public examples include checked `workflow.json` manifests. Each manifest lists route roles, gates, artifacts, and handoffs. Validation rejects unknown role IDs, unknown gates, unknown artifacts, and route handoffs that are not listed in the handoff matrix.
+
+Use examples to teach routing patterns, not to define new canonical stages.
+
+## Validation
+
+`npm run validate` checks the canonical files behind this page:
+
+- role IDs from `config/agent-naming.schema.json`
+- review gates from the gate registry
+- handoff pairs from the handoff matrix
+- artifacts from `config/artifact-schemas.json`
+- example workflow manifests from `examples/*/workflow.json`
+
+If this guide changes the expected route language, update the canonical files and tests in the same change.
 
 ## Related Files
 

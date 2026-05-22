@@ -602,6 +602,30 @@ if (existsSync(compatibilityDoc)) {
   }
 }
 
+const artifactSchemasDoc = join(validationRoot, "docs/artifact-schemas.md");
+if (existsSync(artifactSchemasDoc)) {
+  const text = read(artifactSchemasDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Files", "Schema Contract", "Fixture Rules", "Validation", "Adding An Artifact", "Halt Conditions"]) {
+    if (!sections.has(section)) addFinding("WEAK_ARTIFACT_SCHEMAS_DOC", `Artifact schemas guide is missing required section: ${section}`, [artifactSchemasDoc]);
+  }
+  for (const phrase of ["config/artifact-schemas.json", "required_fields", "example_paths", "gate-required artifacts", "matching template section", "public fixture path", "provider-neutral", "private project context", "local absolute paths"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_ARTIFACT_SCHEMAS_DOC", `Artifact schemas guide is missing required schema phrase: ${phrase}`, [artifactSchemasDoc]);
+  }
+}
+
+const workflowStagesDoc = join(validationRoot, "docs/workflow-stages.md");
+if (existsSync(workflowStagesDoc)) {
+  const text = read(workflowStagesDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Stage Matrix", "Loopback Rules", "No-Provider Mode", "Common Blueprints", "Example Routes", "Validation", "Related Files"]) {
+    if (!sections.has(section)) addFinding("WEAK_WORKFLOW_STAGES_DOC", `Workflow stages guide is missing required section: ${section}`, [workflowStagesDoc]);
+  }
+  for (const phrase of ["role IDs", "review gates", "handoff matrix", "config/artifact-schemas.json", "examples/*/workflow.json", "tool-routing-cost", "execution-manifest", "qa-iteration", "Delivery Manifest"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_WORKFLOW_STAGES_DOC", `Workflow stages guide is missing required routing phrase: ${phrase}`, [workflowStagesDoc]);
+  }
+}
+
 const providerNeutralDoc = join(validationRoot, "docs/provider-neutral-boundary.md");
 if (existsSync(providerNeutralDoc)) {
   const text = read(providerNeutralDoc);

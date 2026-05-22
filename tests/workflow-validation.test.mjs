@@ -827,6 +827,29 @@ test("validation rejects weak compatibility documentation", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_COMPATIBILITY_DOC/);
 });
 
+test("validation rejects weak artifact schema and workflow stage guides", () => {
+  const dir = copyRepoFixture("framecore-validate-workflow-contract-docs-");
+  const artifactSchemasDoc = join(dir, "docs/artifact-schemas.md");
+  const workflowStagesDoc = join(dir, "docs/workflow-stages.md");
+  writeFileSync(
+    artifactSchemasDoc,
+    readFileSync(artifactSchemasDoc, "utf8")
+      .replace("## Schema Contract", "## Schema Notes")
+      .replace("provider-neutral", "tool-specific")
+  );
+  writeFileSync(
+    workflowStagesDoc,
+    readFileSync(workflowStagesDoc, "utf8")
+      .replace("## Stage Matrix", "## Stages")
+      .replace("handoff matrix", "handoff list")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_ARTIFACT_SCHEMAS_DOC/);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_WORKFLOW_STAGES_DOC/);
+});
+
 test("validation rejects weak provider-neutral boundary documentation", () => {
   const dir = copyRepoFixture("framecore-validate-provider-neutral-boundary-");
   const providerNeutralDoc = join(dir, "docs/provider-neutral-boundary.md");
