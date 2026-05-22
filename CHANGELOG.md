@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Nothing yet.
+- Added onboarding completion guidance for dry-run, project-local install, Codex instruction loading, and post-install starter prompts.
 
 ## 1.0.0 - 2026-05-22
 

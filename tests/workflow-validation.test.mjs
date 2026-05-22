@@ -956,7 +956,11 @@ test("validation rejects weak default validate workflow safety", () => {
 
 test("onboarding renders project-local config and agent templates", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-onboard-"));
-  run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+  const output = run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+  assert.match(output, /Next steps:/);
+  assert.match(output, /npm run install:dry-run/);
+  assert.match(output, /project-local/);
+  assert.match(output, /docs\/using-the-kit\.md/);
   run(["scripts/render-agents.mjs", "--target", dir]);
   assert.ok(existsSync(join(dir, "framecore.config.json")));
   const config = JSON.parse(readFileSync(join(dir, "framecore.config.json"), "utf8"));
@@ -1064,6 +1068,8 @@ test("interactive onboarding explains the workflow and can keep default role nam
   assert.match(result.stdout, /What will not be configured/);
   assert.match(result.stdout, /Require QA approval before generated asset delivery/);
   assert.match(result.stdout, /local manifest/);
+  assert.match(result.stdout, /Next steps:/);
+  assert.match(result.stdout, /docs\/using-the-kit\.md/);
   assert.doesNotMatch(result.stdout, /validation and privacy audit scripts/);
   assert.match(result.stdout, /Use default role names/);
   const config = JSON.parse(readFileSync(join(dir, "framecore.config.json"), "utf8"));

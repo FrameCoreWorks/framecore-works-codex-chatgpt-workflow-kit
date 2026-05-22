@@ -97,6 +97,19 @@ and a larger Hipson knowledge base. The adapter is enough to use this workflow n
 `);
 }
 
+function printNextSteps() {
+  console.log(`
+Next steps:
+1. Run install dry-run against this target workspace.
+   npm run install:dry-run -- --target <target-workspace>
+2. Review the planned writes and resolve any user-owned file conflicts.
+3. Install project-locally.
+   node scripts/install.mjs --mode project-local --target <target-workspace>
+4. Open the target project in Codex and ask it to read AGENTS.md and AGENTS.framecore.md if both exist.
+5. Use docs/using-the-kit.md for starter prompts and route selection.
+`);
+}
+
 export async function runOnboarding({ target = process.cwd(), defaults = false, createTarget = false } = {}) {
   ensureTarget(target, createTarget);
   const defaultsConfig = readJson(join(repoRoot, "config/defaults.example.json"));
@@ -150,6 +163,7 @@ export async function runOnboarding({ target = process.cwd(), defaults = false, 
 
   console.log(`wrote ${configPath}`);
   console.log("Hipson Adapter is enabled. Full Hipson remains optional: https://github.com/Hipson47/Hipson.git");
+  printNextSteps();
   return configPath;
 }
 

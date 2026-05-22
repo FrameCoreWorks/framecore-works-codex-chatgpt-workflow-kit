@@ -86,6 +86,8 @@ node scripts/doctor.mjs --help
 
    Onboarding creates `framecore.config.json` in the target workspace. It asks for working language, tone, output folder, QA strictness, local agent display names, and optional workflow self-improvement settings.
 
+   At the end, onboarding prints the next safe steps: dry-run, review planned writes, install project-local, open the target project in Codex, and use [Using The Kit](using-the-kit.md) for starter prompts.
+
    For a non-interactive default config:
 
    ```bash

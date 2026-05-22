@@ -59,6 +59,19 @@ The later project-local install writes the managed FrameCore workflow assets, re
 
 When a later update or repair rewrites the manifest, the previous manifest is saved as `.framecore/manifest.json.bak`, `.framecore/manifest.json.bak.1`, and so on.
 
+## Completion Output
+
+After writing `framecore.config.json`, onboarding prints the next safe steps:
+
+- run install dry-run against the target workspace
+- review planned writes and user-owned file conflicts
+- install project-locally
+- open the target project in Codex
+- ask Codex to read `AGENTS.md` and `AGENTS.framecore.md` when both exist
+- use `docs/using-the-kit.md` for starter prompts and route selection
+
+This output is guidance only. Onboarding does not install managed workflow files by itself.
+
 ## Hipson Adapter And Full Hipson
 
 This repo includes the lightweight Hipson Adapter. Inside this architecture it works as a packet layer for:
