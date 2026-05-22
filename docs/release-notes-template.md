@@ -43,7 +43,7 @@ Confirm these passed before publishing:
 - `npm run package:audit`
 - `npm run package:list`
 - latest GitHub Actions `validate` run on `main`
-- manual `cross-platform` run when portability-sensitive behavior changed
+- path-sensitive or manual `cross-platform` run when portability-sensitive behavior changed
 
 ## Security And Privacy Review
 

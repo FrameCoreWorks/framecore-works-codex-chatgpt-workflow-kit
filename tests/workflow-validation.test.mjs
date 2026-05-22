@@ -131,6 +131,16 @@ test("validation rejects weak installed AGENTS runtime safety", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENTS_TEMPLATE/);
 });
 
+test("validation rejects instruction override phrases in agent-facing files", () => {
+  const dir = copyRepoFixture("framecore-instruction-override-");
+  const file = join(dir, ".agents/skills/humanizer/SKILL.md");
+  writeFileSync(file, `${readFileSync(file, "utf8")}\n\n${["ignore", " previous instructions"].join("")}\n`);
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /INSTRUCTION_OVERRIDE_PHRASE/);
+});
+
 test("privacy audit passes on the repo scaffold", () => {
   assert.match(run(["scripts/audit-privacy.mjs"]), /privacy audit passed/);
 });

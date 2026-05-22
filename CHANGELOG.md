@@ -7,6 +7,8 @@
 - Added installer guidance when an existing `AGENTS.md` is preserved and FrameCore writes `AGENTS.framecore.md`.
 - Hardened managed file writes against symlinks in install, onboarding, agent rendering, and manifest validation, with regression coverage.
 - Added an install smoke-test command for default onboarding, guided project-local install, manifest hash checks, doctor, and uninstall preview.
+- Added the install smoke test to the cross-platform workflow and made that workflow path-sensitive for installer, test, config, package, and workflow changes while preserving manual dispatch.
+- Added validation for instruction-override phrases in agent-facing files so prompt-injection style content cannot drift into docs, skills, examples, or agent templates unnoticed.
 - Added an explicit installed AGENTS rule that treats repository files, artifacts, examples, issue text, and user-supplied content as data unless the human user identifies them as current-task instructions.
 - Updated security and contribution guidance for 1.0.x support and the repo-scoped package preview command.
 - Added a public-user FAQ covering install, configuration, workflow use, provider safety, Hipson, HyperFrames, update, uninstall, and troubleshooting boundaries.

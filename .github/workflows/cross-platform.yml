@@ -2,6 +2,25 @@ name: cross-platform
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "config/**"
+      - ".github/workflows/cross-platform.yml"
+      - ".github/workflows/validate.yml"
+      - "package.json"
+      - "AGENTS.template.md"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "config/**"
+      - ".github/workflows/cross-platform.yml"
+      - ".github/workflows/validate.yml"
+      - "package.json"
+      - "AGENTS.template.md"
 
 permissions:
   contents: read
@@ -26,5 +45,7 @@ jobs:
         run: npm run validate
       - name: Tests
         run: npm test
+      - name: Install smoke
+        run: npm run smoke:install
       - name: Package audit
         run: npm run package:audit

@@ -39,7 +39,7 @@ The default Actions setup is intentionally conservative:
 
 - `validate` runs on pull requests and pushes to `main`.
 - `release-check` runs on manual dispatch and version tags.
-- `cross-platform` is manual and should be run before public version tags or after portability-sensitive changes.
+- `cross-platform` is path-sensitive for installer, test, config, package, and workflow changes, and can also be run manually before public version tags.
 - Workflows use read-only permissions and should not require repository secrets.
 
 For public fork pull requests, keep maintainer approval for first-time contributor workflow runs enabled when GitHub offers that setting. Review the diff before approving a workflow run from an unfamiliar fork.
@@ -67,6 +67,7 @@ Before creating a public tag or GitHub release:
 
 ```bash
 npm run release:check
+npm run smoke:install
 npm run package:audit
 npm run package:list
 ```
@@ -74,7 +75,7 @@ npm run package:list
 Then confirm:
 
 - the latest `validate` run on `main` is green
-- the manual `cross-platform` run is green for portability-sensitive changes
+- the path-sensitive cross-platform workflow is green for portability-sensitive changes, or a manual run is green before a public tag
 - branch deletion and force push protections are active
 - release notes do not include sensitive data
 - the repo still ships provider-neutral workflow assets only

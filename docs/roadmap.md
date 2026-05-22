@@ -22,7 +22,7 @@ The current kit focuses on a provider-neutral Codex workflow baseline:
 
 - Custom-agent spawning depends on the local Codex environment. The installed instructions and skills remain useful without spawning, but routed subagent execution depends on local support.
 - Artifact schemas are lightweight contract checks, not full formal JSON Schema validation for every artifact paragraph.
-- Cross-platform coverage is split between the default Linux validation workflow and a manual cross-platform workflow.
+- Cross-platform coverage is split between the default Linux validation workflow and a path-sensitive cross-platform workflow that also supports manual dispatch.
 - The Hipson Adapter is lightweight by default. Full Hipson remains separate and optional.
 - The kit does not ship external paid execution providers, provider credentials, endpoint catalogs, private cloud delivery settings, generated outputs, or private project context.
 

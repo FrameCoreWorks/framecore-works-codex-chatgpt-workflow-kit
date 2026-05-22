@@ -25,7 +25,7 @@ Supported maintenance targets:
 - Linux
 - Windows
 
-The default `validate` workflow runs on Ubuntu for fast push and pull-request feedback. The manual `cross-platform` workflow should be run before public version tags and after changes to installer behavior, path handling, manifest handling, onboarding, validation scripts, or package contents.
+The default `validate` workflow runs on Ubuntu for fast push and pull-request feedback. The path-sensitive `cross-platform` workflow runs automatically for installer, test, config, package, and workflow changes, and can still be run manually before public version tags.
 
 ## Codex Environment
 

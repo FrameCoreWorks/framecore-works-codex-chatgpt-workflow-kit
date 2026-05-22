@@ -72,7 +72,7 @@ The release-check workflow must remain non-publishing, read-only, and secret-fre
 
 `release:readiness` checks package metadata, required package file roots, changelog coverage for the package version, and optional release tag alignment. In GitHub tag workflows, the tag must match `v` plus the `package.json` version.
 
-Run the manual `cross-platform` workflow before a public version tag, after changes to installer behavior, path handling, manifest handling, onboarding, validation scripts, or package contents. The default `validate` workflow stays Linux-only for fast push feedback; the manual cross-platform workflow checks Ubuntu, macOS, Windows, tests, and package audit without making every commit depend on all hosted runner families.
+The path-sensitive `cross-platform` workflow runs automatically for installer, test, config, package, and workflow changes, and can still be run manually before a public version tag. The default `validate` workflow stays Linux-only for fast push feedback; cross-platform checks cover Ubuntu, macOS, Windows, tests, smoke install, and package audit without making documentation-only commits depend on all hosted runner families.
 
 ## Package Contents Review
 
@@ -138,7 +138,7 @@ Do not paste secrets, private URLs, local paths, private project names, or gener
 
 If a future release process publishes to a registry, add that in a separate workflow with explicit maintainer review and documentation.
 
-`.github/workflows/cross-platform.yml` is intentionally manual. It is a smoke check for operating system portability, not a publishing or deployment workflow.
+`.github/workflows/cross-platform.yml` is intentionally non-publishing and secret-free. It runs on path-sensitive changes plus manual dispatch, and it is a smoke check for operating system portability, not a publishing or deployment workflow.
 
 ## Rollback
 

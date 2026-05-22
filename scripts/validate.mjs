@@ -75,6 +75,31 @@ function validateMarkdownLinks(files) {
   }
 }
 
+const instructionOverridePatterns = [
+  /ignore (all )?(previous|prior) instructions/i,
+  /disregard (all )?(previous|prior) instructions/i,
+  /reveal (the )?(system|developer) prompt/i,
+  /disable (the )?safety/i,
+  /bypass (the )?safety/i,
+  /\bjailbreak\b/i,
+  /\bdeveloper mode\b/i,
+];
+
+function validateInstructionOverridePhrases(files) {
+  for (const file of files) {
+    if (isAppleDouble(file)) continue;
+    const text = read(file);
+    const matchedPattern = instructionOverridePatterns.find((pattern) => pattern.test(text));
+    if (matchedPattern) {
+      addFinding(
+        "INSTRUCTION_OVERRIDE_PHRASE",
+        "Agent-facing files must not include instruction-override or prompt-exfiltration phrases.",
+        [file]
+      );
+    }
+  }
+}
+
 function cleanCell(value) {
   return value.trim().replace(/^`|`$/g, "").trim();
 }
@@ -731,7 +756,7 @@ if (existsSync(v1ReadinessDoc)) {
   for (const section of ["Purpose", "Required State", "Install And Lifecycle", "Onboarding", "Examples", "Documentation", "Validation Gates", "Halt Conditions", "Sign-Off"]) {
     if (!sections.has(section)) addFinding("WEAK_V1_READINESS_DOC", `v1.0 readiness guide is missing required section: ${section}`, [v1ReadinessDoc]);
   }
-  for (const phrase of ["project-local install is the default", "global install is clearly marked advanced", "provider-neutral boundary is documented and validated", "GPT Image 2 one-pass policy", "Full Hipson remains separate and optional", "workflow.json", "npm run release:readiness -- --tag v1.0.0", "manual cross-platform GitHub Actions workflow", "Do not tag v1.0"]) {
+  for (const phrase of ["project-local install is the default", "global install is clearly marked advanced", "provider-neutral boundary is documented and validated", "GPT Image 2 one-pass policy", "Full Hipson remains separate and optional", "workflow.json", "npm run release:readiness -- --tag v1.0.0", "path-sensitive cross-platform GitHub Actions workflow", "Do not tag v1.0"]) {
     if (!text.includes(phrase)) addFinding("WEAK_V1_READINESS_DOC", `v1.0 readiness guide is missing required release-readiness phrase: ${phrase}`, [v1ReadinessDoc]);
   }
 }
@@ -815,7 +840,7 @@ for (const file of requiredRepoFiles) {
 const contributingDoc = join(validationRoot, "CONTRIBUTING.md");
 if (existsSync(contributingDoc)) {
   const text = read(contributingDoc);
-  for (const phrase of ["default validate workflow", "Ubuntu with Node 20 and 22", "manual cross-platform workflow", "Ubuntu, macOS, and Windows with Node 20", ".editorconfig", ".gitattributes", "npm run package:list"]) {
+  for (const phrase of ["default validate workflow", "Ubuntu with Node 20 and 22", "path-sensitive cross-platform workflow", "Ubuntu, macOS, and Windows with Node 20", ".editorconfig", ".gitattributes", "npm run package:list"]) {
     if (!text.includes(phrase)) addFinding("WEAK_CONTRIBUTING_CI_DOC", `Contributing guide must accurately describe CI coverage: ${phrase}`, [contributingDoc]);
   }
   if (/CI runs the same checks on Linux, macOS, and Windows with Node 20 and 22/.test(text)) {
@@ -1002,8 +1027,21 @@ if (existsSync(releaseWorkflow)) {
 const crossPlatformWorkflow = join(validationRoot, ".github/workflows/cross-platform.yml");
 if (existsSync(crossPlatformWorkflow)) {
   const text = read(crossPlatformWorkflow);
-  if (!text.includes("workflow_dispatch") || !text.includes("ubuntu-latest") || !text.includes("macos-latest") || !text.includes("windows-latest") || !text.includes("npm run package:audit") || !/permissions:\s*\n\s*contents:\s*read/.test(text)) {
-    addFinding("WEAK_CROSS_PLATFORM_WORKFLOW", "cross-platform workflow must be manual, read-only, cover Ubuntu, macOS, and Windows, and run package audit.", [crossPlatformWorkflow]);
+  if (
+    !text.includes("workflow_dispatch") ||
+    !text.includes("pull_request:") ||
+    !text.includes("paths:") ||
+    !text.includes("scripts/**") ||
+    !text.includes("tests/**") ||
+    !text.includes("config/**") ||
+    !text.includes("ubuntu-latest") ||
+    !text.includes("macos-latest") ||
+    !text.includes("windows-latest") ||
+    !text.includes("npm run smoke:install") ||
+    !text.includes("npm run package:audit") ||
+    !/permissions:\s*\n\s*contents:\s*read/.test(text)
+  ) {
+    addFinding("WEAK_CROSS_PLATFORM_WORKFLOW", "cross-platform workflow must be manual and path-triggered, read-only, cover Ubuntu, macOS, and Windows, and run smoke install plus package audit.", [crossPlatformWorkflow]);
   }
   if (unsafeWorkflowPatterns.some((pattern) => pattern.test(text))) {
     addFinding("UNSAFE_CROSS_PLATFORM_WORKFLOW", "cross-platform workflow must not publish, upload artifacts, use secrets, or request write permissions.", [crossPlatformWorkflow]);
@@ -1171,6 +1209,19 @@ for (const target of [...requiredDocs, ...exampleReadmes.map((file) => relativeP
 }
 
 validateMarkdownLinks(walkFiles(validationRoot).filter((file) => !isAppleDouble(file) && file.endsWith(".md")));
+
+const instructionFacingFiles = new Set();
+for (const file of ["README.md", "AGENTS.template.md", "CONTRIBUTING.md", "SECURITY.md", "SUPPORT.md"]) {
+  const absolute = join(validationRoot, file);
+  if (existsSync(absolute)) instructionFacingFiles.add(absolute);
+}
+for (const directory of ["docs", "examples", ".agents", ".codex"]) {
+  const absolute = join(validationRoot, directory);
+  for (const file of walkFiles(absolute)) {
+    if (!isAppleDouble(file) && /\.(md|ya?ml|json|template)$/.test(file)) instructionFacingFiles.add(file);
+  }
+}
+validateInstructionOverridePhrases([...instructionFacingFiles]);
 
 const textPolicy = read(join(validationRoot, "config/text-image-policy.json"));
 if (!textPolicy.includes("gpt-image-2") || !textPolicy.includes("native Codex/ChatGPT image generator") || !textPolicy.includes("one-pass generation")) {

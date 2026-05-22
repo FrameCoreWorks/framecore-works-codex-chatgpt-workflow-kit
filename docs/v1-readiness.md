@@ -101,7 +101,7 @@ npm run release:readiness -- --tag v1.0.0
 npm run release:check
 ```
 
-The manual cross-platform GitHub Actions workflow should pass before creating the v1.0 tag.
+The path-sensitive cross-platform GitHub Actions workflow should pass for portability-sensitive changes. Maintainers should also run it manually before creating the v1.0 tag.
 
 ## Halt Conditions
 
@@ -125,7 +125,7 @@ Before tagging v1.0, maintainers should record:
 - tag
 - latest local `npm run release:check` result
 - latest package audit result
-- latest manual cross-platform workflow result
+- latest path-sensitive or manual cross-platform workflow result
 - package contents review status
 - known limitations kept in release notes
 - migration notes for users updating from earlier versions
