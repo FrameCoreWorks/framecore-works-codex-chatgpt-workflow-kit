@@ -1,75 +1,9 @@
 import assert from "node:assert/strict";
-import { execFileSync, spawn, spawnSync } from "node:child_process";
-import { createHash } from "node:crypto";
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join, resolve } from "node:path";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
-
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const node = process.execPath;
-
-function run(args, options = {}) {
-  return execFileSync(node, args, { cwd: root, encoding: "utf8", ...options });
-}
-
-function failRun(args, options = {}) {
-  return spawnSync(node, args, { cwd: root, encoding: "utf8", ...options });
-}
-
-function copyRepoFixture(prefix) {
-  const dir = join(mkdtempSync(join(tmpdir(), prefix)), "repo");
-  cpSync(root, dir, {
-    recursive: true,
-    filter(source) {
-      const normalized = source.replaceAll("\\", "/");
-      return !normalized.includes("/.git/") && !normalized.endsWith("/.git") && !normalized.includes("/node_modules/");
-    }
-  });
-  return dir;
-}
-
-function hidden(value) {
-  return Buffer.from(value, "base64").toString("utf8");
-}
-
-function combinedOutput(result) {
-  return `${result.stdout}${result.stderr}`;
-}
-
-function sha256(path) {
-  return createHash("sha256").update(readFileSync(path)).digest("hex");
-}
-
-function runInteractiveOnboarding(dir) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(node, ["scripts/onboard.mjs", "--target", dir], {
-      cwd: root,
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    let stdout = "";
-    let stderr = "";
-    const answers = ["", "", "", "", "", "", "", "", "", "", "", "yes"];
-    let answerIndex = 0;
-
-    child.stdout.on("data", (chunk) => {
-      const text = chunk.toString();
-      stdout += text;
-      if ((text.includes(": ") || text.includes("setup. ")) && answerIndex < answers.length) {
-        child.stdin.write(`${answers[answerIndex]}\n`);
-        answerIndex += 1;
-      }
-    });
-    child.stderr.on("data", (chunk) => {
-      stderr += chunk.toString();
-    });
-    child.on("error", reject);
-    child.on("close", (status) => {
-      resolve({ status, stdout, stderr });
-    });
-  });
-}
+import { combinedOutput, copyRepoFixture, failRun, hidden, root, run, runInteractiveOnboarding, sha256 } from "./helpers.mjs";
 
 test("validation passes on the repo scaffold", () => {
   assert.match(run(["scripts/validate.mjs"]), /workflow validation passed/);
