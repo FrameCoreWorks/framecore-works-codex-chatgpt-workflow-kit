@@ -481,6 +481,9 @@ if (existsSync(onboardingDoc)) {
   for (const phrase of ["Allow automatic delivery uploads", "Require an explicit user request before delivery/export", "Require QA approval before generated asset delivery", "Delivery preferences only shape local behavior"]) {
     if (!text.includes(phrase)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required delivery-preference phrase: ${phrase}`, [onboardingDoc]);
   }
+  for (const phrase of ["safe relative path", "do not use absolute paths", "does not clone, install, or activate full Hipson"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required setup-boundary phrase: ${phrase}`, [onboardingDoc]);
+  }
   for (const phrase of ["run install dry-run", "review planned writes", "install project-locally", "AGENTS.framecore.md", "docs/using-the-kit.md"]) {
     if (!text.includes(phrase)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required completion-output phrase: ${phrase}`, [onboardingDoc]);
   }
@@ -525,7 +528,7 @@ if (existsSync(migrationDoc)) {
 const quickstartDoc = join(validationRoot, "docs/quickstart.md");
 if (existsSync(quickstartDoc)) {
   const text = read(quickstartDoc);
-  for (const phrase of ["## Beginner-Friendly Guided Quickstart", "npm run install:guided", "## Codex-Assisted Quickstart", "temporary or tools folder", "If guided install completes successfully", "manual fallback", "npm run check", "doctor/preflight", "onboarding", "install dry-run", "after onboarding", "project-local only", "Do not use global install", "Show me the changed files", "PowerShell"]) {
+  for (const phrase of ["## Beginner-Friendly Guided Quickstart", "npm run install:guided", "## Codex-Assisted Quickstart", "temporary or tools folder outside the target workspace", "safe relative output path", "PowerShell commands", "$env:FRAMECORE_TARGET", "If guided install completes successfully", "manual fallback", "npm run check", "doctor/preflight", "onboarding", "install dry-run", "after onboarding", "project-local only", "Do not use global install", "Show me the changed files", "PowerShell"]) {
     if (!text.includes(phrase)) addFinding("WEAK_INSTALL_PROMPT", `Codex-assisted quickstart is missing required safety phrase: ${phrase}`, [quickstartDoc]);
   }
   for (const phrase of ["## Advanced Global Install", "writes to the current user's home workspace", "npm run doctor -- --mode global", "node scripts/install.mjs --mode dry-run --target \"$HOME\"", "node scripts/install.mjs --mode global --confirm-global"]) {
@@ -543,7 +546,7 @@ if (existsSync(codexAssistedInstallDoc)) {
   for (const section of ["Purpose", "Paste-In Instruction", "What Codex Should Do", "Onboarding Questions", "Stop Conditions", "Expected Result"]) {
     if (!sections.has(section)) addFinding("WEAK_CODEX_ASSISTED_INSTALL_DOC", `Codex-assisted install guide is missing required section: ${section}`, [codexAssistedInstallDoc]);
   }
-  for (const phrase of ["temporary or tools folder", "guided project-local installer", "manual fallback", "Run onboarding", "Run install dry-run", "Install project-local only", "Do not use global install", "delivery upload behavior", "optional full Hipson expansion", "stop and ask the user", "user-owned file conflicts", "external execution tools", "AGENTS.framecore.md"]) {
+  for (const phrase of ["temporary or tools folder outside the target workspace", "guided project-local installer", "manual fallback", "Run onboarding", "Run install dry-run", "Install project-local only", "Do not use global install", "delivery upload behavior", "safe relative path", "optional full Hipson expansion", "does not clone or install full Hipson", "stop and ask the user", "user-owned file conflicts", "external execution tools", "AGENTS.framecore.md"]) {
     if (!text.includes(phrase)) addFinding("WEAK_CODEX_ASSISTED_INSTALL_DOC", `Codex-assisted install guide is missing required safety phrase: ${phrase}`, [codexAssistedInstallDoc]);
   }
 }
@@ -555,7 +558,7 @@ if (existsSync(usingTheKitDoc)) {
   for (const section of ["Purpose", "First Prompt After Install", "Starter Prompts", "Choosing Workflow Depth", "Creative Workflow Prompts", "No External Execution Mode", "Hipson Adapter Prompts", "What Codex Should Produce", "Safety Reminders", "Related Docs"]) {
     if (!sections.has(section)) addFinding("WEAK_USING_THE_KIT_DOC", `Using The Kit guide is missing required section: ${section}`, [usingTheKitDoc]);
   }
-  for (const phrase of ["Read AGENTS.md", "AGENTS.framecore.md", "project-local", "Do not use external execution tools", "GPT Image 2", "Full Hipson remains separate and optional", "workflow-self-improvement", "QA And Delivery Review", "workflow.json", "neutral role IDs"]) {
+  for (const phrase of ["Read AGENTS.md", "AGENTS.framecore.md", "project-local", "Do not use external execution tools", "GPT Image 2", "Full Hipson remains separate and optional", "does not clone, install, or activate full Hipson", "workflow-self-improvement", "QA And Delivery Review", "workflow.json", "neutral role IDs"]) {
     if (!text.includes(phrase)) addFinding("WEAK_USING_THE_KIT_DOC", `Using The Kit guide is missing required usage phrase: ${phrase}`, [usingTheKitDoc]);
   }
 }

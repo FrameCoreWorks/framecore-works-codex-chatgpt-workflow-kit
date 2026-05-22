@@ -684,7 +684,12 @@ test("validation rejects weak onboarding guide and assisted install prompt", () 
   const onboardingDoc = join(dir, "docs/onboarding.md");
   const quickstartDoc = join(dir, "docs/quickstart.md");
   writeFileSync(readme, readFileSync(readme, "utf8").replace("Run doctor/preflight", "Run install dry-run"));
-  writeFileSync(onboardingDoc, readFileSync(onboardingDoc, "utf8").replace("## Interactive Questions", "## Setup Questions"));
+  writeFileSync(
+    onboardingDoc,
+    readFileSync(onboardingDoc, "utf8")
+      .replace("## Interactive Questions", "## Setup Questions")
+      .replace("does not clone, install, or activate full Hipson", "may install full Hipson")
+  );
   writeFileSync(quickstartDoc, readFileSync(quickstartDoc, "utf8").replace("project-local only", "project-local"));
 
   const result = failRun(["scripts/validate.mjs", dir]);
@@ -746,6 +751,7 @@ test("validation rejects weak Codex-assisted install guide", () => {
     doc,
     readFileSync(doc, "utf8")
       .replace("## Stop Conditions", "## Notes")
+      .replace("temporary or tools folder outside the target workspace", "temporary or tools folder")
       .replace("Install project-local only", "Install")
   );
 
@@ -761,6 +767,7 @@ test("validation rejects weak post-install usage guide", () => {
     doc,
     readFileSync(doc, "utf8")
       .replace("## Starter Prompts", "## Prompts")
+      .replace("does not clone, install, or activate full Hipson", "may install full Hipson")
       .replace("Do not use external execution tools", "Use tools when helpful")
   );
 
