@@ -683,7 +683,12 @@ test("validation rejects weak onboarding guide and assisted install prompt", () 
   const readme = join(dir, "README.md");
   const onboardingDoc = join(dir, "docs/onboarding.md");
   const quickstartDoc = join(dir, "docs/quickstart.md");
-  writeFileSync(readme, readFileSync(readme, "utf8").replace("Run doctor/preflight", "Run install dry-run"));
+  writeFileSync(
+    readme,
+    readFileSync(readme, "utf8")
+      .replace(", docs/quickstart.md,", "")
+      .replace("Run doctor/preflight", "Run install dry-run")
+  );
   writeFileSync(
     onboardingDoc,
     readFileSync(onboardingDoc, "utf8")

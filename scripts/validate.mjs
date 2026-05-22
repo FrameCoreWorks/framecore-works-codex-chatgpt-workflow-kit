@@ -713,7 +713,7 @@ if (existsSync(releaseNotesTemplate)) {
 const readmePath = join(validationRoot, "README.md");
 if (existsSync(readmePath)) {
   const text = read(readmePath);
-  for (const phrase of ["If guided install completes successfully", "manual fallback", "Show me the changed files"]) {
+  for (const phrase of ["docs/quickstart.md", "docs/codex-assisted-install.md", "If guided install completes successfully", "manual fallback", "Show me the changed files"]) {
     if (!text.includes(phrase)) addFinding("WEAK_README_INSTALL_PROMPT", `README install prompt is missing required safety phrase: ${phrase}`, [readmePath]);
   }
   for (const phrase of ["Global install is available only for advanced users", "writes to the current user's home workspace", "npm run doctor -- --mode global", "node scripts/install.mjs --mode dry-run --target \"$HOME\"", "node scripts/install.mjs --mode global --confirm-global"]) {
