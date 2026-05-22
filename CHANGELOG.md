@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Clarified install and onboarding UX: clone location should stay outside the target workspace, `output_dir` should be a safe relative path, PowerShell commands are shown explicitly, and full Hipson remains an external optional extension.
+- Expanded customization guidance for local config, output paths, agent display names, QA strictness, delivery preferences, Hipson settings, workflow self-improvement, team use, and update/repair/uninstall boundaries.
+- Added example-authoring guidance and validation so public examples keep route, gate, artifact, handoff, privacy, and provider-neutral contracts aligned.
+- Added a validated storyboard board workflow example and handoff coverage for storyboard-board to image-prompting routes.
+- Expanded the public agent roster guide with role selection, inputs, artifacts, review gates, common handoffs, local display-name rules, and provider-neutral boundaries.
 - Added onboarding completion guidance for dry-run, project-local install, Codex instruction loading, and post-install starter prompts.
 
 ## 1.0.0 - 2026-05-22
