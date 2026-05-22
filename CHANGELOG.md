@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Expanded Hipson, HyperFrames, recurring workflow review, and text-bearing image policy docs with validation coverage for their public boundaries.
 - Clarified install and onboarding UX: clone location should stay outside the target workspace, `output_dir` should be a safe relative path, PowerShell commands are shown explicitly, and full Hipson remains an external optional extension.
 - Expanded customization guidance for local config, output paths, agent display names, QA strictness, delivery preferences, Hipson settings, workflow self-improvement, team use, and update/repair/uninstall boundaries.
 - Added example-authoring guidance and validation so public examples keep route, gate, artifact, handoff, privacy, and provider-neutral contracts aligned.

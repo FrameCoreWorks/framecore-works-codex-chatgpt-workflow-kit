@@ -837,6 +837,45 @@ test("validation rejects weak provider-neutral boundary documentation", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_PROVIDER_NEUTRAL_BOUNDARY_DOC/);
 });
 
+test("validation rejects weak boundary workflow docs", () => {
+  const dir = copyRepoFixture("framecore-validate-boundary-workflow-docs-");
+  const textImageDoc = join(dir, "docs/text-image-policy.md");
+  const hipsonDoc = join(dir, "docs/hipson-integration.md");
+  const hyperframesDoc = join(dir, "docs/hyperframes.md");
+  const recurringDoc = join(dir, "docs/recurring-workflow-review.md");
+  writeFileSync(
+    textImageDoc,
+    readFileSync(textImageDoc, "utf8")
+      .replace("## One-Pass Rule", "## Generation Notes")
+      .replace("Do not silently replace", "Replace")
+  );
+  writeFileSync(
+    hipsonDoc,
+    readFileSync(hipsonDoc, "utf8")
+      .replace("## Full Hipson Boundary", "## Full System")
+      .replace("does not clone, install, or activate full Hipson", "can install full Hipson")
+  );
+  writeFileSync(
+    hyperframesDoc,
+    readFileSync(hyperframesDoc, "utf8")
+      .replace("## Render QA", "## Render Checks")
+      .replace("not as a paid media-provider integration", "as a paid media-provider integration")
+  );
+  writeFileSync(
+    recurringDoc,
+    readFileSync(recurringDoc, "utf8")
+      .replace("## Default State", "## Default")
+      .replace("mutation: disabled", "mutation: enabled")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_TEXT_IMAGE_POLICY_DOC/);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_HIPSON_INTEGRATION_DOC/);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_HYPERFRAMES_DOC/);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_RECURRING_WORKFLOW_REVIEW_DOC/);
+});
+
 test("validation rejects weak workflow self-improvement governance docs", () => {
   const dir = copyRepoFixture("framecore-validate-workflow-self-improvement-doc-");
   const doc = join(dir, "docs/workflow-self-improvement.md");

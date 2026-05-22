@@ -614,6 +614,54 @@ if (existsSync(providerNeutralDoc)) {
   }
 }
 
+const textImagePolicyDoc = join(validationRoot, "docs/text-image-policy.md");
+if (existsSync(textImagePolicyDoc)) {
+  const text = read(textImagePolicyDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Built-In Generation Path", "One-Pass Rule", "Prompt Requirements", "Allowed Exceptions", "Failure Handling", "Validation"]) {
+    if (!sections.has(section)) addFinding("WEAK_TEXT_IMAGE_POLICY_DOC", `Text-bearing image policy guide is missing required section: ${section}`, [textImagePolicyDoc]);
+  }
+  for (const phrase of ["GPT Image 2", "built-in Codex/ChatGPT image generation", "one pass", "exact final copy", "safe margins", "no extra words", "coded or vector artifact", "Do not silently replace", "not an external provider integration"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_TEXT_IMAGE_POLICY_DOC", `Text-bearing image policy guide is missing required policy phrase: ${phrase}`, [textImagePolicyDoc]);
+  }
+}
+
+const hipsonIntegrationDoc = join(validationRoot, "docs/hipson-integration.md");
+if (existsSync(hipsonIntegrationDoc)) {
+  const text = read(hipsonIntegrationDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Adapter Scope", "Full Hipson Boundary", "Onboarding Behavior", "Packet Types", "Privacy Rules", "Validation"]) {
+    if (!sections.has(section)) addFinding("WEAK_HIPSON_INTEGRATION_DOC", `Hipson integration guide is missing required section: ${section}`, [hipsonIntegrationDoc]);
+  }
+  for (const phrase of ["Full Hipson remains separate and optional", "https://github.com/Hipson47/Hipson.git", "does not clone, install, or activate full Hipson", "research maps", "bounded instruction packets", "review packets", "execution packets", "target agent", "acceptance criteria", "must not include secrets"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_HIPSON_INTEGRATION_DOC", `Hipson integration guide is missing required adapter phrase: ${phrase}`, [hipsonIntegrationDoc]);
+  }
+}
+
+const hyperframesDoc = join(validationRoot, "docs/hyperframes.md");
+if (existsSync(hyperframesDoc)) {
+  const text = read(hyperframesDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "When To Use", "Workflow Route", "Production Brief Requirements", "Captions And Overlays", "Render QA", "Provider-Neutral Boundary", "Delivery"]) {
+    if (!sections.has(section)) addFinding("WEAK_HYPERFRAMES_DOC", `HyperFrames guide is missing required section: ${section}`, [hyperframesDoc]);
+  }
+  for (const phrase of ["coded-video workflow path", "not as a paid media-provider integration", "scene timing", "GSAP", "captions", "render QA", "delivery manifest", "source files"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_HYPERFRAMES_DOC", `HyperFrames guide is missing required workflow phrase: ${phrase}`, [hyperframesDoc]);
+  }
+}
+
+const recurringWorkflowReviewDoc = join(validationRoot, "docs/recurring-workflow-review.md");
+if (existsSync(recurringWorkflowReviewDoc)) {
+  const text = read(recurringWorkflowReviewDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Default State", "Opt-In Recipe", "Report-Only Rules", "User-Facing Output", "Forbidden Actions", "Disable Or Remove", "Validation"]) {
+    if (!sections.has(section)) addFinding("WEAK_RECURRING_WORKFLOW_REVIEW_DOC", `Recurring workflow review guide is missing required section: ${section}`, [recurringWorkflowReviewDoc]);
+  }
+  for (const phrase of ["Default: disabled", "every 24 hours", "report-only", "mutation: disabled", "uploads: disabled", "external execution: disabled", "Workflow Improvement Alert", "does not edit workflow files", "explicit user or maintainer approval"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_RECURRING_WORKFLOW_REVIEW_DOC", `Recurring workflow review guide is missing required governance phrase: ${phrase}`, [recurringWorkflowReviewDoc]);
+  }
+}
+
 const workflowSelfImprovementDoc = join(validationRoot, "docs/workflow-self-improvement.md");
 if (existsSync(workflowSelfImprovementDoc)) {
   const text = read(workflowSelfImprovementDoc);
