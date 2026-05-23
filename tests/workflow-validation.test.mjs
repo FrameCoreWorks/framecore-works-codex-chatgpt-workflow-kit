@@ -321,6 +321,7 @@ test("doctor validates existing installs and operation-specific manifest require
   const manifest = JSON.parse(readFileSync(join(dir, ".framecore/manifest.json"), "utf8"));
   assert.equal(manifest.kit.name, "framecore-works-codex-workflow-kit");
   assert.equal(manifest.kit.version, "1.0.0");
+  assert.equal(manifest.incomplete, false);
   assert.match(manifest.managed_hashes[".agents/skills/humanizer/SKILL.md"], /^[a-f0-9]{64}$/);
   assert.equal(
     manifest.managed_hashes[".agents/skills/humanizer/SKILL.md"],
@@ -379,6 +380,29 @@ test("doctor reports partial manifest hash coverage without failing", () => {
   assert.equal(output.includes(dir), false);
 });
 
+test("doctor reports incomplete manifests without failing valid hash checks", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-doctor-incomplete-"));
+  mkdirSync(join(dir, ".framecore"), { recursive: true });
+  writeFileSync(join(dir, "AGENTS.md"), "partial install\n");
+  writeFileSync(join(dir, ".framecore/manifest.json"), JSON.stringify({
+    schema_version: 1,
+    incomplete: true,
+    kit: {
+      name: "framecore-works-codex-workflow-kit",
+      version: "1.0.0"
+    },
+    managed_paths: ["AGENTS.md", ".framecore/manifest.json"],
+    managed_hashes: {
+      "AGENTS.md": sha256(join(dir, "AGENTS.md"))
+    }
+  }, null, 2));
+
+  const output = run(["scripts/doctor.mjs", "--mode", "update", "--target", dir]);
+  assert.match(output, /Manifest is marked incomplete/);
+  assert.match(output, /Managed file hashes match/);
+  assert.equal(output.includes(dir), false);
+});
+
 test("repair refreshes managed hashes after local drift", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-repair-hashes-"));
   run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
@@ -401,6 +425,7 @@ test("doctor rejects malformed and unsafe manifests", () => {
   mkdirSync(join(dir, ".framecore"), { recursive: true });
   writeFileSync(join(dir, ".framecore/manifest.json"), JSON.stringify({
     schema_version: 2,
+    incomplete: "yes",
     managed_paths: ["AGENTS.md", "AGENTS.md", localPath, "../escape"],
     managed_hashes: {
       "AGENTS.md": "not-a-hash",
@@ -413,6 +438,7 @@ test("doctor rejects malformed and unsafe manifests", () => {
   const output = combinedOutput(result);
   assert.notEqual(result.status, 0);
   assert.match(output, /schema_version must be 1/);
+  assert.match(output, /incomplete must be a boolean/);
   assert.match(output, /duplicate managed path/);
   assert.match(output, /unsafe managed path entry/);
   assert.match(output, /managed_hashes contains a path not listed/);
@@ -1240,6 +1266,18 @@ test("install rejects invalid local config before writing managed files", () => 
   assert.equal(existsSync(join(dir, ".agents/skills/pipeline-core/SKILL.md")), false);
   assert.equal(existsSync(join(dir, ".codex/agents/intent-confirmation.toml")), false);
   assert.equal(existsSync(join(dir, ".framecore/manifest.json")), false);
+});
+
+test("install leaves an incomplete manifest when the write phase fails", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-incomplete-install-"));
+  run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+  mkdirSync(join(dir, ".agents/skills/humanizer/SKILL.md"), { recursive: true });
+
+  const result = failRun(["scripts/install.mjs", "--mode", "project-local", "--target", dir, "--force"]);
+  assert.notEqual(result.status, 0);
+  const manifest = JSON.parse(readFileSync(join(dir, ".framecore/manifest.json"), "utf8"));
+  assert.equal(manifest.incomplete, true);
+  assert.ok(manifest.managed_paths.includes(".agents/skills/humanizer/SKILL.md"));
 });
 
 test("install rejects missing targets unless explicitly created", () => {

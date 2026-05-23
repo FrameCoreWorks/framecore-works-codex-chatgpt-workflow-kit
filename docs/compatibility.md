@@ -50,9 +50,9 @@ Guided install always uses the project-local path. It refuses missing targets an
 
 ## Manifest Compatibility
 
-New installs write `.framecore/manifest.json` with managed paths and file hashes.
+New installs write `.framecore/manifest.json` with managed paths, file hashes, and an `incomplete` state flag.
 
-`doctor` uses the manifest to warn about missing or changed managed files. `update`, `repair`, and `uninstall` require a manifest. Legacy manifests without hashes can still be inspected, but hash-based drift checks need a manifest written by a current install, update, or repair.
+`doctor` uses the manifest to warn about interrupted installs, missing or changed managed files, and incomplete hash coverage. `update`, `repair`, and `uninstall` require a manifest. Legacy manifests without hashes can still be inspected, but hash-based drift checks need a manifest written by a current install, update, or repair.
 
 Before update or repair rewrites the manifest, the installer writes numbered backups such as `.framecore/manifest.json.bak`.
 

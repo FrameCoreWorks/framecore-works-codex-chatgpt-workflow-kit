@@ -108,7 +108,7 @@ Run doctor before dry-run when you are unsure whether a target workspace is read
 npm run doctor -- --target /path/to/your/project
 ```
 
-Doctor is read-only. It reports missing targets, old Node versions, missing npm, invalid config, missing manifests for update/repair/uninstall, unsafe manifest entries, likely user-owned file conflicts, and managed-file hash drift when the manifest includes hashes. It does not install, repair, back up, remove, or render files.
+Doctor is read-only. It reports missing targets, old Node versions, missing npm, invalid config, missing manifests for update/repair/uninstall, incomplete manifests from interrupted writes, unsafe manifest entries, likely user-owned file conflicts, and managed-file hash drift when the manifest includes hashes. It does not install, repair, back up, remove, or render files.
 
 If doctor passes, still run install dry-run before any real install:
 
@@ -117,6 +117,8 @@ npm run install:dry-run -- --target /path/to/your/project
 ```
 
 If doctor reports missing or changed managed files, inspect local edits before running `repair` or `update`, because those modes can recreate FrameCore-managed files and write backups.
+
+If doctor reports an incomplete manifest, a previous install, update, or repair likely stopped after the manifest was written but before all managed files were completed. Review the target workspace, run doctor again, then use `repair` or `update` only after you understand whether local edits should be preserved.
 
 ## Target Workspace Does Not Exist
 

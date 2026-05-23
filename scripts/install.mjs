@@ -45,7 +45,7 @@ function readManifest(target) {
   return JSON.parse(readFileSync(manifestPath, "utf8"));
 }
 
-function buildManifest({ target, managedPaths, manifestRel }) {
+function buildManifest({ target, managedPaths, manifestRel, incomplete = false }) {
   const packageInfo = readJson(join(repoRoot, "package.json"));
   const managedHashes = {};
   for (const entry of managedPaths) {
@@ -57,6 +57,7 @@ function buildManifest({ target, managedPaths, manifestRel }) {
   }
   return {
     schema_version: 1,
+    incomplete,
     kit: {
       name: packageInfo.name,
       version: packageInfo.version
@@ -64,6 +65,14 @@ function buildManifest({ target, managedPaths, manifestRel }) {
     managed_paths: managedPaths,
     managed_hashes: managedHashes
   };
+}
+
+function writeManifestFile({ manifestPath, manifest, backupExisting }) {
+  mkdirSync(dirname(manifestPath), { recursive: true });
+  if (backupExisting && existsSync(manifestPath)) {
+    writeFileSync(nextBackupPath(manifestPath), readFileSync(manifestPath, "utf8"));
+  }
+  writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
 function nextBackupPath(destination) {
@@ -182,7 +191,7 @@ function install({ mode }) {
     target,
     source: join(repoRoot, ".agents/skills"),
     destination: skillsTarget,
-    dryRun,
+    dryRun: true,
     planned,
     managed,
     previousManaged,
@@ -190,7 +199,7 @@ function install({ mode }) {
     includeManagedPath,
   });
 
-  const renderedAgents = renderAgents({ target: installTarget, configPath, dryRun, previousManaged, force, includeManagedPath });
+  const renderedAgents = renderAgents({ target: installTarget, configPath, dryRun: true, previousManaged, force, includeManagedPath });
   planned.push(...renderedAgents);
   managed.push(...renderedAgents.map((file) => toManifestPath(target, file)));
 
@@ -201,7 +210,7 @@ function install({ mode }) {
       target,
       destination: agentsInstructionPath,
       content: readFileSync(join(repoRoot, "AGENTS.template.md"), "utf8"),
-      dryRun,
+      dryRun: true,
       planned,
       managed,
       previousManaged,
@@ -218,11 +227,44 @@ function install({ mode }) {
   if (!repair) managed.push(manifestRel);
 
   if (!dryRun) {
-    mkdirSync(join(target, ".framecore"), { recursive: true });
-    if (existsSync(manifestPath)) {
-      writeFileSync(nextBackupPath(manifestPath), readFileSync(manifestPath, "utf8"));
+    writeManifestFile({
+      manifestPath,
+      manifest: buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: true }),
+      backupExisting: existsSync(manifestPath),
+    });
+
+    const written = [];
+    const writtenManaged = [];
+    copySkillFiles({
+      target,
+      source: join(repoRoot, ".agents/skills"),
+      destination: skillsTarget,
+      dryRun: false,
+      planned: written,
+      managed: writtenManaged,
+      previousManaged,
+      force,
+      includeManagedPath,
+    });
+    renderAgents({ target: installTarget, configPath, dryRun: false, previousManaged, force, includeManagedPath });
+    if (agentsInstructionPath) {
+      writeManagedFile({
+        target,
+        destination: agentsInstructionPath,
+        content: readFileSync(join(repoRoot, "AGENTS.template.md"), "utf8"),
+        dryRun: false,
+        planned: written,
+        managed: writtenManaged,
+        previousManaged,
+        force,
+        includeManagedPath,
+      });
     }
-    writeFileSync(manifestPath, `${JSON.stringify(buildManifest({ target, managedPaths: manifestManaged, manifestRel }), null, 2)}\n`);
+    writeManifestFile({
+      manifestPath,
+      manifest: buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: false }),
+      backupExisting: false,
+    });
   }
 
   for (const item of planned) {

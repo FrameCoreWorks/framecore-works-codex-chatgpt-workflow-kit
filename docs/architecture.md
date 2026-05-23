@@ -57,7 +57,7 @@ Onboarding writes `framecore.config.json` before installation. The installer rea
 
 ## Ownership And Safety
 
-The manifest is the source of truth for FrameCore-owned files in a target workspace. Repair and uninstall use `.framecore/manifest.json` to avoid touching user-owned files. New manifests also include managed file hashes so `doctor` can warn when a FrameCore-managed file is missing or differs from the last install/update/repair.
+The manifest is the source of truth for FrameCore-owned files in a target workspace. Repair and uninstall use `.framecore/manifest.json` to avoid touching user-owned files. New manifests also include managed file hashes so `doctor` can warn when a FrameCore-managed file is missing or differs from the last install/update/repair. During real install, update, or repair, the installer first writes the manifest with `incomplete: true`, then rewrites it with `incomplete: false` after all managed files are written successfully.
 
 The installer:
 

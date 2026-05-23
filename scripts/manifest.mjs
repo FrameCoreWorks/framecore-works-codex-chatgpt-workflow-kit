@@ -26,6 +26,9 @@ export function validateManifest(target, manifest) {
   const errors = [];
   if (!isPlainObject(manifest)) return ["manifest must be a JSON object"];
   if (manifest.schema_version !== 1) errors.push("manifest schema_version must be 1");
+  if ("incomplete" in manifest && typeof manifest.incomplete !== "boolean") {
+    errors.push("manifest incomplete must be a boolean when present");
+  }
   if (!Array.isArray(manifest.managed_paths)) {
     errors.push("manifest managed_paths must be an array");
     return errors;

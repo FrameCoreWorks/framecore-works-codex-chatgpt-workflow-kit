@@ -184,6 +184,9 @@ function runDoctor({ mode }) {
   }
   if (manifest) ok("Manifest found.");
   else if (mode === "project-local" || mode === "dry-run") ok("No existing manifest required for first install or dry-run.");
+  if (manifest?.incomplete === true) {
+    warn("Manifest is marked incomplete. A previous install, update, or repair may have been interrupted.");
+  }
   if (manifest && manifestErrors.length === 0) reportManifestIntegrity(target, manifest, ok, warn);
 
   if (mode === "uninstall") {
