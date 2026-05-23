@@ -756,7 +756,7 @@ if (existsSync(v1ReadinessDoc)) {
   for (const section of ["Purpose", "Required State", "Install And Lifecycle", "Onboarding", "Examples", "Documentation", "Validation Gates", "Halt Conditions", "Sign-Off"]) {
     if (!sections.has(section)) addFinding("WEAK_V1_READINESS_DOC", `v1.0 readiness guide is missing required section: ${section}`, [v1ReadinessDoc]);
   }
-  for (const phrase of ["project-local install is the default", "global install is clearly marked advanced", "provider-neutral boundary is documented and validated", "GPT Image 2 one-pass policy", "Full Hipson remains separate and optional", "workflow.json", "npm run release:readiness -- --tag v1.0.0", "path-sensitive cross-platform GitHub Actions workflow", "Do not tag v1.0"]) {
+  for (const phrase of ["project-local install is the default", "global install is clearly marked advanced", "provider-neutral boundary is documented and validated", "GPT Image 2 one-pass policy", "Full Hipson remains separate and optional", "workflow.json", "npm run release:readiness -- --tag v1.0.0", "npm run syntax:check", "npm run agent:check", "path-sensitive cross-platform GitHub Actions workflow", "Do not tag v1.0"]) {
     if (!text.includes(phrase)) addFinding("WEAK_V1_READINESS_DOC", `v1.0 readiness guide is missing required release-readiness phrase: ${phrase}`, [v1ReadinessDoc]);
   }
 }
@@ -780,7 +780,7 @@ if (existsSync(releaseNotesTemplate)) {
   for (const section of ["Version", "Summary", "Install And Update Notes", "Onboarding Notes", "Workflow Changes", "Validation And Package Checks", "Security And Privacy Review", "Known Limitations", "Links"]) {
     if (!sections.has(section)) addFinding("WEAK_RELEASE_NOTES_TEMPLATE", `Release notes template is missing required section: ${section}`, [releaseNotesTemplate]);
   }
-  for (const phrase of ["provider-neutral", "project-local", "npm run release:check", "npm run release:readiness", "npm run secret:scan", "npm run package:audit", "npm run package:list", "No secrets", "No bundled external paid execution providers", "GPT Image 2", "Full Hipson remains separate and optional"]) {
+  for (const phrase of ["provider-neutral", "project-local", "npm run release:check", "npm run release:readiness", "npm run secret:scan", "npm run syntax:check", "npm run agent:check", "npm run package:audit", "npm run package:list", "No secrets", "No bundled external paid execution providers", "GPT Image 2", "Full Hipson remains separate and optional"]) {
     if (!text.includes(phrase)) addFinding("WEAK_RELEASE_NOTES_TEMPLATE", `Release notes template is missing required release-safety phrase: ${phrase}`, [releaseNotesTemplate]);
   }
 }
@@ -853,7 +853,7 @@ if (existsSync(contributingDoc)) {
 const pullRequestTemplate = join(validationRoot, ".github/pull_request_template.md");
 if (existsSync(pullRequestTemplate)) {
   const text = read(pullRequestTemplate);
-  for (const phrase of ["npm run check", "npm run secret:scan", "npm run release:check", "npm run package:list", "No secrets", "Neutral role IDs", "Text-bearing image policy", "Release Impact"]) {
+  for (const phrase of ["npm run check", "npm run secret:scan", "npm run syntax:check", "npm run agent:check", "npm run release:check", "npm run package:list", "No secrets", "Neutral role IDs", "Text-bearing image policy", "Release Impact"]) {
     if (!text.includes(phrase)) addFinding("WEAK_PULL_REQUEST_TEMPLATE", `Pull request template is missing required review phrase: ${phrase}`, [pullRequestTemplate]);
   }
 }
@@ -940,7 +940,7 @@ if (existsSync(maintainersDoc)) {
   for (const section of ["Maintainer Responsibilities", "Release Ownership", "Escalation"]) {
     if (!sections.has(section)) addFinding("WEAK_MAINTAINERS_DOC", `Maintainers guide is missing required section: ${section}`, [maintainersDoc]);
   }
-  for (const phrase of ["provider-neutral Codex workflow kit", "npm run release:check", "GitHub Actions validation", "package contents", "provider-neutral boundaries", "SECURITY.md", "SUPPORT.md"]) {
+  for (const phrase of ["provider-neutral Codex workflow kit", "npm run release:check", "npm run agent:check", "GitHub Actions validation", "package contents", "provider-neutral boundaries", "SECURITY.md", "SUPPORT.md"]) {
     if (!text.includes(phrase)) addFinding("WEAK_MAINTAINERS_DOC", `Maintainers guide is missing required ownership phrase: ${phrase}`, [maintainersDoc]);
   }
 }
@@ -952,7 +952,7 @@ if (existsSync(securityDoc)) {
   for (const section of ["Supported Versions", "Reporting A Vulnerability", "Response Process", "Useful Evidence", "Release Checks", "Scope"]) {
     if (!sections.has(section)) addFinding("WEAK_SECURITY_DOC", `Security guide is missing required section: ${section}`, [securityDoc]);
   }
-  for (const phrase of ["1.0.x", "private vulnerability reporting", "acknowledge", "sanitized", "version, tag, or commit SHA", "operating system and Node.js version", "npm run secret:scan", "npm run package:list"]) {
+  for (const phrase of ["1.0.x", "private vulnerability reporting", "acknowledge", "sanitized", "version, tag, or commit SHA", "operating system and Node.js version", "npm run secret:scan", "npm run syntax:check", "npm run agent:check", "npm run package:list"]) {
     if (!text.includes(phrase)) addFinding("WEAK_SECURITY_DOC", `Security guide is missing required reporting phrase: ${phrase}`, [securityDoc]);
   }
 }
@@ -964,7 +964,7 @@ if (existsSync(repositorySettingsDoc)) {
   for (const section of ["Purpose", "Recommended Minimum", "Stronger PR Workflow", "GitHub Actions", "Public Issue Hygiene", "Before Release", "What Stays Optional", "When To Revisit"]) {
     if (!sections.has(section)) addFinding("WEAK_REPOSITORY_SETTINGS_DOC", `Repository settings guide is missing required section: ${section}`, [repositorySettingsDoc]);
   }
-  for (const phrase of ["GitHub Desktop", "direct pushes", "Restrict deletions", "Block force pushes", "Require status checks", "read-only permissions", "repository secrets", "fork pull requests", "rotate exposed secrets", "npm run release:check", "npm run secret:scan", "npm run package:audit", "npm run package:list"]) {
+  for (const phrase of ["GitHub Desktop", "direct pushes", "Restrict deletions", "Block force pushes", "Require status checks", "read-only permissions", "repository secrets", "fork pull requests", "rotate exposed secrets", "npm run release:check", "npm run secret:scan", "npm run syntax:check", "npm run agent:check", "npm run package:audit", "npm run package:list"]) {
     if (!text.includes(phrase)) addFinding("WEAK_REPOSITORY_SETTINGS_DOC", `Repository settings guide is missing required maintenance phrase: ${phrase}`, [repositorySettingsDoc]);
   }
 }

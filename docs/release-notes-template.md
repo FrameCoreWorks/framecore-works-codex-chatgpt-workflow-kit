@@ -41,6 +41,8 @@ Confirm these passed before publishing:
 - `npm run release:check`
 - `npm run release:readiness`
 - `npm run secret:scan`
+- `npm run syntax:check`
+- `npm run agent:check`
 - `npm run package:audit`
 - `npm run package:list`
 - latest GitHub Actions `validate` run on `main`

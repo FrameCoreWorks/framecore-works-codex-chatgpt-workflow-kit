@@ -70,6 +70,8 @@ Before creating a public tag or GitHub release:
 ```bash
 npm run release:check
 npm run secret:scan
+npm run syntax:check
+npm run agent:check
 npm run smoke:install
 npm run package:audit
 npm run package:list

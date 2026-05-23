@@ -96,6 +96,8 @@ Before v1.0, these must pass locally:
 npm run cleanup:appledouble -- --apply
 npm run check
 npm run secret:scan
+npm run syntax:check
+npm run agent:check
 npm run smoke:install
 npm run package:audit
 npm run package:list
@@ -126,6 +128,7 @@ Before tagging v1.0, maintainers should record:
 - package version
 - tag
 - latest local `npm run release:check` result
+- latest local `npm run agent:check` result
 - latest package audit result
 - latest path-sensitive or manual cross-platform workflow result
 - package contents review status

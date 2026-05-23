@@ -41,7 +41,9 @@ Run before publishing:
 ```bash
 npm run audit:privacy
 npm run secret:scan
+npm run syntax:check
 npm run validate
+npm run agent:check
 npm test
 npm run release:check
 npm run package:list

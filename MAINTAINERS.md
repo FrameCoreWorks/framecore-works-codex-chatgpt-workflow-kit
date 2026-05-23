@@ -17,6 +17,7 @@ Maintainers are responsible for:
 Each public release should have one release owner. The release owner confirms:
 
 - `npm run release:check` passes locally
+- `npm run agent:check` passes locally for the deterministic installed workflow path
 - GitHub Actions validation is green for the release commit or tag
 - package contents are reviewed
 - release notes do not contain sensitive data

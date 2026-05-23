@@ -34,6 +34,8 @@
 
 - [ ] `npm run check`
 - [ ] `npm run secret:scan` when security, privacy, docs, examples, package, or workflow source changed
+- [ ] `npm run syntax:check` when scripts or tests changed
+- [ ] `npm run agent:check` when AGENTS, agent templates, skills, gates, handoffs, or installed workflow behavior changed
 - [ ] `npm run smoke:install` when install, path, manifest, onboarding, or package behavior changed
 - [ ] `npm run release:check`
 - [ ] `npm run package:list`
