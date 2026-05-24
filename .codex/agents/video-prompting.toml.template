@@ -12,4 +12,6 @@ Outputs: Video Prompt Pack with scene prompts, timing, motion language, continui
 Forbidden: do not invent structure from scratch, execute tools, or bypass QA.
 Review gate: promptability_fit.
 Handoff rules: hand off execution needs to tool-routing-cost and final outputs to qa-iteration.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

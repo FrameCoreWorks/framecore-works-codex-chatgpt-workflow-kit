@@ -6,7 +6,7 @@ function isPlainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-function isSafeRelativePath(value) {
+export function isSafeRelativePath(value) {
   if (typeof value !== "string" || value.trim().length === 0) return false;
   if (isAbsolute(value)) return false;
   if (/^[a-z]+:\/\//i.test(value)) return false;

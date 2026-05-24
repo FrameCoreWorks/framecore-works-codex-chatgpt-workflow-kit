@@ -65,6 +65,17 @@ test("validation rejects weak installed AGENTS runtime safety", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENTS_TEMPLATE/);
 });
 
+test("validation rejects agent templates missing onboarding profile tokens", () => {
+  const dir = copyRepoFixture("framecore-weak-agent-profile-");
+  const file = join(dir, ".codex/agents/asset-manifest.toml.template");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text.replace("Workspace profile:", "Workspace context:"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENT_TEMPLATE/);
+});
+
 test("validation rejects instruction override phrases in agent-facing files", () => {
   const dir = copyRepoFixture("framecore-instruction-override-");
   const file = join(dir, ".agents/skills/humanizer/SKILL.md");

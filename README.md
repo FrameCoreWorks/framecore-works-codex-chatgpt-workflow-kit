@@ -32,7 +32,8 @@ Then follow the safe install path:
 3. Run onboarding for my current workspace and explain each question before I answer, including questions about what I do, my main use cases, and how the pipeline should fit my work style.
 4. Run install dry-run after onboarding.
 5. Install project-local only after showing me the planned writes.
-6. Show me the changed files, final installed tree, and first prompt I should use after installation.
+6. Ask whether I want to initialize Context/ and Memory Cache/ for long-session recovery. If I say yes, run npm run memory:init and npm run memory:validate for my current workspace.
+7. Show me the changed files, final installed tree, and first prompt I should use after installation.
 
 Do not use global install.
 Do not enable paid external execution tools.
@@ -74,6 +75,8 @@ If this repo helps your work and you want to support the project, you can buy me
 Provider-neutral means this kit does not ship external paid media-provider clients, endpoint catalogs, provider CLIs, API-key workflows, or paid execution routes. The text-bearing image rule may still route to the native Codex/ChatGPT image generator when that built-in capability is available. See [Provider-Neutral Boundary](docs/provider-neutral-boundary.md).
 
 This kit ships the routing and contract layer for creative work. It gives Codex roles, gates, handoffs, artifact templates, examples, QA discipline, and safety boundaries. It does not replace your own domain knowledge, brand context, references, or user-configured execution tools.
+
+Onboarding writes `framecore.config.json` before the managed install so local preferences can be used during dry-run and agent rendering. For long sessions, ask Codex after installation whether you want to initialize `Context/` and `Memory Cache/` with `npm run memory:init`.
 
 ## Supported Agent Surfaces
 

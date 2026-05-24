@@ -27,7 +27,8 @@ Then follow the safe install path:
 3. Run onboarding for my current workspace and explain each question before I answer, including questions about what I do, my main use cases, and how the pipeline should fit my work style.
 4. Run install dry-run after onboarding.
 5. Install project-local only after showing me the planned writes.
-6. Show me the changed files, final installed tree, and first prompt I should use after installation.
+6. Ask whether I want to initialize Context/ and Memory Cache/ for long-session recovery. If I say yes, run npm run memory:init and npm run memory:validate for my current workspace.
+7. Show me the changed files, final installed tree, and first prompt I should use after installation.
 
 Do not use global install.
 Do not enable paid external execution tools.
@@ -72,6 +73,7 @@ Codex should:
 - run install dry-run after onboarding
 - stop on user-owned file conflicts
 - install project-local only
+- ask whether to initialize Memory Cache for long-session recovery, then run `npm run memory:init` and `npm run memory:validate` only if the user agrees
 - show changed files and installed tree
 - avoid global install unless the user explicitly asks for it
 - avoid external execution tools, provider credentials, provider CLIs, endpoint catalogs, and API-key setup flows
@@ -123,3 +125,5 @@ After project-local install, the target workspace should contain:
 - `AGENTS.framecore.md` when the project already had `AGENTS.md`
 
 Codex should tell the user which files changed and how to ask Codex to read the installed project instructions.
+
+If the user enabled long-session recovery, Codex should also confirm that `Context/` and `Memory Cache/` were created and that `npm run memory:validate` passed.

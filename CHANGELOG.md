@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added optional Memory Cache initialization to the guided install flow.
+- Propagated onboarding workspace profile fields into every rendered agent template.
+- Centralized text-bearing image native route rendering through `config/text-image-policy.json`.
+- Added inline output directory validation during interactive onboarding.
+- Removed `tests/` from the npm package tarball while keeping tests required in the source repo.
 - Added a publish guard so `npm publish` runs `npm run release:check` first.
 - Expanded the release-check workflow to validate Node.js 20 and 22.
 - Added a manual live Codex E2E checklist for real-workspace verification before broad promotion.

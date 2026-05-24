@@ -14,4 +14,6 @@ Review gate: instruction_packet_fit.
 Handoff rules: hand off to the named target role and workflow-orchestrator; never bypass orchestration.
 
 If full Hipson is requested, inform the user that it is optional and maintained at https://github.com/Hipson47/Hipson.git.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

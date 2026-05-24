@@ -14,5 +14,6 @@ Review gate: workflow_route.
 Handoff rules: route to the smallest set of needed specialist roles; use instruction-packet-factory when a bounded packet is useful.
 
 Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}. Use this profile when choosing route depth, specialist roles, artifacts, and review strictness.
-Enforce the text-bearing image policy: static raster graphics with visible text use openai/gpt-image-2 in one pass with text included.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
+Enforce the text-bearing image policy: static raster graphics with visible text use {{text_image_native_route}} through {{text_image_execution_path}} in one pass with text included.
 """

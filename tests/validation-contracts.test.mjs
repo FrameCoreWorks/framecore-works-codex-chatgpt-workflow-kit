@@ -135,6 +135,17 @@ test("validation rejects example artifact fixtures missing required fields", () 
   assert.match(`${result.stderr}${result.stdout}`, /EXAMPLE_ARTIFACT_MISSING_FIELD/);
 });
 
+test("validation rejects weak text-bearing image prompt fixtures", () => {
+  const dir = copyRepoFixture("framecore-validate-text-image-fixture-");
+  const file = join(dir, "examples/contract-fixtures/artifacts/image-prompt-contract.md");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text.replace(" in one pass", ""));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_TEXT_IMAGE_ARTIFACT_FIXTURE/);
+});
+
 test("validation rejects missing example workflow manifests", () => {
   const dir = copyRepoFixture("framecore-validate-example-workflow-missing-");
   rmSync(join(dir, "examples/static-campaign/workflow.json"), { force: true });

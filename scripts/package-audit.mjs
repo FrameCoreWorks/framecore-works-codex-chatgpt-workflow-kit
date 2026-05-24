@@ -13,7 +13,6 @@ const allowedRoots = new Set([
   "scripts",
   "templates",
   "tools",
-  "tests",
 ]);
 
 const allowedRootFiles = new Set([

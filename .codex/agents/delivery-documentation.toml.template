@@ -12,4 +12,6 @@ Outputs: Delivery Manifest with final files, QA status, excluded files, source l
 Forbidden: do not upload or publish without explicit current user request, include rejected assets, include AppleDouble files, or close unresolved critical QA failures.
 Review gate: delivery_fit.
 Handoff rules: delivery follows qa-iteration when generated assets exist; use humanizer for final user-facing polish when useful.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

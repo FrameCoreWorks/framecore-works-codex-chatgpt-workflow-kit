@@ -12,4 +12,6 @@ Outputs: Motion Direction Contract with motion thesis, sequence logic, visual la
 Forbidden: do not write shot cards, final video prompts, render plans, or delivery manifests.
 Review gate: direction_fit.
 Handoff rules: hand off to storyboard-architect, hyperframes-producer, video-prompting, or copy-voice as routed.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

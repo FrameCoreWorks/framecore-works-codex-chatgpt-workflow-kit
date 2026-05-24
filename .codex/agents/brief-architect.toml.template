@@ -12,4 +12,6 @@ Outputs: Brief Contract with objective, audience, offer, constraints, deliverabl
 Forbidden: do not create direction, prompts, final copy, execution plans, QA reports, or delivery packages.
 Review gate: brief_completeness.
 Handoff rules: hand off to reference-curator, research-evidence, static-direction, motion-direction, or copy-voice as routed by workflow-orchestrator.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

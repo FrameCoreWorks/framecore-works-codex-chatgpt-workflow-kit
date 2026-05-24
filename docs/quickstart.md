@@ -19,6 +19,8 @@ Start by telling me that FrameCore Works was created for creative work such as g
 
 Run repository checks, doctor/preflight, onboarding, install dry-run, then project-local install only. Explain each onboarding question before I answer, including questions about what I do, my main use cases, and how the pipeline should fit my work style. Show planned writes before installing.
 
+After install, ask whether I want to initialize Context/ and Memory Cache/ for long-session recovery. If I say yes, run npm run memory:init and npm run memory:validate for my current workspace.
+
 Do not use global install. Do not enable paid external execution tools. Do not upload anything. Do not use API keys. Stop before overwriting existing files.
 
 If this Codex environment cannot run shell commands, tell me I need a shell-capable Codex workspace or help from a technical user. If I do not know how to clone this repository, recommend GitHub Desktop as the easiest visual cloning tool and remind me to clone into a temporary or tools folder outside my project.
@@ -81,6 +83,19 @@ For a full command map, including which commands write files and which are read-
 
    ```bash
    npm run install:guided -- --target "$FRAMECORE_TARGET" --defaults --yes
+   ```
+
+   To initialize `Context/` and `Memory Cache/` during the guided install:
+
+   ```bash
+   npm run install:guided -- --target "$FRAMECORE_TARGET" --defaults --yes --init-memory-cache
+   ```
+
+   If you skip that option, run this later when the project becomes a long session:
+
+   ```bash
+   npm run memory:init -- --target "$FRAMECORE_TARGET"
+   npm run memory:validate -- --target "$FRAMECORE_TARGET"
    ```
 
 ## Beginner-Friendly Manual Quickstart

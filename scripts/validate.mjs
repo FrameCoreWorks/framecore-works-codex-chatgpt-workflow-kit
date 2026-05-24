@@ -229,6 +229,11 @@ for (const role of requiredRoles) {
       addFinding("WEAK_AGENT_TEMPLATE", `Agent template ${role} is missing marker ${marker}`, [file]);
     }
   }
+  for (const phrase of ["Workspace profile:", "{{working_language}}", "{{response_tone}}", "{{primary_work}}"]) {
+    if (!text.includes(phrase)) {
+      addFinding("WEAK_AGENT_TEMPLATE", `Agent template ${role} must consume onboarding workspace profile token: ${phrase}`, [file]);
+    }
+  }
   const gateMatch = text.match(/Review gate:\s*`?([a-z0-9_]+)`?\./);
   if (!gateMatch) {
     addFinding("MISSING_AGENT_REVIEW_GATE", `Agent template ${role} must declare a review gate.`, [file]);
@@ -454,6 +459,14 @@ if (existsSync(artifactTemplates)) {
             addFinding("EXAMPLE_ARTIFACT_MISSING_FIELD", `Example artifact ${examplePath} is missing required field: ${field}`, [exampleFile, artifactSchemasPath]);
           }
         }
+        if (artifactName === "Image Prompt Contract") {
+          const fixtureText = read(exampleFile);
+          for (const phrase of ["native Codex/ChatGPT image generator", "one pass", "exact_visible_text", "QA_checks"]) {
+            if (!fixtureText.includes(phrase)) {
+              addFinding("WEAK_TEXT_IMAGE_ARTIFACT_FIXTURE", `Image Prompt Contract fixture must enforce text-bearing image policy phrase: ${phrase}`, [exampleFile, artifactSchemasPath]);
+            }
+          }
+        }
       }
     }
     for (const section of sections) {
@@ -564,7 +577,7 @@ if (existsSync(migrationDoc)) {
 const quickstartDoc = join(validationRoot, "docs/quickstart.md");
 if (existsSync(quickstartDoc)) {
   const text = read(quickstartDoc);
-  for (const phrase of ["## Beginner-Friendly Guided Quickstart", "npm run install:guided", "## Codex-Assisted Quickstart", "## Optional GitHub Desktop Setup", "GitHub Desktop", "visual cloning", "temporary or tools folder outside the target workspace", "safe relative output path", "PowerShell commands", "$env:FRAMECORE_TARGET", "If guided install completes successfully", "manual fallback", "npm run check", "doctor/preflight", "onboarding", "install dry-run", "after onboarding", "project-local only", "Do not use global install", "Show me the changed files", "PowerShell"]) {
+  for (const phrase of ["## Beginner-Friendly Guided Quickstart", "npm run install:guided", "## Codex-Assisted Quickstart", "## Optional GitHub Desktop Setup", "GitHub Desktop", "visual cloning", "temporary or tools folder outside the target workspace", "safe relative output path", "PowerShell commands", "$env:FRAMECORE_TARGET", "If guided install completes successfully", "manual fallback", "npm run check", "doctor/preflight", "onboarding", "install dry-run", "after onboarding", "project-local only", "Do not use global install", "Show me the changed files", "npm run memory:init", "npm run memory:validate", "PowerShell"]) {
     if (!text.includes(phrase)) addFinding("WEAK_INSTALL_PROMPT", `Codex-assisted quickstart is missing required safety phrase: ${phrase}`, [quickstartDoc]);
   }
   for (const phrase of ["## Advanced Global Install", "writes to the current user's home workspace", "npm run doctor -- --mode global", "node scripts/install.mjs --mode dry-run --target \"$HOME\"", "node scripts/install.mjs --mode global --confirm-global"]) {
@@ -582,7 +595,7 @@ if (existsSync(codexAssistedInstallDoc)) {
   for (const section of ["Purpose", "Paste-In Instruction", "What Codex Should Do", "Onboarding Questions", "Stop Conditions", "Expected Result"]) {
     if (!sections.has(section)) addFinding("WEAK_CODEX_ASSISTED_INSTALL_DOC", `Codex-assisted install guide is missing required section: ${section}`, [codexAssistedInstallDoc]);
   }
-  for (const phrase of ["temporary or tools folder outside the target workspace", "guided project-local installer", "manual fallback", "Run onboarding", "Run install dry-run", "Install project-local only", "Do not use global install", "creative work such as graphics", "what I do", "main use cases", "work style", "GitHub Desktop", "visual cloning tool", "delivery upload behavior", "safe relative path", "optional full Hipson expansion", "does not clone or install full Hipson", "stop and ask the user", "user-owned file conflicts", "external execution tools", "AGENTS.framecore.md"]) {
+  for (const phrase of ["temporary or tools folder outside the target workspace", "guided project-local installer", "manual fallback", "Run onboarding", "Run install dry-run", "Install project-local only", "Do not use global install", "creative work such as graphics", "what I do", "main use cases", "work style", "GitHub Desktop", "visual cloning tool", "delivery upload behavior", "safe relative path", "optional full Hipson expansion", "does not clone or install full Hipson", "stop and ask the user", "user-owned file conflicts", "external execution tools", "AGENTS.framecore.md", "Memory Cache", "npm run memory:init"]) {
     if (!text.includes(phrase)) addFinding("WEAK_CODEX_ASSISTED_INSTALL_DOC", `Codex-assisted install guide is missing required safety phrase: ${phrase}`, [codexAssistedInstallDoc]);
   }
 }
@@ -809,7 +822,7 @@ if (existsSync(releaseNotesTemplate)) {
 const readmePath = join(validationRoot, "README.md");
 if (existsSync(readmePath)) {
   const text = read(readmePath);
-  for (const phrase of ["docs/quickstart.md", "docs/codex-assisted-install.md", "If guided install completes successfully", "manual fallback", "Show me the changed files"]) {
+  for (const phrase of ["docs/quickstart.md", "docs/codex-assisted-install.md", "If guided install completes successfully", "manual fallback", "Show me the changed files", "npm run memory:init"]) {
     if (!text.includes(phrase)) addFinding("WEAK_README_INSTALL_PROMPT", `README install prompt is missing required safety phrase: ${phrase}`, [readmePath]);
   }
   for (const phrase of ["## Supported Agent Surfaces", "OpenAI Codex CLI with custom-agent support", "Chat-only environments without shell access", "GitHub Desktop", "created by FrameCore Works", "https://buycoffee.to/framecoreworks", "This kit ships the routing and contract layer", "symlinks"]) {
@@ -1401,7 +1414,7 @@ for (const directory of ["docs", "examples", ".agents", ".codex"]) {
 validateInstructionOverridePhrases([...instructionFacingFiles]);
 
 const textPolicy = read(join(validationRoot, "config/text-image-policy.json"));
-if (!textPolicy.includes("gpt-image-2") || !textPolicy.includes("native Codex/ChatGPT image generator") || !textPolicy.includes("one-pass generation")) {
+if (!textPolicy.includes("gpt-image-2") || !textPolicy.includes("openai/gpt-image-2") || !textPolicy.includes("native Codex/ChatGPT image generator") || !textPolicy.includes("one-pass generation")) {
   addFinding("WEAK_TEXT_IMAGE_POLICY", "Text-image policy is missing required native generator, model reference, or one-pass rule.", [join(validationRoot, "config/text-image-policy.json")]);
 }
 

@@ -20,7 +20,6 @@ const requiredPackageFiles = [
   "scripts/",
   "templates/",
   "tools/",
-  "tests/",
   "AGENTS.template.md",
   "CHANGELOG.md",
   "CODE_OF_CONDUCT.md",

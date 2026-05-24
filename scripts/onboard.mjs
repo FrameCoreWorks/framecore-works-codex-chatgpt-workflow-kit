@@ -4,7 +4,7 @@ import { dirname, join } from "node:path";
 import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { assertNoSymlinkPath, hasHelpFlag, isMainModule, printHelpAndExit, repoRoot, readJson } from "./common.mjs";
-import { assertValidFrameCoreConfig } from "./config-validation.mjs";
+import { assertValidFrameCoreConfig, isSafeRelativePath } from "./config-validation.mjs";
 
 function argValue(name, fallback) {
   const index = process.argv.indexOf(name);
@@ -41,6 +41,14 @@ async function askChoice(rl, prompt, fallback, choices) {
     const value = await ask(rl, prompt, fallback);
     if (choices.includes(value)) return value;
     console.log(`Choose one of: ${choices.join(", ")}`);
+  }
+}
+
+async function askSafeRelativePath(rl, prompt, fallback) {
+  while (true) {
+    const value = await ask(rl, prompt, fallback);
+    if (isSafeRelativePath(value)) return value;
+    console.log("Use a safe relative path inside the workspace, for example output/framecore. Do not use absolute paths, ~, URLs, or ../ segments.");
   }
 }
 
@@ -135,7 +143,7 @@ export async function runOnboarding({ target = process.cwd(), defaults = false, 
     config.work_profile.adaptation_notes = await ask(rl, "Any adaptation notes for non-creative or specialized use cases?", defaultsConfig.work_profile.adaptation_notes);
     config.working_language = await ask(rl, "Working language", defaultsConfig.working_language);
     config.response_tone = await ask(rl, "Response tone", defaultsConfig.response_tone);
-    config.output_dir = await ask(rl, "Output directory (safe relative path, for example output/framecore)", defaultsConfig.output_dir);
+    config.output_dir = await askSafeRelativePath(rl, "Output directory (safe relative path, for example output/framecore)", defaultsConfig.output_dir);
     config.qa_strictness = await askChoice(rl, "QA strictness", defaultsConfig.qa_strictness, ["light", "standard", "strict"]);
     config.delivery.auto_upload = await askYesNo(rl, "Allow automatic delivery uploads if you later add a delivery integration? yes/no", defaultsConfig.delivery.auto_upload);
     config.delivery.delivery_requires_current_user_request = await askYesNo(rl, "Require an explicit user request before delivery/export? yes/no", defaultsConfig.delivery.delivery_requires_current_user_request);

@@ -12,4 +12,6 @@ Outputs: Evidence Note with sources, freshness, confidence, relevant constraints
 Forbidden: do not create final prompts, paid execution plans, or unverified claims.
 Review gate: evidence_fit.
 Handoff rules: return evidence to workflow-orchestrator and the target specialist role.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

@@ -2,6 +2,7 @@
   "schema_version": 1,
   "execution_path": "native Codex/ChatGPT image generation",
   "native_model": "gpt-image-2",
+  "native_route": "openai/gpt-image-2",
   "provider_classification": "built-in chat image generator, not an external provider integration",
   "applies_to": [
     "poster",

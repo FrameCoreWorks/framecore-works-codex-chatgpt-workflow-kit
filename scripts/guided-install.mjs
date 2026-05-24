@@ -105,6 +105,7 @@ export async function runGuidedInstall({
   target = argValue("--target", null),
   defaults = hasFlag("--defaults"),
   yes = hasFlag("--yes"),
+  initMemoryCache = hasFlag("--init-memory-cache"),
   skipCheck = hasFlag("--skip-check"),
 } = {}) {
   const resolvedTarget = target ? resolve(target) : null;
@@ -133,6 +134,23 @@ export async function runGuidedInstall({
 
   runNodeStep("Project-local install", ["scripts/install.mjs", "--mode", "project-local", "--target", resolvedTarget], { target: resolvedTarget });
   printInstalledManifest(resolvedTarget);
+
+  let shouldInitMemoryCache = initMemoryCache;
+  if (!yes && !shouldInitMemoryCache) {
+    const rl = readline.createInterface({ input, output });
+    const answer = await rl.question("\nInitialize Memory Cache and Context for long-session recovery now? yes/no (no): ");
+    rl.close();
+    shouldInitMemoryCache = /^y/i.test(answer.trim());
+  }
+  if (shouldInitMemoryCache) {
+    runNodeStep("Memory Cache init", ["tools/init-memory-cache.mjs", "--target", resolvedTarget], { target: resolvedTarget });
+    runNodeStep("Memory Cache validation", ["tools/validate-memory-cache.mjs", "--target", resolvedTarget], { target: resolvedTarget });
+  } else {
+    console.log("\nOptional next step for long sessions:");
+    console.log("  npm run memory:init -- --target <target-workspace>");
+    console.log("  npm run memory:validate -- --target <target-workspace>");
+  }
+
   console.log("\nGuided install complete.");
   console.log("Next: open the target workspace in Codex and ask it to read AGENTS.md or AGENTS.framecore.md.");
   return 0;
@@ -151,6 +169,8 @@ Options:
   --target <path>  Existing Codex workspace to install into. Required.
   --defaults       Use default onboarding answers without interactive questions.
   --yes            Apply the final project-local install after dry-run without asking.
+  --init-memory-cache
+                  Initialize and validate Context/ and Memory Cache/ after install.
   --skip-check     Skip repository checks. Intended for tests and maintainer troubleshooting only.
 
 Safety:

@@ -12,4 +12,6 @@ Outputs: Tool Routing Plan with selected tool, activation/approval status, requi
 Forbidden: do not use bundled paid-provider assumptions, credentials, hidden activation, unverified pricing, or tool execution from memory alone.
 Review gate: schema_pricing_fit.
 Handoff rules: hand off only approved execution plans to execution-manifest; otherwise return a planning note and missing setup.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

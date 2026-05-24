@@ -22,8 +22,12 @@ test("onboarding renders project-local config and agent templates", () => {
   const sample = readFileSync(join(dir, ".codex/agents/intent-confirmation.toml"), "utf8");
   assert.match(sample, /intent-confirmation/);
   assert.match(sample, /Workspace profile: primary work = creative production/);
+  const assetManifest = readFileSync(join(dir, ".codex/agents/asset-manifest.toml"), "utf8");
+  assert.match(assetManifest, /Workspace profile: primary work = creative production/);
+  assert.match(assetManifest, /Use en for workflow artifacts/);
   const orchestrator = readFileSync(join(dir, ".codex/agents/workflow-orchestrator.toml"), "utf8");
   assert.match(orchestrator, /Use this profile when choosing route depth/);
+  assert.match(orchestrator, /openai\/gpt-image-2 through native Codex\/ChatGPT image generation/);
 });
 
 test("onboarding rejects missing targets unless explicitly created", () => {
@@ -208,6 +212,16 @@ test("interactive onboarding explains the workflow and can keep default role nam
   assert.equal(config.work_profile.primary_use_cases, "briefs, references, visual direction, prompt packs, QA review, and delivery preparation");
 });
 
+test("interactive onboarding re-prompts unsafe output directories", async () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-interactive-output-dir-"));
+  const answers = ["", "", "", "", "", "", "", "../outside", "output/safe", "", "", "", "", "", "", "yes"];
+  const result = await runInteractiveOnboarding(dir, answers);
+  assert.equal(result.status, 0);
+  assert.match(result.stdout, /Use a safe relative path inside the workspace/);
+  const config = JSON.parse(readFileSync(join(dir, "framecore.config.json"), "utf8"));
+  assert.equal(config.output_dir, "output/safe");
+});
+
 test("installer dry run reports writes without mutating target", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-dry-"));
   const output = run(["scripts/install.mjs", "--mode", "dry-run", "--target", dir]);
@@ -251,12 +265,25 @@ test("guided installer runs the safe project-local default path", () => {
   assert.match(output, /Onboarding/);
   assert.match(output, /Install dry-run/);
   assert.match(output, /Project-local install/);
+  assert.match(output, /Optional next step for long sessions/);
+  assert.match(output, /npm run memory:init/);
   assert.match(output, /Installed managed tree/);
   assert.match(output, /Guided install complete/);
   assert.equal(output.includes(dir), false);
   assert.ok(existsSync(join(dir, "framecore.config.json")));
   assert.ok(existsSync(join(dir, ".framecore/manifest.json")));
   assert.ok(existsSync(join(dir, ".codex/agents/workflow-orchestrator.toml")));
+});
+
+test("guided installer can initialize Memory Cache after project-local install", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-guided-memory-"));
+  const output = run(["scripts/guided-install.mjs", "--target", dir, "--defaults", "--yes", "--skip-check", "--init-memory-cache"]);
+  assert.match(output, /Memory Cache init/);
+  assert.match(output, /Memory Cache validation/);
+  assert.match(output, /memory cache validation passed/);
+  assert.ok(existsSync(join(dir, "Context")));
+  assert.ok(existsSync(join(dir, "Memory Cache", "project-state.md")));
+  assert.ok(existsSync(join(dir, "Memory Cache", "recovery-prompt.md")));
 });
 
 test("smoke install verifies the temporary project-local golden path", () => {

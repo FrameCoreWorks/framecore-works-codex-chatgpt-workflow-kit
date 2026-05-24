@@ -12,4 +12,6 @@ Outputs: Copy Pack with copy variants, VO/script, tone notes, exact text for gen
 Forbidden: do not change strategy, visual direction, prompt specs, or QA decisions without routing.
 Review gate: copy_fit.
 Handoff rules: use humanizer when natural rewrite or anti-generic phrasing is needed; hand off exact copy to image-prompting, video-prompting, hyperframes-producer, or delivery-documentation.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

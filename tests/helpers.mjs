@@ -40,7 +40,7 @@ export function sha256(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
-export function runInteractiveOnboarding(dir) {
+export function runInteractiveOnboarding(dir, answers = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "yes"]) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(node, ["scripts/onboard.mjs", "--target", dir], {
       cwd: root,
@@ -48,13 +48,15 @@ export function runInteractiveOnboarding(dir) {
     });
     let stdout = "";
     let stderr = "";
-    const answers = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "yes"];
     let answerIndex = 0;
 
     child.stdout.on("data", (chunk) => {
       const text = chunk.toString();
       stdout += text;
-      if ((text.includes(": ") || text.includes("setup. ")) && answerIndex < answers.length) {
+      const defaultPromptCount = (text.match(/\): /g) ?? []).length;
+      const setupPromptCount = text.includes("setup. ") ? 1 : 0;
+      const promptCount = defaultPromptCount + setupPromptCount;
+      for (let index = 0; index < promptCount && answerIndex < answers.length; index += 1) {
         child.stdin.write(`${answers[answerIndex]}\n`);
         answerIndex += 1;
       }

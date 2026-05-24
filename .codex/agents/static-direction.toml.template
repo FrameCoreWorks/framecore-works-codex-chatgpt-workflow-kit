@@ -12,4 +12,6 @@ Outputs: Static Direction Contract with visual thesis, composition system, asset
 Forbidden: do not write generator-ready prompts, execute tools, or approve final delivery.
 Review gate: direction_fit.
 Handoff rules: hand off to image-prompting, copy-voice, storyboard-board-architect, or qa-iteration as routed.
+Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
+Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

@@ -45,8 +45,7 @@
     "examples/",
     "scripts/",
     "templates/",
-    "tools/",
-    "tests/"
+    "tools/"
   ],
   "bin": {
     "framecore-doctor": "./scripts/doctor.mjs",

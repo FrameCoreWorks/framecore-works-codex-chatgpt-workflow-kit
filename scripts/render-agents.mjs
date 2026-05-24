@@ -56,6 +56,7 @@ export function renderAgents({ target, configPath, dryRun = false, previousManag
   const sourceDir = join(repoRoot, ".codex/agents");
   const targetDir = join(target, ".codex/agents");
   const { config } = loadFrameCoreConfig({ target, configPath });
+  const textImagePolicy = JSON.parse(readFileSync(join(repoRoot, "config/text-image-policy.json"), "utf8"));
   assertValidFrameCoreConfig(config);
   const names = config.agent_display_names ?? {};
   const profile = config.work_profile ?? {};
@@ -66,6 +67,9 @@ export function renderAgents({ target, configPath, dryRun = false, previousManag
   const primaryUseCases = safeTemplateValue(profile.primary_use_cases ?? "briefs, references, prompts, QA, and delivery");
   const workflowStyle = safeTemplateValue(profile.workflow_style ?? "structured checkpoints with concise practical outputs");
   const adaptationNotes = safeTemplateValue(profile.adaptation_notes ?? "adapt this workflow to the current project without changing safety boundaries");
+  const textImageNativeModel = safeTemplateValue(textImagePolicy.native_model ?? "gpt-image-2");
+  const textImageNativeRoute = safeTemplateValue(textImagePolicy.native_route ?? textImagePolicy.native_model ?? "gpt-image-2");
+  const textImageExecutionPath = safeTemplateValue(textImagePolicy.execution_path ?? "native Codex/ChatGPT image generation");
   const planned = [];
 
   for (const entry of readdirSync(sourceDir)) {
@@ -82,7 +86,10 @@ export function renderAgents({ target, configPath, dryRun = false, previousManag
       .replaceAll("{{primary_work}}", primaryWork)
       .replaceAll("{{primary_use_cases}}", primaryUseCases)
       .replaceAll("{{workflow_style}}", workflowStyle)
-      .replaceAll("{{adaptation_notes}}", adaptationNotes);
+      .replaceAll("{{adaptation_notes}}", adaptationNotes)
+      .replaceAll("{{text_image_native_model}}", textImageNativeModel)
+      .replaceAll("{{text_image_native_route}}", textImageNativeRoute)
+      .replaceAll("{{text_image_execution_path}}", textImageExecutionPath);
     const destination = join(targetDir, `${roleId}.toml`);
     const managedPath = toManifestPath(target, destination);
     if (!includeManagedPath(managedPath)) continue;
