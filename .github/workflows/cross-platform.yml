@@ -50,7 +50,29 @@ jobs:
       - name: Agent compliance
         run: npm run agent:check
       - name: Tests
+        if: matrix.os != 'windows-latest'
         run: npm test
+      - name: Tests (Windows audit-security)
+        if: matrix.os == 'windows-latest'
+        run: node --test tests/audit-security.test.mjs
+      - name: Tests (Windows docs-validation)
+        if: matrix.os == 'windows-latest'
+        run: node --test tests/docs-validation.test.mjs
+      - name: Tests (Windows doctor-manifest)
+        if: matrix.os == 'windows-latest'
+        run: node --test tests/doctor-manifest.test.mjs
+      - name: Tests (Windows governance)
+        if: matrix.os == 'windows-latest'
+        run: node --test tests/governance.test.mjs
+      - name: Tests (Windows install-onboarding)
+        if: matrix.os == 'windows-latest'
+        run: node --test tests/install-onboarding.test.mjs
+      - name: Tests (Windows validation-contracts)
+        if: matrix.os == 'windows-latest'
+        run: node --test tests/validation-contracts.test.mjs
+      - name: Tests (Windows validation-core)
+        if: matrix.os == 'windows-latest'
+        run: node --test tests/validation-core.test.mjs
       - name: Install smoke
         run: npm run smoke:install
       - name: Package audit
