@@ -13,8 +13,8 @@ test("validation rejects weak onboarding guide and assisted install prompt", () 
   writeFileSync(
     readme,
     readFileSync(readme, "utf8")
-      .replace(", docs/quickstart.md,", "")
-      .replace("Run doctor/preflight", "Run install dry-run")
+      .replaceAll(", docs/quickstart.md,", "")
+      .replaceAll("Run doctor/preflight", "Run install dry-run")
   );
   writeFileSync(
     onboardingDoc,
@@ -22,7 +22,7 @@ test("validation rejects weak onboarding guide and assisted install prompt", () 
       .replace("## Interactive Questions", "## Setup Questions")
       .replace("does not clone, install, or activate full Hipson", "may install full Hipson")
   );
-  writeFileSync(quickstartDoc, readFileSync(quickstartDoc, "utf8").replace("project-local only", "project-local"));
+  writeFileSync(quickstartDoc, readFileSync(quickstartDoc, "utf8").replaceAll("project-local only", "project-local"));
 
   const result = failRun(["scripts/validate.mjs", dir]);
   assert.notEqual(result.status, 0);

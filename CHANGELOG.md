@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- No unreleased changes.
+- Added a beginner-friendly no-terminal startup prompt to README, Quickstart, and Codex-assisted install docs.
 
 ## 1.0.0 - 2026-05-24
 

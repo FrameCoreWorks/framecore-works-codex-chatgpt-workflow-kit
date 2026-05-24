@@ -5,6 +5,44 @@
 
 Licensed under Apache-2.0. See [NOTICE](NOTICE) for redistribution notice details.
 
+## Beginner Start
+
+If someone sent you this repo and you do not know Terminal, start here.
+
+1. Open Codex.
+2. Open the project folder where you want to use this workflow.
+3. Paste this into Codex:
+
+```text
+Install FrameCore Works: Creative Workflow Skill Kit for Codex from this GitHub repo:
+
+https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+
+I am a beginner. Please guide me step by step.
+
+First check whether this Codex environment can clone repositories and run local shell commands.
+If it can, clone the repo into a temporary or tools folder outside my project, read README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in plain language what will be installed and how it will improve my workflow.
+
+Then follow the safe install path:
+1. Run the repository checks.
+2. Run doctor/preflight against my current workspace.
+3. Run onboarding for my current workspace and explain each question before I answer.
+4. Run install dry-run after onboarding.
+5. Install project-local only after showing me the planned writes.
+6. Show me the changed files, final installed tree, and first prompt I should use after installation.
+
+Do not use global install.
+Do not enable paid external execution tools.
+Do not upload anything.
+Do not use API keys.
+Do not run provider tools.
+Stop and ask me before overwriting any existing file.
+
+If this Codex environment cannot run shell commands, tell me that I need a shell-capable Codex workspace or help from a technical user, then show me the manual Quickstart link.
+```
+
+If Codex says it cannot run commands, ask a technical user to follow [Quickstart](docs/quickstart.md) for you.
+
 If your Codex environment can clone repositories and run local shell commands, for example OpenAI Codex CLI with workspace write access, give Codex this instruction from the workspace where you want to install the kit.
 If your agent or chat surface cannot run shell commands, use the manual [Install Flow](#install-flow) instead.
 

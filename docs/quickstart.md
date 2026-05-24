@@ -2,6 +2,28 @@
 
 This guide installs FrameCore Works Skill Kit into one Codex workspace. The recommended path is project-local installation, which keeps the workflow assets inside the target project instead of changing your global Codex setup.
 
+## No-Terminal Beginner Start
+
+If you do not know Terminal, use a Codex environment that can run local shell commands and paste this into Codex from the project folder where you want the kit installed:
+
+```text
+Install FrameCore Works: Creative Workflow Skill Kit for Codex from this GitHub repo:
+
+https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+
+I am a beginner. Please guide me step by step.
+
+First check whether this Codex environment can clone repositories and run local shell commands. If it can, clone the repo into a temporary or tools folder outside my project, read README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain what will be installed.
+
+Run repository checks, doctor/preflight, onboarding, install dry-run, then project-local install only. Explain each onboarding question before I answer. Show planned writes before installing.
+
+Do not use global install. Do not enable paid external execution tools. Do not upload anything. Do not use API keys. Stop before overwriting existing files.
+
+If this Codex environment cannot run shell commands, tell me I need a shell-capable Codex workspace or help from a technical user.
+```
+
+If Codex cannot run local commands, this kit still remains documented, but installation needs a terminal-capable environment or a technical helper.
+
 ## Prerequisites
 
 - Node.js 20 or newer.
