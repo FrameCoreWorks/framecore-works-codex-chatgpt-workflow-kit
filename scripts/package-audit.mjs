@@ -2,7 +2,7 @@
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
-import { hasHelpFlag, npmArgs, npmCommand, printHelpAndExit } from "./common.mjs";
+import { hasHelpFlag, npmArgs, npmCommand, printHelpAndExit, toPosixPath } from "./common.mjs";
 
 const allowedRoots = new Set([
   ".agents",
@@ -81,7 +81,7 @@ function packageFiles() {
   const packages = JSON.parse(result.stdout);
   const files = packages?.[0]?.files;
   if (!Array.isArray(files)) throw new Error("npm pack output did not include a files list");
-  return files.map((entry) => entry.path);
+  return files.map((entry) => toPosixPath(entry.path));
 }
 
 function auditPath(path) {
