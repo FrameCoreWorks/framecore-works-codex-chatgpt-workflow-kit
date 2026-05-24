@@ -30,6 +30,17 @@ Default recommendation: use the guided project-local installer unless you have a
 | `npm run package:list` | npm package dry-run preview | no |
 | `npm run package:audit` | package contents gate | no |
 | `npm run cleanup:appledouble -- --apply` | remove AppleDouble sidecars | yes, only `._*` metadata files |
+| `npm run memory:init -- --target <path>` | create Context/ and Memory Cache/ | yes |
+| `npm run memory:validate -- --target <path>` | validate durable recovery state | no |
+| `npm run workflow:appledouble:audit:all -- --target <path>` | fail when AppleDouble sidecars exist | no |
+| `npm run workflow:appledouble:clean:all -- --target <path>` | remove AppleDouble sidecars from an operational folder | yes, only `._*` metadata files |
+| `npm run workflow:context-budget -- --target <path>` | check safe recovery context size and exclusions | no |
+| `npm run semantic:index -- --target <path>` | build local semantic index without API calls | yes, writes Memory Cache index |
+| `npm run semantic:query -- --target <path> --query "..."` | query the local semantic index | no |
+| `npm run semantic:embed -- --target <path> --activation "openai api active"` | prepare an activation-gated embedding manifest | yes, writes Memory Cache manifest |
+| `npm run workspace:evaluate:semantic -- --target <path> --activation "openai api active"` | create local semantic coverage report | yes, writes Memory Cache report |
+| `npm run self:audit -- --target <path>` | create a report-only self-improvement queue | yes, writes Memory Cache queue |
+| `npm run self:improve:local -- --target <path>` | create a local proposal plan without patching source | yes, writes Memory Cache plan |
 
 ## Safe Install Order
 
@@ -57,6 +68,10 @@ Use these before editing or releasing:
 - `npm run package:audit`
 - `npm run release:check`
 - `npm run smoke:install`
+- `npm run memory:validate -- --target <path>`
+- `npm run workflow:appledouble:audit:all -- --target <path>`
+- `npm run workflow:context-budget -- --target <path>`
+- `npm run semantic:query -- --target <path> --query "..."`
 - `node scripts/doctor.mjs --target <path>`
 - `node scripts/install.mjs --mode dry-run --target <path>`
 
@@ -73,6 +88,13 @@ These commands can write or delete files:
 - `node scripts/install.mjs --mode uninstall --target <path> --yes`
 - `node scripts/render-agents.mjs --target <path>`
 - `npm run cleanup:appledouble -- --apply`
+- `npm run memory:init -- --target <path>`
+- `npm run workflow:appledouble:clean:all -- --target <path>`
+- `npm run semantic:index -- --target <path>`
+- `npm run semantic:embed -- --target <path> --activation "openai api active"`
+- `npm run workspace:evaluate:semantic -- --target <path> --activation "openai api active"`
+- `npm run self:audit -- --target <path>`
+- `npm run self:improve:local -- --target <path>`
 
 Mutating commands should be run against a specific target path. Global install is advanced-only and requires `--confirm-global`.
 
@@ -110,6 +132,8 @@ npm run package:list
 - Do not apply uninstall without reviewing the preview.
 - Do not commit generated local config, backups, caches, outputs, or AppleDouble files.
 - Run `npm run cleanup:appledouble -- --apply` before release checks on macOS when files were copied through Finder, archives, or external drives.
+- Keep `Context/` and `Memory Cache/` separate. `Context/` is user-supplied input; `Memory Cache/` is recovery state.
+- Do not run local OpenAI API paths without the exact activation phrase `openai api active`.
 
 ## Related Docs
 
@@ -118,3 +142,7 @@ npm run package:list
 - [Troubleshooting](troubleshooting.md)
 - [Compatibility](compatibility.md)
 - [Release Guide](release.md)
+- [Memory Cache](memory-cache.md)
+- [Context Folder](context-folder.md)
+- [Semantic Memory](semantic-memory.md)
+- [OpenAI API Policy](openai-api-policy.md)

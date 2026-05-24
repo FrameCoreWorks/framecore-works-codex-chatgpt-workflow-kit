@@ -65,6 +65,9 @@ Onboarding does not rewrite that workflow logic. It tunes the local workspace: l
 - Checking supported environments and install modes: read [Compatibility](docs/compatibility.md).
 - Want command behavior and safety boundaries: read [CLI Reference](docs/cli-reference.md).
 - Want the mental model first: read [Architecture](docs/architecture.md).
+- Running long Codex sessions or handoffs: read [Memory Cache](docs/memory-cache.md) and [Context Folder](docs/context-folder.md).
+- Using local semantic lookup: read [Semantic Memory](docs/semantic-memory.md).
+- Need the local OpenAI API boundary: read [OpenAI API Policy](docs/openai-api-policy.md).
 - Want to understand current limits and planned direction: read [Roadmap](docs/roadmap.md).
 - Preparing for a stable public release: read [v1.0 Readiness](docs/v1-readiness.md).
 - Checking what provider-neutral allows and forbids: read [Provider-Neutral Boundary](docs/provider-neutral-boundary.md).
@@ -87,6 +90,7 @@ Onboarding does not rewrite that workflow logic. It tunes the local workspace: l
 - HyperFrames workflow knowledge for coded video planning, scene structure, animation guidance, caption planning, render QA, and delivery manifests.
 - Hipson Adapter for research maps, internet mapping packets, bounded instruction packets, review packets, and execution packets.
 - Project State templates for durable run-state, context recovery, blockers, touched files, and next-action handoff.
+- Memory Cache templates and local tools for long-session recovery, context-budget checks, semantic lookup, and report-only self-improvement queues.
 
 Project-local install writes only exact FrameCore-managed files:
 
@@ -255,6 +259,28 @@ The `workflow-self-improvement` skill is explicit-only. It creates retrospective
 
 Onboarding can optionally create a report-only 24-hour review recipe. The default is disabled.
 
+The local `self:audit` and `self:improve:local` commands write proposal queues into a valid `Memory Cache/`. They do not patch source files.
+
+## Long Session Recovery
+
+For long-running projects, create an operational folder with separate `Context/` and `Memory Cache/` folders:
+
+```bash
+npm run memory:init -- --target /path/to/operational-folder --create-target
+npm run memory:validate -- --target /path/to/operational-folder
+```
+
+`Context/` is for user-supplied briefs, references, attachments, and source data. `Memory Cache/` is for durable recovery state, checkpoint IDs, safe resume notes, decision logs, source maps, and artifact indexes. The tools do not repopulate `Context/` from `Memory Cache/`.
+
+Local semantic memory works without API access:
+
+```bash
+npm run semantic:index -- --target /path/to/operational-folder
+npm run semantic:query -- --target /path/to/operational-folder --query "recovery prompt"
+```
+
+OpenAI API paths require the exact activation phrase `openai api active`. Without that phrase, API-gated commands stop before any API-capable work.
+
 ## Development
 
 This is a GitHub-first repo. `package.json` provides local scripts, package metadata, and packaging checks; npm publication is optional and not required for project-local installation.
@@ -270,6 +296,8 @@ npm run check
 npm run smoke:install
 npm run release:check
 npm run package:list
+npm run memory:validate -- --target /path/to/operational-folder
+npm run workflow:context-budget -- --target /path/to/operational-folder
 node scripts/doctor.mjs --help
 node scripts/install.mjs --help
 ```
@@ -286,6 +314,11 @@ See also:
 - [Compatibility](docs/compatibility.md)
 - [CLI Reference](docs/cli-reference.md)
 - [Provider-Neutral Boundary](docs/provider-neutral-boundary.md)
+- [Memory Cache](docs/memory-cache.md)
+- [Context Folder](docs/context-folder.md)
+- [Semantic Memory](docs/semantic-memory.md)
+- [Self-Improvement Tools](docs/self-improvement.md)
+- [OpenAI API Policy](docs/openai-api-policy.md)
 - [v1.0 Readiness](docs/v1-readiness.md)
 - [Release Guide](docs/release.md)
 - [Release Notes Template](docs/release-notes-template.md)

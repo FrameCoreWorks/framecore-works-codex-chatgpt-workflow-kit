@@ -19,9 +19,14 @@ For new multi-step workflow tasks:
 - Static raster graphics with visible text must use the built-in Codex/ChatGPT image generator powered by GPT Image 2 in one pass with text included.
 - Do not upload, publish, or deliver generated assets without explicit user request and QA allowlist when QA applies.
 - Use `workflow-self-improvement` only when the user asks for retrospective review or workflow improvement proposals.
+- Keep `Memory Cache/project-state.md` current for long or resumable sessions. Use `Context/` only for user-supplied inputs and references.
+- Do not repopulate `Context/` from `Memory Cache/` unless the current user explicitly asks for that action.
+- Local OpenAI API use is inactive by default. Any local OpenAI API path requires the exact activation phrase `openai api active`.
 
 ## Local Configuration
 
 Read `framecore.config.json` when present. It contains local display names, output paths, QA strictness, delivery preferences, and optional integrations for this workspace.
 
 For workflow routing details, read `.agents/skills/pipeline-core/SKILL.md` before choosing specialist roles.
+
+For long-session recovery, read `Memory Cache/project-state.md` and use `Memory Cache/recovery-prompt.md` as the paste-ready resume instruction. Saved state is not permission to push, upload, run providers, run global install, or perform destructive actions.

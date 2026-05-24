@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added Memory Cache and Context folder docs, templates, tools, and tests for long-session recovery without mixing user input with durable state.
+- Added local semantic-memory commands with Context exclusion, AppleDouble exclusion, and explicit OpenAI API activation gating.
+- Added report-only self-improvement tooling that writes proposal queues to Memory Cache without editing source files.
 - Clarified supported agent surfaces in README so users can distinguish full Codex custom-agent support from AGENTS-only or chat-only environments.
 - Added a pipeline-core pointer to installed project instructions so Codex can find routing details faster after install.
 - Added installer guidance when an existing `AGENTS.md` is preserved and FrameCore writes `AGENTS.framecore.md`.

@@ -44,6 +44,8 @@
     "docs/",
     "examples/",
     "scripts/",
+    "templates/",
+    "tools/",
     "tests/"
   ],
   "bin": {
@@ -60,6 +62,8 @@
     "doctor": "node scripts/doctor.mjs",
     "install:guided": "node scripts/guided-install.mjs",
     "install:dry-run": "node scripts/install.mjs --mode dry-run",
+    "memory:init": "node tools/init-memory-cache.mjs",
+    "memory:validate": "node tools/validate-memory-cache.mjs",
     "onboard:defaults": "node scripts/onboard.mjs --defaults",
     "package:audit": "node scripts/package-audit.mjs",
     "package:list": "node scripts/package-list.mjs",
@@ -67,10 +71,19 @@
     "release:readiness": "node scripts/release-readiness.mjs",
     "release:check": "npm run check && npm run smoke:install && npm run package:audit && npm run release:readiness",
     "secret:scan": "node scripts/safety-scan.mjs",
+    "self:audit": "node tools/skill-agent-auditor.mjs --mode audit",
+    "self:improve:local": "node tools/skill-agent-auditor.mjs --mode improve",
+    "semantic:embed": "node tools/semantic-memory-index.mjs --mode embed",
+    "semantic:index": "node tools/semantic-memory-index.mjs --mode index",
+    "semantic:query": "node tools/semantic-memory-index.mjs --mode query",
     "smoke:install": "node scripts/smoke-install.mjs",
     "syntax:check": "node scripts/syntax-check.mjs",
     "test": "node --test",
     "validate": "node scripts/validate.mjs",
+    "workflow:appledouble:audit:all": "node tools/cleanup-appledouble.mjs",
+    "workflow:appledouble:clean:all": "node tools/cleanup-appledouble.mjs --apply",
+    "workflow:context-budget": "node tools/context-budget-audit.mjs",
+    "workspace:evaluate:semantic": "node tools/semantic-workspace-evaluate.mjs",
     "check": "npm run audit:privacy && npm run secret:scan && npm run syntax:check && npm run validate && npm run agent:check && npm test"
   },
   "engines": {

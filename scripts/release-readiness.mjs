@@ -18,6 +18,8 @@ const requiredPackageFiles = [
   "docs/",
   "examples/",
   "scripts/",
+  "templates/",
+  "tools/",
   "tests/",
   "AGENTS.template.md",
   "CHANGELOG.md",

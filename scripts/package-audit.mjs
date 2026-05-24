@@ -11,6 +11,8 @@ const allowedRoots = new Set([
   "docs",
   "examples",
   "scripts",
+  "templates",
+  "tools",
   "tests",
 ]);
 

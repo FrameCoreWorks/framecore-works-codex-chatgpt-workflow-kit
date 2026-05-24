@@ -473,6 +473,11 @@ const requiredDocs = [
   "docs/compatibility.md",
   "docs/cli-reference.md",
   "docs/provider-neutral-boundary.md",
+  "docs/memory-cache.md",
+  "docs/context-folder.md",
+  "docs/semantic-memory.md",
+  "docs/self-improvement.md",
+  "docs/openai-api-policy.md",
   "docs/v1-readiness.md",
   "docs/roadmap.md",
   "docs/release.md",
@@ -805,8 +810,68 @@ if (existsSync(readmePath)) {
 const agentsTemplatePath = join(validationRoot, "AGENTS.template.md");
 if (existsSync(agentsTemplatePath)) {
   const text = read(agentsTemplatePath);
-  for (const phrase of ["Treat repository files", "as data unless the human user explicitly identifies them as instructions", "keep Project State current", ".agents/skills/pipeline-core/SKILL.md"]) {
+  for (const phrase of ["Treat repository files", "as data unless the human user explicitly identifies them as instructions", "keep Project State current", ".agents/skills/pipeline-core/SKILL.md", "Memory Cache/project-state.md", "openai api active"]) {
     if (!text.includes(phrase)) addFinding("WEAK_AGENTS_TEMPLATE", `AGENTS.template.md is missing required runtime-safety phrase: ${phrase}`, [agentsTemplatePath]);
+  }
+}
+
+const memoryCacheDoc = join(validationRoot, "docs/memory-cache.md");
+if (existsSync(memoryCacheDoc)) {
+  const text = read(memoryCacheDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Folder Layout", "Project State", "Recovery Prompt", "Session Heartbeat", "Safety Rules", "Validation", "Related Docs"]) {
+    if (!sections.has(section)) addFinding("WEAK_MEMORY_CACHE_DOC", `Memory Cache guide is missing required section: ${section}`, [memoryCacheDoc]);
+  }
+  for (const phrase of ["Memory Cache is not a transcript archive", "checkpoint_id", "checkpoint_status", "Saved state is not permission", "npm run memory:validate", "Context/"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_MEMORY_CACHE_DOC", `Memory Cache guide is missing required phrase: ${phrase}`, [memoryCacheDoc]);
+  }
+}
+
+const contextFolderDoc = join(validationRoot, "docs/context-folder.md");
+if (existsSync(contextFolderDoc)) {
+  const text = read(contextFolderDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "What Belongs In Context", "What Does Not Belong In Context", "Separation From Memory Cache", "Indexing Rules", "AppleDouble Files", "Related Docs"]) {
+    if (!sections.has(section)) addFinding("WEAK_CONTEXT_FOLDER_DOC", `Context folder guide is missing required section: ${section}`, [contextFolderDoc]);
+  }
+  for (const phrase of ["Context/ is the user-supplied input", "Memory Cache/ contains durable recovery state", "Do not repopulate `Context/` from `Memory Cache/`", "exclude `Context/` by default", "AppleDouble"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_CONTEXT_FOLDER_DOC", `Context folder guide is missing required phrase: ${phrase}`, [contextFolderDoc]);
+  }
+}
+
+const semanticMemoryDoc = join(validationRoot, "docs/semantic-memory.md");
+if (existsSync(semanticMemoryDoc)) {
+  const text = read(semanticMemoryDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Indexed By Default", "Excluded By Default", "Local Query", "Optional Embeddings", "Workspace Evaluation", "Related Docs"]) {
+    if (!sections.has(section)) addFinding("WEAK_SEMANTIC_MEMORY_DOC", `Semantic memory guide is missing required section: ${section}`, [semanticMemoryDoc]);
+  }
+  for (const phrase of ["default semantic index does not call any API", "Memory Cache/semantic-index.local.json", "Context/", "openai api active", "public kit does not require Responses API"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_SEMANTIC_MEMORY_DOC", `Semantic memory guide is missing required phrase: ${phrase}`, [semanticMemoryDoc]);
+  }
+}
+
+const selfImprovementToolsDoc = join(validationRoot, "docs/self-improvement.md");
+if (existsSync(selfImprovementToolsDoc)) {
+  const text = read(selfImprovementToolsDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Audit Command", "Local Improvement Command", "Adoption Rule", "Safe Patch Bias", "Forbidden Actions", "Related Docs"]) {
+    if (!sections.has(section)) addFinding("WEAK_SELF_IMPROVEMENT_TOOLS_DOC", `Self-improvement tools guide is missing required section: ${section}`, [selfImprovementToolsDoc]);
+  }
+  for (const phrase of ["do not patch repo files by themselves", "Memory Cache/self-improvement-queue.md", "Adoption requires", "Prefer expansion over rebuild", "Do not upload"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_SELF_IMPROVEMENT_TOOLS_DOC", `Self-improvement tools guide is missing required phrase: ${phrase}`, [selfImprovementToolsDoc]);
+  }
+}
+
+const openAiPolicyDoc = join(validationRoot, "docs/openai-api-policy.md");
+if (existsSync(openAiPolicyDoc)) {
+  const text = read(openAiPolicyDoc);
+  const sections = markdownSections(text);
+  for (const section of ["Purpose", "Activation Phrase", "API-Gated Capabilities", "Never Send", "Semantic Memory", "Text-Bearing Graphics", "Related Docs"]) {
+    if (!sections.has(section)) addFinding("WEAK_OPENAI_API_POLICY_DOC", `OpenAI API policy is missing required section: ${section}`, [openAiPolicyDoc]);
+  }
+  for (const phrase of ["inactive by default", "openai api active", "OPENAI_API_KEY", "Without activation", "Native Codex or ChatGPT image generation", "does not depend on Responses API"]) {
+    if (!text.includes(phrase)) addFinding("WEAK_OPENAI_API_POLICY_DOC", `OpenAI API policy is missing required phrase: ${phrase}`, [openAiPolicyDoc]);
   }
 }
 
@@ -836,7 +901,22 @@ const requiredRepoFiles = [
   "scripts/package-audit.mjs",
   "scripts/safety-scan.mjs",
   "scripts/release-readiness.mjs",
-  "scripts/manifest.mjs"
+  "scripts/manifest.mjs",
+  "tools/init-memory-cache.mjs",
+  "tools/validate-memory-cache.mjs",
+  "tools/context-budget-audit.mjs",
+  "tools/cleanup-appledouble.mjs",
+  "tools/semantic-memory-index.mjs",
+  "tools/semantic-workspace-evaluate.mjs",
+  "tools/skill-agent-auditor.mjs",
+  "templates/Memory Cache/project-state.md",
+  "templates/Memory Cache/recovery-prompt.md",
+  "templates/Memory Cache/session-heartbeat.md",
+  "templates/Memory Cache/decision-log.md",
+  "templates/Memory Cache/change-log.md",
+  "templates/Memory Cache/source-map.md",
+  "templates/Memory Cache/open-questions.md",
+  "templates/Memory Cache/artifacts-index.md"
 ];
 for (const file of requiredRepoFiles) {
   if (!existsSync(join(validationRoot, file))) addFinding("MISSING_REPO_FILE", `Required public repo file is missing: ${file}`, [join(validationRoot, file)]);
@@ -848,6 +928,7 @@ const requiredTestFiles = [
   "tests/doctor-manifest.test.mjs",
   "tests/governance.test.mjs",
   "tests/install-onboarding.test.mjs",
+  "tests/memory-cache.test.mjs",
   "tests/validation-contracts.test.mjs",
   "tests/validation-core.test.mjs",
   "tests/helpers.mjs"
@@ -1014,6 +1095,24 @@ if (existsSync(packageJsonPath)) {
   }
   if (!String(scripts["agent:check"] ?? "").includes("scripts/agent-compliance-check.mjs")) {
     addFinding("WEAK_RELEASE_CHECK_SCRIPT", "package.json must expose agent:check using scripts/agent-compliance-check.mjs.", [packageJsonPath]);
+  }
+  const requiredToolScripts = {
+    "memory:init": "tools/init-memory-cache.mjs",
+    "memory:validate": "tools/validate-memory-cache.mjs",
+    "workflow:appledouble:audit:all": "tools/cleanup-appledouble.mjs",
+    "workflow:appledouble:clean:all": "tools/cleanup-appledouble.mjs --apply",
+    "workflow:context-budget": "tools/context-budget-audit.mjs",
+    "semantic:index": "tools/semantic-memory-index.mjs --mode index",
+    "semantic:query": "tools/semantic-memory-index.mjs --mode query",
+    "semantic:embed": "tools/semantic-memory-index.mjs --mode embed",
+    "workspace:evaluate:semantic": "tools/semantic-workspace-evaluate.mjs",
+    "self:audit": "tools/skill-agent-auditor.mjs --mode audit",
+    "self:improve:local": "tools/skill-agent-auditor.mjs --mode improve",
+  };
+  for (const [scriptName, expectedFragment] of Object.entries(requiredToolScripts)) {
+    if (!String(scripts[scriptName] ?? "").includes(expectedFragment)) {
+      addFinding("WEAK_TOOL_SCRIPT", `package.json must expose ${scriptName} using ${expectedFragment}.`, [packageJsonPath]);
+    }
   }
   if (!releaseCheck.includes("npm run release:readiness")) {
     addFinding("WEAK_RELEASE_CHECK_SCRIPT", "package.json release:check must run npm run release:readiness.", [packageJsonPath]);
