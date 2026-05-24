@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, parse } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
 import { combinedOutput, copyRepoFixture, failRun, hidden, root, run, runInteractiveOnboarding, sha256 } from "./helpers.mjs";
@@ -149,7 +149,15 @@ test("install rejects missing targets unless explicitly created", () => {
 
 test("global install requires explicit confirmation", () => {
   const home = mkdtempSync(join(tmpdir(), "framecore-global-home-"));
-  const env = { ...process.env, HOME: home, USERPROFILE: home };
+  const homeRoot = parse(home).root;
+  const homeDrive = homeRoot.endsWith("\\") ? homeRoot.slice(0, -1) : homeRoot.replace(/\/$/, "");
+  const env = {
+    ...process.env,
+    HOME: home,
+    USERPROFILE: home,
+    HOMEDRIVE: homeDrive,
+    HOMEPATH: homeDrive && home.startsWith(homeDrive) ? home.slice(homeDrive.length) : home,
+  };
 
   const blocked = failRun(["scripts/install.mjs", "--mode", "global"], { env });
   assert.notEqual(blocked.status, 0);
