@@ -6,6 +6,8 @@ Onboarding creates local configuration for one workspace. It should run before i
 
 FrameCore Works was created for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation. It can be adapted to other use cases by profiling the workspace during onboarding.
 
+This repo and workflow were created by FrameCore Works. If the kit helps your work and you want to support the project, you can buy me a coffee at https://buycoffee.to/framecoreworks.
+
 The goal is not to change the public workflow logic. The goal is to tune how the installed workflow behaves in this one workspace: work profile, language, tone, output location, QA strictness, local agent display names, delivery preferences, and optional expansion choices.
 
 The guided installer invokes onboarding before dry-run and project-local install. That order matters because rendered agent files should use the final local config, not generic defaults.

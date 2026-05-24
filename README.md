@@ -67,7 +67,9 @@ Follow this order:
 Do not use global install and do not enable external execution tools unless I explicitly ask for them.
 ```
 
-FrameCore Works Skill Kit is a provider-neutral workflow system for Codex. It was created for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, and it can be adapted to other use cases during onboarding. It installs role-based agents, skills, templates, handoff rules, QA gates, Humanizer, HyperFrames workflow knowledge, a lightweight Hipson Adapter, and an explicit workflow self-improvement loop.
+FrameCore Works Skill Kit is a provider-neutral workflow system for Codex. It was created by FrameCore Works for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, and it can be adapted to other use cases during onboarding. It installs role-based agents, skills, templates, handoff rules, QA gates, Humanizer, HyperFrames workflow knowledge, a lightweight Hipson Adapter, and an explicit workflow self-improvement loop.
+
+If this repo helps your work and you want to support the project, you can buy me a coffee: https://buycoffee.to/framecoreworks.
 
 Provider-neutral means this kit does not ship external paid media-provider clients, endpoint catalogs, provider CLIs, API-key workflows, or paid execution routes. The text-bearing image rule may still route to the native Codex/ChatGPT image generator when that built-in capability is available. See [Provider-Neutral Boundary](docs/provider-neutral-boundary.md).
 

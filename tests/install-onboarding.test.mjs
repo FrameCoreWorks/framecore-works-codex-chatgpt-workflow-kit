@@ -183,6 +183,8 @@ test("interactive onboarding explains the workflow and can keep default role nam
   assert.equal(result.status, 0);
   assert.match(result.stdout, /This installer adds a structured creative workflow/);
   assert.match(result.stdout, /FrameCore Works was created for creative production/);
+  assert.match(result.stdout, /created by FrameCore Works/);
+  assert.match(result.stdout, /https:\/\/buycoffee\.to\/framecoreworks/);
   assert.match(result.stdout, /These answers stay local in framecore\.config\.json/);
   assert.match(result.stdout, /adapted to other use cases/);
   assert.match(result.stdout, /What kind of work do you do/);

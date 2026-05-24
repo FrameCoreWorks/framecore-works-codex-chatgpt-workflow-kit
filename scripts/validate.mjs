@@ -513,7 +513,7 @@ if (existsSync(onboardingDoc)) {
   for (const phrase of ["Allow automatic delivery uploads", "Require an explicit user request before delivery/export", "Require QA approval before generated asset delivery", "Delivery preferences only shape local behavior"]) {
     if (!text.includes(phrase)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required delivery-preference phrase: ${phrase}`, [onboardingDoc]);
   }
-  for (const phrase of ["FrameCore Works was created for creative work", "adapted to other use cases", "What kind of work do you do?", "What should this pipeline help with most?", "How should the pipeline fit your work style?", "work_profile"]) {
+  for (const phrase of ["FrameCore Works was created for creative work", "created by FrameCore Works", "https://buycoffee.to/framecoreworks", "adapted to other use cases", "What kind of work do you do?", "What should this pipeline help with most?", "How should the pipeline fit your work style?", "work_profile"]) {
     if (!text.includes(phrase)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required work-profile phrase: ${phrase}`, [onboardingDoc]);
   }
   for (const phrase of ["safe relative path", "do not use absolute paths", "does not clone, install, or activate full Hipson"]) {
@@ -799,7 +799,7 @@ if (existsSync(readmePath)) {
   for (const phrase of ["docs/quickstart.md", "docs/codex-assisted-install.md", "If guided install completes successfully", "manual fallback", "Show me the changed files"]) {
     if (!text.includes(phrase)) addFinding("WEAK_README_INSTALL_PROMPT", `README install prompt is missing required safety phrase: ${phrase}`, [readmePath]);
   }
-  for (const phrase of ["## Supported Agent Surfaces", "OpenAI Codex CLI with custom-agent support", "Chat-only environments without shell access", "GitHub Desktop", "This kit ships the routing and contract layer", "symlinks"]) {
+  for (const phrase of ["## Supported Agent Surfaces", "OpenAI Codex CLI with custom-agent support", "Chat-only environments without shell access", "GitHub Desktop", "created by FrameCore Works", "https://buycoffee.to/framecoreworks", "This kit ships the routing and contract layer", "symlinks"]) {
     if (!text.includes(phrase)) addFinding("WEAK_README_POSITIONING", `README is missing required positioning phrase: ${phrase}`, [readmePath]);
   }
   for (const phrase of ["Global install is available only for advanced users", "writes to the current user's home workspace", "npm run doctor -- --mode global", "node scripts/install.mjs --mode dry-run --target \"$HOME\"", "node scripts/install.mjs --mode global --confirm-global"]) {

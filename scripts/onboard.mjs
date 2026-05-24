@@ -62,6 +62,9 @@ This installer adds a structured creative workflow to your current Codex workspa
 FrameCore Works was created for creative production: graphics, video,
 storyboard, campaign, e-commerce, prompt, QA, and delivery work. It can also be
 adapted to other use cases when the user profiles the setup for their own work.
+This repo and workflow were created by FrameCore Works. If it helps your work
+and you want to support the project, you can buy me a coffee:
+https://buycoffee.to/framecoreworks
 
 What will be installed project-locally:
 - role-based Codex agents for planning, references, direction, prompts, QA, and delivery
