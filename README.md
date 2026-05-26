@@ -1,3 +1,5 @@
+![FrameCore Works creative workflow doodle banner](.github/assets/readme-banner.png)
+
 # FrameCore Works: Creative Workflow Skill Kit for Codex
 
 [![validate](https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit/actions/workflows/validate.yml/badge.svg)](https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit/actions/workflows/validate.yml)
