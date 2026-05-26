@@ -13,6 +13,8 @@ https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
 
 I am a beginner. Please guide me step by step.
 
+Before doing anything else, confirm that I am using a shell-capable Codex workspace, not a regular ChatGPT chat window. If this is a regular ChatGPT chat window or any chat-only environment without workspace files and shell commands, stop and tell me this cannot install the repo here. Tell me to open Codex, open or create a local project folder, then paste this prompt there.
+
 First check whether this Codex environment can clone repositories and run local shell commands. If it can, clone the repo into a temporary or tools folder outside my project, read README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain what will be installed.
 
 Start by telling me that FrameCore Works was created for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, but can be adapted to other use cases.
@@ -25,6 +27,8 @@ Do not use global install. Do not enable paid external execution tools. Do not u
 
 If this Codex environment cannot run shell commands, tell me I need a shell-capable Codex workspace or help from a technical user. If I do not know how to clone this repository, recommend GitHub Desktop as the easiest visual cloning tool and remind me to clone into a temporary or tools folder outside my project.
 ```
+
+If you paste this into a normal ChatGPT chat and only receive an explanation, nothing was installed. Use a shell-capable Codex workspace for installation.
 
 If Codex cannot run local commands, this kit still remains documented, but installation needs a terminal-capable environment or a technical helper.
 

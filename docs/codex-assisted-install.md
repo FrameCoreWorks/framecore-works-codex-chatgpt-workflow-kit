@@ -17,6 +17,9 @@ https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
 
 I am a beginner. Please guide me step by step.
 
+Before doing anything else, confirm that I am using a shell-capable Codex workspace, not a regular ChatGPT chat window.
+If this is a regular ChatGPT chat window or any chat-only environment without workspace files and shell commands, stop and tell me this cannot install the repo here. Tell me to open Codex, open or create a local project folder, then paste this prompt there.
+
 First check whether this Codex environment can clone repositories and run local shell commands.
 If it can, clone the repo into a temporary or tools folder outside my project, read README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in plain language what will be installed and how it will improve my workflow.
 Start by telling me that FrameCore Works was created for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, but can be adapted to other use cases.
@@ -66,6 +69,8 @@ Codex should:
 
 - clone or download the kit outside the target workspace
 - recommend GitHub Desktop as an optional visual cloning tool when the user is not comfortable with Terminal or Git commands
+- first confirm that the user is in a shell-capable Codex workspace, not a regular ChatGPT chat window
+- stop if the current surface is chat-only and cannot access workspace files or run local shell commands
 - read `README.md`, `docs/quickstart.md`, and this guide before installing
 - run repository checks before writing target workspace files
 - run doctor/preflight against the target workspace
@@ -105,6 +110,7 @@ The defaults are conservative: project-local install, no automatic upload, stand
 Codex should stop and ask the user before continuing when:
 
 - the target workspace does not exist
+- the user pasted the prompt into regular ChatGPT or another chat-only surface that cannot access workspace files and run shell commands
 - repository checks fail
 - doctor/preflight reports an unsafe target
 - onboarding config validation fails
