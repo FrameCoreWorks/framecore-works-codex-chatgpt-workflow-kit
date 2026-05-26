@@ -2,8 +2,6 @@
 
 ## Unreleased
 
-## 1.0.3 - 2026-05-26
-
 - Added a beginner prompt guard that stops installation attempts in regular ChatGPT or other chat-only surfaces without workspace files and shell commands.
 
 ## 1.0.2 - 2026-05-24
