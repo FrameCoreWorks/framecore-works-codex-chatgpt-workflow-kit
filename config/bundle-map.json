@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "purpose": "Classify current FrameCore Works source assets by future Codex plugin or bundle boundary without changing the current project-local install flow.",
+  "status": "readiness-map",
+  "bundles": {
+    "pipeline-core": {
+      "status": "current-public",
+      "summary": "Core workflow operating layer: instructions, routing, gates, handoffs, artifact contracts, Project State, and safe recovery policy.",
+      "public_installable": true,
+      "dependencies": [],
+      "source_paths": [
+        "AGENTS.template.md",
+        ".agents/skills/pipeline-core/",
+        "config/artifact-schemas.json",
+        "config/agent-naming.schema.json",
+        "docs/architecture.md",
+        "docs/workflow-stages.md",
+        "docs/artifact-schemas.md"
+      ],
+      "skills": [
+        "pipeline-core",
+        "workflow-orchestrator",
+        "instruction-packet-factory",
+        "workflow-self-improvement"
+      ],
+      "roles": [
+        "intent-confirmation",
+        "workflow-orchestrator",
+        "instruction-packet-factory"
+      ],
+      "examples": [
+        "minimal-workflow",
+        "no-provider-mode"
+      ],
+      "private_exclusions": [
+        "framecore.config.json",
+        ".framecore/",
+        "Context/",
+        "Memory Cache/",
+        "*.bak",
+        "output/",
+        "outputs/"
+      ]
+    },
+    "creative-workflow": {
+      "status": "current-public",
+      "summary": "Creative production workflow for briefs, references, direction, copy, prompts, storyboards, QA, and delivery documentation.",
+      "public_installable": true,
+      "dependencies": [
+        "pipeline-core",
+        "provider-governance"
+      ],
+      "source_paths": [
+        ".agents/skills/",
+        ".codex/agents/",
+        "examples/",
+        "docs/agent-roster.md",
+        "docs/using-the-kit.md",
+        "docs/example-authoring.md"
+      ],
+      "skills": [
+        "asset-manifest",
+        "brief-architect",
+        "character-design",
+        "cinematography",
+        "commercial-video-campaign-director",
+        "commercial-visual-campaign-director",
+        "creative-music-video-director",
+        "delivery-documentation",
+        "humanizer",
+        "image-prompt-architect",
+        "marketing",
+        "output-critic-iteration",
+        "reference-pack-curator",
+        "storyboard-board-architect",
+        "storyboard-director",
+        "storytelling",
+        "ugc",
+        "video-prompt-architect"
+      ],
+      "roles": [
+        "asset-manifest",
+        "brief-architect",
+        "copy-voice",
+        "delivery-documentation",
+        "execution-manifest",
+        "image-prompting",
+        "motion-direction",
+        "music-video-direction",
+        "qa-iteration",
+        "reference-curator",
+        "research-evidence",
+        "static-direction",
+        "storyboard-architect",
+        "storyboard-board-architect",
+        "tool-routing-cost",
+        "video-prompting"
+      ],
+      "examples": [
+        "document-workflow",
+        "end-to-end-creative-workflow",
+        "image-prompt-pack",
+        "qa-delivery-review",
+        "static-campaign",
+        "storyboard-board",
+        "video-storyboard"
+      ],
+      "private_exclusions": [
+        "generated outputs",
+        "private references",
+        "client context",
+        "private claims",
+        "delivery folders"
+      ]
+    },
+    "ecommerce-workflow": {
+      "status": "planned-boundary",
+      "summary": "Future focused boundary for ecommerce and campaign workflows, currently represented by reusable creative roles and ecommerce examples.",
+      "public_installable": true,
+      "dependencies": [
+        "pipeline-core",
+        "creative-workflow",
+        "provider-governance"
+      ],
+      "source_paths": [
+        "examples/ecommerce-product-visual/",
+        "docs/bundle-readiness.md"
+      ],
+      "skills": [
+        "commercial-video-campaign-director",
+        "commercial-visual-campaign-director",
+        "image-prompt-architect",
+        "marketing",
+        "output-critic-iteration",
+        "ugc",
+        "video-prompt-architect"
+      ],
+      "roles": [
+        "copy-voice",
+        "image-prompting",
+        "motion-direction",
+        "qa-iteration",
+        "static-direction",
+        "video-prompting"
+      ],
+      "examples": [
+        "ecommerce-product-visual"
+      ],
+      "private_exclusions": [
+        "private product data",
+        "storefront credentials",
+        "private sales metrics",
+        "customer data",
+        "unverified claims"
+      ]
+    },
+    "provider-governance": {
+      "status": "current-public",
+      "summary": "Provider-neutral policy, text-bearing image policy, OpenAI API boundary, and external execution consent rules.",
+      "public_installable": true,
+      "dependencies": [
+        "pipeline-core"
+      ],
+      "source_paths": [
+        "config/provider-neutral-policy.json",
+        "config/text-image-policy.json",
+        "docs/provider-neutral-boundary.md",
+        "docs/text-image-policy.md",
+        "docs/openai-api-policy.md"
+      ],
+      "skills": [
+        "pipeline-core"
+      ],
+      "roles": [
+        "tool-routing-cost",
+        "execution-manifest",
+        "image-prompting",
+        "video-prompting"
+      ],
+      "examples": [
+        "no-provider-mode"
+      ],
+      "private_exclusions": [
+        "provider credentials",
+        "provider CLIs",
+        "endpoint catalogs",
+        "API-key setup flows",
+        "provider-specific activation scripts"
+      ]
+    },
+    "memory-cache": {
+      "status": "current-public",
+      "summary": "Local long-session recovery templates and validation tools. This is scaffolding, not shared runtime state.",
+      "public_installable": true,
+      "dependencies": [
+        "pipeline-core"
+      ],
+      "source_paths": [
+        "templates/Memory Cache/",
+        "tools/init-memory-cache.mjs",
+        "tools/validate-memory-cache.mjs",
+        "tools/context-budget-audit.mjs",
+        "tools/semantic-memory-index.mjs",
+        "tools/semantic-workspace-evaluate.mjs",
+        "docs/memory-cache.md",
+        "docs/context-folder.md",
+        "docs/semantic-memory.md",
+        "docs/self-improvement.md",
+        "docs/workflow-self-improvement.md"
+      ],
+      "skills": [
+        "pipeline-core",
+        "workflow-orchestrator",
+        "workflow-self-improvement"
+      ],
+      "roles": [
+        "workflow-orchestrator"
+      ],
+      "examples": [],
+      "private_exclusions": [
+        "Context/",
+        "Memory Cache/",
+        "raw transcripts",
+        "chain-of-thought",
+        "secrets",
+        "signed URLs",
+        "provider responses"
+      ]
+    },
+    "install-lifecycle": {
+      "status": "current-public",
+      "summary": "Project-local install, onboarding, doctor, render, update, repair, uninstall, package audit, and release readiness tools.",
+      "public_installable": true,
+      "dependencies": [],
+      "source_paths": [
+        "scripts/common.mjs",
+        "scripts/config-validation.mjs",
+        "scripts/doctor.mjs",
+        "scripts/guided-install.mjs",
+        "scripts/install.mjs",
+        "scripts/manifest.mjs",
+        "scripts/onboard.mjs",
+        "scripts/render-agents.mjs",
+        "scripts/smoke-install.mjs",
+        "scripts/package-audit.mjs",
+        "scripts/package-common.mjs",
+        "scripts/package-list.mjs",
+        "scripts/release-readiness.mjs",
+        "docs/quickstart.md",
+        "docs/codex-assisted-install.md",
+        "docs/cli-reference.md",
+        "docs/troubleshooting.md",
+        "docs/compatibility.md",
+        "docs/migration-guide.md"
+      ],
+      "skills": [
+        "onboarding-preference-tuning"
+      ],
+      "roles": [],
+      "examples": [],
+      "private_exclusions": [
+        "framecore.config.json",
+        "framecore.config.shared.json",
+        ".framecore/manifest.json from user workspaces",
+        "backup files",
+        "local target paths",
+        "npm cache"
+      ]
+    },
+    "hyperframes-guidance": {
+      "status": "current-public",
+      "summary": "Coded-video workflow guidance for HyperFrames planning, timing, captions, render QA, and delivery manifests.",
+      "public_installable": true,
+      "dependencies": [
+        "pipeline-core",
+        "creative-workflow"
+      ],
+      "source_paths": [
+        ".agents/skills/hyperframes-workflow/",
+        ".agents/skills/hyperframes-gsap-guidance/",
+        ".agents/skills/hyperframes-prompting/",
+        ".agents/skills/pipeline-core/references/hyperframes-workflow.md",
+        "docs/hyperframes.md",
+        "examples/hyperframes-video/"
+      ],
+      "skills": [
+        "hyperframes-workflow",
+        "hyperframes-gsap-guidance",
+        "hyperframes-prompting"
+      ],
+      "roles": [
+        "hyperframes-producer"
+      ],
+      "examples": [
+        "hyperframes-video"
+      ],
+      "private_exclusions": [
+        "render runtimes",
+        "deployment targets",
+        "paid execution routes",
+        "generated render outputs"
+      ]
+    },
+    "hipson-adapter": {
+      "status": "current-public",
+      "summary": "Lightweight Hipson Adapter for research maps, internet mapping packets, bounded instruction packets, review packets, and execution packets.",
+      "public_installable": true,
+      "dependencies": [
+        "pipeline-core"
+      ],
+      "source_paths": [
+        ".agents/skills/hipson-adapter/",
+        "config/hipson.example.json",
+        "docs/hipson-integration.md"
+      ],
+      "skills": [
+        "hipson-adapter"
+      ],
+      "roles": [
+        "instruction-packet-factory",
+        "research-evidence",
+        "reference-curator"
+      ],
+      "examples": [],
+      "private_exclusions": [
+        "full Hipson clone",
+        "cross-repo scan sidecars",
+        "private companion repositories",
+        "local Hipson memory"
+      ]
+    }
+  }
+}

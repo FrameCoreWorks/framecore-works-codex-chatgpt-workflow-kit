@@ -76,6 +76,27 @@ test("validation rejects agent templates missing onboarding profile tokens", () 
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENT_TEMPLATE/);
 });
 
+test("validation rejects bundle map drift", () => {
+  const dir = copyRepoFixture("framecore-bundle-map-drift-");
+  const file = join(dir, "config/bundle-map.json");
+  const map = JSON.parse(readFileSync(file, "utf8"));
+  map.bundles["pipeline-core"].source_paths.push("missing-bundle-source.md");
+  map.bundles["pipeline-core"].skills.push("missing-skill");
+  map.bundles["pipeline-core"].roles.push("missing-role");
+  map.bundles["pipeline-core"].examples.push("missing-example");
+  map.bundles["pipeline-core"].dependencies.push("missing-bundle");
+  writeFileSync(file, `${JSON.stringify(map, null, 2)}\n`);
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  const output = `${result.stderr}${result.stdout}`;
+  assert.match(output, /BUNDLE_MAP_PATH_MISSING/);
+  assert.match(output, /BUNDLE_MAP_UNKNOWN_SKILL/);
+  assert.match(output, /BUNDLE_MAP_UNKNOWN_ROLE/);
+  assert.match(output, /BUNDLE_MAP_UNKNOWN_EXAMPLE/);
+  assert.match(output, /BUNDLE_MAP_UNKNOWN_DEPENDENCY/);
+});
+
 test("validation rejects instruction override phrases in agent-facing files", () => {
   const dir = copyRepoFixture("framecore-instruction-override-");
   const file = join(dir, ".agents/skills/humanizer/SKILL.md");

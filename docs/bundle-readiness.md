@@ -49,11 +49,25 @@ Some areas are usable today but need clearer package boundaries before they beco
 
 These gaps should be resolved before any serious plugin or bundle packaging work:
 
-- No source-level bundle manifest currently maps components, dependencies, installability, and public/private scope.
 - No explicit module boundary separates core pipeline, creative workflow, ecommerce workflow, provider governance, and delivery governance.
 - Delivery integrations and cloud destinations must stay outside the public bundle unless they are optional, credential-free, and reviewed.
 - Existing examples validate workflow contracts, but they do not yet classify which bundle module each example exercises.
 - Live Codex custom-agent behavior remains a manual E2E check, not an automated plugin compatibility gate.
+
+## Source Bundle Map
+
+`config/bundle-map.json` is the current source-level bundle readiness map. It classifies existing source assets by future package boundary without changing install behavior.
+
+The map tracks:
+
+- `source_paths`: public repo files or directories that belong to the boundary
+- `skills`: skill folders expected under `.agents/skills/`
+- `roles`: role IDs expected under `.codex/agents/*.toml.template`
+- `examples`: example workflow folders under `examples/`
+- `dependencies`: other bundle IDs this boundary depends on
+- `private_exclusions`: local or private material that must stay outside public bundles
+
+Validation checks that mapped paths, skills, roles, examples, and dependencies exist. It does not create a plugin or split the package.
 
 ## Recommended Future Bundle Shape
 
@@ -101,8 +115,8 @@ Keep these out of future public bundles by default:
 
 1. Fix public recovery and docs references so they only point to files installed by this repo.
 2. Add this guide and link it from README and Roadmap.
-3. Add a source-level bundle map or manifest that classifies current files by module and public/private scope.
-4. Extend validation so the bundle map cannot reference missing files or private-only paths.
+3. Keep extending the source-level bundle map as modules become clearer.
+4. Extend validation when new bundle-map fields become required.
 5. Classify examples by the future bundle module they exercise.
 6. Keep plugin-specific files out of source until the target plugin format is concrete.
 
