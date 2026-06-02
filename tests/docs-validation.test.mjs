@@ -108,6 +108,23 @@ test("validation rejects weak post-install usage guide", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_USING_THE_KIT_DOC/);
 });
 
+test("validation rejects weak long-session recovery offer docs", () => {
+  const dir = copyRepoFixture("framecore-validate-long-session-recovery-");
+  const usingTheKitDoc = join(dir, "docs/using-the-kit.md");
+  const memoryCacheDoc = join(dir, "docs/memory-cache.md");
+  const agentsTemplate = join(dir, "AGENTS.template.md");
+
+  writeFileSync(usingTheKitDoc, readFileSync(usingTheKitDoc, "utf8").replace("## Long Session Recovery Offer", "## Recovery Offer"));
+  writeFileSync(memoryCacheDoc, readFileSync(memoryCacheDoc, "utf8").replace("Should I create and validate those recovery folders now?", "Should I create folders now?"));
+  writeFileSync(agentsTemplate, readFileSync(agentsTemplate, "utf8").replace("Do not create or rewrite recovery folders until the user agrees.", "Create recovery folders when useful."));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_USING_THE_KIT_DOC/);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_MEMORY_CACHE_DOC/);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENTS_TEMPLATE/);
+});
+
 test("validation rejects weak example authoring guide", () => {
   const dir = copyRepoFixture("framecore-validate-example-authoring-");
   const doc = join(dir, "docs/example-authoring.md");

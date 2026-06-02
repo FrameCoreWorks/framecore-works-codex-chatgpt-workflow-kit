@@ -116,6 +116,25 @@ A good FrameCore run should name:
 
 Examples use `workflow.json` manifests to show machine-checked route contracts. Use [Examples Index](../examples/README.md) when you want a known path.
 
+## Long Session Recovery Offer
+
+If a task becomes long-running, multi-gate, file-heavy, interrupted, handed off, or likely to hit context compaction, Codex should check whether `Memory Cache/` already exists.
+
+If `Memory Cache/` is missing or stale, Codex should proactively offer to initialize long-session recovery:
+
+```text
+This looks like a long or resumable session. I can initialize Context/ and Memory Cache/ for this workspace so future Codex sessions can resume safely. Should I create and validate those recovery folders now?
+```
+
+If you agree, Codex should run:
+
+```bash
+npm run memory:init -- --target <current-workspace-or-operational-folder>
+npm run memory:validate -- --target <current-workspace-or-operational-folder>
+```
+
+Codex should then keep `Memory Cache/project-state.md` and `Memory Cache/recovery-prompt.md` current. It should not create or rewrite recovery folders without current user consent.
+
 ## Recovery After Context Loss
 
 For multi-step or resumable work, ask Codex to keep a Project State artifact current. Treat it as the durable run-state ledger for the active task, not as a final delivery file.

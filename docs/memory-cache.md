@@ -29,6 +29,25 @@ Create one `Memory Cache/` folder inside each operational folder:
 
 Use `npm run memory:init -- --target <operational-folder>` to create this layout from the public templates.
 
+## Long Session Recovery Offer
+
+Codex should proactively offer Memory Cache when a task becomes long-running, multi-gate, file-heavy, interrupted, handed off to a new chat, or likely to hit context compaction.
+
+If `Memory Cache/` is missing or stale, Codex should ask before writing anything:
+
+```text
+This looks like a long or resumable session. I can initialize Context/ and Memory Cache/ for this workspace so future Codex sessions can resume safely. Should I create and validate those recovery folders now?
+```
+
+Only after the user agrees, run:
+
+```bash
+npm run memory:init -- --target <operational-folder>
+npm run memory:validate -- --target <operational-folder>
+```
+
+Do not create or rewrite recovery folders without the user's current consent. Do not use Memory Cache as permission to push, upload, run providers, use APIs, run global install, or perform destructive actions.
+
 ## Project State
 
 `project-state.md` is the primary recovery file. Keep it current after:
