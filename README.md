@@ -13,6 +13,8 @@ If someone sent you this repo and you do not know Terminal, start here.
 
 Recommended helper: install [GitHub Desktop](https://desktop.github.com/) if cloning a repository feels unfamiliar. It gives you a visual way to clone this repo, choose where it lives on your computer, see changed files, commit changes, and push to GitHub without memorizing Git commands. GitHub Desktop is optional; it does not run the installer by itself, and the kit can still be installed from a shell-capable Codex workspace or terminal.
 
+Fresh Codex note: if Codex shows a button such as `Configure sandbox`, `Configure agent sandbox`, or `Skonfiguruj piaskownicę agenta`, click it first and choose the local project folder where you want to use this workflow. If Codex can run shell commands but says `git` or `gh` is not available, nothing has been installed yet. Clone this repo with GitHub Desktop into a temporary, tools, or GitHub folder outside your project, then return to Codex and continue from the cloned repo.
+
 1. Open Codex.
 2. Open the project folder where you want to use this workflow.
 3. Paste this into Codex:
@@ -26,6 +28,7 @@ I am a beginner. Please guide me step by step.
 
 Before doing anything else, confirm that I am using a shell-capable Codex workspace, not a regular ChatGPT chat window.
 If this is a regular ChatGPT chat window or any chat-only environment without workspace files and shell commands, stop and tell me this cannot install the repo here. Tell me to open Codex, open or create a local project folder, then paste this prompt there.
+If Codex asks me to configure the agent sandbox or workspace, stop and tell me to click the Configure sandbox button, choose the project folder where I want to install the workflow, then continue only after the sandbox is configured.
 
 First check whether this Codex environment can clone repositories and run local shell commands.
 If it can, clone the repo into a temporary or tools folder outside my project, read README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in plain language what will be installed and how it will improve my workflow.
@@ -48,6 +51,7 @@ Do not run provider tools.
 Stop and ask me before overwriting any existing file.
 
 If this Codex environment cannot run shell commands, tell me that I need a shell-capable Codex workspace or help from a technical user, then show me the manual Quickstart link.
+If shell commands work but git and gh are not installed or not available, tell me nothing was installed yet. Recommend GitHub Desktop as the easiest visual cloning tool, tell me to clone this repo into a temporary, tools, or GitHub folder outside my project, then come back to Codex and continue from the cloned repo.
 If I do not know how to clone the repository, recommend GitHub Desktop as the easiest visual cloning tool and remind me to clone this repo into a temporary or tools folder outside my project.
 ```
 

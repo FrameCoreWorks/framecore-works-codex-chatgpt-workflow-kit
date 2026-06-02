@@ -6,6 +6,8 @@ This guide is for users who want Codex to install the kit for them from a GitHub
 
 The user should paste the install instruction into Codex from the workspace where the kit should be installed. Codex should then clone the repo into a temporary or tools folder outside the target workspace, read the docs, run checks, run onboarding, preview the install, and install project-locally.
 
+For a fresh Codex setup, the user may need to configure the agent sandbox before installation can start. If the UI shows `Configure sandbox`, `Configure agent sandbox`, or `Skonfiguruj piaskownicę agenta`, the installer should stop and tell the user to click that button, choose the local project folder, and continue only after workspace file access is configured. If shell commands work but `git` and `gh` are unavailable, the installer should not treat that as a completed installation. It should tell the user nothing was installed yet and recommend cloning this repo with GitHub Desktop into a temporary, tools, or GitHub folder outside the target project.
+
 ## Beginner Paste-In Instruction
 
 Use this version when the user does not know Terminal and needs Codex to explain each step:
@@ -19,6 +21,7 @@ I am a beginner. Please guide me step by step.
 
 Before doing anything else, confirm that I am using a shell-capable Codex workspace, not a regular ChatGPT chat window.
 If this is a regular ChatGPT chat window or any chat-only environment without workspace files and shell commands, stop and tell me this cannot install the repo here. Tell me to open Codex, open or create a local project folder, then paste this prompt there.
+If Codex asks me to configure the agent sandbox or workspace, stop and tell me to click the Configure sandbox button, choose the project folder where I want to install the workflow, then continue only after the sandbox is configured.
 
 First check whether this Codex environment can clone repositories and run local shell commands.
 If it can, clone the repo into a temporary or tools folder outside my project, read README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in plain language what will be installed and how it will improve my workflow.
@@ -41,6 +44,7 @@ Do not run provider tools.
 Stop and ask me before overwriting any existing file.
 
 If this Codex environment cannot run shell commands, tell me that I need a shell-capable Codex workspace or help from a technical user, then show me the manual Quickstart link.
+If shell commands work but git and gh are not installed or not available, tell me nothing was installed yet. Recommend GitHub Desktop as the easiest visual cloning tool, tell me to clone this repo into a temporary, tools, or GitHub folder outside my project, then come back to Codex and continue from the cloned repo.
 If I do not know how to clone the repository, recommend GitHub Desktop as the easiest visual cloning tool and remind me to clone this repo into a temporary or tools folder outside my project.
 ```
 
@@ -70,6 +74,8 @@ Codex should:
 - clone or download the kit outside the target workspace
 - recommend GitHub Desktop as an optional visual cloning tool when the user is not comfortable with Terminal or Git commands
 - first confirm that the user is in a shell-capable Codex workspace, not a regular ChatGPT chat window
+- stop and ask the user to configure the agent sandbox when Codex shows a Configure sandbox prompt
+- stop and recommend GitHub Desktop when shell commands work but `git` and `gh` are unavailable
 - stop if the current surface is chat-only and cannot access workspace files or run local shell commands
 - read `README.md`, `docs/quickstart.md`, and this guide before installing
 - run repository checks before writing target workspace files
