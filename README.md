@@ -11,6 +11,11 @@ Licensed under Apache-2.0. See [NOTICE](NOTICE) for redistribution notice detail
 
 If someone sent you this repo and you do not know Terminal, start here.
 
+There are two beginner paths:
+
+- **Codex install:** use this when you want the full local workflow in a shell-capable Codex workspace. Codex can clone the repo, run onboarding, install project-local files, render `.codex/agents/*.toml`, and optionally initialize `Context/` plus `Memory Cache/`.
+- **ChatGPT Skills onboarding:** use this when you are in ChatGPT and want the workflow behavior without a local install. ChatGPT Skills can guide onboarding and reuse the workflow as skills, but it does not install repo files, does not create permanent `.codex/agents` files, and does not create a fixed agent roster. In ChatGPT, FrameCore agents are temporary workflow roles created only for the current task. See [ChatGPT Skills Onboarding](docs/chatgpt-skills-onboarding.md).
+
 Recommended helper: install [GitHub Desktop](https://desktop.github.com/) if cloning a repository feels unfamiliar. It gives you a visual way to clone this repo, choose where it lives on your computer, see changed files, commit changes, and push to GitHub without memorizing Git commands. GitHub Desktop is optional; it does not run the installer by itself, and the kit can still be installed from a shell-capable Codex workspace or terminal.
 
 Fresh Codex note: if Codex shows a button such as `Configure sandbox`, `Configure agent sandbox`, or `Skonfiguruj piaskownicę agenta`, click it first and choose the local project folder where you want to use this workflow. If Codex can run shell commands but says `git` or `gh` is not available, nothing has been installed yet. Clone this repo with GitHub Desktop into a temporary, tools, or GitHub folder outside your project, then return to Codex and continue from the cloned repo.
