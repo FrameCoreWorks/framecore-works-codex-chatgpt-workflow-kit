@@ -30,6 +30,22 @@ The ChatGPT path is different:
 - ChatGPT should not create a stable roster of agent files.
 - ChatGPT should treat workflow roles as temporary task roles created inside the conversation by the active skill or workflow step.
 
+## Existing Skill Guard
+
+Some ChatGPT accounts may already contain older, private, local, or previously installed skills with names such as `workflow-orchestrator`, `FrameCore`, or other workflow-specific labels. Those existing skills are not proof that this onboarding is complete.
+
+When using this ChatGPT path:
+
+- do not say the workflow is already installed, current, repaired, validated, or ready because existing skills are present;
+- do not run or claim repository validation, package checks, doctor checks, hash checks, or Memory Cache repair, because ChatGPT Skills onboarding is not a local workspace install;
+- do not call `skill-installer` unless the user explicitly asks to install a generated ChatGPT skill after onboarding;
+- do not use private or local canonical skill names as the public workflow contract;
+- do not rename the user's personal workflow to FrameCore Works unless the user asks for that name;
+- mention FrameCore Works only as the source repo or source workflow kit;
+- start with onboarding questions before recommending any `$skill` invocation.
+
+If existing local skills are detected, treat them only as optional reference material after the user approves. The first task is still to learn the user's work style and produce a neutral user workflow profile.
+
 ## Temporary Agent Model
 
 For ChatGPT, FrameCore role agents become temporary workflow roles.
@@ -59,11 +75,20 @@ Use this mapping:
 Use this prompt in ChatGPT when the user wants to adapt the workflow without a Codex install:
 
 ```text
-Use FrameCore Works as a ChatGPT Skills workflow, not as a Codex project-local install.
+Use the workflow from the FrameCore Works GitHub repo as source material for a ChatGPT Skills workflow, not as a Codex project-local install.
 
 I am using ChatGPT. Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache folders, upload files, use API keys, or enable external provider tools.
 
-If ChatGPT Skills are available in this chat, help me create or adapt a FrameCore Works skill-based workflow. Use skill-creator if needed.
+If ChatGPT Skills are available in this chat, help me create or adapt a neutral skill-based workflow for my own work. Use skill-creator only if needed.
+
+Important existing-skill guard:
+- If this ChatGPT account already has FrameCore, workflow-orchestrator, local, private, or older workflow skills installed, do not treat that as completed setup.
+- Do not say the workspace is already installed, current, validated, repaired, or ready because existing skills are present.
+- Do not run or claim doctor checks, package checks, hash checks, repository validation, or Memory Cache repair in ChatGPT.
+- Do not call skill-installer unless I explicitly ask to install a generated skill after onboarding.
+- Do not recommend any $skill invocation before onboarding is complete.
+- Do not name my personal workflow FrameCore Works unless I ask for that name. Use neutral wording such as "your workflow", "this workflow", or the name I provide.
+- Mention FrameCore Works only as the source repo or source workflow kit.
 
 Important role model:
 - Do not create permanent custom agents.
@@ -72,7 +97,7 @@ Important role model:
 - Each temporary role must have a clear scope, required inputs, expected output artifact, review gate, handoff target, and stop condition.
 - Temporary roles must inherit provider-neutral safety, no uploads without explicit request, no API keys, no external paid execution tools, and no hidden background work.
 
-Start with onboarding. Ask me these questions one at a time, in plain language:
+Start with onboarding before checking, invoking, or relying on any existing workflow skills. Ask me these questions one at a time, in plain language:
 
 1. What kind of work do I want this workflow to help with?
 2. What are my main use cases?
@@ -86,6 +111,22 @@ Start with onboarding. Ask me these questions one at a time, in plain language:
 10. After setup, give me a reusable starter prompt for my next task.
 
 After onboarding, summarize my workflow profile and create a compact skill-style operating guide for ChatGPT. Then show how the workflow will use temporary roles such as task confirmation, workflow orchestration, specialist production, QA, and delivery notes without storing them as permanent agents.
+
+Your first response should ask onboarding question 1. Do not summarize setup as complete until all onboarding questions have been answered.
+```
+
+Expected first response shape:
+
+```text
+I will set this up as a ChatGPT Skills workflow for your own work. This is not a local Codex install, and existing installed skills do not mean onboarding is complete.
+
+Question 1: What kind of work do you want this workflow to help with?
+```
+
+Failure pattern to avoid:
+
+```text
+Done. Your workspace already has the current FrameCore Works Skill Kit. Validation passed. You can now use $workflow-orchestrator.
 ```
 
 ## Onboarding Outputs
