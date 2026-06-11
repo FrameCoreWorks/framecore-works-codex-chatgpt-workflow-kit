@@ -255,19 +255,19 @@ Use `--mode dry-run` first for every install target.
 
 ## Update, Repair, And Uninstall
 
-Update requires an existing `.framecore/manifest.json`, upgrades the current FrameCore-managed set, and refuses user-owned conflicts:
+Update requires an existing `.framecore/manifest.json`, upgrades the current FrameCore-managed set, and refuses user-owned conflicts. It also refuses locally edited managed files when their manifest hashes changed; rerun with `--force` only when you intentionally want to overwrite those local edits after creating backups:
 
 ```bash
 node scripts/install.mjs --mode update --target /path/to/your/project
 ```
 
-Repair also requires a manifest, but rewrites only paths already recorded in that manifest. It does not add new managed paths:
+Repair also requires a manifest, but rewrites only paths already recorded in that manifest. It does not add new managed paths, and it applies the same local-edit hash protection as update:
 
 ```bash
 node scripts/install.mjs --mode repair --target /path/to/your/project
 ```
 
-Before update or repair rewrites managed files or the manifest, it creates numbered `.bak` backups such as `AGENTS.md.bak` or `.framecore/manifest.json.bak`.
+Before update or repair overwrites changed managed files or rewrites a changed manifest, it creates numbered `.bak` backups such as `AGENTS.md.bak` or `.framecore/manifest.json.bak`. If a managed file is already byte-identical to the kit output, update leaves it untouched and does not create a backup.
 
 Uninstall previews removals by default:
 

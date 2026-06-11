@@ -1,9 +1,28 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
 import { dirname, join, parse } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
 import { combinedOutput, copyRepoFixture, failRun, hidden, root, run, runInteractiveOnboarding, sha256 } from "./helpers.mjs";
+
+function listRelativeFiles(dir, base = "") {
+  if (!existsSync(join(dir, base))) return [];
+  const files = [];
+  for (const entry of readdirSync(join(dir, base))) {
+    const rel = base ? join(base, entry) : entry;
+    const full = join(dir, rel);
+    if (statSync(full).isDirectory()) {
+      files.push(...listRelativeFiles(dir, rel));
+    } else {
+      files.push(rel.replaceAll("\\", "/"));
+    }
+  }
+  return files.sort();
+}
+
+function backupFiles(dir) {
+  return listRelativeFiles(dir).filter((file) => file.includes(".bak"));
+}
 
 test("onboarding renders project-local config and agent templates", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-onboard-"));
@@ -256,6 +275,15 @@ test("installer dry run reports writes without mutating target", () => {
   assert.equal(existsSync(join(dir, "AGENTS.md")), false);
 });
 
+test("installer reports a clear error when the target is the kit repository", () => {
+  const result = failRun(["scripts/install.mjs", "--mode", "dry-run", "--target", root]);
+  const output = combinedOutput(result);
+  assert.notEqual(result.status, 0);
+  assert.match(output, /targeting the FrameCore kit repository itself/);
+  assert.match(output, /--target <path-to-your-project>/);
+  assert.doesNotMatch(output, /refusing to overwrite user-owned file/);
+});
+
 test("installer dry run fails on user-owned file conflicts", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-conflict-"));
   mkdirSync(join(dir, ".agents/skills/humanizer"), { recursive: true });
@@ -383,13 +411,25 @@ test("uninstall rejects managed paths outside the target", () => {
   assert.equal(readFileSync(outside, "utf8"), "keep\n");
 });
 
-test("repair install backs up user-owned files", () => {
-  const dir = mkdtempSync(join(tmpdir(), "framecore-repair-"));
-  run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
-  run(["scripts/install.mjs", "--mode", "project-local", "--target", dir]);
-  writeFileSync(join(dir, "AGENTS.md"), "local user content\n");
-  run(["scripts/install.mjs", "--mode", "repair", "--target", dir]);
-  assert.match(readFileSync(join(dir, "AGENTS.md.bak"), "utf8"), /local user content/);
+test("update and repair refuse locally edited managed files unless forced", () => {
+  for (const mode of ["update", "repair"]) {
+    const dir = mkdtempSync(join(tmpdir(), `framecore-${mode}-drift-`));
+    run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+    run(["scripts/install.mjs", "--mode", "project-local", "--target", dir]);
+    writeFileSync(join(dir, "AGENTS.md"), "local user content\n");
+
+    const blocked = failRun(["scripts/install.mjs", "--mode", mode, "--target", dir]);
+    const blockedOutput = combinedOutput(blocked);
+    assert.notEqual(blocked.status, 0);
+    assert.match(blockedOutput, /managed file has local changes: AGENTS\.md/);
+    assert.equal(readFileSync(join(dir, "AGENTS.md"), "utf8"), "local user content\n");
+    assert.equal(existsSync(join(dir, "AGENTS.md.bak")), false);
+
+    const forced = run(["scripts/install.mjs", "--mode", mode, "--target", dir, "--force"]);
+    assert.match(forced, /backup AGENTS\.md ->/);
+    assert.match(readFileSync(join(dir, "AGENTS.md.bak"), "utf8"), /local user content/);
+    assert.notEqual(readFileSync(join(dir, "AGENTS.md"), "utf8"), "local user content\n");
+  }
 });
 
 test("update and repair require a manifest", () => {
@@ -403,20 +443,40 @@ test("update and repair require a manifest", () => {
   }
 });
 
-test("update rotates manifest backups before rewriting", () => {
+test("update is idempotent when managed files and manifest are unchanged", () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-idempotent-update-"));
+  run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
+  run(["scripts/install.mjs", "--mode", "project-local", "--target", dir]);
+
+  const before = listRelativeFiles(dir);
+  assert.deepEqual(backupFiles(dir), []);
+
+  const output = run(["scripts/install.mjs", "--mode", "update", "--target", dir]);
+  assert.doesNotMatch(output, /wrote/);
+  assert.deepEqual(listRelativeFiles(dir), before);
+  assert.deepEqual(backupFiles(dir), []);
+});
+
+test("update backs up the manifest when only manifest metadata changes", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-manifest-backup-"));
   run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
   run(["scripts/install.mjs", "--mode", "project-local", "--target", dir]);
 
   const manifestPath = join(dir, ".framecore/manifest.json");
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
   const firstManifest = readFileSync(manifestPath, "utf8");
-  assert.equal(existsSync(`${manifestPath}.bak`), false);
+  delete manifest.managed_hashes;
+  writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
 
   run(["scripts/install.mjs", "--mode", "update", "--target", dir]);
-  assert.equal(readFileSync(`${manifestPath}.bak`, "utf8"), firstManifest);
+  assert.equal(readFileSync(`${manifestPath}.bak`, "utf8"), JSON.stringify(manifest, null, 2));
+  assert.equal(readFileSync(manifestPath, "utf8"), firstManifest);
+  assert.match(readFileSync(manifestPath, "utf8"), /managed_hashes/);
 
+  const afterRefresh = listRelativeFiles(dir);
   run(["scripts/install.mjs", "--mode", "update", "--target", dir]);
-  assert.ok(existsSync(`${manifestPath}.bak.1`));
+  assert.deepEqual(listRelativeFiles(dir), afterRefresh);
+  assert.equal(existsSync(`${manifestPath}.bak.1`), false);
 });
 
 test("repair only rewrites manifest-recorded paths while update expands managed set", () => {

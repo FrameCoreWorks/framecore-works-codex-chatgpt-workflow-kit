@@ -1,19 +1,12 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, sep } from "node:path";
-import { assertNoSymlinkPath, hasHelpFlag, isMainModule, printHelpAndExit, repoRoot } from "./common.mjs";
+import { assertNoSymlinkPath, backupFile, fileContentEquals, hasHelpFlag, isMainModule, printHelpAndExit, repoRoot } from "./common.mjs";
 import { assertValidFrameCoreConfig, loadFrameCoreConfig } from "./config-validation.mjs";
+import { sha256File } from "./manifest.mjs";
 
 function toManifestPath(target, destination) {
   return relative(target, destination).replaceAll(sep, "/");
-}
-
-function nextBackupPath(destination) {
-  const first = `${destination}.bak`;
-  if (!existsSync(first)) return first;
-  let index = 1;
-  while (existsSync(`${first}.${index}`)) index += 1;
-  return `${first}.${index}`;
 }
 
 /**
@@ -33,26 +26,45 @@ function safeTemplateValue(value) {
  * Writes one rendered agent file with the same ownership, backup, and symlink
  * protections used by the main installer.
  */
-function writeRenderedFile({ target, destination, content, dryRun, previousManaged, force }) {
+function writeRenderedFile({ target, destination, content, dryRun, previousManaged, previousHashes = {}, force, backupEvents = [] }) {
   const rel = toManifestPath(target, destination);
   assertNoSymlinkPath(target, destination);
   if (existsSync(destination) && !previousManaged.has(rel) && !force) {
     throw new Error(`refusing to overwrite user-owned file: ${rel}. Re-run with --force only if this is intentional.`);
   }
+  const unchanged = existsSync(destination) && statSync(destination).isFile() && fileContentEquals(destination, content);
+  const expectedHash = previousManaged.has(rel) ? previousHashes[rel] : null;
+  const drifted = expectedHash && existsSync(destination) && statSync(destination).isFile() && sha256File(destination) !== expectedHash;
+  if (drifted && !unchanged && !force) {
+    throw new Error(`managed file has local changes: ${rel}. Re-run with --force to overwrite after creating a backup.`);
+  }
+  if (unchanged) return false;
   if (!dryRun) {
     mkdirSync(dirname(destination), { recursive: true });
     if (existsSync(destination)) {
-      writeFileSync(nextBackupPath(destination), readFileSync(destination, "utf8"));
+      const backupPath = backupFile(destination);
+      backupEvents.push({ rel, backupPath });
     }
     writeFileSync(destination, content);
   }
+  return true;
 }
 
 /**
  * Renders neutral role templates into the target workspace, returning the exact
  * files that install/update/repair should track in the manifest.
  */
-export function renderAgents({ target, configPath, dryRun = false, previousManaged = new Set(), force = false, includeManagedPath = () => true }) {
+export function renderAgents({
+  target,
+  configPath,
+  dryRun = false,
+  previousManaged = new Set(),
+  previousHashes = {},
+  force = false,
+  includeManagedPath = () => true,
+  backupEvents = [],
+  returnDetails = false
+}) {
   const sourceDir = join(repoRoot, ".codex/agents");
   const targetDir = join(target, ".codex/agents");
   const { config } = loadFrameCoreConfig({ target, configPath });
@@ -70,7 +82,8 @@ export function renderAgents({ target, configPath, dryRun = false, previousManag
   const textImageNativeModel = safeTemplateValue(textImagePolicy.native_model ?? "gpt-image-2");
   const textImageNativeRoute = safeTemplateValue(textImagePolicy.native_route ?? textImagePolicy.native_model ?? "gpt-image-2");
   const textImageExecutionPath = safeTemplateValue(textImagePolicy.execution_path ?? "native Codex/ChatGPT image generation");
-  const planned = [];
+  const managed = [];
+  const changed = [];
 
   for (const entry of readdirSync(sourceDir)) {
     if (entry.startsWith("._")) continue;
@@ -93,11 +106,13 @@ export function renderAgents({ target, configPath, dryRun = false, previousManag
     const destination = join(targetDir, `${roleId}.toml`);
     const managedPath = toManifestPath(target, destination);
     if (!includeManagedPath(managedPath)) continue;
-    planned.push(destination);
-    writeRenderedFile({ target, destination, content: rendered, dryRun, previousManaged, force });
+    managed.push(destination);
+    if (writeRenderedFile({ target, destination, content: rendered, dryRun, previousManaged, previousHashes, force, backupEvents })) {
+      changed.push(destination);
+    }
   }
 
-  return planned;
+  return returnDetails ? { managed, changed } : managed;
 }
 
 if (isMainModule(import.meta.url)) {

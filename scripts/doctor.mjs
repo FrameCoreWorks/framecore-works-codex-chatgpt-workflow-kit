@@ -3,7 +3,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { homedir } from "node:os";
 import { join, relative, sep } from "node:path";
-import { hasHelpFlag, npmArgs, npmCommand, printHelpAndExit, repoRoot, walkFiles } from "./common.mjs";
+import { hasHelpFlag, isRepoRootTarget, npmArgs, npmCommand, printHelpAndExit, repoRoot, selfTargetMessage, walkFiles } from "./common.mjs";
 import { resolveManagedPath, sha256File, validateManifest } from "./manifest.mjs";
 import { assertValidFrameCoreConfig, loadFrameCoreConfig } from "./config-validation.mjs";
 
@@ -143,6 +143,12 @@ function runDoctor({ mode }) {
     return 1;
   }
   ok("Target workspace exists.");
+
+  if (mode !== "global" && isRepoRootTarget(target)) {
+    fail(selfTargetMessage());
+    printReport(items, failures, mode);
+    return 1;
+  }
 
   if ((statSync(target).mode & 0o222) === 0) {
     warn("Target workspace does not appear writable from file mode bits.");

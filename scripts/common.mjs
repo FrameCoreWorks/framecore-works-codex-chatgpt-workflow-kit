@@ -1,4 +1,4 @@
-import { existsSync, lstatSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, lstatSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
 
@@ -43,6 +43,33 @@ export function toPosixPath(value) {
 
 export function relativePosix(from, to) {
   return toPosixPath(relative(from, to));
+}
+
+export function isRepoRootTarget(target) {
+  return resolve(target) === repoRoot;
+}
+
+export function selfTargetMessage() {
+  return "You are targeting the FrameCore kit repository itself. Pass --target <path-to-your-project> to point at the workspace where the kit should be installed.";
+}
+
+export function nextBackupPath(destination) {
+  const first = `${destination}.bak`;
+  if (!existsSync(first)) return first;
+  let index = 1;
+  while (existsSync(`${first}.${index}`)) index += 1;
+  return `${first}.${index}`;
+}
+
+export function fileContentEquals(destination, content) {
+  if (!existsSync(destination)) return false;
+  return readFileSync(destination).equals(Buffer.from(content, "utf8"));
+}
+
+export function backupFile(destination) {
+  const backupPath = nextBackupPath(destination);
+  writeFileSync(backupPath, readFileSync(destination));
+  return backupPath;
 }
 
 /**

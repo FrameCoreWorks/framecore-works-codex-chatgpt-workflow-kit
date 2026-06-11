@@ -28,6 +28,15 @@ test("doctor rejects missing targets without mutating parent folders", () => {
   assert.equal(existsSync(missing), false);
 });
 
+test("doctor reports a clear self-target guard for the kit repository", () => {
+  const result = failRun(["scripts/doctor.mjs", "--target", root]);
+  const output = combinedOutput(result);
+  assert.notEqual(result.status, 0);
+  assert.match(output, /targeting the FrameCore kit repository itself/);
+  assert.match(output, /--target <path-to-your-project>/);
+  assert.doesNotMatch(output, /user-owned path\(s\) would block/);
+});
+
 test("doctor rejects invalid config before any target writes", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-doctor-bad-config-"));
   const config = JSON.parse(readFileSync(join(root, "config/defaults.example.json"), "utf8"));
@@ -151,7 +160,7 @@ test("doctor reports incomplete manifests without failing valid hash checks", ()
   assert.equal(output.includes(dir), false);
 });
 
-test("repair refreshes managed hashes after local drift", () => {
+test("repair refreshes managed hashes after local drift only when forced", () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-repair-hashes-"));
   run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
   run(["scripts/install.mjs", "--mode", "project-local", "--target", dir]);
@@ -161,7 +170,12 @@ test("repair refreshes managed hashes after local drift", () => {
   writeFileSync(skillPath, "local edit\n");
   assert.match(run(["scripts/doctor.mjs", "--mode", "repair", "--target", dir]), /managed file\(s\) differ from the manifest hash/);
 
-  run(["scripts/install.mjs", "--mode", "repair", "--target", dir]);
+  const blocked = failRun(["scripts/install.mjs", "--mode", "repair", "--target", dir]);
+  assert.notEqual(blocked.status, 0);
+  assert.match(combinedOutput(blocked), /managed file has local changes/);
+  assert.equal(readFileSync(skillPath, "utf8"), "local edit\n");
+
+  run(["scripts/install.mjs", "--mode", "repair", "--target", dir, "--force"]);
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
   assert.equal(manifest.managed_hashes[".agents/skills/humanizer/SKILL.md"], sha256(skillPath));
   assert.notEqual(readFileSync(skillPath, "utf8"), "local edit\n");

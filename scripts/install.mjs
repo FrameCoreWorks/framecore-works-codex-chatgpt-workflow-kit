@@ -2,7 +2,18 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, sep } from "node:path";
 import { homedir } from "node:os";
-import { assertNoSymlinkPath, hasHelpFlag, printHelpAndExit, readJson, repoRoot, walkFiles } from "./common.mjs";
+import {
+  assertNoSymlinkPath,
+  backupFile,
+  fileContentEquals,
+  hasHelpFlag,
+  isRepoRootTarget,
+  printHelpAndExit,
+  readJson,
+  repoRoot,
+  selfTargetMessage,
+  walkFiles
+} from "./common.mjs";
 import { assertValidManifest, resolveManagedPath, sha256File } from "./manifest.mjs";
 import { renderAgents } from "./render-agents.mjs";
 import { assertValidFrameCoreConfig, loadFrameCoreConfig } from "./config-validation.mjs";
@@ -76,48 +87,67 @@ function buildManifest({ target, managedPaths, manifestRel, incomplete = false }
  * Writes the manifest and optionally rotates the previous manifest first.
  * Existing installs keep one backup before update/repair changes ownership.
  */
-function writeManifestFile({ manifestPath, manifest, backupExisting }) {
+function writeManifestFile({ manifestPath, manifest, backupExisting, backupEvents = [] }) {
   mkdirSync(dirname(manifestPath), { recursive: true });
-  if (backupExisting && existsSync(manifestPath)) {
-    writeFileSync(nextBackupPath(manifestPath), readFileSync(manifestPath, "utf8"));
+  const content = `${JSON.stringify(manifest, null, 2)}\n`;
+  if (existsSync(manifestPath) && fileContentEquals(manifestPath, content)) {
+    return false;
   }
-  writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-}
-
-function nextBackupPath(destination) {
-  const first = `${destination}.bak`;
-  if (!existsSync(first)) return first;
-  let index = 1;
-  while (existsSync(`${first}.${index}`)) index += 1;
-  return `${first}.${index}`;
+  if (backupExisting && existsSync(manifestPath)) {
+    const backupPath = backupFile(manifestPath);
+    backupEvents.push({ rel: ".framecore/manifest.json", backupPath });
+  }
+  writeFileSync(manifestPath, content);
+  return true;
 }
 
 /**
  * Writes one FrameCore-managed file after ownership and symlink checks. Dry-run
  * uses the same checks so conflicts are reported before real writes.
  */
-function writeManagedFile({ target, destination, content, dryRun, planned, managed, previousManaged, force, includeManagedPath = () => true }) {
+function writeManagedFile({
+  target,
+  destination,
+  content,
+  dryRun,
+  planned,
+  managed,
+  previousManaged,
+  previousHashes = {},
+  force,
+  includeManagedPath = () => true,
+  backupEvents = []
+}) {
   const rel = toManifestPath(target, destination);
   if (!includeManagedPath(rel)) return false;
   assertNoSymlinkPath(target, destination);
-  planned.push(destination);
   managed.push(rel);
 
   if (existsSync(destination) && !previousManaged.has(rel) && !force) {
     throw new Error(`refusing to overwrite user-owned file: ${rel}. Re-run with --force only if this is intentional.`);
   }
 
-  if (dryRun) return;
+  const unchanged = existsSync(destination) && statSync(destination).isFile() && fileContentEquals(destination, content);
+  const expectedHash = previousManaged.has(rel) ? previousHashes[rel] : null;
+  const drifted = expectedHash && existsSync(destination) && statSync(destination).isFile() && sha256File(destination) !== expectedHash;
+  if (drifted && !unchanged && !force) {
+    throw new Error(`managed file has local changes: ${rel}. Re-run with --force to overwrite after creating a backup.`);
+  }
+  if (unchanged) return false;
+
+  planned.push(destination);
+  if (dryRun) return true;
 
   mkdirSync(dirname(destination), { recursive: true });
   if (existsSync(destination)) {
-    writeFileSync(nextBackupPath(destination), readFileSync(destination, "utf8"));
+    const backupPath = backupFile(destination);
+    backupEvents.push({ rel, backupPath });
   }
   writeFileSync(destination, content);
   return true;
 }
 
-function copySkillFiles({ target, source, destination, dryRun, planned, managed, previousManaged, force, includeManagedPath }) {
+function copySkillFiles({ target, source, destination, dryRun, planned, managed, previousManaged, previousHashes, force, includeManagedPath, backupEvents }) {
   for (const file of walkFiles(source)) {
     const rel = relative(source, file);
     writeManagedFile({
@@ -128,10 +158,16 @@ function copySkillFiles({ target, source, destination, dryRun, planned, managed,
       planned,
       managed,
       previousManaged,
+      previousHashes,
       force,
       includeManagedPath,
+      backupEvents,
     });
   }
+}
+
+function manifestContentEquals(path, manifest) {
+  return fileContentEquals(path, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
 /**
@@ -162,8 +198,12 @@ function install({ mode }) {
     throw new Error("global install writes to the current user's home workspace. Re-run with --confirm-global only if this is intentional.");
   }
   ensureTarget(target, mode, hasFlag("--create-target"));
+  if (mode !== "global" && isRepoRootTarget(target)) {
+    throw new Error(selfTargetMessage());
+  }
   const planned = [];
   const managed = [];
+  const backupEvents = [];
   const previousManifest = readManifest(target);
   if (previousManifest) assertValidManifest(target, previousManifest);
 
@@ -202,6 +242,7 @@ function install({ mode }) {
     throw new Error(`${mode} requires .framecore/manifest.json. Run project-local install first.`);
   }
   const includeManagedPath = repair ? (rel) => previousManaged.has(rel) : () => true;
+  const previousHashes = previousManifest?.managed_hashes ?? {};
 
   copySkillFiles({
     target,
@@ -211,13 +252,23 @@ function install({ mode }) {
     planned,
     managed,
     previousManaged,
+    previousHashes,
     force,
     includeManagedPath,
   });
 
-  const renderedAgents = renderAgents({ target: installTarget, configPath, dryRun: true, previousManaged, force, includeManagedPath });
-  planned.push(...renderedAgents);
-  managed.push(...renderedAgents.map((file) => toManifestPath(target, file)));
+  const renderedAgents = renderAgents({
+    target: installTarget,
+    configPath,
+    dryRun: true,
+    previousManaged,
+    previousHashes,
+    force,
+    includeManagedPath,
+    returnDetails: true
+  });
+  planned.push(...renderedAgents.changed);
+  managed.push(...renderedAgents.managed.map((file) => toManifestPath(target, file)));
 
   const agentsInstructionPath = chooseAgentsInstructionPath({ target, previousManaged, force, repair });
   const wroteFrameCoreAgents = agentsInstructionPath && toManifestPath(target, agentsInstructionPath) === "AGENTS.framecore.md";
@@ -230,6 +281,7 @@ function install({ mode }) {
       planned,
       managed,
       previousManaged,
+      previousHashes,
       force,
       includeManagedPath,
     });
@@ -238,51 +290,69 @@ function install({ mode }) {
   const manifestPath = join(target, ".framecore/manifest.json");
   assertNoSymlinkPath(target, manifestPath);
   const manifestRel = toManifestPath(target, manifestPath);
-  planned.push(manifestPath);
   const manifestManaged = repair ? [...previousManaged] : [...new Set([...managed, manifestRel])].sort();
   if (!repair) managed.push(manifestRel);
+  const previewManifest = buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: false });
+  if (planned.length > 0 || !existsSync(manifestPath) || !manifestContentEquals(manifestPath, previewManifest)) {
+    planned.push(manifestPath);
+  }
 
   if (!dryRun) {
-    writeManifestFile({
-      manifestPath,
-      manifest: buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: true }),
-      backupExisting: existsSync(manifestPath),
-    });
+    const writeManagedFiles = planned.some((item) => item !== manifestPath);
+    if (writeManagedFiles) {
+      writeManifestFile({
+        manifestPath,
+        manifest: buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: true }),
+        backupExisting: existsSync(manifestPath),
+        backupEvents,
+      });
 
-    const written = [];
-    const writtenManaged = [];
-    copySkillFiles({
-      target,
-      source: join(repoRoot, ".agents/skills"),
-      destination: skillsTarget,
-      dryRun: false,
-      planned: written,
-      managed: writtenManaged,
-      previousManaged,
-      force,
-      includeManagedPath,
-    });
-    renderAgents({ target: installTarget, configPath, dryRun: false, previousManaged, force, includeManagedPath });
-    if (agentsInstructionPath) {
-      writeManagedFile({
+      const written = [];
+      const writtenManaged = [];
+      copySkillFiles({
         target,
-        destination: agentsInstructionPath,
-        content: readFileSync(join(repoRoot, "AGENTS.template.md"), "utf8"),
+        source: join(repoRoot, ".agents/skills"),
+        destination: skillsTarget,
         dryRun: false,
         planned: written,
         managed: writtenManaged,
         previousManaged,
+        previousHashes,
         force,
         includeManagedPath,
+        backupEvents,
+      });
+      renderAgents({ target: installTarget, configPath, dryRun: false, previousManaged, previousHashes, force, includeManagedPath, backupEvents });
+      if (agentsInstructionPath) {
+        writeManagedFile({
+          target,
+          destination: agentsInstructionPath,
+          content: readFileSync(join(repoRoot, "AGENTS.template.md"), "utf8"),
+          dryRun: false,
+          planned: written,
+          managed: writtenManaged,
+          previousManaged,
+          previousHashes,
+          force,
+          includeManagedPath,
+          backupEvents,
+        });
+      }
+    }
+    const finalManifest = buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: false });
+    if (writeManagedFiles || !existsSync(manifestPath) || !manifestContentEquals(manifestPath, finalManifest)) {
+      writeManifestFile({
+        manifestPath,
+        manifest: finalManifest,
+        backupExisting: !writeManagedFiles && existsSync(manifestPath),
+        backupEvents,
       });
     }
-    writeManifestFile({
-      manifestPath,
-      manifest: buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: false }),
-      backupExisting: false,
-    });
   }
 
+  for (const item of backupEvents) {
+    console.log(`backup ${item.rel} -> ${item.backupPath}`);
+  }
   for (const item of planned) {
     console.log(`${dryRun ? "would write" : "wrote"} ${item}`);
   }
