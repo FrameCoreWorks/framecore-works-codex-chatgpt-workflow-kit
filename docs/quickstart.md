@@ -364,15 +364,21 @@ your-project/
 - Keep `framecore.config.json` local to the target workspace. Teams that intentionally share reviewed defaults can use `framecore.config.shared.json`, with local config still taking precedence.
 - Read [Team Configuration](team-configuration.md) before committing installed workflow files or local config.
 - Use `.framecore/manifest.json` to see which files are FrameCore-managed.
-- Run update or repair only after reviewing the current manifest. `update` can add new FrameCore-managed paths from the current kit; `repair` rewrites only paths already listed in the manifest:
-- Update and repair rotate backups for rewritten managed files and `.framecore/manifest.json`; uninstall preserves backup files for manual review.
+- To update an already installed workspace, run doctor first, then update. `update` can add new FrameCore-managed paths from the current kit, such as new skills, docs, examples, gates, handoffs, or agent templates. It requires `.framecore/manifest.json`:
 
   ```bash
   node scripts/doctor.mjs --mode update --target "$FRAMECORE_TARGET"
   node scripts/install.mjs --mode update --target "$FRAMECORE_TARGET"
+  ```
+
+- Use `repair` only when you want to recreate files already listed in the existing manifest without adding new managed paths:
+
+  ```bash
   node scripts/doctor.mjs --mode repair --target "$FRAMECORE_TARGET"
   node scripts/install.mjs --mode repair --target "$FRAMECORE_TARGET"
   ```
+
+- Update and repair rotate backups for rewritten managed files and `.framecore/manifest.json`; uninstall preserves backup files for manual review.
 
 - Preview uninstall before applying it:
 

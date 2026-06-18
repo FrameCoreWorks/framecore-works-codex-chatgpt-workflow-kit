@@ -94,7 +94,9 @@ HyperFrames is treated as a coded-video workflow path, not as a paid media-provi
 
 ### How do updates work?
 
-Use `node scripts/install.mjs --mode update --target <path>` after reviewing doctor/preflight and dry-run behavior. Update requires `.framecore/manifest.json` so it can distinguish managed files from user-owned files.
+Use `node scripts/doctor.mjs --mode update --target <path>` first, then `node scripts/install.mjs --mode update --target <path>` if preflight is clean. Update requires `.framecore/manifest.json` so it can distinguish FrameCore-managed files from user-owned files. It can add new managed files from the current kit, such as new skills, docs, examples, gates, handoffs, or agent templates.
+
+Beginner path: open Codex in the already installed project and ask it to follow the [Update An Existing Workspace](../README.md#update-an-existing-workspace) prompt from the README.
 
 ### How does repair differ from update?
 

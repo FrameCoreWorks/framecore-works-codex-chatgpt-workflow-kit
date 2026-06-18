@@ -149,6 +149,7 @@ Onboarding does not rewrite that workflow logic. It tunes the local workspace: w
 - Installing by pasting a GitHub link into Codex: read [Codex-Assisted Install](docs/codex-assisted-install.md).
 - Using the workflow through ChatGPT Skills instead of Codex: read [ChatGPT Skills Onboarding](docs/chatgpt-skills-onboarding.md).
 - Already installed and ready to work: read [Using The Kit](docs/using-the-kit.md).
+- Already installed and want the newest repo changes: use [Update An Existing Workspace](#update-an-existing-workspace).
 - Installation failed or produced an unexpected result: read [Troubleshooting](docs/troubleshooting.md).
 - Need quick answers first: read [FAQ](docs/faq.md).
 - Want to see exactly what is included: read [Included Agents And Skills](docs/included-agents-and-skills.md).
@@ -276,6 +277,48 @@ node scripts/install.mjs --mode global --confirm-global
 ```
 
 Use `--mode dry-run` first for every install target.
+
+## Update An Existing Workspace
+
+Use this when you already installed the kit into a Codex project and want that project to receive the newest managed agents, skills, docs, examples, gates, handoffs, and workflow contracts from the current repo.
+
+For beginners, open Codex in the project where the kit is already installed, then paste:
+
+```text
+Update my existing FrameCore Works Codex workflow install from the current GitHub repo.
+
+I already installed this kit before. Please guide me step by step.
+
+First confirm that this is a shell-capable Codex workspace, not a regular ChatGPT chat.
+Then find the existing `.framecore/manifest.json` in my current project.
+If there is no manifest, stop and tell me this does not look like an existing project-local install.
+
+Before changing files:
+1. Read README.md and docs/quickstart.md from the cloned kit repo.
+2. Run the repository checks.
+3. Run doctor/preflight in update mode against my current project.
+4. Explain what update will do in plain language.
+5. Show whether any managed files have local edits or conflicts.
+
+Only if preflight is clean, run the project-local update.
+Do not use global install.
+Do not upload anything.
+Do not use API keys.
+Do not enable external provider tools.
+Do not overwrite locally edited managed files unless I explicitly approve `--force`.
+
+After update, show me the changed files, the final managed tree, and the first prompt I should use to continue working.
+```
+
+For advanced users:
+
+```bash
+npm run check
+node scripts/doctor.mjs --mode update --target /path/to/your/project
+node scripts/install.mjs --mode update --target /path/to/your/project
+```
+
+Run `repair` instead of `update` only when you want to recreate files already listed in the existing manifest without adding new managed paths from the current kit.
 
 ## Update, Repair, And Uninstall
 
