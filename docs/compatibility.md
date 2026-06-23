@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This guide defines the supported runtime, operating system, Codex environment, and install-mode assumptions for FrameCore Works Skill Kit.
+This guide defines the supported runtime, operating system, Codex environment, and install-mode assumptions for this Codex workflow skill kit.
 
 Use it before opening support issues, before changing installer behavior, and before preparing a public release.
 

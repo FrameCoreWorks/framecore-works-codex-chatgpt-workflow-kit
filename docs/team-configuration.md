@@ -2,7 +2,7 @@
 
 ## Purpose
 
-FrameCore Works installs project-local workflow assets, but onboarding creates local preferences for one workspace. Teams should decide intentionally what stays personal and what becomes shared project policy.
+The Codex workflow skill kit installs project-local workflow assets, but onboarding creates local preferences for one workspace. Teams should decide intentionally what stays personal and what becomes shared project policy.
 
 The safe default is personal install: keep generated local config out of version control.
 

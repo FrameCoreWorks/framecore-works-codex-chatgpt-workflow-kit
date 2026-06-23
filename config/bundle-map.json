@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "purpose": "Classify current FrameCore Works source assets by future Codex plugin or bundle boundary without changing the current project-local install flow.",
+  "purpose": "Classify current Codex workflow kit source assets by future Codex plugin or bundle boundary without changing the current project-local install flow.",
   "status": "readiness-map",
   "bundles": {
     "pipeline-core": {

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This guide shows what to ask Codex after FrameCore Works Skill Kit is installed in a project-local workspace.
+This guide shows what to ask Codex after this Codex workflow skill kit is installed in a project-local workspace.
 
 Use it after [Quickstart](quickstart.md) or [Codex-Assisted Install](codex-assisted-install.md). Installation gives Codex the workflow contracts. Your next prompt tells Codex which route to use and how deep the workflow should go.
 

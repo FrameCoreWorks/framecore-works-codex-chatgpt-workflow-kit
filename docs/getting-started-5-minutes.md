@@ -4,7 +4,7 @@
 
 Use this page if someone sent you this repo and you want the shortest safe path to try it in Codex.
 
-FrameCore Works Skill Kit adds a project-local workflow layer to Codex for creative and delivery work: briefs, references, campaign direction, image and video prompt planning, storyboard work, QA, delivery notes, and long-session recovery.
+This Codex workflow skill kit adds a project-local workflow layer to Codex for creative and delivery work: briefs, references, campaign direction, image and video prompt planning, storyboard work, QA, delivery notes, and long-session recovery.
 
 It does not install paid providers, API keys, uploads, or global tools by default.
 

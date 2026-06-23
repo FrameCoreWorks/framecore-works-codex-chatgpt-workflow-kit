@@ -1,6 +1,6 @@
 # Workflow Stages
 
-FrameCore Works routes work through explicit stages. Each stage has a role, an input, an artifact, a review gate, and a valid handoff. The goal is to prevent Codex from skipping from a vague request directly into prompts, execution, or delivery.
+The installed Codex workflow skill kit routes work through explicit stages. Each stage has a role, an input, an artifact, a review gate, and a valid handoff. The goal is to prevent Codex from skipping from a vague request directly into prompts, execution, or delivery.
 
 Read each row as an operational contract: the owner receives input, produces the artifact, passes the gate, then hands off only to an allowed next role.
 

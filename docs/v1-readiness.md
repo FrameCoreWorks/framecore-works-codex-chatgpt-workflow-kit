@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This checklist defines what maintainers should verify before calling FrameCore Works Skill Kit a v1.0 release.
+This checklist defines what maintainers should verify before calling this Codex workflow skill kit a v1.0 release.
 
 It is stricter than the normal release checklist. A patch or prerelease can ship with known limitations. A v1.0 release should be stable enough for a new public user to install, understand, customize, update, repair, uninstall, and support safely.
 

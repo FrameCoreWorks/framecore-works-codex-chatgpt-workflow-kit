@@ -16,7 +16,7 @@
   - private references
 - source_list:
   - fictional user request
-  - FrameCore Works artifact templates
+  - Codex workflow kit artifact templates
   - provider-neutral workflow policy
   - text-bearing image policy
 - usage_notes:

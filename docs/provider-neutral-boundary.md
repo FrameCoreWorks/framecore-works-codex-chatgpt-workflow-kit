@@ -2,7 +2,7 @@
 
 ## Purpose
 
-FrameCore Works is provider-neutral by default. It installs workflow structure, planning contracts, role files, skills, templates, gates, examples, validation, and privacy checks. It does not install paid execution systems.
+The Codex workflow skill kit is provider-neutral by default. It installs workflow structure, planning contracts, role files, skills, templates, gates, examples, validation, and privacy checks. It does not install paid execution systems.
 
 This boundary keeps the public kit reusable for different users, teams, toolchains, and budgets.
 

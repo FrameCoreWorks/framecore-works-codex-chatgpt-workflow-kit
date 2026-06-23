@@ -8,7 +8,7 @@
 
 ## Summary
 
-FrameCore Works v1.0.2 tightens the beginner onboarding and release safety path after v1.0.1. It adds an optional long-session recovery step to guided install, threads onboarding profile answers through every rendered agent, and removes tests from the npm package while keeping them required in the source repository.
+The v1.0.2 release tightens the beginner onboarding and release safety path after v1.0.1. It adds an optional long-session recovery step to guided install, threads onboarding profile answers through every rendered agent, and removes tests from the npm package while keeping them required in the source repository.
 
 ## Install And Update Notes
 

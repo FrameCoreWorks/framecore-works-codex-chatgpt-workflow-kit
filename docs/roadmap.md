@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This roadmap explains the current scope, known limitations, likely next work, and non-goals for FrameCore Works Skill Kit.
+This roadmap explains the current scope, known limitations, likely next work, and non-goals for this Codex workflow skill kit.
 
 It is a planning guide for maintainers and contributors. It is not an automatic release promise.
 

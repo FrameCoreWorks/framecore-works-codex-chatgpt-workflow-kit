@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This guide describes recommended GitHub repository settings for maintainers of the public FrameCore Works kit.
+This guide describes recommended GitHub repository settings for maintainers of the public Codex workflow kit.
 
 These settings protect the public repo. They are not part of project-local installation and they are not required for people who only install the kit into their own Codex workspace.
 

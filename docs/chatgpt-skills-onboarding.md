@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This guide explains how to use FrameCore Works workflow skills in ChatGPT when the user has access to ChatGPT Skills.
+This guide explains how to use the workflow skills from this repo in ChatGPT when the user has access to ChatGPT Skills.
 
 This is not the Codex installer. It does not clone the repository, write `.codex/agents/*.toml`, create `AGENTS.md`, run shell commands, initialize `Memory Cache/`, or install anything into a local workspace.
 

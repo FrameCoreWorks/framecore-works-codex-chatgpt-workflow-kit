@@ -8,7 +8,7 @@
 
 ## Summary
 
-FrameCore Works v1.0.0 is the first public-ready release of the Creative Workflow Skill Kit for Codex. It installs a provider-neutral, project-local workflow layer for creative production work such as graphics, video, storyboards, campaign assets, e-commerce visuals, prompt workflows, QA, delivery, and long-session recovery.
+The v1.0.0 release is the first public-ready release of the Creative Workflow Skill Kit for Codex. It installs a provider-neutral, project-local workflow layer for creative production work such as graphics, video, storyboards, campaign assets, e-commerce visuals, prompt workflows, QA, delivery, and long-session recovery.
 
 ## Install And Update Notes
 

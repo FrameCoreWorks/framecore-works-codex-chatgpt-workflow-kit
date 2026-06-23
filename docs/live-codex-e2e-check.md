@@ -52,7 +52,7 @@ Start by confirming the task and route through the required gates.
 
 ## Expected Signals
 
-- Codex recognizes FrameCore Works instructions in `AGENTS.md` or `AGENTS.framecore.md`.
+- Codex recognizes the installed workflow instructions in `AGENTS.md` or `AGENTS.framecore.md`.
 - Codex can find `.agents/skills/pipeline-core/SKILL.md`.
 - Codex starts with intent confirmation.
 - Codex routes through `workflow-orchestrator` or the installed equivalent.

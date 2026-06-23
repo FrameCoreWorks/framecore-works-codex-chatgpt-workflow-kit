@@ -1,6 +1,6 @@
 # Support
 
-FrameCore Works Skill Kit is maintained as a GitHub-first workflow kit.
+This Codex workflow skill kit is maintained as a GitHub-first workflow kit.
 
 Use GitHub issues for:
 

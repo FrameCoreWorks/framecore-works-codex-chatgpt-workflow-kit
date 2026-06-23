@@ -1,6 +1,7 @@
 # Loop Protocol
 
-FrameCore Works uses Loop Protocol for nontrivial iterative work:
+The Codex workflow skills in this kit use Loop Protocol for nontrivial
+iterative work:
 
 `brief -> checklist -> execute -> evaluate -> critique -> repair -> repeat -> stop`
 

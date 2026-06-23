@@ -13,7 +13,7 @@ Just want to install in Codex? Jump to the [copy-paste install prompt](#copy-pas
 
 ## What This Repo Gives You
 
-FrameCore Works Skill Kit adds a project-local creative workflow layer to Codex. It does not install paid providers or API-key tooling. It gives Codex a structured way to move work from request intake to brief, references, direction, prompts, QA, delivery notes, and long-session recovery.
+This Codex skill kit adds a project-local creative workflow layer to Codex. It does not install paid providers or API-key tooling. It gives Codex a structured way to move work from request intake to brief, references, direction, prompts, QA, delivery notes, and long-session recovery.
 
 At a glance, the repo includes:
 
@@ -130,7 +130,7 @@ Follow this order:
 Do not use global install and do not enable external execution tools unless I explicitly ask for them.
 ```
 
-FrameCore Works Skill Kit is a provider-neutral workflow system for Codex. It was created by FrameCore Works for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, and it can be adapted to other use cases during onboarding. It installs role-based agents, skills, templates, handoff rules, QA gates, Humanizer, HyperFrames workflow knowledge, a lightweight Hipson Adapter, and an explicit workflow self-improvement loop.
+This Codex workflow skill kit is a provider-neutral workflow system for Codex. It was created by FrameCore Works for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, and it can be adapted to other use cases during onboarding. It installs role-based agents, skills, templates, handoff rules, QA gates, Humanizer, HyperFrames workflow knowledge, a lightweight Hipson Adapter, and an explicit workflow self-improvement loop.
 
 If this repo helps your work and you want to support the project, you can buy me a coffee: https://buycoffee.to/framecoreworks.
 
@@ -318,7 +318,7 @@ Use this when you already installed the kit into a Codex project and want that p
 For beginners, open Codex in the project where the kit is already installed, then paste:
 
 ```text
-Update my existing FrameCore Works Codex workflow install from the current GitHub repo.
+Update my existing Codex workflow skill kit install from the current GitHub repo.
 
 I already installed this kit before. Please guide me step by step.
 

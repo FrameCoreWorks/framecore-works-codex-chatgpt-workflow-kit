@@ -1,7 +1,7 @@
 # Loop Protocol
 
 The Loop Protocol is the canonical evaluator-optimizer pattern for nontrivial
-FrameCore Works tasks:
+tasks handled by this Codex workflow skill kit:
 
 `brief -> checklist -> execute -> evaluate -> critique -> repair -> repeat -> stop`
 

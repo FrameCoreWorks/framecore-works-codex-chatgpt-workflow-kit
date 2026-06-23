@@ -1,6 +1,11 @@
 # Contributing
 
-FrameCore Works Skill Kit is provider-neutral and configurable for user language preferences during onboarding.
+This Codex workflow skill kit is provider-neutral and configurable for user language preferences during onboarding.
+
+Use `FrameCore Works` for project naming, source identity, attribution, and
+maintainer references. When describing behavior, use neutral operational
+subjects such as `this Codex workflow skill kit`, `the installed workflow`, or
+`the workflow skills`.
 
 ## Contribution Scope
 

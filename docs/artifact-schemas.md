@@ -1,6 +1,6 @@
 # Artifact Schemas
 
-FrameCore Works treats workflow artifacts as contracts. The Markdown templates describe the human-readable shape of each artifact, and `config/artifact-schemas.json` records the required fields that validation can check.
+The Codex workflow skill kit treats workflow artifacts as contracts. The Markdown templates describe the human-readable shape of each artifact, and `config/artifact-schemas.json` records the required fields that validation can check.
 
 ## Purpose
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use this guide when someone tests FrameCore Works Skill Kit and wants to report what happened. It is designed for non-technical testers, so exact wording and screenshots are more useful than guesses.
+Use this guide when someone tests this Codex workflow skill kit and wants to report what happened. It is designed for non-technical testers, so exact wording and screenshots are more useful than guesses.
 
 Good feedback should answer three questions:
 

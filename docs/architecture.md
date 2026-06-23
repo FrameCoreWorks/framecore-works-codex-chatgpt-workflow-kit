@@ -1,6 +1,6 @@
 # Architecture
 
-FrameCore Works Skill Kit is a provider-neutral workflow layer for Codex. It installs project-local instructions, role-based agent files, skills, templates, gates, and a manifest so creative work can move through repeatable stages without adding paid execution tooling by default.
+This Codex workflow skill kit is a provider-neutral workflow layer for Codex. It installs project-local instructions, role-based agent files, skills, templates, gates, and a manifest so creative work can move through repeatable stages without adding paid execution tooling by default.
 
 ## System Layers
 

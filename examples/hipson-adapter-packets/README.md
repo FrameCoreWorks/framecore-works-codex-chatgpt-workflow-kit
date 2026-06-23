@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This example shows how the lightweight Hipson Adapter fits into the FrameCore Works workflow when a task needs a bounded research map, review packet, or instruction packet but does not need the full external Hipson system.
+This example shows how the lightweight Hipson Adapter fits into the installed Codex workflow when a task needs a bounded research map, review packet, or instruction packet but does not need the full external Hipson system.
 
 Use this when a user has a messy research, review, or execution-planning request and Codex needs to convert it into a safe packet for another workflow role.
 

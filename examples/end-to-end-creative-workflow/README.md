@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This example shows how FrameCore Works can structure a neutral ecommerce creative task from first intent confirmation to delivery notes without external provider execution.
+This example shows how the installed Codex workflow can structure a neutral ecommerce creative task from first intent confirmation to delivery notes without external provider execution.
 
 ## Starting User Request
 

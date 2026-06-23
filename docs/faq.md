@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This FAQ answers the questions a new user is most likely to ask before installing or using FrameCore Works Skill Kit. It is a short orientation layer; the detailed procedures live in Quickstart, Codex-Assisted Install, CLI Reference, and Troubleshooting.
+This FAQ answers the questions a new user is most likely to ask before installing or using this Codex workflow skill kit. It is a short orientation layer; the detailed procedures live in Quickstart, Codex-Assisted Install, CLI Reference, and Troubleshooting.
 
 ## Install Questions
 

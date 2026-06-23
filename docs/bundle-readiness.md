@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This guide describes how FrameCore Works Skill Kit should evolve toward future Codex plugin or bundle packaging without rewriting the current repository too early.
+This guide describes how this Codex workflow skill kit should evolve toward future Codex plugin or bundle packaging without rewriting the current repository too early.
 
 It is a repo-governance planning document, not a published plugin manifest, marketplace promise, or install behavior change.
 
@@ -10,7 +10,7 @@ It is a repo-governance planning document, not a published plugin manifest, mark
 
 OpenAI's June 2, 2026 "Codex for every role, tool, and workflow" product note points toward Codex plugins that bundle apps, skills, instructions, and workflows for role-specific work.
 
-FrameCore Works already follows much of that shape locally:
+The current repo already follows much of that shape locally:
 
 - project instructions in `AGENTS.template.md`
 - workflow skills in `.agents/skills/`

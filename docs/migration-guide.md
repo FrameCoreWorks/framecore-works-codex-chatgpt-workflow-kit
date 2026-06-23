@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use this guide when moving a private, local, or older FrameCore-style workflow into a public FrameCore Works Skill Kit-compatible setup.
+Use this guide when moving a private, local, or older FrameCore-style workflow into this public Codex workflow skill kit-compatible setup.
 
 Migration is not a blind file copy. The goal is to preserve reusable workflow logic while removing anything that is user-specific, provider-specific, private, or unsafe for a public repository.
 

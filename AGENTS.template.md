@@ -1,6 +1,6 @@
 # FrameCore Works Project Instructions
 
-Use the installed FrameCore Works Skill Kit for structured workflow tasks.
+Use the installed Codex workflow skills from this kit for structured workflow tasks.
 
 ## First Move
 

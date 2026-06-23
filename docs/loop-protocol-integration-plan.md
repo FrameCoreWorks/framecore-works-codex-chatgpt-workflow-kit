@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This plan rebuilds the public FrameCore Works repo around the canonical Loop
+This plan rebuilds the public repo around the canonical Loop
 Protocol without copying a private workspace one-to-one.
 
 The target operating model is:

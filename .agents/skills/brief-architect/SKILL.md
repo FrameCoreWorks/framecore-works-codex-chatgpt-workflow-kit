@@ -1,6 +1,6 @@
 ---
 name: brief-architect
-description: Use this skill to convert messy notes, user requests, source material, and scattered constraints into a structured Brief Contract for the FrameCore Works workflow.
+description: Use this skill to convert messy notes, user requests, source material, and scattered constraints into a structured Brief Contract for the installed Codex workflow.
 ---
 
 # Brief Architect

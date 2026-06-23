@@ -1,6 +1,6 @@
 ---
 name: onboarding-preference-tuning
-description: Use this skill for first-run setup of FrameCore Works Skill Kit, including user preferences, local agent display names, output paths, QA strictness, delivery behavior, optional recurring workflow review, and optional full Hipson expansion.
+description: Use this skill for first-run setup of this Codex workflow skill kit, including user preferences, local agent display names, output paths, QA strictness, delivery behavior, optional recurring workflow review, and optional full Hipson expansion.
 ---
 
 # Onboarding Preference Tuning

@@ -1,11 +1,11 @@
 ---
 name: workflow-orchestrator
-description: Use this skill to route FrameCore Works workflows, maintain project state, assign role-based agents, enforce gates, and decide loopbacks.
+description: Use this skill to route the installed Codex workflow, maintain project state, assign role-based agents, enforce gates, and decide loopbacks.
 ---
 
 # Workflow Orchestrator
 
-Use this skill to route FrameCore Works workflows, maintain project state, assign role-based agents, enforce gates, and decide loopbacks. It owns the state of the workflow, not the specialist deliverables.
+Use this skill to route the installed Codex workflow, maintain project state, assign role-based agents, enforce gates, and decide loopbacks. It owns the state of the workflow, not the specialist deliverables.
 
 ## When To Use
 

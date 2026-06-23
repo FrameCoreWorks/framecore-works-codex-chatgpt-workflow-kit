@@ -358,7 +358,7 @@ function install({ mode }) {
   }
   if (wroteFrameCoreAgents) {
     console.log("note: existing AGENTS.md was preserved. Ask Codex to read both AGENTS.md and AGENTS.framecore.md.");
-    console.log("optional pointer for your existing AGENTS.md: Also read AGENTS.framecore.md for FrameCore Works workflow instructions.");
+    console.log("optional pointer for your existing AGENTS.md: Also read AGENTS.framecore.md for the installed workflow instructions.");
   }
 }
 

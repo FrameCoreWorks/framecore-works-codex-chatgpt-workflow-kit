@@ -1,11 +1,11 @@
 ---
 name: pipeline-core
-description: Use this skill for FrameCore Works workflow routing, role-based agents, gates, handoffs, project state, artifact templates, reasoning routes, request diagnostics, QA allowlists, delivery discipline, text-bearing image policy, Humanizer routing, HyperFrames routing, Hipson Adapter routing, and governance rules.
+description: Use this skill for installed Codex workflow routing, role-based agents, gates, handoffs, project state, artifact templates, reasoning routes, request diagnostics, QA allowlists, delivery discipline, text-bearing image policy, Humanizer routing, HyperFrames routing, Hipson Adapter routing, and governance rules.
 ---
 
 # Pipeline Core
 
-Use this skill when a task needs the FrameCore Works workflow system.
+Use this skill when a task needs the installed Codex workflow system from this kit.
 
 It is the contract layer for roles, gates, handoffs, artifacts, request diagnostics, reasoning routes, Loop Protocol, text-bearing image policy, Humanizer routing, HyperFrames routing, Hipson Adapter routing, and workflow governance.
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This guide explains what users can safely customize after installing FrameCore Works Skill Kit into a project-local Codex workspace.
+This guide explains what users can safely customize after installing this Codex workflow skill kit into a project-local Codex workspace.
 
 Customization is local preference tuning. It should not change the public source model: neutral role IDs, provider-neutral boundaries, gates, handoffs, artifact contracts, privacy rules, and installer safety behavior stay intact.
 

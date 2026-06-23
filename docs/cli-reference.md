@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This reference explains the local commands shipped with FrameCore Works Skill Kit. It is for users and maintainers who want to understand which commands only inspect the repo, which commands write to a target workspace, and which order is safest during install, update, repair, or release review.
+This reference explains the local commands shipped with this Codex workflow skill kit. It is for users and maintainers who want to understand which commands only inspect the repo, which commands write to a target workspace, and which order is safest during install, update, repair, or release review.
 
 Default recommendation: use the guided project-local installer unless you have a reason to run lower-level commands manually.
 

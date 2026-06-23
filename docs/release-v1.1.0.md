@@ -8,7 +8,7 @@
 
 ## Summary
 
-FrameCore Works v1.1.0 adds Loop Protocol workflow governance to the kit. The workflow now has a public, validated loop model for non-trivial work: `brief -> checklist -> execute -> evaluate -> critique -> repair -> repeat -> stop`.
+The v1.1.0 release adds Loop Protocol workflow governance to the Codex workflow skill kit. The installed workflow now has a public, validated loop model for non-trivial work: `brief -> checklist -> execute -> evaluate -> critique -> repair -> repeat -> stop`.
 
 This release is for users who want stronger QA, clearer iteration control, safer repair loops, and better recovery state when creative or workflow tasks need more than one pass.
 

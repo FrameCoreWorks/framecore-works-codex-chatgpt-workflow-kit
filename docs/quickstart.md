@@ -1,6 +1,6 @@
 # Quickstart
 
-This guide installs FrameCore Works Skill Kit into one Codex workspace. The recommended path is project-local installation, which keeps the workflow assets inside the target project instead of changing your global Codex setup.
+This guide installs this Codex workflow skill kit into one Codex workspace. The recommended path is project-local installation, which keeps the workflow assets inside the target project instead of changing your global Codex setup.
 
 ## No-Terminal Beginner Start
 

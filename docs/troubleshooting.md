@@ -1,6 +1,6 @@
 # Troubleshooting
 
-This page covers common installation and workflow issues for FrameCore Works Skill Kit.
+This page covers common installation and workflow issues for this Codex workflow skill kit.
 
 If you are reporting test feedback instead of fixing the issue yourself, use [Tester Feedback Guide](tester-feedback.md). It gives a short template for environment, prompt, command, screenshot, exact error, and privacy-safe notes.
 
