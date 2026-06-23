@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 1.1.0 - 2026-06-23
+
+- Added Loop Protocol workflow governance with the canonical sequence `brief -> checklist -> execute -> evaluate -> critique -> repair -> repeat -> stop`.
+- Added the `loop_control_fit` gate for non-trivial iterative workflow work.
+- Added the `Loop State` artifact contract, schema coverage, public fixture, template fields, and validation checks.
+- Updated workflow examples that route through QA/iteration so they declare loop-aware gates and artifacts.
+- Strengthened QA / Iteration Report contracts with root cause, loopback target, regression check, and stop decision fields.
+- Updated `pipeline-core`, `workflow-orchestrator`, `qa-iteration`, and `output-critic-iteration` to support loop governance.
+- Added Loop Protocol documentation and a staged integration plan for future repo maintenance.
+- Added validator and test coverage so weak or missing Loop Protocol governance is rejected.
 - Added a beginner-friendly ChatGPT Skills preflight explanation after language selection and before workflow-profile questions.
 - Made ChatGPT Skills onboarding ask for the setup language as the first question before workflow-profile questions.
 - Strengthened ChatGPT Skills onboarding so existing local or older workflow skills cannot skip the user onboarding step.
