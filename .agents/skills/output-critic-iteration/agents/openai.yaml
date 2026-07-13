@@ -1,0 +1,7 @@
+interface:
+  display_name: "Output Critic And Iteration"
+  short_description: "Evaluate outputs, diagnose gaps, and plan repairs"
+  default_prompt: "Use $output-critic-iteration to evaluate this output and plan the smallest justified repair."
+
+policy:
+  allow_implicit_invocation: true

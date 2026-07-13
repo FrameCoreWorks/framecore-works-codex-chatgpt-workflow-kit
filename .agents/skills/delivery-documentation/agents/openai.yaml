@@ -1,0 +1,7 @@
+interface:
+  display_name: "Delivery Documentation"
+  short_description: "Prepare QA-aware delivery notes and manifests"
+  default_prompt: "Use $delivery-documentation to prepare clear delivery notes and a final manifest."
+
+policy:
+  allow_implicit_invocation: true

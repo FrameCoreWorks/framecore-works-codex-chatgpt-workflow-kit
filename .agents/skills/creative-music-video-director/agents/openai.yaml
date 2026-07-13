@@ -1,0 +1,7 @@
+interface:
+  display_name: "Creative Music Video Director"
+  short_description: "Shape music video concepts, rhythm, and visual arcs"
+  default_prompt: "Use $creative-music-video-director to shape the concept and visual arc for this music video."
+
+policy:
+  allow_implicit_invocation: true

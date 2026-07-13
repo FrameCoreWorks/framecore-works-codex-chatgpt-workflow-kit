@@ -1,0 +1,7 @@
+interface:
+  display_name: "Storyboard Board Architect"
+  short_description: "Design storyboard board structure and exact labels"
+  default_prompt: "Use $storyboard-board-architect to specify the board layout, panels, and exact visible labels."
+
+policy:
+  allow_implicit_invocation: true

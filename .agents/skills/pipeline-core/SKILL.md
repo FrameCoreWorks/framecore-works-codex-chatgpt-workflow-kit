@@ -1,11 +1,11 @@
 ---
 name: pipeline-core
-description: Use this skill for installed Codex workflow routing, role-based agents, gates, handoffs, project state, artifact templates, reasoning routes, request diagnostics, QA allowlists, delivery discipline, text-bearing image policy, Humanizer routing, HyperFrames routing, Hipson Adapter routing, and governance rules.
+description: Use this skill for portable Codex or ChatGPT workflow routing, bounded roles, gates, handoffs, visible state, artifact templates, reasoning routes, request diagnostics, QA loops, delivery discipline, and provider-neutral governance.
 ---
 
 # Pipeline Core
 
-Use this skill when a task needs the installed Codex workflow system from this kit.
+Use this skill when a task needs the workflow system from this kit in Codex or as a native ChatGPT skill.
 
 It is the contract layer for roles, gates, handoffs, artifacts, request diagnostics, reasoning routes, Loop Protocol, text-bearing image policy, Humanizer routing, HyperFrames routing, Hipson Adapter routing, and workflow governance.
 
@@ -20,12 +20,18 @@ Use this skill when:
 
 Do not use this skill to bypass specialist skills, run tools, upload files, or replace the user's local preferences.
 
+## Surface Model
+
+- In a project-local Codex install, role IDs may resolve to rendered `.codex/agents/*.toml`, and Project State may be stored in approved workspace files.
+- In ChatGPT, role IDs are temporary responsibilities for the current task. Keep state visible in the conversation or in a user-provided artifact. Do not claim a local install, shell access, persistent agents, manifests, or Memory Cache.
+- On either surface, use only capabilities that are actually available. A workflow route never grants provider, upload, API, file-system, or publishing permission.
+
 ## Inputs
 
 Required:
 
 - `user_request`: the current task, goal, and any explicit exclusions.
-- `workspace_context`: installed config, available artifacts, and current files when relevant.
+- `workspace_context`: installed config and current files in Codex, or visible conversation context and user-provided artifacts in ChatGPT.
 - `mode`: analyze, plan, edit, generate, review, install, or deliver.
 
 Optional:
@@ -53,7 +59,7 @@ Produce one or more of:
 1. `intent-confirmation` locks goal, exclusions, work mode, expected output, and immediate next step.
 2. `workflow-orchestrator` chooses blueprint, roles, gates, handoffs, reasoning route when useful, and next action.
 3. For nontrivial iterative work, `workflow-orchestrator` activates `loop_control_fit`: brief, checklist, bounded execution, evaluation, critique, minimal repair, regression check, and stop decision.
-4. Specialist roles produce contracts, not loose opinions.
+4. Specialist roles produce contracts, not loose opinions. ChatGPT roles remain temporary and stop after their artifact or handoff is complete.
 5. `qa-iteration` reviews produced outputs when assets exist or when evidence-backed critique is needed.
 6. `delivery-documentation` packages final notes only after QA or explicit acceptance.
 
@@ -80,7 +86,7 @@ Read only what is needed:
 - Record a compact `reasoning_route` when the task needs decomposition, verification, comparison, a tool loop, branching, or bounded search.
 - Prefer public runtime tiers and reasoning effort levels over brittle exact model names when a `runtime_route` is useful.
 - Start from a workflow blueprint when the request matches a known pattern, then shrink or expand it based on available artifacts.
-- Use role IDs from the public kit and local display names only from onboarding config.
+- Use role IDs from the public kit. Use local display names only from Codex onboarding config, or user-selected labels in the current ChatGPT conversation.
 - Do not skip upstream gates when later roles depend on their artifacts.
 - Route text, VO, captions, and user-facing polish through `humanizer` when copy quality matters.
 - Route coded-video planning through HyperFrames skills when the requested artifact is a coded video composition.
@@ -88,7 +94,7 @@ Read only what is needed:
 
 ## Guardrails
 
-- Use role IDs and local display names from onboarding.
+- Use role IDs and surface-appropriate display names from onboarding.
 - Do not skip upstream gates.
 - Generated static raster graphics should use the native Codex/ChatGPT image generator powered by GPT Image 2 by default when available.
 - Static raster graphics with visible text must use the native Codex/ChatGPT image generator powered by GPT Image 2 in one pass with text included.
@@ -101,6 +107,7 @@ Read only what is needed:
 - Do not store raw chain-of-thought, raw reasoning traces, raw debate transcripts, private URLs, provider responses, secrets, `.env` files, or copied private project context.
 - A runtime route or model recommendation is not permission to call an API, use an external provider, upload files, run destructive commands, or install routing infrastructure.
 - Do not add private project context, secrets, local machine paths, or provider-specific execution dependencies.
+- In ChatGPT, do not claim doctor checks, hash checks, repository validation, local file writes, or persistent agent creation unless those capabilities actually ran on an available surface.
 
 ## Handoff
 

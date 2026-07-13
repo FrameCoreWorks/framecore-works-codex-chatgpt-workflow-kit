@@ -1,0 +1,7 @@
+interface:
+  display_name: "Reference Pack Curator"
+  short_description: "Structure references, conflicts, and continuity"
+  default_prompt: "Use $reference-pack-curator to structure these references and identify conflicts or continuity anchors."
+
+policy:
+  allow_implicit_invocation: true

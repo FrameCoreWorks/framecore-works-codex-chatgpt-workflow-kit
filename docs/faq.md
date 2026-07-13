@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This FAQ answers the questions a new user is most likely to ask before installing or using this Codex workflow skill kit. It is a short orientation layer; the detailed procedures live in Quickstart, Codex-Assisted Install, CLI Reference, and Troubleshooting.
+This FAQ answers the questions a new user is most likely to ask before installing or using this workflow skill kit in Codex or native ChatGPT Skills. It is a short orientation layer; the detailed procedures live in Quickstart, Codex-Assisted Install, Native ChatGPT Skills, CLI Reference, and Troubleshooting.
 
 ## Install Questions
 
@@ -33,6 +33,14 @@ No. Project-local install is the default and recommended path. Global install is
 ### Can I install into a missing folder?
 
 The beginner path expects the target workspace to already exist. Lower-level scripts can create a target only when `--create-target` is explicitly passed, but that should be intentional.
+
+### Can I install these as native ChatGPT Skills?
+
+Yes, when the ChatGPT account exposes native Skills and `$skill-creator`. Paste the repository-source setup prompt from README. ChatGPT first asks for the setup language, runs onboarding, recommends the smallest useful profile, reads each selected skill from the declared raw GitHub sources, and creates the native skills through `$skill-creator`. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
+
+### Does one ChatGPT prompt install all 27 skills automatically?
+
+The prompt starts and governs the complete setup, but each repository skill remains a separate native ChatGPT Skill. ChatGPT must complete onboarding, obtain approval for the selected profile, create skills in the declared order, and show a visible status for each one. It must not claim all 27 are installed merely because it read the repository.
 
 ## Configuration Questions
 
@@ -139,6 +147,7 @@ Do not paste secrets, tokens, provider keys, personal emails, private cloud fold
 
 - [Quickstart](quickstart.md)
 - [Codex-Assisted Install](codex-assisted-install.md)
+- [Native ChatGPT Skills](chatgpt-skills-onboarding.md)
 - [CLI Reference](cli-reference.md)
 - [Using The Kit](using-the-kit.md)
 - [Troubleshooting](troubleshooting.md)

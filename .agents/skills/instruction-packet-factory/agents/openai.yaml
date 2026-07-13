@@ -1,0 +1,7 @@
+interface:
+  display_name: "Instruction Packet Factory"
+  short_description: "Create bounded role, research, and review packets"
+  default_prompt: "Use $instruction-packet-factory to create a bounded instruction or review packet for this task."
+
+policy:
+  allow_implicit_invocation: true

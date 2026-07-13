@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This guide describes how this Codex workflow skill kit should evolve toward future Codex plugin or bundle packaging without rewriting the current repository too early.
+This guide describes the current repository-source ChatGPT skill boundary and how the repository can still evolve toward future Codex plugin packaging without rewriting the current install flow.
 
-It is a repo-governance planning document, not a published plugin manifest, marketplace promise, or install behavior change.
+It is a repo-governance document, not a published plugin manifest or marketplace promise. The ChatGPT repository-source setup described here is current; future multi-skill plugin boundaries remain planning only.
 
 ## Strategic Signal
 
@@ -28,6 +28,8 @@ These assets are already reasonable public bundle candidates:
 
 - `AGENTS.template.md` as the durable project instruction surface.
 - `.agents/skills/*/SKILL.md` as reusable workflow skills.
+- `.agents/skills/*/agents/openai.yaml` as native ChatGPT/Codex UI metadata.
+- `CHATGPT_INSTALL.md`, `config/chatgpt-skills.json`, `config/chatgpt-skill-sources.json`, and `scripts/chatgpt-skill-sources.mjs` as the checked repository-source ChatGPT setup layer.
 - `.codex/agents/*.toml.template` as Codex role-agent templates.
 - `.agents/skills/pipeline-core/` as the routing, gate, handoff, artifact, and policy spine.
 - `docs/workflow-map.md` and `docs/included-agents-and-skills.md` as human-readable inventory and relationship maps.
@@ -44,12 +46,12 @@ Some areas are usable today but need clearer package boundaries before they beco
 - HyperFrames guidance is safe as coded-video workflow knowledge, but rendering runtimes stay user-selected and local.
 - Hipson Adapter is safe as lightweight packet guidance. Full Hipson remains separate and optional.
 - Built-in Codex or ChatGPT image generation is a policy route, not an external paid provider bundle.
-- ChatGPT Skills can reuse the workflow skill layer, but they should map role agents to temporary task roles instead of packaging `.codex/agents/*.toml` as persistent ChatGPT agents.
+- Native ChatGPT Skills reuse the workflow skill layer directly from declared GitHub sources. They map Codex role agents to temporary task roles instead of treating `.codex/agents/*.toml` as persistent ChatGPT agents.
 - Team configuration is documented, but default installs should remain personal and project-local.
 
 ## Packaging Blockers
 
-These gaps should be resolved before any serious plugin or bundle packaging work:
+These gaps still apply to future multi-skill plugin packaging:
 
 - No explicit module boundary separates core pipeline, creative workflow, ecommerce workflow, provider governance, and delivery governance.
 - Delivery integrations and cloud destinations must stay outside the public bundle unless they are optional, credential-free, and reviewed.
@@ -81,7 +83,7 @@ Prefer several focused bundles over one oversized package:
 | `framecore-creative-workflow` | brief, reference, direction, copy, prompt, storyboard, QA, delivery-doc skills | generated outputs, private references, client context |
 | `framecore-ecommerce-workflow` | ecommerce examples and future ecommerce-specific contracts | private product data, claims, storefront credentials |
 | `framecore-provider-governance` | provider-neutral policy, text-image policy, execution boundaries | provider clients, credentials, endpoint catalogs, provider CLIs |
-| `framecore-chatgpt-skills-onboarding` | ChatGPT skill onboarding, temporary role mapping, skill packaging guidance | `.codex/agents/*.toml` as permanent ChatGPT agents, local manifests, workspace files |
+| `framecore-chatgpt-skills` | Repository bootstrap, 27 source mappings and UI metadata contracts, install profiles, onboarding, temporary role mapping | `.codex/agents/*.toml` as ChatGPT agents, local manifests, workspace files |
 | `framecore-hyperframes-guidance` | coded-video planning guidance and QA contracts | render runtimes, deployment targets, paid execution routes |
 | `framecore-hipson-adapter` | lightweight packet templates and boundary docs | full Hipson clone, cross-repo scanning tools, private sidecars |
 
@@ -94,7 +96,11 @@ Treat these as public, installable, or packageable source:
 - `AGENTS.template.md`
 - `.agents/skills/`
 - `.codex/agents/*.toml.template`
+- `CHATGPT_INSTALL.md`
 - `docs/chatgpt-skills-onboarding.md`
+- `config/chatgpt-skills.json`
+- `config/chatgpt-skill-sources.json`
+- `scripts/chatgpt-skill-sources.mjs`
 - `config/*.json` and `config/*.example.json`
 - `examples/`
 - `templates/Memory Cache/`
@@ -123,8 +129,9 @@ Keep these out of future public bundles by default:
 3. Keep extending the source-level bundle map as modules become clearer.
 4. Extend validation when new bundle-map fields become required.
 5. Classify examples by the future bundle module they exercise.
-6. Keep ChatGPT Skills support as onboarding and temporary-role guidance until a stable package target requires exported skill bundles.
-7. Keep plugin-specific files out of source until the target plugin format is concrete.
+6. Keep native ChatGPT repository source mappings deterministic, independently creatable, and free of Codex-only agent files.
+7. Validate the core route and one resource-heavy skill through ChatGPT's native `$skill-creator` flow before release.
+8. Keep plugin-specific files out of source until the target plugin format is concrete.
 
 ## Governance Rules
 
@@ -144,6 +151,7 @@ A future bundle-readiness patch is healthy when:
 - public docs say what is installable and what stays local
 - bundle boundaries preserve QA, provider locks, upload consent, and Memory Cache safety
 - no user must understand plugin packaging to use the beginner install flow
+- every public skill has valid `agents/openai.yaml` metadata and a current entry in `config/chatgpt-skill-sources.json`
 
 ## Related Docs
 

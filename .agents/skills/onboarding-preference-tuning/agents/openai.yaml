@@ -1,0 +1,7 @@
+interface:
+  display_name: "Workflow Onboarding"
+  short_description: "Configure a neutral workflow through guided questions"
+  default_prompt: "Use $onboarding-preference-tuning to configure this workflow, starting with my preferred setup language."
+
+policy:
+  allow_implicit_invocation: false

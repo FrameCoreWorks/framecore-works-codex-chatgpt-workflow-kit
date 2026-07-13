@@ -1,6 +1,6 @@
 # Architecture
 
-This Codex workflow skill kit is a provider-neutral workflow layer for Codex. It installs project-local instructions, role-based agent files, skills, templates, gates, and a manifest so creative work can move through repeatable stages without adding paid execution tooling by default.
+This workflow skill kit is a provider-neutral workflow layer with two supported surfaces. Codex receives a project-local install with instructions, role-agent files, skills, templates, gates, and a manifest. ChatGPT creates selected native skills from declared public repository sources, with temporary task roles and conversation-visible state.
 
 ## System Layers
 
@@ -27,7 +27,7 @@ flowchart TD
 
 ## Skill Contract Model
 
-Each `SKILL.md` is an operational contract. It tells Codex:
+Each `SKILL.md` is an operational contract. It tells Codex or ChatGPT:
 
 - when the skill should trigger;
 - what inputs are required or optional;
@@ -54,6 +54,12 @@ Project-local install copies only FrameCore-managed files into the target worksp
 - `.framecore/manifest.json`
 
 Onboarding writes `framecore.config.json` before installation. The installer reads that file when rendering local agent display names, language, tone, output folder, and QA preference into `.codex/agents/*.toml`. If a team provides `framecore.config.shared.json`, the effective config is built from built-in defaults, shared config, and then local config, with local values taking precedence.
+
+## Native ChatGPT Repository Model
+
+`CHATGPT_INSTALL.md` defines the language-first onboarding and native creation contract. `config/chatgpt-skills.json` declares the repository identity, core, creative, and full profiles, installation order, and completion rules. `config/chatgpt-skill-sources.json` maps every selected skill to its exact public source files, raw GitHub URLs, and SHA-256 hashes.
+
+`scripts/chatgpt-skill-sources.mjs` regenerates and validates that mapping after source changes. ChatGPT reads only the selected skill sources and uses `$skill-creator` to create each native skill. Codex agent templates, AGENTS files, local manifests, Context, Memory Cache, private paths, and generated workspace state remain outside this route. ChatGPT uses role IDs as temporary responsibilities inside the current task; it does not consume `.codex/agents/*.toml` as persistent agents.
 
 ## Ownership And Safety
 

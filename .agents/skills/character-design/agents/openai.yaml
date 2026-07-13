@@ -1,0 +1,7 @@
+interface:
+  display_name: "Character Design"
+  short_description: "Build consistent character design systems"
+  default_prompt: "Use $character-design to build a consistent character design system for this project."
+
+policy:
+  allow_implicit_invocation: true

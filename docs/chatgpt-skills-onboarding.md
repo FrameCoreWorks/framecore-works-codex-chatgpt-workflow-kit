@@ -1,200 +1,192 @@
-# ChatGPT Skills Onboarding
+# Native ChatGPT Skills From The Repository
 
 ## Purpose
 
-This guide explains how to use the workflow skills from this repo in ChatGPT when the user has access to ChatGPT Skills.
+This guide explains how a user can paste one instruction into ChatGPT and create native ChatGPT Skills directly from the public source files in this repository.
 
-This is not the Codex installer. It does not clone the repository, write `.codex/agents/*.toml`, create `AGENTS.md`, run shell commands, initialize `Memory Cache/`, or install anything into a local workspace.
+This is not the Codex project-local installer. ChatGPT does not clone the repository, run shell commands, create `AGENTS.md`, render `.codex/agents/*.toml`, initialize `Memory Cache/`, or write a local manifest. It reads the declared public skill sources and uses ChatGPT's built-in `$skill-creator` to create the selected native skills.
 
-Use this path when:
+Use this path when native Skills and `$skill-creator` are available in the user's ChatGPT account. Availability remains controlled by the current ChatGPT product surface and workspace policy.
 
-- the user is in ChatGPT, not a shell-capable Codex workspace;
-- ChatGPT Skills are available in the user's account or workspace;
-- the user wants the FrameCore workflow behavior as reusable skills and guided workflow prompts;
-- the user does not need project-local files, manifests, repair, uninstall, or Codex custom-agent spawning.
+Official product references:
 
-OpenAI documents ChatGPT Skills as reusable workflows that can be created in conversation with `skill-creator` and installed in ChatGPT. Treat that product surface as beta and user-account dependent. Do not assume every ChatGPT user can install skills yet.
+- [Skills in ChatGPT](https://help.openai.com/en/articles/20001066)
+- [Using skills](https://openai.com/academy/skills/)
+- [Build skills](https://learn.chatgpt.com/docs/build-skills)
 
 ## Product Boundary
 
-The Codex path stays unchanged:
+The Codex path remains the full local workflow:
 
-- Codex uses `AGENTS.template.md`.
-- Codex can render `.codex/agents/*.toml` into project-local role agents.
-- Codex can install `.agents/skills/`, run onboarding, run doctor, run dry-run, install, update, repair, uninstall, and initialize `Memory Cache/`.
+- project-local instructions and files;
+- rendered `.codex/agents/*.toml` role agents;
+- doctor, onboarding, dry-run, install, update, repair, and uninstall;
+- optional local `Context/` and `Memory Cache/`;
+- manifest-backed file ownership and recovery.
 
-The ChatGPT path is different:
+The ChatGPT path provides:
 
-- ChatGPT uses skills as reusable workflow instructions.
-- ChatGPT does not receive permanent `.codex/agents/*.toml` role files from this repo.
-- ChatGPT should not create a stable roster of agent files.
-- ChatGPT should treat workflow roles as temporary task roles created inside the conversation by the active skill or workflow step.
+- native skills created from public repository sources;
+- a language-first onboarding flow;
+- core, creative, full, or smaller custom skill selection;
+- conversation-visible workflow state;
+- temporary workflow roles instead of permanent Codex agents;
+- only the ChatGPT-native capabilities actually available in the current conversation.
+
+## Repository Contract
+
+Three checked-in files make the setup self-describing:
+
+| File | Responsibility |
+| --- | --- |
+| [`CHATGPT_INSTALL.md`](../CHATGPT_INSTALL.md) | Canonical behavior ChatGPT follows after the user explicitly requests repository skill setup. |
+| [`config/chatgpt-skills.json`](../config/chatgpt-skills.json) | Public repository identity, bootstrap URLs, safety rules, profiles, and installation order. |
+| [`config/chatgpt-skill-sources.json`](../config/chatgpt-skill-sources.json) | Exact source files, raw GitHub URLs, and SHA-256 hashes for all 27 skills. |
+
+Every public skill keeps its canonical contract in `.agents/skills/<skill-name>/SKILL.md`. Its optional references, templates, scripts, fixtures, and `agents/openai.yaml` metadata are listed explicitly in the source manifest. ChatGPT must not infer a skill from an old local copy or a similarly named existing skill.
+
+## Copy-Paste Prompt
+
+Paste the complete prompt below into a new ChatGPT conversation:
+
+```text
+Use ChatGPT's built-in $skill-creator to install native ChatGPT Skills directly from this repository:
+
+https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+
+This is a ChatGPT repository-source setup, not a Codex project-local install.
+
+First read and follow the canonical setup contract:
+https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/CHATGPT_INSTALL.md
+
+Then read the setup configuration and exact skill source inventory referenced by that contract. Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup.
+
+Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. Do not claim that a skill is installed until ChatGPT's native skill creation and visible installation flow has been completed and confirmed.
+
+If you cannot read the public repository files or invoke $skill-creator, stop and tell me which capability is unavailable. Do not substitute a Codex installation or pretend setup succeeded.
+```
+
+The GitHub link identifies the source. The explicit instruction to read `CHATGPT_INSTALL.md` authorizes ChatGPT to use the repository's setup contract for this task.
+
+## Onboarding Flow
+
+ChatGPT must not create or invoke workflow skills immediately. It first asks which language should be used for setup. After the user answers, it switches to that language and gives a short beginner preflight explaining:
+
+- what the workflow skills do;
+- which onboarding questions will follow;
+- how the selected native skills will be created from repository sources;
+- that Codex role-agent files become temporary task responsibilities in ChatGPT;
+- which local, provider, credential, publishing, and background actions will not happen;
+- that setup is incomplete until the native installation results are visible and confirmed.
+
+It then asks one question at a time about work type, use cases, outputs, workflow depth, QA depth, priorities, collaboration context, and forbidden actions. The output is a neutral Workflow Profile. The user's workflow is not named after this repository unless the user asks for that name.
+
+## Profile Selection
+
+The profile order is defined in `config/chatgpt-skills.json`:
+
+| Profile | Intended use |
+| --- | --- |
+| `core` | Onboarding, pipeline rules, orchestration, brief creation, QA, and delivery foundations. |
+| `creative` | Core plus the main creative direction, prompting, storyboard, campaign, Humanizer, and asset skills. |
+| `full` | All 27 public skills, including specialized HyperFrames, Hipson Adapter, and workflow self-improvement skills. |
+
+ChatGPT recommends the smallest profile that covers the Workflow Profile. A smaller custom selection is valid for narrow use cases. Before creation begins, ChatGPT shows every selected skill name and a one-line reason, then asks for approval.
+
+## Source Resolution
+
+For each approved skill, ChatGPT:
+
+1. Resolves the skill in `config/chatgpt-skill-sources.json`.
+2. Reads every declared `raw_url` for that skill.
+3. Preserves `SKILL.md`, `agents/openai.yaml`, and all listed supporting files.
+4. Verifies SHA-256 when the active surface can perform that check.
+5. States clearly when cryptographic verification is unavailable instead of claiming that it ran.
+
+The checked-in manifest is regenerated after canonical skill changes with:
+
+```bash
+npm run chatgpt:skills:sources:update
+```
+
+Maintainers verify that it still matches the repository with:
+
+```bash
+npm run chatgpt:skills:check
+```
+
+## Native Installation Flow
+
+After source resolution, ChatGPT processes the approved skill list in declared order:
+
+1. Invoke `$skill-creator` for one skill.
+2. Preserve the canonical name, description, resources, and UI metadata.
+3. Keep that skill separate from other repository skills unless the user explicitly requests a redesign.
+4. Present the native ChatGPT installation action.
+5. Wait for any user confirmation required by the interface.
+6. Record `created`, `installed`, `needs_user_confirmation`, `already_present_needs_review`, or `blocked`.
+7. Continue until every selected skill has a visible status.
+
+Reading a repository page is not installation. Creating a draft is not confirmed installation. ChatGPT must not report bulk success when individual native skill installation has not been completed.
 
 ## Existing Skill Guard
 
-Some ChatGPT accounts may already contain older, private, local, or previously installed skills with names such as `workflow-orchestrator` or other workflow-specific labels. Those existing skills are not proof that this onboarding is complete.
+Some accounts may already contain local, private, older, or similarly named workflow skills. Their presence does not prove that this repository setup is complete or current.
 
-When using this ChatGPT path:
+- Run onboarding before relying on existing workflow skills.
+- Compare matching skills with the declared repository source.
+- Ask before replacing a user-owned skill.
+- Do not claim doctor checks, package checks, repository checks, hash checks, manifest repair, or Memory Cache repair unless those actions actually ran on a capable surface.
+- Do not invoke a newly created repository workflow skill before onboarding and its native installation are complete.
 
-- do not say the workflow is already installed, current, repaired, validated, or ready because existing skills are present;
-- do not run or claim repository validation, package checks, doctor checks, hash checks, or Memory Cache repair, because ChatGPT Skills onboarding is not a local workspace install;
-- do not call `skill-installer` unless the user explicitly asks to install a generated ChatGPT skill after onboarding;
-- do not use private or local canonical skill names as the public workflow contract;
-- do not rename the user's personal workflow after this source repo unless the user asks for that name;
-- refer to the source repo only when needed for attribution or source lookup;
-- start with onboarding questions before recommending any `$skill` invocation.
+## Temporary Role Model
 
-If existing local skills are detected, treat them only as optional reference material after the user approves. The first task is still to learn the user's work style and produce a neutral user workflow profile.
+The `.codex/agents/*.toml.template` files remain Codex-specific and are not native ChatGPT agents.
 
-## Temporary Agent Model
+In ChatGPT, the same responsibilities are temporary and task-bound:
 
-For ChatGPT, the source repo's role-agent responsibilities become temporary workflow roles.
-
-A temporary workflow role:
-
-- exists only for the current task or current workflow step;
-- is selected by the active skill or workflow route;
-- has a bounded scope, inputs, expected artifact, review gate, and handoff target;
-- must inherit the provider-neutral boundary, upload consent rule, text-image rule, and no-secret policy;
-- must stop when its artifact or handoff is complete;
-- must not become a stored custom agent, persistent persona, hidden daemon, or background automation.
-
-Use this mapping:
-
-| Codex role-agent concept | ChatGPT Skills equivalent |
+| Codex concept | ChatGPT equivalent |
 | --- | --- |
-| `.codex/agents/workflow-orchestrator.toml` | temporary workflow-orchestrator role invoked by the pipeline skill |
-| `intent-confirmation` | temporary task-confirmation role at the start of a workflow |
-| specialist role agents | temporary specialist roles selected by the relevant skill |
-| handoff matrix | conversation-level handoff notes between temporary roles |
-| Project State artifact | compact visible state summary in the chat or user-provided document |
-| `Memory Cache/` files | not available by default; use a visible summary unless the user explicitly manages files elsewhere |
+| rendered role agent | temporary responsibility selected by the active skill |
+| handoff matrix | visible handoff note between workflow stages |
+| Project State file | compact state summary in the conversation or a user-provided artifact |
+| review gate | explicit checklist and decision before the next stage |
+| `Memory Cache/` | not created; use a visible recovery summary when needed |
 
-## ChatGPT Onboarding Prompt
+Each temporary role needs a bounded scope, required inputs, expected artifact, review gate, handoff target, and stop condition. It inherits provider-neutral safety, no API keys, no hidden background work, and no unverified claims about available tools.
 
-Use this prompt in ChatGPT when the user wants to adapt the workflow without a Codex install:
+## Maintainer Validation
 
-```text
-Use the workflow from this source GitHub repo as source material for a ChatGPT Skills workflow, not as a Codex project-local install.
+Before publishing changes to ChatGPT-facing skill sources:
 
-Source repo URL: https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+1. Run `npm run chatgpt:skills:sources:update` after any selected skill file changes.
+2. Review the source manifest diff for unexpected files or URLs.
+3. Run `npm run chatgpt:skills:check`.
+4. Run `npm run check`.
+5. Run `npm run release:check` before a release.
+6. Test the README copy-paste prompt in a ChatGPT account that exposes native Skills and `$skill-creator`.
+7. Confirm that the first response asks only for setup language and that installation claims match visible native results.
 
-I am using ChatGPT. Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache folders, upload files, use API keys, or enable external provider tools.
-
-If ChatGPT Skills are available in this chat, help me create or adapt a neutral skill-based workflow for my own work. Use skill-creator only if needed.
-
-Important existing-skill guard:
-- If this ChatGPT account already has workflow-orchestrator, local, private, or older workflow skills installed, do not treat that as completed setup.
-- Do not say the workspace is already installed, current, validated, repaired, or ready because existing skills are present.
-- Do not run or claim doctor checks, package checks, hash checks, repository validation, or Memory Cache repair in ChatGPT.
-- Do not call skill-installer unless I explicitly ask to install a generated skill after onboarding.
-- Do not recommend any $skill invocation before onboarding is complete.
-- Do not name my personal workflow after the source repo unless I ask for that name. Use neutral wording such as "your workflow", "this workflow", or the name I provide.
-- Refer to the source repo only when needed for attribution or source lookup.
-
-Important role model:
-- Do not create permanent custom agents.
-- Do not create a fixed agent roster as files.
-- Treat source repo role-agent concepts as temporary workflow roles created only inside the current task.
-- Each temporary role must have a clear scope, required inputs, expected output artifact, review gate, handoff target, and stop condition.
-- Temporary roles must inherit provider-neutral safety, no uploads without explicit request, no API keys, no external paid execution tools, and no hidden background work.
-
-Start with onboarding before checking, invoking, or relying on any existing workflow skills. I pasted this prompt in English, but the onboarding setup should start by choosing the setup language. Ask me these questions one at a time, in plain language:
-
-1. What language should I use for this onboarding setup? I can answer in any language. If I say "default", continue in English.
-2. What kind of work do I want this workflow to help with?
-3. What are my main use cases?
-4. What outputs do I usually need?
-5. Should the workflow be lightweight, standard, or strict?
-6. How much QA do I want before final output?
-7. Should the workflow prioritize speed, structure, creativity, evidence, or delivery readiness?
-8. Do I work mostly alone, with a team, or for clients?
-9. Are there any things the workflow must never do, such as uploads, provider execution, API keys, private links, or changing files?
-10. After setup, give me a reusable starter prompt for my next task.
-
-After I answer question 1, switch to the selected setup language. Before asking question 2, give me a short beginner-friendly preflight explanation in that language. Explain:
-- what this source workflow is: a reusable workflow and skill setup for organizing work with ChatGPT Skills;
-- what will happen next: you will ask onboarding questions one at a time, then create a neutral workflow profile, compact operating guide, and reusable starter prompt for my work;
-- how it will work in ChatGPT: it will use temporary task roles inside the conversation, not permanent custom agents or local `.codex/agents` files;
-- what will not happen in ChatGPT: no repo cloning, no shell commands, no local files, no local Memory Cache folders, no uploads, no API keys, and no external provider tools;
-- when the Codex path is needed: if I want a real project-local install with files, manifests, rendered agents, update, repair, uninstall, or Memory Cache.
-
-Keep the preflight concise and beginner-safe. Then ask question 2.
-
-After onboarding, summarize my workflow profile and create a compact skill-style operating guide for ChatGPT. Then show how the workflow will use temporary roles such as task confirmation, workflow orchestration, specialist production, QA, and delivery notes without storing them as permanent agents.
-
-Your first response should ask onboarding question 1 about setup language. Do not summarize setup as complete until all onboarding questions have been answered.
-```
-
-Expected first response shape:
-
-```text
-I will set this up as a ChatGPT Skills workflow for your own work. This is not a local Codex install, and existing installed skills do not mean onboarding is complete.
-
-Question 1: What language should I use for this onboarding setup? You can answer in any language. If you say "default", I will continue in English.
-```
-
-Expected second response shape after the user chooses a language:
-
-```text
-Before we start, here is what we are setting up:
-
-- This is a ChatGPT Skills workflow setup for your own work.
-- I will ask a few onboarding questions, then create your workflow profile, operating guide, and starter prompt.
-- In ChatGPT, this does not install local repo files or create permanent agents. It uses temporary task roles inside the conversation.
-- I will not clone repos, run shell commands, upload files, use API keys, or enable external provider tools.
-- If you want a real local workspace install later, use the Codex install path.
-
-Question 2: What kind of work do you want this workflow to help with?
-```
-
-Failure pattern to avoid:
-
-```text
-Done. Your workspace already has the current source workflow skill kit. Validation passed. You can now use $workflow-orchestrator.
-```
-
-## Onboarding Outputs
-
-The ChatGPT onboarding should produce:
-
-- a short user workflow profile;
-- the selected onboarding setup language;
-- a beginner preflight summary shown before workflow-profile questions;
-- a list of common task routes;
-- the temporary roles allowed for those routes;
-- the artifacts each temporary role may produce;
-- the safety boundaries that always apply;
-- a starter prompt the user can reuse;
-- a note that Codex project-local install remains the full local workspace path.
+Do not commit user-specific Workflow Profiles, conversations, private context, local state, or generated ChatGPT account data.
 
 ## Stop Conditions
 
-ChatGPT should stop and explain the boundary when:
+Stop and explain the boundary when:
 
-- the user expects repository files to be installed into a local workspace;
-- the user asks ChatGPT to run shell commands without a connected execution environment;
-- the user expects `.codex/agents/*.toml` to become native ChatGPT agents;
-- the user asks for hidden persistent agents, background automation, uploads, provider execution, API-key setup, or private cloud access without explicit current approval.
+- the account does not expose native Skills or `$skill-creator`;
+- ChatGPT cannot read the public raw GitHub sources;
+- a repository source file is missing or differs from an available hash check;
+- the user has not approved the proposed skill list;
+- the native installation action is unavailable or still awaiting confirmation;
+- the user expects ChatGPT to create a local Codex workspace or permanent agent files;
+- the task requires unavailable shell, provider, credential, publishing, or local file-system capabilities.
 
-## Skill Packaging Notes
-
-For ChatGPT, prefer one compact root skill or a small group of focused skills over a large agent roster.
-
-Healthy packaging shape:
-
-- `framecore-workflow-intake` for onboarding, task confirmation, and route choice;
-- `framecore-creative-workflow` for creative production routes;
-- `framecore-provider-governance` for provider-neutral and text-bearing image policy;
-- optional future focused skills for ecommerce, storyboard, QA, delivery, or coded-video planning.
-
-Do not package `.codex/agents/*.toml` as ChatGPT agents. Keep them as Codex-specific source. ChatGPT should use their responsibilities only as temporary role descriptions inside skills.
+Never replace a failed repository-source setup with a false success report.
 
 ## Related Docs
 
-- [Quickstart](quickstart.md)
+- [Included Agents And Skills](included-agents-and-skills.md)
+- [Workflow Map](workflow-map.md)
 - [Codex-Assisted Install](codex-assisted-install.md)
-- [Using The Kit](using-the-kit.md)
 - [Bundle Readiness](bundle-readiness.md)
 - [Provider-Neutral Boundary](provider-neutral-boundary.md)
-- [Text Image Policy](text-image-policy.md)

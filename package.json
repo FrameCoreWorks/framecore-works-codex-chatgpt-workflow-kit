@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "private": false,
   "type": "module",
-  "description": "FrameCore Works: Creative Workflow Skill Kit for Codex.",
+  "description": "FrameCore Works: repository-source workflow skills for Codex and ChatGPT.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
   "homepage": "https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit#readme",
   "keywords": [
     "codex",
+    "chatgpt",
     "workflow",
     "skills",
     "agents",
@@ -31,6 +32,7 @@
     ".agents/",
     ".codex/",
     "AGENTS.template.md",
+    "CHATGPT_INSTALL.md",
     "CHANGELOG.md",
     "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
@@ -57,6 +59,8 @@
   "scripts": {
     "agent:check": "node scripts/agent-compliance-check.mjs",
     "audit:privacy": "node scripts/audit-privacy.mjs",
+    "chatgpt:skills:check": "node scripts/chatgpt-skill-sources.mjs --check",
+    "chatgpt:skills:sources:update": "node scripts/chatgpt-skill-sources.mjs --write",
     "cleanup:appledouble": "node scripts/cleanup-appledouble.mjs",
     "doctor": "node scripts/doctor.mjs",
     "install:guided": "node scripts/guided-install.mjs",
@@ -69,7 +73,7 @@
     "prepublishOnly": "npm run release:check",
     "render:agents": "node scripts/render-agents.mjs",
     "release:readiness": "node scripts/release-readiness.mjs",
-    "release:check": "npm run check && npm run smoke:install && npm run package:audit && npm run release:readiness",
+    "release:check": "npm run check && npm run chatgpt:skills:check && npm run smoke:install && npm run package:audit && npm run release:readiness",
     "secret:scan": "node scripts/safety-scan.mjs",
     "self:audit": "node tools/skill-agent-auditor.mjs --mode audit",
     "self:improve:local": "node tools/skill-agent-auditor.mjs --mode improve",

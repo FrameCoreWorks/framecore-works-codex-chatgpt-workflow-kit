@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hipson Adapter"
+  short_description: "Create bounded research and instruction packets"
+  default_prompt: "Use $hipson-adapter to create a bounded research, review, or instruction packet."
+
+policy:
+  allow_implicit_invocation: false

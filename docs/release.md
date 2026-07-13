@@ -49,6 +49,17 @@ This project uses GitHub releases as the public release record. npm publication 
 12. Confirm public examples include validated `workflow.json` manifests.
 13. Confirm workflow self-improvement remains explicit-only and proposal-only.
 14. Confirm [Provider-Neutral Boundary](provider-neutral-boundary.md) still matches `config/provider-neutral-policy.json`.
+15. Validate native ChatGPT skill sources:
+
+   ```bash
+   npm run chatgpt:skills:check
+   ```
+
+16. When the release changes ChatGPT-facing skill sources, regenerate and inspect the checked-in source manifest:
+
+   ```bash
+   npm run chatgpt:skills:sources:update
+   ```
 
 ## Required Checks
 
@@ -60,6 +71,7 @@ npm run secret:scan
 npm run syntax:check
 npm run validate
 npm run agent:check
+npm run chatgpt:skills:check
 npm test
 npm run check
 npm run smoke:install
@@ -81,6 +93,8 @@ The release-check workflow must remain non-publishing, read-only, and secret-fre
 
 `release:readiness` checks package metadata, required package file roots, changelog coverage for the package version, and optional release tag alignment. In GitHub tag workflows, the tag must match `v` plus the `package.json` version.
 
+`chatgpt:skills:check` validates `CHATGPT_INSTALL.md`, all 27 public skill folders, native UI metadata, install profiles, raw source URLs, and checked-in SHA-256 hashes without modifying source files.
+
 The path-sensitive `cross-platform` workflow runs automatically for installer, test, config, package, and workflow changes, and can still be run manually before a public version tag. The default `validate` workflow stays Linux-only for fast push feedback; cross-platform checks cover Ubuntu, macOS, Windows, tests, smoke install, and package audit without making documentation-only commits depend on all hosted runner families.
 
 ## Package Contents Review
@@ -90,6 +104,18 @@ Review the `npm run package:audit` result before each release. The package shoul
 `package:audit` parses `npm pack --json --dry-run` with a temporary npm cache and rejects unexpected package roots or forbidden package file patterns. Use `npm run package:list` when you want to manually inspect the raw npm file list with the same temporary-cache behavior. Plain `npm pack --dry-run` is optional and only useful when you intentionally want to test your local npm cache as well.
 
 Example folders should include their `workflow.json` manifests. These are source fixtures used by validation, not generated outputs.
+
+## Native ChatGPT Repository Sources
+
+ChatGPT creates native skills from checked-in repository sources. Before publishing a GitHub release that changes those sources:
+
+1. Run `npm run chatgpt:skills:sources:update`.
+2. Confirm `config/chatgpt-skill-sources.json` contains all 27 skills and only intended files.
+3. Run `npm run chatgpt:skills:check`.
+4. Paste the README ChatGPT setup prompt into a compatible ChatGPT account.
+5. Verify language-first onboarding, profile approval, one-skill-at-a-time `$skill-creator` behavior, and truthful final statuses.
+
+Do not commit personal Workflow Profiles, conversations, ChatGPT account state, local manifests, private references, or any source not declared for the public skills.
 
 ## Privacy And Provider-Neutral Gate
 
@@ -133,6 +159,7 @@ After the tag workflow passes, create a GitHub release from the tag. Release not
 - summary of workflow changes
 - install, update, repair, or uninstall compatibility notes
 - onboarding changes
+- native ChatGPT repository setup or compatibility notes
 - validation or privacy audit changes
 - known limitations
 - links to `README.md`, `docs/quickstart.md`, and `docs/troubleshooting.md`

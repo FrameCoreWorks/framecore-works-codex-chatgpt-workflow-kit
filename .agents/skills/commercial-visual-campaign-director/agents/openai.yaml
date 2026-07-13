@@ -1,0 +1,7 @@
+interface:
+  display_name: "Commercial Visual Campaign Director"
+  short_description: "Direct cohesive static visual campaigns"
+  default_prompt: "Use $commercial-visual-campaign-director to develop static visual direction for this campaign."
+
+policy:
+  allow_implicit_invocation: true

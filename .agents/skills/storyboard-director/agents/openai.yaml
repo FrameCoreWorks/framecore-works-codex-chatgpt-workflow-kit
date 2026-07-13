@@ -1,0 +1,7 @@
+interface:
+  display_name: "Storyboard Director"
+  short_description: "Turn direction into beats, scenes, and shot cards"
+  default_prompt: "Use $storyboard-director to turn this direction into beats, scenes, timing, and shot cards."
+
+policy:
+  allow_implicit_invocation: true

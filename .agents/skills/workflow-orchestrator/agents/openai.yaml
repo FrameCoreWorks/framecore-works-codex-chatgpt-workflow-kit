@@ -1,0 +1,7 @@
+interface:
+  display_name: "Workflow Orchestrator"
+  short_description: "Route tasks, track state, and decide loopbacks"
+  default_prompt: "Use $workflow-orchestrator to route this task, track its state, and choose the next safe action."
+
+policy:
+  allow_implicit_invocation: true

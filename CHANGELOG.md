@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Added repository-source native ChatGPT setup for all 27 public workflow skills, with core, creative, and full profiles.
+- Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through ChatGPT's built-in `$skill-creator`.
+- Added `agents/openai.yaml` UI metadata, starter prompts, and invocation policy for every public skill.
+- Added a checked-in source inventory with raw GitHub URLs and SHA-256 hashes, plus regression tests that reject stale or incomplete source mappings.
+- Made onboarding, pipeline-core, workflow-orchestrator, and brief-architect surface-aware while preserving the existing Codex project-local path.
+- Added evidence-based ChatGPT completion rules, temporary-role mapping, and explicit failure handling without a local Codex install.
+
 ## 1.1.0 - 2026-06-23
 
 - Added Loop Protocol workflow governance with the canonical sequence `brief -> checklist -> execute -> evaluate -> critique -> repair -> repeat -> stop`.

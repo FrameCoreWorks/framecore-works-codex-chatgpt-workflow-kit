@@ -1,0 +1,7 @@
+interface:
+  display_name: "UGC"
+  short_description: "Plan credible UGC concepts, hooks, and creator scripts"
+  default_prompt: "Use $ugc to plan credible UGC concepts, hooks, and creator-read scripts for this offer."
+
+policy:
+  allow_implicit_invocation: true

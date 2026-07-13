@@ -1,0 +1,7 @@
+interface:
+  display_name: "Image Prompt Architect"
+  short_description: "Build final image prompt packs from approved inputs"
+  default_prompt: "Use $image-prompt-architect to build a final image prompt pack from the approved inputs."
+
+policy:
+  allow_implicit_invocation: true

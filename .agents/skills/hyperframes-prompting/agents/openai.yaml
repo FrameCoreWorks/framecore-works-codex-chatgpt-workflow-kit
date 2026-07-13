@@ -1,0 +1,7 @@
+interface:
+  display_name: "HyperFrames Prompting"
+  short_description: "Write production briefs for coded video scenes"
+  default_prompt: "Use $hyperframes-prompting to write a production brief for these coded video scenes."
+
+policy:
+  allow_implicit_invocation: true

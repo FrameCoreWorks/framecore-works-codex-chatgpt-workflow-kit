@@ -1,11 +1,13 @@
 ---
 name: workflow-orchestrator
-description: Use this skill to route the installed Codex workflow, maintain project state, assign role-based agents, enforce gates, and decide loopbacks.
+description: Use this skill to route multi-stage work in Codex or ChatGPT, maintain visible workflow state, assign bounded roles, enforce gates, and decide loopbacks.
 ---
 
 # Workflow Orchestrator
 
-Use this skill to route the installed Codex workflow, maintain project state, assign role-based agents, enforce gates, and decide loopbacks. It owns the state of the workflow, not the specialist deliverables.
+Use this skill to route the active workflow, maintain visible state, assign bounded roles, enforce gates, and decide loopbacks. It owns workflow state, not specialist deliverables.
+
+In a project-local Codex install, roles may resolve to rendered `.codex/agents/*.toml`. In ChatGPT, treat the same role IDs as temporary responsibilities inside the current task. Do not claim that ChatGPT created permanent agents or local project files.
 
 ## When To Use
 
@@ -28,7 +30,7 @@ Required:
 Optional:
 
 - `local_preferences`: working language, tone, QA strictness, display names, output path.
-- `repo_state`: changed files, test status, issue list, or validation results.
+- `repo_state`: changed files, test status, issue list, or validation results when a repository is actually available.
 - `delivery_request`: only when explicit in the current user message.
 
 ## Outputs
@@ -53,7 +55,7 @@ Produce Project State with:
 2. Inspect which artifacts already exist and which gates are blocked.
 3. Select the closest workflow blueprint when the task matches a common route.
 4. Shrink or expand the route based on available artifacts and explicit user scope.
-5. Assign specialist work without taking over specialist outputs.
+5. Assign specialist work without taking over specialist outputs. In ChatGPT, keep each assignment temporary and visible in the conversation.
 6. Decide loopback or delivery only after gates are satisfied.
 
 ## Decision Rules
@@ -72,6 +74,7 @@ Produce Project State with:
 - Do not enable external execution, upload, or publishing without explicit user instruction.
 - Do not import private workspace context into public artifacts.
 - Do not mutate workflow rules without explicit approval.
+- Do not claim local files, shell checks, persistent agents, or repository state on a ChatGPT-only surface.
 
 ## Handoff
 

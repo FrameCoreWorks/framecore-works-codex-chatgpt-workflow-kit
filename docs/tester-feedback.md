@@ -58,7 +58,13 @@ If installed successfully:
 - Did the workflow route through agents/skills as expected? yes / no / not sure
 
 If using ChatGPT Skills:
+- Setup prompt used: README / custom
+- Selected profile: core / creative / full / custom
+- Native skill statuses: installed / needs confirmation / existing needs review / blocked
+- Did the skill name, description, and starter prompt display correctly? yes / no / partly
 - Did onboarding start before setup was called complete? yes / no
+- Was the setup language the first question? yes / no
+- Did ChatGPT read skill sources from the repository and invoke `$skill-creator`? yes / no / not sure
 - Did ChatGPT avoid claiming local install, doctor checks, hash checks, or Memory Cache repair? yes / no / not sure
 - Did it avoid creating permanent Codex agents? yes / no / not sure
 

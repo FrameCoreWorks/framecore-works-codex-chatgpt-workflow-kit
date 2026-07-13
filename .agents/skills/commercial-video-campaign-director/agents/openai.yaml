@@ -1,0 +1,7 @@
+interface:
+  display_name: "Commercial Video Campaign Director"
+  short_description: "Direct cohesive commercial video campaigns"
+  default_prompt: "Use $commercial-video-campaign-director to develop motion direction for this campaign."
+
+policy:
+  allow_implicit_invocation: true

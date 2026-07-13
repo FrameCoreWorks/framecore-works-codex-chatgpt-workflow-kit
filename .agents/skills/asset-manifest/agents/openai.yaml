@@ -1,0 +1,7 @@
+interface:
+  display_name: "Asset Manifest"
+  short_description: "Track assets, versions, sources, and exclusions"
+  default_prompt: "Use $asset-manifest to organize the assets, versions, sources, and exclusions for this task."
+
+policy:
+  allow_implicit_invocation: true

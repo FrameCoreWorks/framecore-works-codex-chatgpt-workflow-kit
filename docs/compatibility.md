@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This guide defines the supported runtime, operating system, Codex environment, and install-mode assumptions for this Codex workflow skill kit.
+This guide defines the supported runtime, operating system, Codex environment, native ChatGPT Skills surface, and install-mode assumptions for this workflow skill kit.
 
 Use it before opening support issues, before changing installer behavior, and before preparing a public release.
 
@@ -47,6 +47,14 @@ Supported install modes:
 - `global`, advanced only and requires `--confirm-global`.
 
 Guided install always uses the project-local path. It refuses missing targets and refuses installing into this kit repository itself.
+
+## Native ChatGPT Skills
+
+ChatGPT users do not run the Codex installer. They paste the repository setup prompt from README, choose a setup language, complete onboarding, approve a skill profile, and let ChatGPT's built-in `$skill-creator` create each selected skill from its declared public GitHub sources.
+
+`CHATGPT_INSTALL.md`, `config/chatgpt-skills.json`, and `config/chatgpt-skill-sources.json` define the behavior, profile order, exact source files, raw URLs, and hashes. `.codex/agents`, `AGENTS.md`, local preferences, Context, Memory Cache, and private workspace state are excluded from the ChatGPT skill route.
+
+Account eligibility, workspace permissions, public repository access, `$skill-creator` availability, and any cross-surface synchronization are controlled by the current ChatGPT product surface. The repo requires visible installation status and forbids false completion claims. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
 
 ## Manifest Compatibility
 

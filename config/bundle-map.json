@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "purpose": "Classify current Codex workflow kit source assets by future Codex plugin or bundle boundary without changing the current project-local install flow.",
+  "purpose": "Classify public workflow assets by repository-source ChatGPT setup and future Codex plugin boundaries without changing the project-local Codex install flow.",
   "status": "readiness-map",
   "bundles": {
     "pipeline-core": {
@@ -232,8 +232,8 @@
       ]
     },
     "chatgpt-skills-onboarding": {
-      "status": "planned-boundary",
-      "summary": "ChatGPT Skills onboarding path that maps FrameCore role agents to temporary workflow roles instead of persistent ChatGPT agent files.",
+      "status": "current-public",
+      "summary": "Repository-source ChatGPT setup, install profiles, native skill metadata, onboarding, and temporary-role mapping for every public workflow skill.",
       "public_installable": true,
       "dependencies": [
         "pipeline-core",
@@ -241,20 +241,46 @@
         "provider-governance"
       ],
       "source_paths": [
+        "CHATGPT_INSTALL.md",
         "docs/chatgpt-skills-onboarding.md",
         "docs/bundle-readiness.md",
+        "config/chatgpt-skills.json",
+        "config/chatgpt-skill-sources.json",
+        "scripts/chatgpt-skill-sources.mjs",
+        "scripts/validate/chatgpt-skills.mjs",
+        "tests/chatgpt-skills.test.mjs",
         ".agents/skills/",
         "config/provider-neutral-policy.json",
         "config/text-image-policy.json"
       ],
       "skills": [
-        "pipeline-core",
-        "workflow-orchestrator",
-        "instruction-packet-factory",
+        "asset-manifest",
         "brief-architect",
+        "character-design",
+        "cinematography",
+        "commercial-video-campaign-director",
+        "commercial-visual-campaign-director",
+        "creative-music-video-director",
+        "delivery-documentation",
+        "hipson-adapter",
+        "humanizer",
+        "hyperframes-gsap-guidance",
+        "hyperframes-prompting",
+        "hyperframes-workflow",
         "image-prompt-architect",
+        "instruction-packet-factory",
+        "marketing",
+        "onboarding-preference-tuning",
         "output-critic-iteration",
-        "delivery-documentation"
+        "pipeline-core",
+        "reference-pack-curator",
+        "storyboard-board-architect",
+        "storyboard-director",
+        "storytelling",
+        "ugc",
+        "video-prompt-architect",
+        "workflow-orchestrator",
+        "workflow-self-improvement"
       ],
       "roles": [],
       "examples": [],

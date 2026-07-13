@@ -17,12 +17,13 @@ The current kit focuses on a provider-neutral Codex workflow baseline:
 - workflow gates, handoffs, artifact schemas, and validated examples
 - Humanizer, HyperFrames workflow knowledge, lightweight Hipson Adapter, and explicit workflow self-improvement governance
 - privacy audit, package audit, release checks, and public repo hygiene
-- ChatGPT Skills onboarding guidance that maps Codex role agents to temporary workflow roles instead of permanent ChatGPT agents
+- repository-source native ChatGPT setup for all 27 public skills, UI metadata, guided onboarding, and temporary workflow roles
 
 ## Known Limitations
 
 - Custom-agent spawning depends on the local Codex environment. The installed instructions and skills remain useful without spawning, but routed subagent execution depends on local support.
-- ChatGPT Skills support is an onboarding and skill-packaging path, not a project-local installer. It should not create `.codex/agents` files or a permanent ChatGPT agent roster.
+- Native ChatGPT Skills are created individually from declared repository sources, not by the project-local installer. They do not create `.codex/agents` files, local manifests, Memory Cache, or a permanent ChatGPT agent roster.
+- Skill availability, `$skill-creator`, public repository access, installation confirmation, and cross-surface synchronization depend on the ChatGPT account and workspace.
 - Artifact schemas are lightweight contract checks, not full formal JSON Schema validation for every artifact paragraph.
 - Cross-platform coverage is split between the default Linux validation workflow and a path-sensitive cross-platform workflow that also supports manual dispatch.
 - The Hipson Adapter is lightweight by default. Full Hipson remains separate and optional.
@@ -35,7 +36,7 @@ The current kit focuses on a provider-neutral Codex workflow baseline:
 - Expand validated public examples for common creative workflow paths.
 - Keep artifact contracts, gate coverage, and handoff continuity machine-checked.
 - Keep package contents, privacy audit, release checks, issue templates, and repository settings aligned with public-source safety.
-- Keep ChatGPT Skills onboarding aligned with the temporary role model and the provider-neutral boundary.
+- Keep native ChatGPT repository sources aligned with the Agent Skills format, temporary role model, provider-neutral boundary, and current `$skill-creator` behavior.
 
 ## Future Candidates
 
@@ -48,7 +49,7 @@ Potential future work:
 - deeper HyperFrames planning examples
 - clearer adapter boundaries for optional full Hipson usage
 - bundle-readiness mapping for future Codex plugin or package shapes, without changing the current project-local install flow
-- exported ChatGPT skill bundle candidates that reuse the public skill layer without copying Codex-specific `.toml` agents
+- stronger automated checks for repository source mappings as the native ChatGPT Skills surface stabilizes
 
 ## v1.0 Readiness
 

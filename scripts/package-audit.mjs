@@ -18,6 +18,7 @@ const allowedRootFiles = new Set([
   ".editorconfig",
   ".gitattributes",
   "AGENTS.template.md",
+  "CHATGPT_INSTALL.md",
   "CHANGELOG.md",
   "CODE_OF_CONDUCT.md",
   "CONTRIBUTING.md",

@@ -4,7 +4,7 @@
 
 This inventory is the canonical public list of what this Codex workflow skill kit includes before installation. Keep counts, installed/listed items, and public install-surface names here; use [Workflow Map](workflow-map.md) for relationships and [Agent Roster](agent-roster.md) for role responsibilities.
 
-The kit installs a project-local workflow layer for Codex: role-agent templates, workflow skills, onboarding, docs, examples, artifact contracts, gates, handoffs, validation scripts, and provider-neutral safety rules. It does not install paid external media providers, API keys, endpoint catalogs, provider CLIs, or background upload tooling.
+The kit installs a project-local workflow layer for Codex and exposes the same 27 public workflow skills as repository-source native ChatGPT Skills. It includes onboarding, docs, examples, artifact contracts, gates, handoffs, validation scripts, and provider-neutral safety rules. It does not install paid external media providers, API keys, endpoint catalogs, provider CLIs, or background transfer tooling.
 
 ## Summary
 
@@ -12,6 +12,7 @@ The kit installs a project-local workflow layer for Codex: role-agent templates,
 | --- | ---: | --- |
 | Codex role-agent templates | 20 | `.codex/agents/*.toml.template` rendered into `.codex/agents/*.toml` |
 | Workflow skills | 27 | `.agents/skills/*/SKILL.md` |
+| Native ChatGPT source mappings | 27 skills | `config/chatgpt-skill-sources.json` |
 | Core workflow references | 5 | `.agents/skills/pipeline-core/references/` |
 | Artifact schemas | 1 registry | `config/artifact-schemas.json` |
 | Example workflows | 12 | `examples/*/workflow.json` |
@@ -59,7 +60,7 @@ This keeps the installed role roster stable while still giving the workflow doma
 
 ## Installed Workflow Skills
 
-Skills are workflow contracts. They define when a capability should be used, what input it needs, what artifact it should produce, and which safety rules apply. They are not paid provider integrations.
+Skills are portable workflow contracts. They define when a capability should be used, what input it needs, what artifact it should produce, and which safety rules apply. Codex discovers the source folders locally; ChatGPT reads the declared repository sources and creates the selected native Skills through `$skill-creator`. They are not paid provider integrations.
 
 | Skill | Main use |
 | --- | --- |
@@ -114,6 +115,10 @@ Skills are workflow contracts. They define when a capability should be used, wha
 | `scripts/guided-install.mjs` | Beginner-safe guided install path with checks, onboarding, dry-run, and confirmation. |
 | `scripts/doctor.mjs` | Preflight and install-health diagnostics. |
 | `scripts/validate.mjs` | Repository workflow validation. |
+| `CHATGPT_INSTALL.md` | Canonical language-first ChatGPT onboarding and native installation contract. |
+| `scripts/chatgpt-skill-sources.mjs` | Deterministic source-manifest generation and repository setup validation. |
+| `config/chatgpt-skills.json` | Core, creative, and full ChatGPT repository-install profiles. |
+| `config/chatgpt-skill-sources.json` | Exact raw source URLs and SHA-256 hashes for all public skills. |
 | `scripts/audit-privacy.mjs` and `scripts/safety-scan.mjs` | Public-source privacy and secret scanning. |
 | `tools/*` | Memory Cache, semantic memory, context budget, skill audit, and cleanup helpers. |
 

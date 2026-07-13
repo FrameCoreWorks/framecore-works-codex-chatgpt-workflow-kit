@@ -1,0 +1,7 @@
+interface:
+  display_name: "Cinematography"
+  short_description: "Plan shots, lenses, lighting, and camera motion"
+  default_prompt: "Use $cinematography to plan the shot language, lighting, lenses, and camera movement."
+
+policy:
+  allow_implicit_invocation: true

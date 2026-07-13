@@ -1,0 +1,7 @@
+interface:
+  display_name: "Brief Architect"
+  short_description: "Turn messy requests into structured briefs"
+  default_prompt: "Use $brief-architect to turn this request into a clear brief with acceptance criteria."
+
+policy:
+  allow_implicit_invocation: true

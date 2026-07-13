@@ -19,6 +19,7 @@ import {
 } from "./validate/context.mjs";
 import { run as validateAgents } from "./validate/agents.mjs";
 import { run as validateBundles } from "./validate/bundles.mjs";
+import { run as validateChatGptSkills } from "./validate/chatgpt-skills.mjs";
 import { run as validateContracts } from "./validate/contracts.mjs";
 import { run as validateDocs } from "./validate/docs.mjs";
 import { run as validateExamples } from "./validate/examples.mjs";
@@ -69,6 +70,9 @@ const { requiredRoles, requiredRoleSet, agentDir, agentTemplateGates } = agentSt
 const skillState = validateSkills({ root: validationRoot, helpers });
 findings.push(...skillState.findings);
 const { knownSkillNames } = skillState;
+
+const chatGptSkillState = validateChatGptSkills({ root: validationRoot, helpers });
+findings.push(...chatGptSkillState.findings);
 
 const gateRegistry = join(validationRoot, ".agents/skills/pipeline-core/references/gate-registry.md");
 const handoffMatrix = join(validationRoot, ".agents/skills/pipeline-core/references/handoff-matrix.md");

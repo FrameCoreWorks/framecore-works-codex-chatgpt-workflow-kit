@@ -1,0 +1,7 @@
+interface:
+  display_name: "Pipeline Core"
+  short_description: "Route multi-stage work through gates and QA loops"
+  default_prompt: "Use $pipeline-core to route this multi-stage task through the required artifacts, gates, and QA loop."
+
+policy:
+  allow_implicit_invocation: true

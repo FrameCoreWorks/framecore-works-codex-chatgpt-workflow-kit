@@ -200,6 +200,18 @@ export function run(ctx) {
       if (!text.includes(phrase)) addFinding("WEAK_FAQ_DOC", `FAQ is missing required user-answer phrase: ${phrase}`, [faqDoc]);
     }
   }
+
+  const chatGptSkillsDoc = join(validationRoot, "docs/chatgpt-skills-onboarding.md");
+  if (existsSync(chatGptSkillsDoc)) {
+    const text = read(chatGptSkillsDoc);
+    const sections = markdownSections(text);
+    for (const section of ["Purpose", "Product Boundary", "Repository Contract", "Copy-Paste Prompt", "Onboarding Flow", "Profile Selection", "Source Resolution", "Native Installation Flow", "Existing Skill Guard", "Temporary Role Model", "Maintainer Validation", "Stop Conditions", "Related Docs"]) {
+      if (!sections.has(section)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required section: ${section}`, [chatGptSkillsDoc]);
+    }
+    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "$skill-creator", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "setup language", "temporary responsibility", "must not report bulk success", "all 27"]) {
+      if (!text.includes(phrase)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required phrase: ${phrase}`, [chatGptSkillsDoc]);
+    }
+  }
   
   const cliReferenceDoc = join(validationRoot, "docs/cli-reference.md");
   if (existsSync(cliReferenceDoc)) {
@@ -208,7 +220,7 @@ export function run(ctx) {
     for (const section of ["Purpose", "Command Groups", "Safe Install Order", "Non-Mutating Checks", "Mutating Commands", "Install Modes", "Packaging And Release Checks", "Safety Rules", "Related Docs"]) {
       if (!sections.has(section)) addFinding("WEAK_CLI_REFERENCE_DOC", `CLI reference is missing required section: ${section}`, [cliReferenceDoc]);
     }
-    for (const phrase of ["guided project-local installer", "npm run install:guided", "npm run doctor", "npm run install:dry-run", "npm run secret:scan", "npm run release:check", "npm run package:list", "project-local", "global install", "--confirm-global", "uninstall", "--yes", "Do not enable external execution providers"]) {
+    for (const phrase of ["guided project-local installer", "npm run install:guided", "npm run doctor", "npm run install:dry-run", "npm run secret:scan", "npm run release:check", "npm run package:list", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "project-local", "global install", "--confirm-global", "uninstall", "--yes", "Do not enable external execution providers"]) {
       if (!text.includes(phrase)) addFinding("WEAK_CLI_REFERENCE_DOC", `CLI reference is missing required command phrase: ${phrase}`, [cliReferenceDoc]);
     }
   }
@@ -349,10 +361,10 @@ export function run(ctx) {
   if (existsSync(releaseNotesTemplate)) {
     const text = read(releaseNotesTemplate);
     const sections = markdownSections(text);
-    for (const section of ["Version", "Summary", "Install And Update Notes", "Onboarding Notes", "Workflow Changes", "Validation And Package Checks", "Security And Privacy Review", "Known Limitations", "Links"]) {
+    for (const section of ["Version", "Summary", "Install And Update Notes", "Onboarding Notes", "Workflow Changes", "Native ChatGPT Skills", "Validation And Package Checks", "Security And Privacy Review", "Known Limitations", "Links"]) {
       if (!sections.has(section)) addFinding("WEAK_RELEASE_NOTES_TEMPLATE", `Release notes template is missing required section: ${section}`, [releaseNotesTemplate]);
     }
-    for (const phrase of ["provider-neutral", "project-local", "npm run release:check", "npm run release:readiness", "npm run secret:scan", "npm run syntax:check", "npm run agent:check", "npm run package:audit", "npm run package:list", "No secrets", "No bundled external paid execution providers", "GPT Image 2", "Full Hipson remains separate and optional"]) {
+    for (const phrase of ["provider-neutral", "project-local", "npm run release:check", "npm run release:readiness", "npm run secret:scan", "npm run syntax:check", "npm run agent:check", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "npm run package:audit", "npm run package:list", "No secrets", "No bundled external paid execution providers", "GPT Image 2", "Full Hipson remains separate and optional"]) {
       if (!text.includes(phrase)) addFinding("WEAK_RELEASE_NOTES_TEMPLATE", `Release notes template is missing required release-safety phrase: ${phrase}`, [releaseNotesTemplate]);
     }
   }
@@ -363,8 +375,11 @@ export function run(ctx) {
     for (const phrase of ["docs/quickstart.md", "docs/codex-assisted-install.md", "If guided install completes successfully", "manual fallback", "Show me the changed files", "npm run memory:init", "regular ChatGPT chat", "nothing was installed"]) {
       if (!text.includes(phrase)) addFinding("WEAK_README_INSTALL_PROMPT", `README install prompt is missing required safety phrase: ${phrase}`, [readmePath]);
     }
-    for (const phrase of ["## Supported Agent Surfaces", "OpenAI Codex CLI with custom-agent support", "Chat-only environments without shell access", "GitHub Desktop", "created by FrameCore Works", "https://buycoffee.to/framecoreworks", "This kit ships the routing and contract layer", "symlinks"]) {
+    for (const phrase of ["## Supported Agent Surfaces", "OpenAI Codex CLI with custom-agent support", "Chat-only environments without native Skills", "GitHub Desktop", "created by FrameCore Works", "https://buycoffee.to/framecoreworks", "This kit ships the routing and contract layer", "symlinks"]) {
       if (!text.includes(phrase)) addFinding("WEAK_README_POSITIONING", `README is missing required positioning phrase: ${phrase}`, [readmePath]);
+    }
+    for (const phrase of ["Install Directly From The Repo In ChatGPT", "CHATGPT_INSTALL.md", "config/chatgpt-skill-sources.json", "docs/chatgpt-skills-onboarding.md", "$skill-creator", "Your first response must ask only which language"]) {
+      if (!text.includes(phrase)) addFinding("WEAK_README_CHATGPT_SKILLS", `README is missing required native ChatGPT Skills phrase: ${phrase}`, [readmePath]);
     }
     for (const phrase of ["Global install is available only for advanced users", "writes to the current user's home workspace", "npm run doctor -- --mode global", "node scripts/install.mjs --mode dry-run --target \"$HOME\"", "node scripts/install.mjs --mode global --confirm-global"]) {
       if (!text.includes(phrase)) addFinding("WEAK_README_GLOBAL_INSTALL", `README must document global install safety: ${phrase}`, [readmePath]);

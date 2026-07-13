@@ -34,6 +34,13 @@ Briefly describe what changed and who benefits from the release.
 - Gate, handoff, or artifact contract changes:
 - Example workflow changes:
 
+## Native ChatGPT Skills
+
+- Repository profiles changed:
+- Source manifest updated and validated:
+- Representative `$skill-creator` setup results:
+- ChatGPT compatibility notes:
+
 ## Validation And Package Checks
 
 Confirm these passed before publishing:
@@ -43,6 +50,8 @@ Confirm these passed before publishing:
 - `npm run secret:scan`
 - `npm run syntax:check`
 - `npm run agent:check`
+- `npm run chatgpt:skills:sources:update` after intentional canonical skill changes
+- `npm run chatgpt:skills:check`
 - `npm run package:audit`
 - `npm run package:list`
 - latest GitHub Actions `validate` run on `main`

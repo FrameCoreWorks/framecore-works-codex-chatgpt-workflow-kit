@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "mode": "repository-source",
+  "surface": "native-chatgpt-skills",
+  "repository": "https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit",
+  "ref": "main",
+  "raw_base_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/",
+  "bootstrap_path": "CHATGPT_INSTALL.md",
+  "bootstrap_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/CHATGPT_INSTALL.md",
+  "source_manifest_path": "config/chatgpt-skill-sources.json",
+  "source_manifest_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/config/chatgpt-skill-sources.json",
+  "source_root": ".agents/skills",
+  "native_creator": "$skill-creator",
+  "installation_rules": {
+    "onboarding_before_creation": true,
+    "first_question_is_setup_language": true,
+    "create_each_skill_separately": true,
+    "require_visible_install_confirmation": true,
+    "allow_unconfirmed_completion_claim": false,
+    "codex_agent_files_are_sources": false,
+    "roles_are_temporary_in_chatgpt": true
+  },
+  "profiles": {
+    "core": {
+      "summary": "Guided onboarding, workflow routing, brief creation, QA, and delivery foundations.",
+      "skills": [
+        "onboarding-preference-tuning",
+        "pipeline-core",
+        "workflow-orchestrator",
+        "brief-architect",
+        "output-critic-iteration",
+        "delivery-documentation"
+      ]
+    },
+    "creative": {
+      "summary": "Core workflow plus the main creative direction, prompting, storyboard, campaign, and asset skills.",
+      "skills": [
+        "onboarding-preference-tuning",
+        "pipeline-core",
+        "workflow-orchestrator",
+        "brief-architect",
+        "reference-pack-curator",
+        "instruction-packet-factory",
+        "asset-manifest",
+        "character-design",
+        "cinematography",
+        "commercial-video-campaign-director",
+        "commercial-visual-campaign-director",
+        "creative-music-video-director",
+        "humanizer",
+        "image-prompt-architect",
+        "marketing",
+        "output-critic-iteration",
+        "storyboard-board-architect",
+        "storyboard-director",
+        "storytelling",
+        "ugc",
+        "video-prompt-architect",
+        "delivery-documentation"
+      ]
+    },
+    "full": {
+      "summary": "Every public workflow skill in the repository, ordered from setup and routing through specialists, QA, delivery, and governance.",
+      "skills": [
+        "onboarding-preference-tuning",
+        "pipeline-core",
+        "workflow-orchestrator",
+        "brief-architect",
+        "reference-pack-curator",
+        "instruction-packet-factory",
+        "asset-manifest",
+        "character-design",
+        "cinematography",
+        "commercial-video-campaign-director",
+        "commercial-visual-campaign-director",
+        "creative-music-video-director",
+        "humanizer",
+        "image-prompt-architect",
+        "marketing",
+        "storyboard-board-architect",
+        "storyboard-director",
+        "storytelling",
+        "ugc",
+        "video-prompt-architect",
+        "hyperframes-gsap-guidance",
+        "hyperframes-prompting",
+        "hyperframes-workflow",
+        "hipson-adapter",
+        "output-critic-iteration",
+        "delivery-documentation",
+        "workflow-self-improvement"
+      ]
+    }
+  }
+}

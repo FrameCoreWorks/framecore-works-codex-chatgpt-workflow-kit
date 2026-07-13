@@ -187,6 +187,21 @@ test("validation rejects weak FAQ documentation", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_FAQ_DOC/);
 });
 
+test("validation rejects weak native ChatGPT Skills documentation", () => {
+  const dir = copyRepoFixture("framecore-validate-chatgpt-skills-doc-");
+  const doc = join(dir, "docs/chatgpt-skills-onboarding.md");
+  writeFileSync(
+    doc,
+    readFileSync(doc, "utf8")
+      .replace("## Repository Contract", "## Source Files")
+      .replaceAll("config/chatgpt-skill-sources.json", "source list")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_CHATGPT_SKILLS_DOC/);
+});
+
 test("validation rejects weak CLI reference documentation", () => {
   const dir = copyRepoFixture("framecore-validate-cli-reference-");
   const cliReferenceDoc = join(dir, "docs/cli-reference.md");

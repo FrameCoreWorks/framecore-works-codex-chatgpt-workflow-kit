@@ -29,6 +29,8 @@ Default recommendation: use the guided project-local installer unless you have a
 | `npm run smoke:install` | temporary project-local install smoke test | writes only to a temporary target |
 | `npm run package:list` | npm package dry-run preview | no |
 | `npm run package:audit` | package contents gate | no |
+| `npm run chatgpt:skills:check` | validate the ChatGPT bootstrap, profiles, UI metadata, source URLs, and checked-in hashes | no |
+| `npm run chatgpt:skills:sources:update` | regenerate the checked-in ChatGPT source manifest after canonical skill changes | yes, `config/chatgpt-skill-sources.json` |
 | `npm run cleanup:appledouble -- --apply` | remove AppleDouble sidecars | yes, only `._*` metadata files |
 | `npm run memory:init -- --target <path>` | create Context/ and Memory Cache/ | yes |
 | `npm run memory:validate -- --target <path>` | validate durable recovery state | no |
@@ -66,6 +68,7 @@ Use these before editing or releasing:
 - `npm test`
 - `npm run check`
 - `npm run package:audit`
+- `npm run chatgpt:skills:check`
 - `npm run release:check`
 - `npm run smoke:install`
 - `npm run memory:validate -- --target <path>`
@@ -95,6 +98,7 @@ These commands can write or delete files:
 - `npm run workspace:evaluate:semantic -- --target <path> --activation "openai api active"`
 - `npm run self:audit -- --target <path>`
 - `npm run self:improve:local -- --target <path>`
+- `npm run chatgpt:skills:sources:update`
 
 Mutating commands should be run against a specific target path. Global install is advanced-only and requires `--confirm-global`.
 
@@ -121,6 +125,8 @@ npm run package:list
 
 `release:check` runs privacy audit, secret scan, syntax check, workflow validation, deterministic agent compliance, tests, install smoke test, package audit, and release readiness. `package:list` is a read-only npm package dry-run preview so maintainers can inspect exactly what would ship.
 
+Native ChatGPT setup is source-driven and separate from the Codex installer. `chatgpt:skills:check` confirms that `CHATGPT_INSTALL.md`, all profiles, every `agents/openai.yaml`, and the checked-in raw URL and SHA-256 source inventory still match the canonical skill folders. Run `chatgpt:skills:sources:update` only after reviewing intentional skill-source changes.
+
 `agent:check` does not call a model or external runtime. It installs the kit into a temporary target and verifies the minimum agent path: `AGENTS.md` first move, `intent-confirmation`, `workflow-orchestrator`, Task Confirmation, Project State, safety rules, and recovery prompt.
 
 ## Safety Rules
@@ -139,6 +145,7 @@ npm run package:list
 
 - [Quickstart](quickstart.md)
 - [Codex-Assisted Install](codex-assisted-install.md)
+- [Native ChatGPT Skills](chatgpt-skills-onboarding.md)
 - [Troubleshooting](troubleshooting.md)
 - [Compatibility](compatibility.md)
 - [Release Guide](release.md)

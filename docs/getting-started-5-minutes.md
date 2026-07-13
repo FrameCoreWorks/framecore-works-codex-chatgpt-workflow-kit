@@ -4,6 +4,8 @@
 
 Use this page if someone sent you this repo and you want the shortest safe path to try it in Codex.
 
+If you want native skills in ChatGPT instead, use [Native ChatGPT Skills](chatgpt-skills-onboarding.md). Paste the repository setup prompt there; ChatGPT runs onboarding and creates the selected skills from the declared GitHub sources without running the Codex installer.
+
 This Codex workflow skill kit adds a project-local workflow layer to Codex for creative and delivery work: briefs, references, campaign direction, image and video prompt planning, storyboard work, QA, delivery notes, and long-session recovery.
 
 It does not install paid providers, API keys, uploads, or global tools by default.

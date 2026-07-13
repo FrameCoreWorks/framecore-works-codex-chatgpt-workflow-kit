@@ -1,0 +1,7 @@
+interface:
+  display_name: "Humanizer"
+  short_description: "Polish writing while preserving facts and intent"
+  default_prompt: "Use $humanizer to polish this text while preserving its facts, intent, and required wording."
+
+policy:
+  allow_implicit_invocation: true

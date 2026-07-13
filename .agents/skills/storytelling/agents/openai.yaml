@@ -1,0 +1,7 @@
+interface:
+  display_name: "Storytelling"
+  short_description: "Plan story beats, emotional arcs, and continuity"
+  default_prompt: "Use $storytelling to plan the story beats, emotional arc, scene logic, and continuity."
+
+policy:
+  allow_implicit_invocation: true

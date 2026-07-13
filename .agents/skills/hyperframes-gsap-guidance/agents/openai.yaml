@@ -1,0 +1,7 @@
+interface:
+  display_name: "HyperFrames GSAP Guidance"
+  short_description: "Plan GSAP timelines, easing, and motion QA"
+  default_prompt: "Use $hyperframes-gsap-guidance to plan the GSAP timeline and motion QA for this scene."
+
+policy:
+  allow_implicit_invocation: true

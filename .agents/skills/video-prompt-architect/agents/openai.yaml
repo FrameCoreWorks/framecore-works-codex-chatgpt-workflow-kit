@@ -1,0 +1,7 @@
+interface:
+  display_name: "Video Prompt Architect"
+  short_description: "Build final video prompt packs from approved inputs"
+  default_prompt: "Use $video-prompt-architect to build a final video prompt pack from the approved inputs."
+
+policy:
+  allow_implicit_invocation: true
