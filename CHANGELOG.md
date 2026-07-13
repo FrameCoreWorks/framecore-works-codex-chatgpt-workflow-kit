@@ -2,12 +2,15 @@
 
 ## Unreleased
 
-- Added repository-source native ChatGPT setup for all 27 public workflow skills, with core, creative, and full profiles.
+- Added repository-source native ChatGPT setup for all 33 public workflow skills, with core, creative, and full profiles.
 - Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through ChatGPT's built-in `$skill-creator`.
 - Added `agents/openai.yaml` UI metadata, starter prompts, and invocation policy for every public skill.
 - Added a checked-in source inventory with raw GitHub URLs and SHA-256 hashes, plus regression tests that reject stale or incomplete source mappings.
 - Made onboarding, pipeline-core, workflow-orchestrator, and brief-architect surface-aware while preserving the existing Codex project-local path.
 - Added evidence-based ChatGPT completion rules, temporary-role mapping, and explicit failure handling without a local Codex install.
+- Added six public, provider-neutral workflow skills adapted from the local creative workspace: `ecommerce-campaign-strategy-director`, `screenplay-story-architect`, `creative-video-producer`, `caption-studio`, `opencut-video-studio`, and `producer-ai-task-builder`.
+- Added compact artifact templates, native UI metadata, routing rules, bundle-map coverage, public inventory updates, and repository-source hashes for the new skills.
+- Promoted the ecommerce bundle boundary from planned to current public coverage through a dedicated strategy skill.
 
 ## 1.1.0 - 2026-06-23
 

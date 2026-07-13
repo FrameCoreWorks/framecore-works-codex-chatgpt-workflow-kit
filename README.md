@@ -48,7 +48,7 @@ This skill kit adds a project-local creative workflow layer to Codex and exposes
 At a glance, the repo includes:
 
 - **20 Codex role-agent templates** for routing, creative planning, prompting, QA, delivery, and execution documentation.
-- **27 portable workflow skills** for brief building, reference curation, campaign direction, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for ChatGPT's built-in skill creation flow.
+- **33 portable workflow skills** for brief building, ecommerce strategy, screenplay development, creative video production, captions, OpenCut edit planning, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for ChatGPT's built-in skill creation flow.
 - **Project-local install and onboarding** with doctor/preflight, dry-run, manifest tracking, update, repair, and uninstall.
 - **Workflow contracts** for gates, handoffs, artifact schemas, examples, Loop Protocol, and provider-neutral safety boundaries.
 
@@ -57,11 +57,12 @@ For the full inventory, see [Included Agents And Skills](docs/included-agents-an
 | Area | Included examples |
 | --- | --- |
 | Core routing | `intent-confirmation`, `workflow-orchestrator`, `instruction-packet-factory`, `pipeline-core` |
-| Creative planning | `brief-architect`, `reference-curator`, `static-direction`, `motion-direction`, campaign and storytelling skills |
+| Creative planning | `brief-architect`, `reference-curator`, `ecommerce-campaign-strategy-director`, `screenplay-story-architect`, campaign and storytelling skills |
+| Video production | `creative-video-producer`, `producer-ai-task-builder`, `caption-studio`, `opencut-video-studio`, storyboard and HyperFrames skills |
 | Prompt production | `image-prompting`, `video-prompting`, `image-prompt-architect`, `video-prompt-architect` |
 | QA and delivery | `qa-iteration`, `asset-manifest`, `delivery-documentation`, output critique and delivery skills |
 | Long-session support | `Context/`, `Memory Cache/`, Project State templates, semantic-memory helpers |
-| Specialized workflow knowledge | Humanizer, HyperFrames, lightweight Hipson Adapter, storyboard board planning |
+| Specialized workflow knowledge | Humanizer, ecommerce strategy, screenplay development, captions, OpenCut planning, HyperFrames, lightweight Hipson Adapter, storyboard board planning |
 
 The kit provides the workflow spine: roles, gates, handoffs, artifact expectations, examples, safety boundaries, onboarding, and update/repair lifecycle. Users can layer deeper domain-specific prompting or execution tools on top, but those provider/tool integrations are intentionally not bundled here.
 

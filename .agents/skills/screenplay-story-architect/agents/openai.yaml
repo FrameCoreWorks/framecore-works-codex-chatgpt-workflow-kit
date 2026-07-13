@@ -1,0 +1,7 @@
+interface:
+  display_name: "Screenplay Story Architect"
+  short_description: "Build original story and screenplay development packs"
+  default_prompt: "Use $screenplay-story-architect to develop this idea into a logline, story thesis, treatment, beat structure, scene plan, and production handoff."
+
+policy:
+  allow_implicit_invocation: true

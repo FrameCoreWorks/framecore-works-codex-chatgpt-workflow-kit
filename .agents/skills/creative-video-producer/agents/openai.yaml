@@ -1,0 +1,7 @@
+interface:
+  display_name: "Creative Video Producer"
+  short_description: "Coordinate complete creative video production packs"
+  default_prompt: "Use $creative-video-producer to turn this brief and source material into a complete video production route, handoffs, edit plan, QA checklist, and delivery status."
+
+policy:
+  allow_implicit_invocation: true

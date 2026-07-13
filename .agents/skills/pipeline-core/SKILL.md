@@ -91,6 +91,12 @@ Read only what is needed:
 - Route text, VO, captions, and user-facing polish through `humanizer` when copy quality matters.
 - Route coded-video planning through HyperFrames skills when the requested artifact is a coded video composition.
 - Route Hipson-style packets through `hipson-adapter` unless the user chooses full Hipson separately.
+- Route unresolved product, offer, audience, channel, claim, asset-matrix, or creative-test strategy through `ecommerce-campaign-strategy-director`.
+- Route screenplay, treatment, scene, dialogue, pitch, coverage, or narrative-rewrite work through `screenplay-story-architect` before storyboard production.
+- Route end-to-end reel, short-form ad, product-video, UGC-video, explainer, cutdown, or mixed video-production work through `creative-video-producer`.
+- Route detailed caption timing, styling, safe zones, render handoffs, or caption repair through `caption-studio`.
+- Route footage-first or timeline-first OpenCut planning through `opencut-video-studio` when OpenCut is available or the user wants an OpenCut Edit Pack.
+- Route text-only music, music-video, visible-singing, lip-sync triage, or named Producer AI planning packets through `producer-ai-task-builder` without implying provider execution.
 
 ## Guardrails
 

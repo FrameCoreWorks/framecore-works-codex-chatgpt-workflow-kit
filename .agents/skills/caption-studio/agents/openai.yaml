@@ -1,0 +1,7 @@
+interface:
+  display_name: "Caption Studio"
+  short_description: "Plan, style, repair, and QA video captions"
+  default_prompt: "Use $caption-studio to turn this transcript and video target into a caption timing, style, safe-zone, render-handoff, and QA plan."
+
+policy:
+  allow_implicit_invocation: true

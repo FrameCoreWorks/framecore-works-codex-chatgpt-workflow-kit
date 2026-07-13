@@ -16,7 +16,7 @@ test("ChatGPT repository installer, profiles, sources, and UI metadata validate"
 test("ChatGPT source manifest covers every repository skill in declared install order", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
   const manifest = buildChatGptSkillSourceManifest(root);
-  assert.equal(manifest.skills.length, 27);
+  assert.equal(manifest.skills.length, 33);
   assert.deepEqual(manifest.skills.map((skill) => skill.name), config.profiles.full.skills);
   for (const skill of manifest.skills) {
     assert.ok(skill.files.some((file) => file.path === "SKILL.md"));
@@ -26,6 +26,22 @@ test("ChatGPT source manifest covers every repository skill in declared install 
       assert.match(file.raw_url, /^https:\/\/raw\.githubusercontent\.com\//);
       assert.ok(file.repository_path.startsWith(`${skill.source_dir}/`));
     }
+  }
+});
+
+test("new portable production skills are included in creative and full profiles", () => {
+  const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
+  const expected = [
+    "caption-studio",
+    "creative-video-producer",
+    "ecommerce-campaign-strategy-director",
+    "opencut-video-studio",
+    "producer-ai-task-builder",
+    "screenplay-story-architect",
+  ];
+  for (const skill of expected) {
+    assert.ok(config.profiles.creative.skills.includes(skill), `creative profile is missing ${skill}`);
+    assert.ok(config.profiles.full.skills.includes(skill), `full profile is missing ${skill}`);
   }
 });
 

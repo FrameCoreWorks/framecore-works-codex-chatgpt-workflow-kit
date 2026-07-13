@@ -39,7 +39,7 @@
           "path": "SKILL.md",
           "repository_path": ".agents/skills/pipeline-core/SKILL.md",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/pipeline-core/SKILL.md",
-          "sha256": "615ccb32f2c717940df0e7f116c0d19c6015380c95ca44be7e4460f22c8f278e"
+          "sha256": "15094daf6acdf4c22eaf62b524f625ffe15a1a1668fd816d56ef612acc9cfb21"
         },
         {
           "path": "agents/openai.yaml",
@@ -129,7 +129,7 @@
           "path": "SKILL.md",
           "repository_path": ".agents/skills/workflow-orchestrator/SKILL.md",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/workflow-orchestrator/SKILL.md",
-          "sha256": "e878c8e46a7b73978ade189d68c3ad5489edf4b8d38e423e2a77e965fe49baad"
+          "sha256": "f14659e1ead9540dfdbcf50b0ab18e5ac8351e5fc7f5c8f16e07f39fec4ded21"
         },
         {
           "path": "agents/openai.yaml",
@@ -208,6 +208,30 @@
           "repository_path": ".agents/skills/asset-manifest/agents/openai.yaml",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/asset-manifest/agents/openai.yaml",
           "sha256": "d3aea7a0641acd0786eaba27cd003bf33ee10485583ce25726a01d2995752d88"
+        }
+      ]
+    },
+    {
+      "name": "ecommerce-campaign-strategy-director",
+      "source_dir": ".agents/skills/ecommerce-campaign-strategy-director",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "repository_path": ".agents/skills/ecommerce-campaign-strategy-director/SKILL.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/ecommerce-campaign-strategy-director/SKILL.md",
+          "sha256": "ab7481ae7769a519598e36e95b0360403fbf9f28cb932297fb2376c2b0b17821"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "repository_path": ".agents/skills/ecommerce-campaign-strategy-director/agents/openai.yaml",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/ecommerce-campaign-strategy-director/agents/openai.yaml",
+          "sha256": "d275a8a46f58b38ca9a484b601ca533da57d49e5aff8332abb9c4ab44f73f11e"
+        },
+        {
+          "path": "templates/ecommerce-campaign-strategy-pack.md",
+          "repository_path": ".agents/skills/ecommerce-campaign-strategy-director/templates/ecommerce-campaign-strategy-pack.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/ecommerce-campaign-strategy-director/templates/ecommerce-campaign-strategy-pack.md",
+          "sha256": "bb5f8fae2b7459da943af623b8ad3f0397062c741dd4f8ac667528e72dc6355b"
         }
       ]
     },
@@ -298,6 +322,30 @@
           "repository_path": ".agents/skills/creative-music-video-director/agents/openai.yaml",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/creative-music-video-director/agents/openai.yaml",
           "sha256": "41cf49b0f21cadcd078f1ffa3ba58a36bf7594920dc24df2a455d1f6b068e332"
+        }
+      ]
+    },
+    {
+      "name": "screenplay-story-architect",
+      "source_dir": ".agents/skills/screenplay-story-architect",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "repository_path": ".agents/skills/screenplay-story-architect/SKILL.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/screenplay-story-architect/SKILL.md",
+          "sha256": "a765074e16e799cbc52150ca9f127b3b130bd39325def904b9358f19337bd7e6"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "repository_path": ".agents/skills/screenplay-story-architect/agents/openai.yaml",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/screenplay-story-architect/agents/openai.yaml",
+          "sha256": "134ab85e73d93f187fb219d9a362f76a79bc7d2d4bffbf314d9c53fb60f6d898"
+        },
+        {
+          "path": "templates/screenplay-development-pack.md",
+          "repository_path": ".agents/skills/screenplay-story-architect/templates/screenplay-development-pack.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/screenplay-story-architect/templates/screenplay-development-pack.md",
+          "sha256": "4401df124d9510321e035b9e41c4205e7aec9f2d6c324843a436a42d0811e8c6"
         }
       ]
     },
@@ -442,6 +490,102 @@
           "repository_path": ".agents/skills/video-prompt-architect/agents/openai.yaml",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/video-prompt-architect/agents/openai.yaml",
           "sha256": "7f557804eabc217d5abcadc9b03ee68517c1d51ae6d337a87c7910e2892c9b04"
+        }
+      ]
+    },
+    {
+      "name": "producer-ai-task-builder",
+      "source_dir": ".agents/skills/producer-ai-task-builder",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "repository_path": ".agents/skills/producer-ai-task-builder/SKILL.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/producer-ai-task-builder/SKILL.md",
+          "sha256": "55590400d63a8b90f960ba3631ce179dd772294022ac574272334a4d29e4981c"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "repository_path": ".agents/skills/producer-ai-task-builder/agents/openai.yaml",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/producer-ai-task-builder/agents/openai.yaml",
+          "sha256": "459c0dca31ba1af7a304ded5e34fbfef89a2c11a1a2bfed87812d9ba77a6bfe0"
+        },
+        {
+          "path": "templates/producer-ai-task-packet.md",
+          "repository_path": ".agents/skills/producer-ai-task-builder/templates/producer-ai-task-packet.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/producer-ai-task-builder/templates/producer-ai-task-packet.md",
+          "sha256": "0a9b3112ee59fab225f38d4990160424133494c4a284ee31c610ee828774cce8"
+        }
+      ]
+    },
+    {
+      "name": "creative-video-producer",
+      "source_dir": ".agents/skills/creative-video-producer",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "repository_path": ".agents/skills/creative-video-producer/SKILL.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/creative-video-producer/SKILL.md",
+          "sha256": "9c50bfabe8af5cf9681f36c7b98aeec7a5455aa01f8b9f02732eeb5ae8a9a12d"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "repository_path": ".agents/skills/creative-video-producer/agents/openai.yaml",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/creative-video-producer/agents/openai.yaml",
+          "sha256": "4d62c554c215240645bb46be7def2010b4f7dd7c591da6ee149d9c5f1c824fb3"
+        },
+        {
+          "path": "templates/creative-video-production-pack.md",
+          "repository_path": ".agents/skills/creative-video-producer/templates/creative-video-production-pack.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/creative-video-producer/templates/creative-video-production-pack.md",
+          "sha256": "042cd76ad3bc771413c60d06b5b81e5c1676810cecf8590007d69f36cffef764"
+        }
+      ]
+    },
+    {
+      "name": "caption-studio",
+      "source_dir": ".agents/skills/caption-studio",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "repository_path": ".agents/skills/caption-studio/SKILL.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/caption-studio/SKILL.md",
+          "sha256": "404563522debe9aee362f53dfff64c3f9abb9dd0e9b0dfd385c41db527a4442a"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "repository_path": ".agents/skills/caption-studio/agents/openai.yaml",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/caption-studio/agents/openai.yaml",
+          "sha256": "da4f606cd496be9d378e0182a57813e6183b900baa35853571ac9df2ff0c23d9"
+        },
+        {
+          "path": "templates/caption-task-pack.md",
+          "repository_path": ".agents/skills/caption-studio/templates/caption-task-pack.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/caption-studio/templates/caption-task-pack.md",
+          "sha256": "1b3f309528001f44f4ea4dbc38a01c7bfedaa7bd981a1ffffb0394684cbb71cc"
+        }
+      ]
+    },
+    {
+      "name": "opencut-video-studio",
+      "source_dir": ".agents/skills/opencut-video-studio",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "repository_path": ".agents/skills/opencut-video-studio/SKILL.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/opencut-video-studio/SKILL.md",
+          "sha256": "c5a4c9f5839071be422477ba6b418e9d9a27aa93194eaf60f4dc84ae775a86d5"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "repository_path": ".agents/skills/opencut-video-studio/agents/openai.yaml",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/opencut-video-studio/agents/openai.yaml",
+          "sha256": "09e4f989a75ba1287b12b08ca31bd77e9b2e04eab3c197b9e98efb846b6d4427"
+        },
+        {
+          "path": "templates/opencut-edit-pack.md",
+          "repository_path": ".agents/skills/opencut-video-studio/templates/opencut-edit-pack.md",
+          "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/.agents/skills/opencut-video-studio/templates/opencut-edit-pack.md",
+          "sha256": "b7b6219802e6965df8c49f2413c347095a66e8c1aee63d4fc1f527c14ddcbcbd"
         }
       ]
     },

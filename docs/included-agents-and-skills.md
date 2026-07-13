@@ -4,15 +4,15 @@
 
 This inventory is the canonical public list of what this Codex workflow skill kit includes before installation. Keep counts, installed/listed items, and public install-surface names here; use [Workflow Map](workflow-map.md) for relationships and [Agent Roster](agent-roster.md) for role responsibilities.
 
-The kit installs a project-local workflow layer for Codex and exposes the same 27 public workflow skills as repository-source native ChatGPT Skills. It includes onboarding, docs, examples, artifact contracts, gates, handoffs, validation scripts, and provider-neutral safety rules. It does not install paid external media providers, API keys, endpoint catalogs, provider CLIs, or background transfer tooling.
+The kit installs a project-local workflow layer for Codex and exposes the same 33 public workflow skills as repository-source native ChatGPT Skills. It includes onboarding, docs, examples, artifact contracts, gates, handoffs, validation scripts, and provider-neutral safety rules. It does not install paid external media providers, API keys, endpoint catalogs, provider CLIs, or background transfer tooling.
 
 ## Summary
 
 | Category | Count | Installed path or source path |
 | --- | ---: | --- |
 | Codex role-agent templates | 20 | `.codex/agents/*.toml.template` rendered into `.codex/agents/*.toml` |
-| Workflow skills | 27 | `.agents/skills/*/SKILL.md` |
-| Native ChatGPT source mappings | 27 skills | `config/chatgpt-skill-sources.json` |
+| Workflow skills | 33 | `.agents/skills/*/SKILL.md` |
+| Native ChatGPT source mappings | 33 skills | `config/chatgpt-skill-sources.json` |
 | Core workflow references | 5 | `.agents/skills/pipeline-core/references/` |
 | Artifact schemas | 1 registry | `config/artifact-schemas.json` |
 | Example workflows | 12 | `examples/*/workflow.json` |
@@ -66,12 +66,15 @@ Skills are portable workflow contracts. They define when a capability should be 
 | --- | --- |
 | `asset-manifest` | Organize workflow assets, file lists, versions, source traceability, exclusions, and reproducibility notes. |
 | `brief-architect` | Convert messy notes, user requests, source material, and constraints into a Brief Contract. |
+| `caption-studio` | Plan, style, normalize, repair, and QA captions, subtitle timing, safe zones, and render or edit handoffs. |
 | `character-design` | Build character design systems, identity anchors, expression sheets, outfit variants, and consistency rules. |
 | `cinematography` | Plan shot language, lens choices, camera movement, lighting, blocking, color, texture, and cinematic direction. |
 | `commercial-video-campaign-director` | Create motion direction for commercial video campaigns, product reveals, social clips, and launch videos. |
 | `commercial-visual-campaign-director` | Create visual direction for static commercial campaigns, product visuals, launch assets, and social variants. |
 | `creative-music-video-director` | Translate song context, artist persona, motifs, rhythm, and emotional arc into a music-video direction contract. |
+| `creative-video-producer` | Coordinate complete video production packs across strategy, story, storyboard, prompts, audio, captions, editing, QA, and delivery. |
 | `delivery-documentation` | Package final files, QA status, source lists, usage notes, caveats, excluded files, and delivery manifests. |
+| `ecommerce-campaign-strategy-director` | Turn product and offer truth into audience/JTBD, campaign thesis, asset matrix, claim ledger, and creative testing handoffs. |
 | `hipson-adapter` | Create lightweight Hipson-style research maps, internet mapping packets, bounded instruction packets, review packets, and execution packets. |
 | `humanizer` | Polish writing, copy, VO, dialogue, tone, final summaries, and reduce generic AI phrasing while preserving facts. |
 | `hyperframes-gsap-guidance` | Plan GSAP timelines, easing, stagger, transitions, captions, overlays, and animation QA for HyperFrames. |
@@ -81,9 +84,12 @@ Skills are portable workflow contracts. They define when a capability should be 
 | `instruction-packet-factory` | Create bounded instruction packets, research maps, review packets, and execution packets for workflow roles. |
 | `marketing` | Plan campaigns, offer framing, asset matrices, audience fit, channel adaptation, launch kits, and campaign QA. |
 | `onboarding-preference-tuning` | Run first-time setup for preferences, local display names, output paths, QA strictness, delivery behavior, and optional expansions. |
+| `opencut-video-studio` | Prepare local OpenCut asset bins, edit decisions, timeline maps, variants, export targets, and QA contracts. |
 | `output-critic-iteration` | Review produced outputs against brief, references, prompts, copy locks, observables, and acceptance criteria. |
 | `pipeline-core` | Route workflows through roles, gates, handoffs, artifacts, request diagnostics, reasoning routes, Loop Protocol, QA, delivery, and governance. |
 | `reference-pack-curator` | Structure references into canonical sources, aliases, role tags, suppression rules, conflicts, and continuity anchors. |
+| `producer-ai-task-builder` | Build text-only music, music-video, visible-singing, lip-sync-triage, and repair task packets without provider execution. |
+| `screenplay-story-architect` | Develop original loglines, pitches, treatments, beat sheets, scenes, dialogue, coverage, rewrites, and production handoffs. |
 | `storyboard-board-architect` | Specify storyboard board, production board, or shot board graphics with panel structure and board copy. |
 | `storyboard-director` | Convert direction into beats, scenes, shot cards, timing, transitions, and continuity rules. |
 | `storytelling` | Plan narrative structure, story beats, emotional arcs, scene logic, continuity, and multi-shot workflows. |
@@ -98,7 +104,8 @@ Skills are portable workflow contracts. They define when a capability should be 
 | --- | --- | --- |
 | Core routing and governance | `pipeline-core`, `workflow-orchestrator`, `onboarding-preference-tuning`, `workflow-self-improvement` | Own install-time behavior, route selection, Project State, onboarding preferences, and explicit-only improvement proposals. |
 | Intake, references, evidence, and packets | `brief-architect`, `reference-pack-curator`, `instruction-packet-factory`, `hipson-adapter` | Support brief, reference, research, and bounded packet roles without installing full Hipson. |
-| Creative direction and strategy support | `marketing`, `character-design`, `cinematography`, `commercial-video-campaign-director`, `commercial-visual-campaign-director`, `creative-music-video-director`, `storytelling`, `ugc` | Support `static-direction`, `motion-direction`, `music-video-direction`, `storyboard-architect`, `copy-voice`, `image-prompting`, and `video-prompting`. |
+| Creative direction and strategy support | `ecommerce-campaign-strategy-director`, `screenplay-story-architect`, `marketing`, `character-design`, `cinematography`, `commercial-video-campaign-director`, `commercial-visual-campaign-director`, `creative-music-video-director`, `storytelling`, `ugc` | Support ecommerce strategy, `static-direction`, `motion-direction`, `music-video-direction`, `storyboard-architect`, `copy-voice`, `image-prompting`, and `video-prompting`. |
+| Video production, captions, and local editing | `creative-video-producer`, `producer-ai-task-builder`, `caption-studio`, `opencut-video-studio` | Coordinate complete video packs, text-only music/video task packets, caption contracts, and OpenCut edit packs without bundling provider execution. |
 | Prompting, boards, and coded-video planning | `image-prompt-architect`, `video-prompt-architect`, `storyboard-director`, `storyboard-board-architect`, `hyperframes-workflow`, `hyperframes-prompting`, `hyperframes-gsap-guidance` | Support prompt, storyboard, board, and HyperFrames routes. |
 | QA, delivery, and asset handling | `output-critic-iteration`, `asset-manifest`, `delivery-documentation`, `humanizer` | Support `qa-iteration`, `asset-manifest`, `delivery-documentation`, and `copy-voice` responsibilities. |
 

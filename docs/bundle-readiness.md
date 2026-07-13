@@ -80,10 +80,10 @@ Prefer several focused bundles over one oversized package:
 | Bundle | Public contents | Keep outside by default |
 | --- | --- | --- |
 | `framecore-pipeline-core` | AGENTS template, pipeline-core, gates, handoffs, artifact schemas, Memory Cache templates | private project state, raw transcripts, local recovery folders |
-| `framecore-creative-workflow` | brief, reference, direction, copy, prompt, storyboard, QA, delivery-doc skills | generated outputs, private references, client context |
-| `framecore-ecommerce-workflow` | ecommerce examples and future ecommerce-specific contracts | private product data, claims, storefront credentials |
+| `framecore-creative-workflow` | brief, reference, direction, screenplay, creative-video, captions, local edit planning, prompt, storyboard, QA, and delivery-doc skills | generated outputs, private references, client context |
+| `framecore-ecommerce-workflow` | ecommerce strategy skill, ecommerce examples, product/offer truth, asset matrices, claim ledgers, and testing handoffs | private product data, unverified claims, storefront credentials |
 | `framecore-provider-governance` | provider-neutral policy, text-image policy, execution boundaries | provider clients, credentials, endpoint catalogs, provider CLIs |
-| `framecore-chatgpt-skills` | Repository bootstrap, 27 source mappings and UI metadata contracts, install profiles, onboarding, temporary role mapping | `.codex/agents/*.toml` as ChatGPT agents, local manifests, workspace files |
+| `framecore-chatgpt-skills` | Repository bootstrap, 33 source mappings and UI metadata contracts, install profiles, onboarding, temporary role mapping | `.codex/agents/*.toml` as ChatGPT agents, local manifests, workspace files |
 | `framecore-hyperframes-guidance` | coded-video planning guidance and QA contracts | render runtimes, deployment targets, paid execution routes |
 | `framecore-hipson-adapter` | lightweight packet templates and boundary docs | full Hipson clone, cross-repo scanning tools, private sidecars |
 

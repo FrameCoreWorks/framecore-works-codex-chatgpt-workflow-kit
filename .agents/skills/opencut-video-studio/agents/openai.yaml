@@ -1,0 +1,7 @@
+interface:
+  display_name: "OpenCut Video Studio"
+  short_description: "Prepare and QA local OpenCut editing packs"
+  default_prompt: "Use $opencut-video-studio to turn these assets and edit goals into an OpenCut asset bin, timeline plan, edit decisions, variants, exports, and QA checklist."
+
+policy:
+  allow_implicit_invocation: true

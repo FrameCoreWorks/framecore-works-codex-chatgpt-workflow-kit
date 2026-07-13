@@ -23,8 +23,8 @@ Use this document when you need the full mental model before installing, customi
 | Blueprint | Primary route | Main artifacts | Main gates | Example |
 | --- | --- | --- | --- | --- |
 | Minimal planning route | `intent-confirmation` -> `workflow-orchestrator` -> `brief-architect` -> `delivery-documentation` | Task Confirmation, Project State, Brief Contract, Delivery Manifest | `intent_lock`, `workflow_route`, `brief_completeness`, `delivery_fit` | [Minimal Workflow](../examples/minimal-workflow/README.md) |
-| Static campaign or e-commerce graphic | intent, route, brief, references, static direction, copy, image prompting, QA, delivery | Brief Contract, Reference Pack, Direction Contract, Copy Pack, Prompt Pack, QA / Iteration Report | intent, route, brief, reference, direction, copy, prompt, QA, delivery gates | [Static Campaign](../examples/static-campaign/README.md), [Ecommerce Product Visual](../examples/ecommerce-product-visual/README.md) |
-| Video campaign or storyboard | intent, route, brief, references, motion direction, storyboard, copy, video prompting, QA, delivery | Direction Contract, Storyboard Contract, Copy Pack, Prompt Pack, QA / Iteration Report | intent, route, brief, reference, direction, structure, copy, prompt, QA, delivery gates | [Video Storyboard](../examples/video-storyboard/README.md) |
+| Static campaign or e-commerce graphic | intent, route, brief, optional ecommerce strategy, references, static direction, copy, image prompting, QA, delivery | Ecommerce Campaign Strategy Pack when needed, Brief Contract, Reference Pack, Direction Contract, Copy Pack, Prompt Pack, QA / Iteration Report | intent, route, brief, reference, direction, copy, prompt, QA, delivery gates | [Static Campaign](../examples/static-campaign/README.md), [Ecommerce Product Visual](../examples/ecommerce-product-visual/README.md) |
+| Video campaign or storyboard | intent, route, brief, references, optional screenplay or producer layer, motion direction, storyboard, copy, video prompting, QA, delivery | Screenplay Development Pack or Creative Video Production Pack when needed, Direction Contract, Storyboard Contract, Copy Pack, Prompt Pack, QA / Iteration Report | intent, route, brief, reference, direction, structure, copy, prompt, QA, delivery gates | [Video Storyboard](../examples/video-storyboard/README.md) |
 | Storyboard board artifact | video storyboard route plus `storyboard-board-architect` and image prompting | Storyboard Contract, Board Artifact Prompt, Image Prompt Contract, QA / Iteration Report | structure, storyboard board, promptability, QA, delivery gates | [Storyboard Board](../examples/storyboard-board/README.md) |
 | HyperFrames coded video | intent, route, brief, references, motion, storyboard, copy, HyperFrames producer, asset manifest, QA, delivery | HyperFrames Production Brief, Asset Manifest, QA / Iteration Report, Delivery Manifest | execution manifest, asset manifest, QA, delivery gates | [HyperFrames Video](../examples/hyperframes-video/README.md) |
 | Prompt pack without execution | intent, route, brief, optional references/direction/copy, image or video prompting, QA, delivery | Prompt Pack, Image Prompt Contract when static image text matters, QA / Iteration Report | promptability, QA, delivery gates | [Image Prompt Pack](../examples/image-prompt-pack/README.md), [No External Execution Mode](../examples/no-provider-mode/README.md) |
@@ -47,19 +47,19 @@ If a skill appears here but does not appear as a role-agent template, treat it a
 | `reference-curator` | `reference-pack-curator`, `hipson-adapter` when a packet helps | Reference Pack | `reference_authority_fit` |
 | `research-evidence` | `hipson-adapter`, `instruction-packet-factory`, `pipeline-core` | Evidence Note | `evidence_fit` |
 | `instruction-packet-factory` | `instruction-packet-factory`, `hipson-adapter` | Instruction Packet | `instruction_packet_fit` |
-| `static-direction` | `commercial-visual-campaign-director`, `marketing`, `character-design`, `storytelling` | Direction Contract | `direction_fit` |
-| `motion-direction` | `commercial-video-campaign-director`, `cinematography`, `storytelling`, `ugc` | Motion Direction Contract | `direction_fit` |
-| `music-video-direction` | `creative-music-video-director`, `cinematography`, `storytelling` | Music Video Direction Contract | `direction_fit` |
-| `storyboard-architect` | `storyboard-director`, `cinematography`, `storytelling` | Storyboard Contract | `structure_fit` |
+| `static-direction` | `ecommerce-campaign-strategy-director`, `commercial-visual-campaign-director`, `marketing`, `character-design`, `storytelling` | Direction Contract | `direction_fit` |
+| `motion-direction` | `ecommerce-campaign-strategy-director`, `creative-video-producer`, `commercial-video-campaign-director`, `cinematography`, `storytelling`, `ugc` | Motion Direction Contract | `direction_fit` |
+| `music-video-direction` | `creative-music-video-director`, `producer-ai-task-builder`, `cinematography`, `storytelling` | Music Video Direction Contract | `direction_fit` |
+| `storyboard-architect` | `screenplay-story-architect`, `creative-video-producer`, `storyboard-director`, `cinematography`, `storytelling` | Storyboard Contract | `structure_fit` |
 | `storyboard-board-architect` | `storyboard-board-architect`, `image-prompt-architect` | Board Artifact Prompt | `storyboard_board_fit` |
-| `copy-voice` | `humanizer`, `marketing`, `ugc` | Copy Pack | `copy_fit` |
+| `copy-voice` | `humanizer`, `caption-studio`, `producer-ai-task-builder`, `marketing`, `ugc` | Copy Pack | `copy_fit` |
 | `image-prompting` | `image-prompt-architect`, `pipeline-core` text-image policy | Prompt Pack or Image Prompt Contract | `promptability_fit` |
-| `video-prompting` | `video-prompt-architect`, `cinematography`, `storytelling` | Video Prompt Pack | `promptability_fit` |
+| `video-prompting` | `video-prompt-architect`, `creative-video-producer`, `producer-ai-task-builder`, `cinematography`, `storytelling` | Video Prompt Pack | `promptability_fit` |
 | `tool-routing-cost` | `pipeline-core`, provider-neutral policy docs | Tool Routing Plan | `schema_pricing_fit` |
-| `execution-manifest` | `asset-manifest`, `pipeline-core` | Execution Manifest | `execution_manifest_fit` |
+| `execution-manifest` | `creative-video-producer`, `opencut-video-studio`, `asset-manifest`, `pipeline-core` | Execution Manifest or local Edit Pack | `execution_manifest_fit` |
 | `hyperframes-producer` | `hyperframes-workflow`, `hyperframes-prompting`, `hyperframes-gsap-guidance` | HyperFrames Production Brief | `execution_manifest_fit` |
 | `asset-manifest` | `asset-manifest` | Asset Manifest | `asset_manifest_fit` |
-| `qa-iteration` | `output-critic-iteration`, `pipeline-core` | QA / Iteration Report | `post_execution_fit` |
+| `qa-iteration` | `output-critic-iteration`, `creative-video-producer`, `caption-studio`, `opencut-video-studio`, `pipeline-core` | QA / Iteration Report | `post_execution_fit` |
 | `delivery-documentation` | `delivery-documentation`, `humanizer` when copy polish matters | Delivery Manifest | `delivery_fit` |
 
 ## Intentional Name Mismatches
@@ -71,6 +71,12 @@ If a skill appears here but does not appear as a role-agent template, treat it a
 | `commercial-visual-campaign-director` | `static-direction` | The role stays neutral; the skill adds commercial static campaign direction. |
 | `commercial-video-campaign-director` | `motion-direction` | The role stays neutral; the skill adds commercial video direction. |
 | `creative-music-video-director` | `music-video-direction` | The role stays neutral; the skill adds music-video direction. |
+| `ecommerce-campaign-strategy-director` | `workflow-orchestrator`, `static-direction`, and `motion-direction` | The skill adds product, offer, audience, asset-matrix, claim, and testing strategy before creative direction. |
+| `screenplay-story-architect` | `storyboard-architect` and `motion-direction` | The skill adds story thesis, treatment, sequence, scene, dialogue, coverage, and rewrite methods before shot planning. |
+| `creative-video-producer` | `workflow-orchestrator` and several production roles | The skill coordinates a complete video package while each role retains ownership of its checked artifact. |
+| `caption-studio` | `copy-voice`, `qa-iteration`, and local editing handoffs | The skill adds timing, style, safe-zone, render-handoff, and caption QA rules without becoming a renderer. |
+| `opencut-video-studio` | `execution-manifest`, `asset-manifest`, and `qa-iteration` | The skill creates a local Edit Pack without assuming OpenCut automation or replacing workflow governance. |
+| `producer-ai-task-builder` | `music-video-direction`, `copy-voice`, and `video-prompting` | The skill creates text-only music and music-video packets without bundling provider execution. |
 | `marketing`, `ugc`, `storytelling`, `character-design`, `cinematography` | Multiple creative roles | These are support contracts used when the route needs strategy, script, narrative, character, or cinematic depth. |
 
 ## Knowledge Packs
@@ -80,6 +86,8 @@ If a skill appears here but does not appear as a role-agent template, treat it a
 | Humanizer | `.agents/skills/humanizer/`, `pipeline-core/references/humanizer-routing.md` | Text needs natural voice, tone adaptation, or final wording polish while preserving locked facts. |
 | HyperFrames | `.agents/skills/hyperframes-*`, `docs/hyperframes.md` | A coded-video or HTML-to-video plan needs scenes, timing, animation guidance, captions, render QA, or manifest planning. |
 | Hipson Adapter | `.agents/skills/hipson-adapter/`, `docs/hipson-integration.md` | A task needs research maps, internet mapping packets, review packets, or bounded instruction packets without installing full Hipson. |
+| Creative video production | `.agents/skills/creative-video-producer/`, `.agents/skills/screenplay-story-architect/`, `.agents/skills/caption-studio/`, `.agents/skills/opencut-video-studio/` | A video request needs story development, coordinated production, detailed captions, or a local timeline Edit Pack. |
+| Ecommerce strategy | `.agents/skills/ecommerce-campaign-strategy-director/` | Product and offer truth need audience/JTBD, asset matrices, claim ledgers, creative angles, and controlled test plans before prompting. |
 | Memory Cache | `templates/Memory Cache/`, `docs/memory-cache.md`, `docs/context-folder.md` | Long Codex sessions need local state, recovery prompts, decision logs, and context folding. |
 | Provider governance | `config/provider-neutral-policy.json`, `config/text-image-policy.json`, `docs/provider-neutral-boundary.md` | A workflow touches execution planning, visible text in graphics, OpenAI API boundaries, uploads, or external-provider safety. |
 

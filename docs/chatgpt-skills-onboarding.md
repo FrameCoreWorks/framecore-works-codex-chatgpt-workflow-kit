@@ -41,7 +41,7 @@ Three checked-in files make the setup self-describing:
 | --- | --- |
 | [`CHATGPT_INSTALL.md`](../CHATGPT_INSTALL.md) | Canonical behavior ChatGPT follows after the user explicitly requests repository skill setup. |
 | [`config/chatgpt-skills.json`](../config/chatgpt-skills.json) | Public repository identity, bootstrap URLs, safety rules, profiles, and installation order. |
-| [`config/chatgpt-skill-sources.json`](../config/chatgpt-skill-sources.json) | Exact source files, raw GitHub URLs, and SHA-256 hashes for all 27 skills. |
+| [`config/chatgpt-skill-sources.json`](../config/chatgpt-skill-sources.json) | Exact source files, raw GitHub URLs, and SHA-256 hashes for all 33 skills. |
 
 Every public skill keeps its canonical contract in `.agents/skills/<skill-name>/SKILL.md`. Its optional references, templates, scripts, fixtures, and `agents/openai.yaml` metadata are listed explicitly in the source manifest. ChatGPT must not infer a skill from an old local copy or a similarly named existing skill.
 
@@ -89,7 +89,7 @@ The profile order is defined in `config/chatgpt-skills.json`:
 | --- | --- |
 | `core` | Onboarding, pipeline rules, orchestration, brief creation, QA, and delivery foundations. |
 | `creative` | Core plus the main creative direction, prompting, storyboard, campaign, Humanizer, and asset skills. |
-| `full` | All 27 public skills, including specialized HyperFrames, Hipson Adapter, and workflow self-improvement skills. |
+| `full` | All 33 public skills, including ecommerce strategy, screenplay, creative video production, captions, OpenCut planning, Producer AI packets, HyperFrames, Hipson Adapter, and workflow self-improvement skills. |
 
 ChatGPT recommends the smallest profile that covers the Workflow Profile. A smaller custom selection is valid for narrow use cases. Before creation begins, ChatGPT shows every selected skill name and a one-line reason, then asks for approval.
 

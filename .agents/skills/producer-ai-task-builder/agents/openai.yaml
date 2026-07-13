@@ -1,0 +1,7 @@
+interface:
+  display_name: "Producer AI Task Builder"
+  short_description: "Build text-only music and music-video task packets"
+  default_prompt: "Use $producer-ai-task-builder to turn this music or music-video request into a complete text-only task packet with QA, safety, sync, and repair guidance."
+
+policy:
+  allow_implicit_invocation: true

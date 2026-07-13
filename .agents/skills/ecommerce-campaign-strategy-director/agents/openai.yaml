@@ -1,0 +1,7 @@
+interface:
+  display_name: "Ecommerce Campaign Strategy Director"
+  short_description: "Turn product truth into a testable campaign plan"
+  default_prompt: "Use $ecommerce-campaign-strategy-director to turn this product or offer brief into a campaign thesis, asset matrix, test plan, claim ledger, and downstream handoffs."
+
+policy:
+  allow_implicit_invocation: true
