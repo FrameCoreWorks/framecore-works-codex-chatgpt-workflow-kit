@@ -1,4 +1,4 @@
-![FrameCore Works creative workflow doodle banner](.github/assets/readme-banner.png)
+![FrameCore Works Codex and ChatGPT workflow skill kit doodle banner](.github/assets/readme-banner.png)
 
 # FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT
 
