@@ -180,8 +180,8 @@ Safety:
 }
 
 try {
-  process.exit(await runGuidedInstall());
+  process.exitCode = await runGuidedInstall();
 } catch (error) {
   console.error(error.message);
-  process.exit(1);
+  process.exitCode = 1;
 }
