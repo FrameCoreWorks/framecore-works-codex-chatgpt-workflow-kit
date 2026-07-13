@@ -93,7 +93,7 @@ The release-check workflow must remain non-publishing, read-only, and secret-fre
 
 `release:readiness` checks package metadata, required package file roots, changelog coverage for the package version, and optional release tag alignment. In GitHub tag workflows, the tag must match `v` plus the `package.json` version.
 
-`chatgpt:skills:check` validates `CHATGPT_INSTALL.md`, all 33 public skill folders, native UI metadata, install profiles, raw source URLs, and checked-in SHA-256 hashes without modifying source files.
+`chatgpt:skills:check` validates `CHATGPT_INSTALL.md`, all 34 public skill folders, native UI metadata, install profiles, raw source URLs, and checked-in SHA-256 hashes without modifying source files.
 
 The path-sensitive `cross-platform` workflow runs automatically for installer, test, config, package, and workflow changes, and can still be run manually before a public version tag. The default `validate` workflow stays Linux-only for fast push feedback; cross-platform checks cover Ubuntu, macOS, Windows, tests, smoke install, and package audit without making documentation-only commits depend on all hosted runner families.
 
@@ -110,7 +110,7 @@ Example folders should include their `workflow.json` manifests. These are source
 ChatGPT creates native skills from checked-in repository sources. Before publishing a GitHub release that changes those sources:
 
 1. Run `npm run chatgpt:skills:sources:update`.
-2. Confirm `config/chatgpt-skill-sources.json` contains all 33 skills and only intended files.
+2. Confirm `config/chatgpt-skill-sources.json` contains all 34 skills and only intended files.
 3. Run `npm run chatgpt:skills:check`.
 4. Paste the README ChatGPT setup prompt into a compatible ChatGPT account.
 5. Verify language-first onboarding, profile approval, one-skill-at-a-time `$skill-creator` behavior, and truthful final statuses.

@@ -17,7 +17,7 @@ The current kit focuses on a provider-neutral Codex workflow baseline:
 - workflow gates, handoffs, artifact schemas, and validated examples
 - Humanizer, HyperFrames workflow knowledge, lightweight Hipson Adapter, and explicit workflow self-improvement governance
 - privacy audit, package audit, release checks, and public repo hygiene
-- repository-source native ChatGPT setup for all 33 public skills, UI metadata, guided onboarding, and temporary workflow roles
+- repository-source native ChatGPT setup for all 34 public skills, UI metadata, guided onboarding, and temporary workflow roles
 
 ## Known Limitations
 

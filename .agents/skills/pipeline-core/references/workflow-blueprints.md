@@ -160,6 +160,41 @@ Required gates:
 
 Boundary: HyperFrames is a coded-video workflow path, not a paid media-provider integration.
 
+## Remotion Coded Video
+
+Use when the output is a deterministic React/TypeScript video composition, reusable template, data-driven variant system, captioned programmatic video, or locally rendered Remotion artifact.
+
+Route:
+
+1. `intent-confirmation`
+2. `workflow-orchestrator`
+3. `brief-architect`
+4. `reference-curator`
+5. `motion-direction`
+6. `storyboard-architect`
+7. `copy-voice` when captions, titles, VO, or overlays matter
+8. `execution-manifest` supported by `remotion-video-production`
+9. `asset-manifest` when source or rendered assets exist
+10. `qa-iteration`
+11. `delivery-documentation`
+
+Required gates:
+
+- `intent_lock`
+- `workflow_route`
+- `loop_control_fit`
+- `brief_completeness`
+- `reference_authority_fit`
+- `direction_fit`
+- `structure_fit`
+- `copy_fit` when copy is used
+- `execution_manifest_fit`
+- `asset_manifest_fit` when outputs exist
+- `post_execution_fit`
+- `delivery_fit`
+
+Boundary: the skill may plan or implement local Remotion work when the active environment supports it. It does not activate hosted rendering, uploads, external providers, or dependency installation by itself.
+
 ## Prompt Pack Without Execution
 
 Use when the user wants prompts, structured instructions, or a ready-to-run pack, but does not ask Codex to execute external tools.

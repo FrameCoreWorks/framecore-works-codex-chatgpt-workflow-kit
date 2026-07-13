@@ -1,0 +1,7 @@
+interface:
+  display_name: "Remotion Video Production"
+  short_description: "Build deterministic React video workflows"
+  default_prompt: "Use $remotion-video-production to plan or implement this code-driven video as a testable Remotion composition."
+
+policy:
+  allow_implicit_invocation: true

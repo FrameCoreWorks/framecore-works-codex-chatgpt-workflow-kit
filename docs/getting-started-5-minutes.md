@@ -28,7 +28,7 @@ If you do not know how to clone a repo, install [GitHub Desktop](https://desktop
 
 ```text
 Install FrameCore Works Skill Kit for Codex from:
-https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
 I am new to this repo. Use the safe beginner path:
 

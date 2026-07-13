@@ -89,7 +89,8 @@ Read only what is needed:
 - Use role IDs from the public kit. Use local display names only from Codex onboarding config, or user-selected labels in the current ChatGPT conversation.
 - Do not skip upstream gates when later roles depend on their artifacts.
 - Route text, VO, captions, and user-facing polish through `humanizer` when copy quality matters.
-- Route coded-video planning through HyperFrames skills when the requested artifact is a coded video composition.
+- Route deterministic React/TypeScript video composition through `remotion-video-production`.
+- Route coded-video planning through HyperFrames skills when the requested runtime is specifically HyperFrames or HTML/GSAP composition.
 - Route Hipson-style packets through `hipson-adapter` unless the user chooses full Hipson separately.
 - Route unresolved product, offer, audience, channel, claim, asset-matrix, or creative-test strategy through `ecommerce-campaign-strategy-director`.
 - Route screenplay, treatment, scene, dialogue, pitch, coverage, or narrative-rewrite work through `screenplay-story-architect` before storyboard production.

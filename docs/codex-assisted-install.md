@@ -13,9 +13,9 @@ For a fresh Codex setup, the user may need to configure the agent sandbox before
 Use this version when the user does not know Terminal and needs Codex to explain each step:
 
 ```text
-Install FrameCore Works: Creative Workflow Skill Kit for Codex from this GitHub repo:
+Install FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT from this GitHub repo:
 
-https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
 I am a beginner. Please guide me step by step.
 
@@ -51,7 +51,7 @@ If I do not know how to clone the repository, recommend GitHub Desktop as the ea
 ## Paste-In Instruction
 
 ```text
-Clone https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit.git into a temporary or tools folder outside the target workspace, read its README, docs/quickstart.md, and docs/codex-assisted-install.md, then install it into my current workspace.
+Clone https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit.git into a temporary or tools folder outside the target workspace, read its README, docs/quickstart.md, and docs/codex-assisted-install.md, then install it into my current workspace.
 
 Follow this order:
 1. Run the guided project-local installer if available.

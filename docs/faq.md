@@ -38,9 +38,9 @@ The beginner path expects the target workspace to already exist. Lower-level scr
 
 Yes, when the ChatGPT account exposes native Skills and `$skill-creator`. Paste the repository-source setup prompt from README. ChatGPT first asks for the setup language, runs onboarding, recommends the smallest useful profile, reads each selected skill from the declared raw GitHub sources, and creates the native skills through `$skill-creator`. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
 
-### Does one ChatGPT prompt install all 33 skills automatically?
+### Does one ChatGPT prompt install all 34 skills automatically?
 
-The prompt starts and governs the complete setup, but each repository skill remains a separate native ChatGPT Skill. ChatGPT must complete onboarding, obtain approval for the selected profile, create skills in the declared order, and show a visible status for each one. It must not claim all 33 are installed merely because it read the repository.
+The prompt starts and governs the complete setup, but each repository skill remains a separate native ChatGPT Skill. ChatGPT must complete onboarding, obtain approval for the selected profile, create skills in the declared order, and show a visible status for each one. It must not claim all 34 are installed merely because it read the repository.
 
 ## Configuration Questions
 

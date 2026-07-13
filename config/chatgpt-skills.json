@@ -2,13 +2,13 @@
   "schema_version": 1,
   "mode": "repository-source",
   "surface": "native-chatgpt-skills",
-  "repository": "https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit",
+  "repository": "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit",
   "ref": "main",
-  "raw_base_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/",
+  "raw_base_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/",
   "bootstrap_path": "CHATGPT_INSTALL.md",
-  "bootstrap_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/CHATGPT_INSTALL.md",
+  "bootstrap_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/CHATGPT_INSTALL.md",
   "source_manifest_path": "config/chatgpt-skill-sources.json",
-  "source_manifest_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/config/chatgpt-skill-sources.json",
+  "source_manifest_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/config/chatgpt-skill-sources.json",
   "source_root": ".agents/skills",
   "native_creator": "$skill-creator",
   "installation_rules": {
@@ -33,7 +33,7 @@
       ]
     },
     "creative": {
-      "summary": "Core workflow plus the main creative direction, prompting, storyboard, campaign, and asset skills.",
+      "summary": "Core workflow plus the main creative direction, prompting, storyboard, campaign, coded-video, and asset skills.",
       "skills": [
         "onboarding-preference-tuning",
         "pipeline-core",
@@ -62,11 +62,12 @@
         "creative-video-producer",
         "caption-studio",
         "opencut-video-studio",
+        "remotion-video-production",
         "delivery-documentation"
       ]
     },
     "full": {
-      "summary": "Every public workflow skill in the repository, ordered from setup and routing through specialists, QA, delivery, and governance.",
+      "summary": "Every public workflow skill in the repository, ordered from setup and routing through creative, editing, Remotion, specialist, QA, delivery, and governance capabilities.",
       "skills": [
         "onboarding-preference-tuning",
         "pipeline-core",
@@ -94,6 +95,7 @@
         "creative-video-producer",
         "caption-studio",
         "opencut-video-studio",
+        "remotion-video-production",
         "hyperframes-gsap-guidance",
         "hyperframes-prompting",
         "hyperframes-workflow",

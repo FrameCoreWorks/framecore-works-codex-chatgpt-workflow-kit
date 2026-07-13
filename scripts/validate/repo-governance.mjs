@@ -96,7 +96,7 @@ export function run(ctx) {
   const noticeFile = join(validationRoot, "NOTICE");
   if (existsSync(noticeFile)) {
     const text = read(noticeFile);
-    for (const phrase of ["FrameCore Works: Creative Workflow Skill Kit for Codex", "Apache-2.0", "third-party notices"]) {
+    for (const phrase of ["FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT", "Apache-2.0", "third-party notices"]) {
       if (!text.includes(phrase)) addFinding("WEAK_NOTICE_FILE", `NOTICE is missing required redistribution phrase: ${phrase}`, [noticeFile]);
     }
   }

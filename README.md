@@ -2,7 +2,7 @@
 
 # FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT
 
-[![validate](https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit/actions/workflows/validate.yml/badge.svg)](https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit/actions/workflows/validate.yml)
+[![validate](https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/actions/workflows/validate.yml/badge.svg)](https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/actions/workflows/validate.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 Licensed under Apache-2.0. See [NOTICE](NOTICE) for redistribution notice details.
@@ -25,12 +25,12 @@ This path is for ChatGPT users who have native Skills and the built-in `$skill-c
 ```text
 Use ChatGPT's built-in $skill-creator to install native ChatGPT Skills directly from this repository:
 
-https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
 This is a ChatGPT repository-source setup, not a Codex project-local install.
 
 First read and follow the canonical setup contract:
-https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/CHATGPT_INSTALL.md
+https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/CHATGPT_INSTALL.md
 
 Then read the setup configuration and exact skill source inventory referenced by that contract. Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup.
 
@@ -48,7 +48,7 @@ This skill kit adds a project-local creative workflow layer to Codex and exposes
 At a glance, the repo includes:
 
 - **20 Codex role-agent templates** for routing, creative planning, prompting, QA, delivery, and execution documentation.
-- **33 portable workflow skills** for brief building, ecommerce strategy, screenplay development, creative video production, captions, OpenCut edit planning, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for ChatGPT's built-in skill creation flow.
+- **34 portable workflow skills** for brief building, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for ChatGPT's built-in skill creation flow.
 - **Project-local install and onboarding** with doctor/preflight, dry-run, manifest tracking, update, repair, and uninstall.
 - **Workflow contracts** for gates, handoffs, artifact schemas, examples, Loop Protocol, and provider-neutral safety boundaries.
 
@@ -58,11 +58,11 @@ For the full inventory, see [Included Agents And Skills](docs/included-agents-an
 | --- | --- |
 | Core routing | `intent-confirmation`, `workflow-orchestrator`, `instruction-packet-factory`, `pipeline-core` |
 | Creative planning | `brief-architect`, `reference-curator`, `ecommerce-campaign-strategy-director`, `screenplay-story-architect`, campaign and storytelling skills |
-| Video production | `creative-video-producer`, `producer-ai-task-builder`, `caption-studio`, `opencut-video-studio`, storyboard and HyperFrames skills |
+| Video production | `creative-video-producer`, `producer-ai-task-builder`, `caption-studio`, `opencut-video-studio`, `remotion-video-production`, storyboard and HyperFrames skills |
 | Prompt production | `image-prompting`, `video-prompting`, `image-prompt-architect`, `video-prompt-architect` |
 | QA and delivery | `qa-iteration`, `asset-manifest`, `delivery-documentation`, output critique and delivery skills |
 | Long-session support | `Context/`, `Memory Cache/`, Project State templates, semantic-memory helpers |
-| Specialized workflow knowledge | Humanizer, ecommerce strategy, screenplay development, captions, OpenCut planning, HyperFrames, lightweight Hipson Adapter, storyboard board planning |
+| Specialized workflow knowledge | Humanizer, ecommerce strategy, screenplay development, captions, OpenCut planning, Remotion production, HyperFrames, lightweight Hipson Adapter, storyboard board planning |
 
 The kit provides the workflow spine: roles, gates, handoffs, artifact expectations, examples, safety boundaries, onboarding, and update/repair lifecycle. Users can layer deeper domain-specific prompting or execution tools on top, but those provider/tool integrations are intentionally not bundled here.
 
@@ -100,9 +100,9 @@ Fresh Codex note: if Codex shows a button such as `Configure sandbox`, `Configur
 3. Paste this into Codex:
 
 ```text
-Install FrameCore Works: Creative Workflow Skill Kit for Codex from this GitHub repo:
+Install FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT from this GitHub repo:
 
-https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
 I am a beginner. Please guide me step by step.
 
@@ -145,7 +145,7 @@ If your Codex environment can clone repositories and run local shell commands, f
 If your agent or chat surface cannot run shell commands, use the manual [Install Flow](#install-flow) instead.
 
 ```text
-Clone https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit.git into a temporary or tools folder outside the target workspace, read its README, docs/quickstart.md, and docs/codex-assisted-install.md, then install it into my current workspace.
+Clone https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit.git into a temporary or tools folder outside the target workspace, read its README, docs/quickstart.md, and docs/codex-assisted-install.md, then install it into my current workspace.
 
 Follow this order:
 1. Run the guided project-local installer if available.

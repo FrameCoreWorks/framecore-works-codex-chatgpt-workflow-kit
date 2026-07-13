@@ -48,7 +48,7 @@
     },
     "creative-workflow": {
       "status": "current-public",
-      "summary": "Creative production workflow for briefs, references, direction, copy, prompts, storyboards, QA, and delivery documentation.",
+      "summary": "Creative production workflow for briefs, references, direction, copy, prompts, storyboards, local editing, Remotion compositions, QA, and delivery documentation.",
       "public_installable": true,
       "dependencies": [
         "pipeline-core",
@@ -81,6 +81,7 @@
         "output-critic-iteration",
         "producer-ai-task-builder",
         "reference-pack-curator",
+        "remotion-video-production",
         "screenplay-story-architect",
         "storyboard-board-architect",
         "storyboard-director",
@@ -241,7 +242,7 @@
     },
     "chatgpt-skills-onboarding": {
       "status": "current-public",
-      "summary": "Repository-source ChatGPT setup, install profiles, native skill metadata, onboarding, and temporary-role mapping for every public workflow skill.",
+      "summary": "Repository-source ChatGPT setup, install profiles, native skill metadata, onboarding, and temporary-role mapping for every public workflow skill, including Remotion video production.",
       "public_installable": true,
       "dependencies": [
         "pipeline-core",
@@ -287,6 +288,7 @@
         "pipeline-core",
         "producer-ai-task-builder",
         "reference-pack-curator",
+        "remotion-video-production",
         "screenplay-story-architect",
         "storyboard-board-architect",
         "storyboard-director",

@@ -114,6 +114,7 @@ Ask for the smallest useful route:
 - Prompt pack without execution: use when you want ready-to-run prompts but no generated media.
 - Static campaign or ecommerce graphic: use for product visuals, posters, banners, marketplace assets, or social graphics.
 - Video campaign or storyboard: use for shot lists, motion direction, storyboard planning, and video prompt packs.
+- Remotion coded video: use for deterministic React/TypeScript compositions, reusable props, data-driven variants, and frame-accurate local renders.
 - HyperFrames coded video: use for HTML/video composition planning, scene structure, captions, overlays, render QA, and delivery manifests.
 - QA And Delivery Review: use when files already exist and you need review, traceability, acceptance decisions, and packaging notes.
 - Workflow self-improvement: use when you want retrospective logs and change proposals.
@@ -142,6 +143,12 @@ For coded video:
 
 ```text
 Use FrameCore HyperFrames workflow for a coded-video plan. Produce scene structure, timing, animation system, caption or overlay plan, render QA criteria, and delivery manifest.
+```
+
+For Remotion video:
+
+```text
+Use the remotion-video-production skill for this deterministic React/TypeScript video. Lock the composition ID, dimensions, FPS, duration, props, scene frame ranges, asset paths, captions, representative frame checks, render command, QA evidence, and delivery outputs.
 ```
 
 ## No External Execution Mode

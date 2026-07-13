@@ -16,7 +16,7 @@ test("ChatGPT repository installer, profiles, sources, and UI metadata validate"
 test("ChatGPT source manifest covers every repository skill in declared install order", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
   const manifest = buildChatGptSkillSourceManifest(root);
-  assert.equal(manifest.skills.length, 33);
+  assert.equal(manifest.skills.length, 34);
   assert.deepEqual(manifest.skills.map((skill) => skill.name), config.profiles.full.skills);
   for (const skill of manifest.skills) {
     assert.ok(skill.files.some((file) => file.path === "SKILL.md"));
@@ -37,6 +37,7 @@ test("new portable production skills are included in creative and full profiles"
     "ecommerce-campaign-strategy-director",
     "opencut-video-studio",
     "producer-ai-task-builder",
+    "remotion-video-production",
     "screenplay-story-architect",
   ];
   for (const skill of expected) {

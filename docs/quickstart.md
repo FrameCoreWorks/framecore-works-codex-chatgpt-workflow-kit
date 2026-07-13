@@ -9,9 +9,9 @@ If you do not know Terminal, use a Codex environment that can run local shell co
 Fresh Codex setup note: if Codex shows a button such as `Configure sandbox`, `Configure agent sandbox`, or `Skonfiguruj piaskownicę agenta`, click it first and choose the project folder where you want to use this workflow. If Codex can run shell commands but says `git` or `gh` is missing, clone this repository with GitHub Desktop into a temporary, tools, or GitHub folder outside your project, then return to Codex and continue from the cloned repo.
 
 ```text
-Install FrameCore Works: Creative Workflow Skill Kit for Codex from this GitHub repo:
+Install FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT from this GitHub repo:
 
-https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
 I am a beginner. Please guide me step by step.
 
@@ -44,7 +44,7 @@ Safe beginner pattern:
 
 1. Install [GitHub Desktop](https://desktop.github.com/).
 2. Choose `File > Clone Repository`.
-3. Use the URL `https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit`.
+3. Use the URL `https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit`.
 4. Clone it into a temporary, tools, or GitHub folder outside the project where you want to install the kit.
 5. Open the cloned repo in a shell-capable Codex workspace or terminal and continue with the guided installer.
 
@@ -210,7 +210,7 @@ For the full assistant-facing guide, read [Codex-Assisted Install](codex-assiste
 From the Codex workspace where you want to install the kit, paste this instruction:
 
 ```text
-Clone https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit.git into a temporary or tools folder outside the target workspace, read its README, docs/quickstart.md, and docs/codex-assisted-install.md, then install it into my current workspace.
+Clone https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit.git into a temporary or tools folder outside the target workspace, read its README, docs/quickstart.md, and docs/codex-assisted-install.md, then install it into my current workspace.
 
 Follow this order:
 1. Run the guided project-local installer if available.

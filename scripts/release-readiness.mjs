@@ -6,9 +6,9 @@ import { hasHelpFlag, printHelpAndExit, readJson, readText, repoRoot } from "./c
 const expected = {
   name: "framecore-works-codex-workflow-kit",
   license: "Apache-2.0",
-  repositoryUrl: "git+https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit.git",
-  bugsUrl: "https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit/issues",
-  homepage: "https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit#readme",
+  repositoryUrl: "git+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit.git",
+  bugsUrl: "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/issues",
+  homepage: "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit#readme",
 };
 
 const requiredPackageFiles = [

@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added repository-source native ChatGPT setup for all 33 public workflow skills, with core, creative, and full profiles.
+- Added repository-source native ChatGPT setup for all 34 public workflow skills, with core, creative, and full profiles.
 - Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through ChatGPT's built-in `$skill-creator`.
 - Added `agents/openai.yaml` UI metadata, starter prompts, and invocation policy for every public skill.
 - Added a checked-in source inventory with raw GitHub URLs and SHA-256 hashes, plus regression tests that reject stale or incomplete source mappings.
@@ -11,6 +11,8 @@
 - Added six public, provider-neutral workflow skills adapted from the local creative workspace: `ecommerce-campaign-strategy-director`, `screenplay-story-architect`, `creative-video-producer`, `caption-studio`, `opencut-video-studio`, and `producer-ai-task-builder`.
 - Added compact artifact templates, native UI metadata, routing rules, bundle-map coverage, public inventory updates, and repository-source hashes for the new skills.
 - Promoted the ecommerce bundle boundary from planned to current public coverage through a dedicated strategy skill.
+- Added `remotion-video-production` for deterministic React/TypeScript video compositions, frame-based animation, reusable variants, local render planning, and evidence-backed QA.
+- Renamed the GitHub repository to include ChatGPT in the canonical public name while preserving the existing package identifier for install-manifest compatibility.
 
 ## 1.1.0 - 2026-06-23
 

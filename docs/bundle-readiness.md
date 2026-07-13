@@ -83,7 +83,7 @@ Prefer several focused bundles over one oversized package:
 | `framecore-creative-workflow` | brief, reference, direction, screenplay, creative-video, captions, local edit planning, prompt, storyboard, QA, and delivery-doc skills | generated outputs, private references, client context |
 | `framecore-ecommerce-workflow` | ecommerce strategy skill, ecommerce examples, product/offer truth, asset matrices, claim ledgers, and testing handoffs | private product data, unverified claims, storefront credentials |
 | `framecore-provider-governance` | provider-neutral policy, text-image policy, execution boundaries | provider clients, credentials, endpoint catalogs, provider CLIs |
-| `framecore-chatgpt-skills` | Repository bootstrap, 33 source mappings and UI metadata contracts, install profiles, onboarding, temporary role mapping | `.codex/agents/*.toml` as ChatGPT agents, local manifests, workspace files |
+| `framecore-chatgpt-skills` | Repository bootstrap, 34 source mappings and UI metadata contracts, install profiles, onboarding, temporary role mapping | `.codex/agents/*.toml` as ChatGPT agents, local manifests, workspace files |
 | `framecore-hyperframes-guidance` | coded-video planning guidance and QA contracts | render runtimes, deployment targets, paid execution routes |
 | `framecore-hipson-adapter` | lightweight packet templates and boundary docs | full Hipson clone, cross-repo scanning tools, private sidecars |
 

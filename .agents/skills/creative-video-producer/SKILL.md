@@ -62,7 +62,8 @@ Use `templates/creative-video-production-pack.md` for nontrivial work.
 - Use `screenplay-story-architect` before storyboard when story, treatment, dialogue, or scene logic is weak.
 - Use `caption-studio` for detailed caption timing, styling, safe zones, and caption QA.
 - Use `opencut-video-studio` for footage-first or timeline-first local edit planning.
-- Use HyperFrames skills for coded-video composition and repeatable motion systems.
+- Use `remotion-video-production` for deterministic React/TypeScript compositions, reusable props, data-driven variants, and frame-accurate renders.
+- Use HyperFrames skills when the requested runtime is specifically HyperFrames or the route is centered on HTML/GSAP composition.
 - Critical product, packaging, logo, face, character, claim, CTA, or visible-text shots require sequential QA before the route advances.
 - A short cutdown is a re-authored variant, not merely a trim of the master.
 

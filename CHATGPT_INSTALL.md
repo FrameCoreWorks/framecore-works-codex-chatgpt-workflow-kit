@@ -4,7 +4,7 @@
 
 This is the canonical ChatGPT setup contract for this repository. Follow it only when the user explicitly asks ChatGPT to install, create, or update native ChatGPT Skills from:
 
-`https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit`
+`https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit`
 
 This is a repository-source setup. Read the skill definitions from GitHub and create native ChatGPT Skills with ChatGPT's built-in `$skill-creator`. Do not replace this process with a Codex workspace install, a local clone, shell commands, or files supplied by the user.
 
@@ -12,8 +12,8 @@ This is a repository-source setup. Read the skill definitions from GitHub and cr
 
 Read these public files before creating any skill:
 
-1. Setup configuration: `https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/config/chatgpt-skills.json`
-2. Exact source inventory and hashes: `https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-workflow-kit/main/config/chatgpt-skill-sources.json`
+1. Setup configuration: `https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/config/chatgpt-skills.json`
+2. Exact source inventory and hashes: `https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/config/chatgpt-skill-sources.json`
 3. Every selected `SKILL.md`, `agents/openai.yaml`, reference, template, and supporting file listed in that source inventory.
 
 Use the declared `main` ref and the exact repository paths from the source inventory. Do not infer missing files from similarly named local or previously installed skills. Do not read `.codex/agents/` as ChatGPT skill sources.

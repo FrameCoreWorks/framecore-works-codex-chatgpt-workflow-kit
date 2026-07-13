@@ -7,12 +7,12 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit.git"
+    "url": "git+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit.git"
   },
   "bugs": {
-    "url": "https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit/issues"
+    "url": "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/issues"
   },
-  "homepage": "https://github.com/FrameCoreWorks/framecore-works-codex-workflow-kit#readme",
+  "homepage": "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit#readme",
   "keywords": [
     "codex",
     "chatgpt",
