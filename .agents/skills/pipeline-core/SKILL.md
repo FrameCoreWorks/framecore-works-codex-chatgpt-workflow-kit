@@ -81,6 +81,9 @@ Read only what is needed:
 ## Decision Rules
 
 - Prefer the smallest route that preserves gates and handoffs.
+- A direct request for one prompt, brief, storyboard, caption plan, review, or other bounded artifact should route to the relevant specialist skill when its inputs are sufficient. Do not start the full pipeline merely because implicit invocation is available.
+- Use a multi-stage route when the user explicitly asks for an end-to-end or full workflow, or when the task genuinely spans dependent stages that require shared state, gates, handoffs, or QA.
+- An explicit `$pipeline-core` invocation requests governed multi-stage routing, but it does not require irrelevant stages and does not authorize unavailable tools or protected actions.
 - Use `loop_control_fit` for nontrivial work that needs QA, correction, validation, delivery readiness, workflow changes, or evidence-backed iteration.
 - Use a Workflow Request Diagnostic when the request could be mistaken for install help, a simple prompt, a full creative workflow, QA, delivery, provider execution planning, or workflow improvement.
 - Record a compact `reasoning_route` when the task needs decomposition, verification, comparison, a tool loop, branching, or bounded search.
@@ -150,5 +153,6 @@ Hand off with:
 - Runtime routes keep provider/API/upload permissions false unless the current user explicitly asks for the protected action.
 - Loop state has checklist-before-execution, evidence-backed evaluation, root cause, minimal repair or loopback target, regression check, and stop decision.
 - Missing artifacts trigger loopback instead of guesswork.
+- The selected route is the smallest sufficient route; a full pipeline is used only when explicitly requested or justified by multi-stage dependencies.
 - External delivery or execution is not implied without user instruction.
 - Public-neutral boundaries remain intact.

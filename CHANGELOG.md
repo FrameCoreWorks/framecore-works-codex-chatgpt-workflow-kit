@@ -13,6 +13,7 @@
 - Promoted the ecommerce bundle boundary from planned to current public coverage through a dedicated strategy skill.
 - Added `remotion-video-production` for deterministic React/TypeScript video compositions, frame-based animation, reusable variants, local render planning, and evidence-backed QA.
 - Renamed the GitHub repository to include ChatGPT in the canonical public name while preserving the existing package identifier for install-manifest compatibility.
+- Added a machine-validated post-install invocation policy, smallest-sufficient-route guidance, explicit `$workflow-orchestrator` and `$pipeline-core` routes, explicit-only skill guards, and a live ChatGPT Skills E2E checklist.
 
 ## 1.1.0 - 2026-06-23
 

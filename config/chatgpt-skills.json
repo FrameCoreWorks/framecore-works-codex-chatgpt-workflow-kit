@@ -20,6 +20,18 @@
     "codex_agent_files_are_sources": false,
     "roles_are_temporary_in_chatgpt": true
   },
+  "post_install_invocation": {
+    "allow_implicit_routing_for_eligible_skills": true,
+    "prefer_smallest_sufficient_route": true,
+    "full_pipeline_requires_explicit_request_or_multistage_fit": true,
+    "explicit_route_skill": "workflow-orchestrator",
+    "explicit_pipeline_skill": "pipeline-core",
+    "explicit_only_skills": [
+      "onboarding-preference-tuning",
+      "hipson-adapter",
+      "workflow-self-improvement"
+    ]
+  },
   "profiles": {
     "core": {
       "summary": "Guided onboarding, workflow routing, brief creation, QA, and delivery foundations.",

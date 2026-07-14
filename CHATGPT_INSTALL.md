@@ -103,6 +103,17 @@ The repository's Codex agents are not permanent ChatGPT agents. When a skill nee
 
 Typical temporary responsibilities are task confirmation, workflow orchestration, specialist production, QA and critique, and delivery notes. They disappear when the task or handoff is complete.
 
+## Post-Install Invocation
+
+After onboarding and native installation are complete, natural-language requests may invoke skills whose `agents/openai.yaml` metadata allows implicit invocation. Treat this as host-managed routing, not a guarantee that every phrasing will select the same skill.
+
+- Prefer the smallest sufficient route. A direct request for one prompt, brief, storyboard, caption plan, or review should use the relevant specialist skill instead of starting the full pipeline.
+- Use a multi-stage route when the user explicitly asks for an end-to-end workflow or when the task genuinely needs several dependent artifacts, gates, handoffs, or QA stages.
+- Use `$workflow-orchestrator` when the user wants explicit route selection, visible workflow state, and the next safe action.
+- Use `$pipeline-core` when the user explicitly wants governed multi-stage routing through the required artifacts, gates, and QA loop. It still skips stages that are not justified by the request.
+- `onboarding-preference-tuning`, `hipson-adapter`, and `workflow-self-improvement` are explicit-only. Do not invoke them from an unrelated natural-language request.
+- An implicit or explicit skill invocation never grants permission to use providers, API keys, uploads, publishing, shell commands, or unavailable local files.
+
 ## Safety Boundaries
 
 - Stay provider-neutral.
@@ -122,6 +133,8 @@ Setup is complete only when:
 - every skill reported as installed was confirmed through ChatGPT's native skill flow;
 - blocked or unconfirmed skills are clearly listed;
 - the user receives the final installed-skill list and a reusable starter prompt for the next task.
+
+The starter prompt should explain that ordinary natural language may route to eligible skills, while `$workflow-orchestrator` and `$pipeline-core` provide more predictable explicit routing for complex work.
 
 ## Failure Handling
 

@@ -205,10 +205,10 @@ export function run(ctx) {
   if (existsSync(chatGptSkillsDoc)) {
     const text = read(chatGptSkillsDoc);
     const sections = markdownSections(text);
-    for (const section of ["Purpose", "Product Boundary", "Repository Contract", "Copy-Paste Prompt", "Onboarding Flow", "Profile Selection", "Source Resolution", "Native Installation Flow", "Existing Skill Guard", "Temporary Role Model", "Maintainer Validation", "Stop Conditions", "Related Docs"]) {
+    for (const section of ["Purpose", "Product Boundary", "Repository Contract", "Copy-Paste Prompt", "Onboarding Flow", "Profile Selection", "Source Resolution", "Native Installation Flow", "Existing Skill Guard", "Temporary Role Model", "Post-Install Invocation Behavior", "Live E2E Test", "Maintainer Validation", "Stop Conditions", "Related Docs"]) {
       if (!sections.has(section)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required section: ${section}`, [chatGptSkillsDoc]);
     }
-    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "$skill-creator", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "setup language", "temporary responsibility", "must not report bulk success", "all 34"]) {
+    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "$skill-creator", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "setup language", "temporary responsibility", "must not report bulk success", "allow_implicit_invocation: true", "smallest sufficient route", "$workflow-orchestrator", "$pipeline-core", "explicit-only", "all 34"]) {
       if (!text.includes(phrase)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required phrase: ${phrase}`, [chatGptSkillsDoc]);
     }
   }

@@ -39,7 +39,7 @@
           "path": "SKILL.md",
           "repository_path": ".agents/skills/pipeline-core/SKILL.md",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/.agents/skills/pipeline-core/SKILL.md",
-          "sha256": "96a386cdf9660787f237963e4da1cf52d67aed0c6b7f78b826790190ef3250e3"
+          "sha256": "961f5df4f42508a80771c2d1f08e345397fc2681ecf4efd81d2eb024fcd9ecfb"
         },
         {
           "path": "agents/openai.yaml",
@@ -129,7 +129,7 @@
           "path": "SKILL.md",
           "repository_path": ".agents/skills/workflow-orchestrator/SKILL.md",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/.agents/skills/workflow-orchestrator/SKILL.md",
-          "sha256": "9b5edb4bee8f33e4a0bc20143d71622e55e0536149f8b951a97366e22f2a37cd"
+          "sha256": "db82ba71c5b5dfd84b3d7b9e4ff9e9453cf2ef16bf998ad4a0a59ac786276188"
         },
         {
           "path": "agents/openai.yaml",

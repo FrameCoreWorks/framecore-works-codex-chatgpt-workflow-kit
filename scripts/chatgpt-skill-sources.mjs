@@ -8,6 +8,11 @@ const CONFIG_PATH = "config/chatgpt-skills.json";
 const MANIFEST_PATH = "config/chatgpt-skill-sources.json";
 const SKILL_NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const SHA256 = /^[a-f0-9]{64}$/;
+const EXPLICIT_ONLY_SKILLS = [
+  "onboarding-preference-tuning",
+  "hipson-adapter",
+  "workflow-self-improvement",
+];
 const REQUIRED_BOOTSTRAP_SECTIONS = [
   "Purpose",
   "Source Of Truth",
@@ -18,6 +23,7 @@ const REQUIRED_BOOTSTRAP_SECTIONS = [
   "Native Skill Creation",
   "Existing Skill Guard",
   "Temporary Roles",
+  "Post-Install Invocation",
   "Safety Boundaries",
   "Completion Criteria",
   "Failure Handling",
@@ -30,6 +36,10 @@ const REQUIRED_BOOTSTRAP_PHRASES = [
   "Ask these questions one at a time",
   "Do not use Codex `skill-installer`",
   "Do not claim bulk completion",
+  "smallest sufficient route",
+  "$workflow-orchestrator",
+  "$pipeline-core",
+  "explicit-only",
   ".codex/agents/",
 ];
 
@@ -203,6 +213,19 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     errors.push({ message: "ChatGPT installation rules must keep Codex agent files out, roles temporary, and completion evidence-based.", file: configPath });
   }
 
+  const invocation = config.post_install_invocation ?? {};
+  for (const key of ["allow_implicit_routing_for_eligible_skills", "prefer_smallest_sufficient_route", "full_pipeline_requires_explicit_request_or_multistage_fit"]) {
+    if (invocation[key] !== true) errors.push({ message: `ChatGPT post-install invocation rule must be true: ${key}`, file: configPath });
+  }
+  if (invocation.explicit_route_skill !== "workflow-orchestrator" || invocation.explicit_pipeline_skill !== "pipeline-core") {
+    errors.push({ message: "ChatGPT post-install invocation must use workflow-orchestrator for explicit routing and pipeline-core for explicit multi-stage routing.", file: configPath });
+  }
+  const configuredExplicitOnly = Array.isArray(invocation.explicit_only_skills) ? invocation.explicit_only_skills : [];
+  const explicitOnlySet = new Set(configuredExplicitOnly);
+  if (configuredExplicitOnly.length !== explicitOnlySet.size || EXPLICIT_ONLY_SKILLS.some((name) => !explicitOnlySet.has(name)) || configuredExplicitOnly.some((name) => !EXPLICIT_ONLY_SKILLS.includes(name))) {
+    errors.push({ message: `ChatGPT explicit-only skills must be exactly: ${EXPLICIT_ONLY_SKILLS.join(", ")}.`, file: configPath });
+  }
+
   const sourceRootPath = join(root, config.source_root ?? ".agents/skills");
   const names = sourceSkillNames(root, config.source_root ?? ".agents/skills");
   const nameSet = new Set(names);
@@ -254,6 +277,10 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
       if (!metadata.shortDescription || metadata.shortDescription.length < 25 || metadata.shortDescription.length > 64) errors.push({ message: `short_description must contain 25-64 characters: ${name}`, file: metadataPath });
       if (!metadata.defaultPrompt?.includes(`$${name}`)) errors.push({ message: `default_prompt must mention $${name}`, file: metadataPath });
       if (typeof metadata.allowImplicitInvocation !== "boolean") errors.push({ message: `allow_implicit_invocation must be boolean: ${name}`, file: metadataPath });
+      const expectedImplicit = !explicitOnlySet.has(name);
+      if (typeof metadata.allowImplicitInvocation === "boolean" && metadata.allowImplicitInvocation !== expectedImplicit) {
+        errors.push({ message: `Post-install invocation policy for ${name} requires allow_implicit_invocation: ${expectedImplicit}.`, file: metadataPath });
+      }
     }
   }
 

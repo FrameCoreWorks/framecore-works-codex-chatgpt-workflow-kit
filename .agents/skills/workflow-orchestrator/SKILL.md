@@ -60,6 +60,9 @@ Produce Project State with:
 
 ## Decision Rules
 
+- Prefer the smallest sufficient route. If one specialist skill can produce the requested bounded artifact from available inputs, route directly to it after intent confirmation.
+- Expand to a multi-stage pipeline only when the user explicitly requests end-to-end work or the task needs dependent artifacts, gates, handoffs, shared state, or QA.
+- An explicit `$workflow-orchestrator` invocation requests visible route selection and state tracking; it does not imply that every workflow stage must run.
 - If the goal is unclear, route back to `intent-confirmation`.
 - If the brief is missing, route to `brief-architect`.
 - If references are required but unresolved, route to `reference-curator`.
@@ -106,6 +109,7 @@ Hand off with:
 ## QA Checklist
 
 - Route follows the current user request.
+- Route depth is justified, and a simple request does not expand into an unnecessary full pipeline.
 - Required artifacts and missing blockers are visible.
 - Each active role has a clear output.
 - Gates and handoffs match the pipeline references.

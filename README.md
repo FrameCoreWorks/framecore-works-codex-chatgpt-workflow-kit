@@ -66,6 +66,17 @@ For the full inventory, see [Included Agents And Skills](docs/included-agents-an
 
 The kit provides the workflow spine: roles, gates, handoffs, artifact expectations, examples, safety boundaries, onboarding, and update/repair lifecycle. Users can layer deeper domain-specific prompting or execution tools on top, but those provider/tool integrations are intentionally not bundled here.
 
+### How Skills Start After Install
+
+On both supported surfaces, ordinary natural-language requests can route to eligible installed skills. Routing should stay proportional to the task:
+
+- a request for one image prompt, video prompt, brief, storyboard, caption plan, or review uses the smallest relevant specialist route;
+- an end-to-end campaign, production pack, or other genuinely multi-stage task can activate orchestration, dependent skills, gates, handoffs, and QA;
+- `$workflow-orchestrator` explicitly asks for route selection and visible state;
+- `$pipeline-core` explicitly asks for governed multi-stage routing, while still skipping irrelevant stages.
+
+ChatGPT ultimately controls native implicit invocation, so exact natural-language routing can vary with the active product surface. Use the explicit skill names above when route predictability matters. Onboarding, the optional Hipson Adapter, and workflow self-improvement remain explicit-only and do not start from unrelated requests.
+
 ## Which Path Should I Choose?
 
 | If you are... | Use this path | What happens |
@@ -76,7 +87,7 @@ The kit provides the workflow spine: roles, gates, handoffs, artifact expectatio
 | Already installed and want the newest repo changes | [Update An Existing Workspace](#update-an-existing-workspace) | Codex or terminal updates only FrameCore-managed files recorded in `.framecore/manifest.json`. |
 | Using native ChatGPT Skills | [Install Directly From The Repo In ChatGPT](#install-directly-from-the-repo-in-chatgpt) | Paste one prompt, complete onboarding, select a profile, and let `$skill-creator` create the selected skills from repository sources. |
 | Only reviewing before install | [Included Agents And Skills](docs/included-agents-and-skills.md) and [Workflow Map](docs/workflow-map.md) | You can inspect the inventory, routes, gates, artifacts, examples, and safety boundaries first. |
-| Testing and sending feedback | [Tester Feedback Guide](docs/tester-feedback.md) | Use a short report format that tells maintainers what happened and where it stopped. |
+| Testing and sending feedback | [Tester Feedback Guide](docs/tester-feedback.md) and [Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md#live-e2e-test) | Use the live checklists and a short report format that tells maintainers what happened and where it stopped. |
 
 ## Beginner Start
 

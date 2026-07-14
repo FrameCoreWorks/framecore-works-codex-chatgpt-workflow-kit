@@ -46,6 +46,27 @@ test("new portable production skills are included in creative and full profiles"
   }
 });
 
+test("ChatGPT post-install invocation policy matches every skill metadata file", () => {
+  const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
+  const invocation = config.post_install_invocation;
+  assert.equal(invocation.allow_implicit_routing_for_eligible_skills, true);
+  assert.equal(invocation.prefer_smallest_sufficient_route, true);
+  assert.equal(invocation.full_pipeline_requires_explicit_request_or_multistage_fit, true);
+  assert.equal(invocation.explicit_route_skill, "workflow-orchestrator");
+  assert.equal(invocation.explicit_pipeline_skill, "pipeline-core");
+  assert.deepEqual(invocation.explicit_only_skills, [
+    "onboarding-preference-tuning",
+    "hipson-adapter",
+    "workflow-self-improvement",
+  ]);
+
+  const explicitOnly = new Set(invocation.explicit_only_skills);
+  for (const name of config.profiles.full.skills) {
+    const metadata = readFileSync(join(root, `.agents/skills/${name}/agents/openai.yaml`), "utf8");
+    assert.match(metadata, new RegExp(`allow_implicit_invocation: ${!explicitOnly.has(name)}`));
+  }
+});
+
 test("ChatGPT setup validation rejects stale repository source hashes", () => {
   const fixture = copyRepoFixture("framecore-chatgpt-source-stale-");
   const skill = join(fixture, ".agents/skills/brief-architect/SKILL.md");
@@ -60,6 +81,18 @@ test("ChatGPT setup validation rejects a weak bootstrap contract", () => {
   writeFileSync(bootstrap, readFileSync(bootstrap, "utf8").replace("## First Response", "## Start"));
   const errors = validateChatGptRepositorySetup(fixture);
   assert.ok(errors.some((error) => /missing section: First Response/.test(error.message)));
+});
+
+test("ChatGPT setup validation rejects invocation metadata drift", () => {
+  const fixture = copyRepoFixture("framecore-chatgpt-invocation-drift-");
+  try {
+    const metadata = join(fixture, ".agents/skills/brief-architect/agents/openai.yaml");
+    writeFileSync(metadata, readFileSync(metadata, "utf8").replace("allow_implicit_invocation: true", "allow_implicit_invocation: false"));
+    const errors = validateChatGptRepositorySetup(fixture);
+    assert.ok(errors.some((error) => /brief-architect requires allow_implicit_invocation: true/.test(error.message)));
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
 });
 
 test("ChatGPT source manifest updater repairs a stale fixture", () => {

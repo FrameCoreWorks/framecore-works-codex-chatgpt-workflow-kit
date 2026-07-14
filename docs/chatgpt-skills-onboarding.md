@@ -155,6 +155,36 @@ In ChatGPT, the same responsibilities are temporary and task-bound:
 
 Each temporary role needs a bounded scope, required inputs, expected artifact, review gate, handoff target, and stop condition. It inherits provider-neutral safety, no API keys, no hidden background work, and no unverified claims about available tools.
 
+## Post-Install Invocation Behavior
+
+After onboarding and native installation are complete, ChatGPT may route ordinary natural-language requests to skills whose `agents/openai.yaml` sets `allow_implicit_invocation: true`. The host product controls that selection, so implicit routing is useful but not perfectly deterministic.
+
+Use the smallest sufficient route:
+
+- "Create an image prompt for this product" should normally use `image-prompt-architect`, plus only the minimum upstream clarification needed.
+- "Develop this campaign idea" may use `workflow-orchestrator`, brief or strategy skills, and the relevant production skills.
+- "Run the complete project from idea to a QA-ready production pack" justifies a governed multi-stage route through `pipeline-core` and `workflow-orchestrator`.
+
+For predictable explicit routing, invoke `$workflow-orchestrator` to select and track the route, or `$pipeline-core` to run a justified multi-stage workflow with gates and QA. Neither invocation authorizes providers, uploads, publishing, API keys, shell commands, or local files that are unavailable in ChatGPT.
+
+Three skills are explicit-only by policy: `onboarding-preference-tuning`, `hipson-adapter`, and `workflow-self-improvement`. They must not start from unrelated natural-language requests.
+
+## Live E2E Test
+
+Repository validation proves source completeness and contract consistency, but it cannot prove the behavior of a live ChatGPT account. Before broad promotion, test the current `main` commit in an account that exposes native Skills and `$skill-creator`:
+
+1. Paste the README repository-source setup prompt into a new conversation.
+2. Confirm that the first response asks only for the setup language.
+3. Complete onboarding and approve a profile without allowing existing skills to skip setup.
+4. Confirm that every selected skill receives an individual visible final status and that no bulk success is claimed early.
+5. Ask for one bounded artifact in natural language and confirm that ChatGPT uses a specialist route instead of the full pipeline.
+6. Ask for an end-to-end multi-stage project and confirm that routing, temporary roles, gates, QA, and stop conditions become visible.
+7. Invoke `$workflow-orchestrator` and `$pipeline-core` explicitly and confirm that their route depth matches the request.
+8. Confirm that explicit-only skills do not run from unrelated requests.
+9. Confirm that ChatGPT does not claim permanent agents, local files, shell checks, providers, uploads, or Memory Cache.
+
+Record the tested commit, ChatGPT plan or workspace type, visible Skills availability, selected profile, pass/fail results, and sanitized notes. Do not store private conversations, account data, local paths, or client content in the repository.
+
 ## Maintainer Validation
 
 Before publishing changes to ChatGPT-facing skill sources:
@@ -166,6 +196,7 @@ Before publishing changes to ChatGPT-facing skill sources:
 5. Run `npm run release:check` before a release.
 6. Test the README copy-paste prompt in a ChatGPT account that exposes native Skills and `$skill-creator`.
 7. Confirm that the first response asks only for setup language and that installation claims match visible native results.
+8. Run the live E2E invocation checks for one bounded request, one multi-stage request, explicit routing, and explicit-only guards.
 
 Do not commit user-specific Workflow Profiles, conversations, private context, local state, or generated ChatGPT account data.
 
