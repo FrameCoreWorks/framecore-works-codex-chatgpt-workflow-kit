@@ -27,7 +27,7 @@ import { run as validateInstructionOverridePhrases } from "./validate/injection.
 import { run as validateMarkdownLinks } from "./validate/links.mjs";
 import { run as validateRepoGovernance } from "./validate/repo-governance.mjs";
 import { run as validateSchemas } from "./validate/schemas.mjs";
-import { run as validateSkills } from "./validate/skills.mjs";
+import { run as validateSkills, validateRouting as validateSkillRouting } from "./validate/skills.mjs";
 
 if (hasHelpFlag()) {
   printHelpAndExit(`
@@ -79,6 +79,7 @@ const handoffMatrix = join(validationRoot, ".agents/skills/pipeline-core/referen
 const workflowBlueprints = join(validationRoot, ".agents/skills/pipeline-core/references/workflow-blueprints.md");
 const loopProtocol = join(validationRoot, ".agents/skills/pipeline-core/references/loop-protocol.md");
 const inferenceReasoningMethods = join(validationRoot, ".agents/skills/pipeline-core/references/inference-reasoning-methods.md");
+const promptFormatAndContinuity = join(validationRoot, ".agents/skills/pipeline-core/references/prompt-format-and-continuity.md");
 const artifactTemplates = join(validationRoot, ".agents/skills/pipeline-core/templates/artifact-templates.md");
 const artifactSchemasPath = join(validationRoot, "config/artifact-schemas.json");
 const bundleMapPath = join(validationRoot, "config/bundle-map.json");
@@ -88,6 +89,7 @@ const paths = {
   workflowBlueprints,
   loopProtocol,
   inferenceReasoningMethods,
+  promptFormatAndContinuity,
   artifactTemplates,
   artifactSchemasPath,
   bundleMapPath
@@ -117,6 +119,15 @@ const contractState = validateContracts({
 });
 findings.push(...contractState.findings);
 const { knownGates, knownHandoffPairs, knownWorkflowBlueprints, workflowBlueprintContracts } = contractState;
+
+findings.push(...validateSkillRouting({
+  root: validationRoot,
+  helpers,
+  skillFiles: skillState.skillFiles,
+  knownSkillNames,
+  knownGates,
+  requiredRoleSet
+}));
 
 const docsState = validateDocs({ root: validationRoot, helpers, requiredRoles });
 findings.push(...docsState.findings);

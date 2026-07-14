@@ -53,7 +53,7 @@ Interactive onboarding asks:
 
 If the user chooses not to keep default role names, onboarding asks for a local display name for every neutral role ID. These display names are local preferences, not source repo names.
 
-The work profile is saved to `framecore.config.json` as `work_profile`. Installed instructions and rendered core agent files use it to adapt routing, artifact depth, QA strictness, and the first recommended workflow path for the user's real work.
+The work profile is saved to `framecore.config.json` as `work_profile`. Installed instructions and rendered core agent files use it to adapt routing, artifact depth, QA strictness, and the first recommended workflow path for the user's real work. The rendered workflow-orchestrator, QA, and delivery agents also receive the selected QA and delivery controls. These controls tune review depth and delivery behavior; they never grant provider, upload, or publishing permission.
 
 ## Installed Files
 
@@ -80,6 +80,24 @@ After writing `framecore.config.json`, onboarding prints the next safe steps:
 - use `docs/using-the-kit.md` for starter prompts and route selection
 
 This output is guidance only. Onboarding does not install managed workflow files by itself.
+
+## Maintainer Profile Simulations
+
+The repository includes deterministic sandbox simulations for three Codex onboarding profiles and all three ChatGPT installation profiles:
+
+- beginner solo creative work with light QA
+- strict client or team work with strict QA
+- non-creative research and document work with standard QA
+- ChatGPT `core`, `creative`, and `full` source resolution
+- update of an existing Codex install without losing its local profile
+
+Run them with:
+
+```bash
+npm run smoke:profiles
+```
+
+The Codex simulations perform onboarding, dry-run, project-local install, doctor checks, rendered-agent checks, and update checks inside temporary workspaces. The ChatGPT simulations verify that each declared profile resolves only repository-owned skill sources and never installs Codex agent files. They do not replace a live account-side ChatGPT UI test, because ChatGPT availability and interface behavior are controlled by the host account.
 
 ## Hipson Adapter And Full Hipson
 

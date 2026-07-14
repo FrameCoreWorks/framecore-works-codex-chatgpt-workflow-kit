@@ -163,6 +163,14 @@ Provider-neutral planning can still produce prompts, manifests, QA criteria, and
 
 The built-in text-bearing image policy is separate: static raster graphics with visible text should use the native Codex or ChatGPT image generation path powered by GPT Image 2 in one pass when generation is explicitly requested and available.
 
+## Prompt Format And Continuity
+
+Before finalizing an image or video prompt pack, resolve the target generator, task mode, input assets, prompt-field shape, and negative-handling mode. Do not append a universal negative-prompt block when the selected generator expects constraints inside the main prompt.
+
+Treat every separately generated image or shot as an independent generation unit. A strict identity, product, wardrobe, prop, location, lighting, or screen-direction lock needs a continuity carrier attached to that exact request, such as an approved reference, board, keyframe, chained frame, or verified native shared context. Textual phrases such as `same character` or `continue the previous shot` are not strict continuity carriers by themselves.
+
+See [Prompt Format And Continuity](../.agents/skills/pipeline-core/references/prompt-format-and-continuity.md) for the checked contract.
+
 ## Hipson Adapter Prompts
 
 The public kit includes only the lightweight Hipson Adapter.

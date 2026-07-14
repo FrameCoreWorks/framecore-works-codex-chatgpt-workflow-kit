@@ -49,3 +49,35 @@ export function run(ctx) {
     knownSkillNames
   };
 }
+
+export function validateRouting(ctx) {
+  const { backtickTokens, createFindings, markdownSectionBody, read } = ctx.helpers;
+  const { findings, addFinding } = createFindings(ctx.root);
+  const allowedTargets = new Set([...ctx.requiredRoleSet, ...ctx.knownSkillNames]);
+
+  for (const file of ctx.skillFiles) {
+    const text = read(file);
+    const handoff = markdownSectionBody(text, "Handoff");
+    const reviewLine = handoff.split(/\r?\n/).find((line) => line.trim().startsWith("Review gate:"));
+    const reviewGates = reviewLine ? backtickTokens(reviewLine) : [];
+    if (reviewGates.length === 0) {
+      addFinding("MISSING_SKILL_REVIEW_GATE", "Skill Handoff section must declare at least one backtick-delimited review gate.", [file]);
+    }
+    for (const gate of reviewGates) {
+      if (!ctx.knownGates.has(gate)) {
+        addFinding("UNKNOWN_SKILL_REVIEW_GATE", `Skill references unknown review gate: ${gate}`, [file]);
+      }
+    }
+
+    for (const line of handoff.split(/\r?\n/)) {
+      if (!/(?:Hand off to|Common handoffs are|Receive from)/i.test(line)) continue;
+      for (const target of backtickTokens(line)) {
+        if (!allowedTargets.has(target)) {
+          addFinding("UNKNOWN_SKILL_HANDOFF_TARGET", `Skill references unknown handoff target: ${target}`, [file]);
+        }
+      }
+    }
+  }
+
+  return findings;
+}

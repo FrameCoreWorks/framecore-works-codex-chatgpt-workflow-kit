@@ -61,6 +61,7 @@ export function run(ctx) {
     "tests/governance.test.mjs",
     "tests/install-onboarding.test.mjs",
     "tests/memory-cache.test.mjs",
+    "tests/user-profile-installation.test.mjs",
     "tests/validation-contracts.test.mjs",
     "tests/validation-core.test.mjs",
     "tests/workflow-smoke.test.mjs",

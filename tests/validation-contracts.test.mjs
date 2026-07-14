@@ -74,6 +74,56 @@ test("validation rejects weak loop protocol", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_LOOP_PROTOCOL/);
 });
 
+test("validation rejects weak prompt format and continuity governance", () => {
+  const dir = copyRepoFixture("framecore-validate-prompt-continuity-");
+  const file = join(dir, ".agents/skills/pipeline-core/references/prompt-format-and-continuity.md");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text.replace("frame_chained_i2v", "linked_video"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_PROMPT_FORMAT_CONTINUITY/);
+});
+
+test("validation requires every canonical gate including diagnostics and sufficiency", () => {
+  const dir = copyRepoFixture("framecore-validate-required-gates-");
+  const file = join(dir, ".agents/skills/pipeline-core/references/gate-registry.md");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text
+    .replace(/^\| `request_diagnostic_fit`.*\n/m, "")
+    .replace(/^\| `self_improvement_sufficiency_fit`.*\n/m, ""));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  const output = `${result.stderr}${result.stdout}`;
+  assert.match(output, /MISSING_GATE.*request_diagnostic_fit/s);
+  assert.match(output, /MISSING_GATE.*self_improvement_sufficiency_fit/s);
+});
+
+test("validation rejects skill-level gate and handoff drift", () => {
+  const dir = copyRepoFixture("framecore-validate-skill-routing-");
+  const gateFile = join(dir, ".agents/skills/image-prompt-architect/SKILL.md");
+  const handoffFile = join(dir, ".agents/skills/humanizer/SKILL.md");
+  writeFileSync(gateFile, readFileSync(gateFile, "utf8").replace("Review gate: `promptability_fit`.", "Review gate: `missing_prompt_gate`."));
+  writeFileSync(handoffFile, readFileSync(handoffFile, "utf8").replace("Hand off to `copy-voice`", "Hand off to `missing-copy-role`"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  const output = `${result.stderr}${result.stdout}`;
+  assert.match(output, /UNKNOWN_SKILL_REVIEW_GATE/);
+  assert.match(output, /UNKNOWN_SKILL_HANDOFF_TARGET/);
+});
+
+test("validation rejects a skill handoff without a review gate", () => {
+  const dir = copyRepoFixture("framecore-validate-skill-review-gate-");
+  const file = join(dir, ".agents/skills/humanizer/SKILL.md");
+  writeFileSync(file, readFileSync(file, "utf8").replace(/^Review gate:.*\n/m, ""));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /MISSING_SKILL_REVIEW_GATE/);
+});
+
 test("validation rejects missing artifact schemas for gate-required artifacts", () => {
   const dir = copyRepoFixture("framecore-validate-artifact-schema-missing-");
   const schemaFile = join(dir, "config/artifact-schemas.json");

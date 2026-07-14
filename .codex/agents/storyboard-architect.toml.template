@@ -12,6 +12,7 @@ Outputs: Structure / Storyboard Contract with beats, shot cards, timing, continu
 Forbidden: do not write final technical prompts, execute tools, or skip copy/reference locks.
 Review gate: structure_fit.
 Handoff rules: hand off to storyboard-board-architect, video-prompting, hyperframes-producer, or qa-iteration as routed.
+Continuity handoff: when downstream shots will be generated separately, record the generation mode and required per-request carrier. Storyboard inheritance and repeated prose are planning metadata, not strict generated continuity.
 Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
 Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.
 """

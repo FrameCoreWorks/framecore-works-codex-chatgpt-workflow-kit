@@ -81,6 +81,7 @@
     "semantic:index": "node tools/semantic-memory-index.mjs --mode index",
     "semantic:query": "node tools/semantic-memory-index.mjs --mode query",
     "smoke:install": "node scripts/smoke-install.mjs",
+    "smoke:profiles": "node --test tests/user-profile-installation.test.mjs",
     "syntax:check": "node scripts/syntax-check.mjs",
     "test": "node --test",
     "validate": "node scripts/validate.mjs",

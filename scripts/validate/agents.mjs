@@ -16,6 +16,11 @@ export function run(ctx) {
   }
 
   const agentTemplateGates = new Map();
+  const roleSpecificTokens = {
+    "workflow-orchestrator": ["{{qa_strictness}}", "{{delivery_auto_upload}}", "{{delivery_requires_current_user_request}}", "{{require_qa_allowlist_for_generated_assets}}"],
+    "qa-iteration": ["{{qa_strictness}}", "{{require_qa_allowlist_for_generated_assets}}"],
+    "delivery-documentation": ["{{delivery_auto_upload}}", "{{delivery_requires_current_user_request}}", "{{require_qa_allowlist_for_generated_assets}}"],
+  };
   for (const role of requiredRoles) {
     const file = join(agentDir, `${role}.toml.template`);
     if (!existsSync(file)) continue;
@@ -28,6 +33,11 @@ export function run(ctx) {
     for (const phrase of ["Workspace profile:", "{{working_language}}", "{{response_tone}}", "{{primary_work}}"]) {
       if (!text.includes(phrase)) {
         addFinding("WEAK_AGENT_TEMPLATE", `Agent template ${role} must consume onboarding workspace profile token: ${phrase}`, [file]);
+      }
+    }
+    for (const token of roleSpecificTokens[role] ?? []) {
+      if (!text.includes(token)) {
+        addFinding("WEAK_AGENT_TEMPLATE", `Agent template ${role} must consume onboarding workflow control token: ${token}`, [file]);
       }
     }
     const gateMatch = text.match(/Review gate:\s*`?([a-z0-9_]+)`?\./);

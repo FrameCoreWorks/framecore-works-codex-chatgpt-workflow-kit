@@ -13,7 +13,7 @@ Use this document when you need the full mental model before installing, customi
 | Project instructions | `AGENTS.template.md` | Installed workspace behavior, safety boundaries, local workflow entry point. |
 | Role agents | `.codex/agents/*.toml.template` | Codex custom-agent role files rendered into the target workspace. |
 | Workflow skills | `.agents/skills/*/SKILL.md` | Reusable contracts for when to act, required inputs, outputs, guardrails, and handoff. |
-| Pipeline core | `.agents/skills/pipeline-core/` | Role routes, gates, handoffs, Project State, Loop Protocol, artifact templates, reasoning routes, and safety policy. |
+| Pipeline core | `.agents/skills/pipeline-core/` | Role routes, gates, handoffs, Project State, Loop Protocol, artifact templates, reasoning routes, generator-specific prompt formats, continuity carriers, and safety policy. |
 | Public examples | `examples/*/workflow.json` | Machine-checked route examples for common workflow shapes. |
 | Install lifecycle | `scripts/install.mjs`, `scripts/guided-install.mjs`, `scripts/doctor.mjs` | Project-local install, onboarding, dry-run, update, repair, uninstall, and diagnostics. |
 | Bundle readiness | `config/bundle-map.json`, `docs/bundle-readiness.md` | Future package boundaries without changing current install behavior. |
@@ -93,6 +93,7 @@ If a skill appears here but does not appear as a role-agent template, treat it a
 | Ecommerce strategy | `.agents/skills/ecommerce-campaign-strategy-director/` | Product and offer truth need audience/JTBD, asset matrices, claim ledgers, creative angles, and controlled test plans before prompting. |
 | Memory Cache | `templates/Memory Cache/`, `docs/memory-cache.md`, `docs/context-folder.md` | Long Codex sessions need local state, recovery prompts, decision logs, and context folding. |
 | Provider governance | `config/provider-neutral-policy.json`, `config/text-image-policy.json`, `docs/provider-neutral-boundary.md` | A workflow touches execution planning, visible text in graphics, OpenAI API boundaries, uploads, or external-provider safety. |
+| Prompt format and continuity | `.agents/skills/pipeline-core/references/prompt-format-and-continuity.md` | An image, video, or storyboard route needs a generator-specific field shape, independent-unit classification, or a real continuity carrier for strict identity, product, wardrobe, location, or screen-direction locks. |
 
 ## Loop Protocol
 

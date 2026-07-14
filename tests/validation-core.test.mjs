@@ -76,6 +76,19 @@ test("validation rejects agent templates missing onboarding profile tokens", () 
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENT_TEMPLATE/);
 });
 
+test("validation rejects key agents missing rendered QA or delivery controls", () => {
+  const dir = copyRepoFixture("framecore-weak-agent-controls-");
+  const orchestrator = join(dir, ".codex/agents/workflow-orchestrator.toml.template");
+  const qa = join(dir, ".codex/agents/qa-iteration.toml.template");
+  writeFileSync(orchestrator, readFileSync(orchestrator, "utf8").replace("{{delivery_auto_upload}}", "not-rendered"));
+  writeFileSync(qa, readFileSync(qa, "utf8").replace("{{qa_strictness}}", "standard"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_AGENT_TEMPLATE/);
+  assert.match(`${result.stderr}${result.stdout}`, /workflow control token/);
+});
+
 test("validation rejects bundle map drift", () => {
   const dir = copyRepoFixture("framecore-bundle-map-drift-");
   const file = join(dir, "config/bundle-map.json");

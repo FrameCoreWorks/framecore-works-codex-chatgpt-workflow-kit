@@ -75,6 +75,7 @@ Read only what is needed:
 - `references/gate-registry.md` for canonical gate names.
 - `references/inference-reasoning-methods.md` for compact reasoning routes, runtime route boundaries, candidate limits, and raw trace prohibitions.
 - `references/text-image-generation-policy.md` for visible text in raster graphics.
+- `references/prompt-format-and-continuity.md` for generator-specific prompt fields, independent generation units, continuity carriers, and standalone prompt rules.
 - `references/humanizer-routing.md` for copy polish routing.
 - `references/hyperframes-workflow.md` for coded-video workflow.
 
@@ -108,6 +109,8 @@ Read only what is needed:
 - Do not skip upstream gates.
 - Generated static raster graphics should use the native Codex/ChatGPT image generator powered by GPT Image 2 by default when available.
 - Static raster graphics with visible text must use the native Codex/ChatGPT image generator powered by GPT Image 2 in one pass with text included.
+- Resolve generator prompt fields and negative handling before producing generator-specific prompts. Do not attach a universal negative-prompt block.
+- Treat separately generated images and shots as independent units. Claim strict continuity only when each request has a concrete continuity carrier.
 - Do not substitute Python-generated artwork, SVG, HTML/canvas, Sharp/composited PNG, or other coded artwork unless the user explicitly asks for coded, vector, template, or editable source output.
 - Delivery follows QA when generated assets exist.
 - Upload, publish, or external delivery requires an explicit current user request.

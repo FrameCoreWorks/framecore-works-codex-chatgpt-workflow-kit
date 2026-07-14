@@ -13,7 +13,7 @@ The kit installs a project-local workflow layer for Codex and exposes the same 3
 | Codex role-agent templates | 20 | `.codex/agents/*.toml.template` rendered into `.codex/agents/*.toml` |
 | Workflow skills | 34 | `.agents/skills/*/SKILL.md` |
 | Native ChatGPT source mappings | 34 skills | `config/chatgpt-skill-sources.json` |
-| Core workflow references | 5 | `.agents/skills/pipeline-core/references/` |
+| Core workflow references | 11 | `.agents/skills/pipeline-core/references/` |
 | Artifact schemas | 1 registry | `config/artifact-schemas.json` |
 | Example workflows | 12 | `examples/*/workflow.json` |
 | Installer and validation scripts | multiple | `scripts/*.mjs` and `tools/*.mjs` |
@@ -118,6 +118,7 @@ Skills are portable workflow contracts. They define when a capability should be 
 | `config/artifact-schemas.json` | Required fields and example fixtures for workflow artifacts. |
 | `config/provider-neutral-policy.json` | Public boundary for what the kit does and does not install or execute. |
 | `config/text-image-policy.json` | Built-in Codex/ChatGPT image generation policy for static raster graphics with visible text. |
+| `.agents/skills/pipeline-core/references/prompt-format-and-continuity.md` | Generator-specific prompt-field rules and continuity-carrier requirements for independently generated images and shots. |
 | `examples/*/workflow.json` | Checked example routes that demonstrate role order, gates, artifacts, and handoffs. |
 | `scripts/install.mjs` | Project-local install, update, repair, uninstall, manifest, backup, and symlink safety logic. |
 | `scripts/guided-install.mjs` | Beginner-safe guided install path with checks, onboarding, dry-run, and confirmation. |

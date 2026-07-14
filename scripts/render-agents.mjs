@@ -72,9 +72,14 @@ export function renderAgents({
   assertValidFrameCoreConfig(config);
   const names = config.agent_display_names ?? {};
   const profile = config.work_profile ?? {};
+  const delivery = config.delivery ?? {};
   const language = safeTemplateValue(config.working_language ?? "en");
   const tone = safeTemplateValue(config.response_tone ?? "calm, direct, practical");
   const outputDir = safeTemplateValue(config.output_dir ?? "output/workflow");
+  const qaStrictness = safeTemplateValue(config.qa_strictness ?? "standard");
+  const deliveryAutoUpload = safeTemplateValue(delivery.auto_upload ?? false);
+  const deliveryRequiresCurrentUserRequest = safeTemplateValue(delivery.delivery_requires_current_user_request ?? true);
+  const requireQaAllowlist = safeTemplateValue(delivery.require_qa_allowlist_for_generated_assets ?? true);
   const primaryWork = safeTemplateValue(profile.primary_work ?? "creative production");
   const primaryUseCases = safeTemplateValue(profile.primary_use_cases ?? "briefs, references, prompts, QA, and delivery");
   const workflowStyle = safeTemplateValue(profile.workflow_style ?? "structured checkpoints with concise practical outputs");
@@ -96,6 +101,10 @@ export function renderAgents({
       .replaceAll("{{working_language}}", language)
       .replaceAll("{{response_tone}}", tone)
       .replaceAll("{{output_dir}}", outputDir)
+      .replaceAll("{{qa_strictness}}", qaStrictness)
+      .replaceAll("{{delivery_auto_upload}}", deliveryAutoUpload)
+      .replaceAll("{{delivery_requires_current_user_request}}", deliveryRequiresCurrentUserRequest)
+      .replaceAll("{{require_qa_allowlist_for_generated_assets}}", requireQaAllowlist)
       .replaceAll("{{primary_work}}", primaryWork)
       .replaceAll("{{primary_use_cases}}", primaryUseCases)
       .replaceAll("{{workflow_style}}", workflowStyle)

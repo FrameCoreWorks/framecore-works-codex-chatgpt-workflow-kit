@@ -45,15 +45,35 @@ export function run(ctx) {
     read
   } = ctx.helpers;
   const { findings, addFinding } = createFindings(ctx.root);
-  const { artifactSchemasPath, artifactTemplates, gateRegistry, handoffMatrix, inferenceReasoningMethods, loopProtocol, workflowBlueprints } = ctx.paths;
+  const { artifactSchemasPath, artifactTemplates, gateRegistry, handoffMatrix, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, workflowBlueprints } = ctx.paths;
 
   let knownGates = new Map();
   let knownHandoffPairs = new Set();
   let knownWorkflowBlueprints = new Set();
   let workflowBlueprintContracts = new Map();
 
-  for (const file of [gateRegistry, handoffMatrix, workflowBlueprints, inferenceReasoningMethods, loopProtocol, artifactTemplates]) {
+  for (const file of [gateRegistry, handoffMatrix, workflowBlueprints, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, artifactTemplates]) {
     if (!existsSync(file)) addFinding("MISSING_PIPELINE_FILE", "Required pipeline core file is missing.", [file]);
+  }
+
+  if (existsSync(promptFormatAndContinuity)) {
+    const text = read(promptFormatAndContinuity);
+    for (const phrase of [
+      "negative_handling_mode",
+      "integrated_constraints",
+      "independent_text_generation",
+      "independent_reference_conditioned",
+      "frame_chained_i2v",
+      "native_extension",
+      "native_multishot_single_job",
+      "Strict Continuity Carriers",
+      "Standalone Prompt Rule",
+      "does not select or activate a provider"
+    ]) {
+      if (!text.includes(phrase)) {
+        addFinding("WEAK_PROMPT_FORMAT_CONTINUITY", `Prompt format and continuity contract is missing required phrase: ${phrase}`, [promptFormatAndContinuity]);
+      }
+    }
   }
 
   if (existsSync(loopProtocol)) {
@@ -104,7 +124,7 @@ export function run(ctx) {
     const seenGates = new Set();
     const gates = new Map(gateRows.map((row) => [row.gate, row]));
     knownGates = gates;
-    for (const gate of ["intent_lock", "workflow_route", "loop_control_fit", "brief_completeness", "reference_authority_fit", "evidence_fit", "instruction_packet_fit", "direction_fit", "structure_fit", "storyboard_board_fit", "copy_fit", "promptability_fit", "schema_pricing_fit", "execution_manifest_fit", "asset_manifest_fit", "post_execution_fit", "delivery_fit"]) {
+    for (const gate of ["intent_lock", "request_diagnostic_fit", "workflow_route", "loop_control_fit", "brief_completeness", "reference_authority_fit", "evidence_fit", "instruction_packet_fit", "direction_fit", "structure_fit", "storyboard_board_fit", "copy_fit", "promptability_fit", "schema_pricing_fit", "execution_manifest_fit", "asset_manifest_fit", "post_execution_fit", "delivery_fit", "self_improvement_sufficiency_fit"]) {
       if (!gates.has(gate)) addFinding("MISSING_GATE", `Gate is missing: ${gate}`, [gateRegistry]);
     }
     for (const row of gateRows) {
