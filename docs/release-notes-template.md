@@ -38,7 +38,7 @@ Briefly describe what changed and who benefits from the release.
 
 - Repository profiles changed:
 - Source manifest updated and validated:
-- Representative `$skill-creator` setup results:
+- Representative ChatGPT Create with chat setup results:
 - ChatGPT compatibility notes:
 
 ## Validation And Package Checks

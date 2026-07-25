@@ -64,7 +64,7 @@ If using ChatGPT Skills:
 - Did the skill name, description, and starter prompt display correctly? yes / no / partly
 - Did onboarding start before setup was called complete? yes / no
 - Was the setup language the first question? yes / no
-- Did ChatGPT read skill sources from the repository and invoke `$skill-creator`? yes / no / not sure
+- Did ChatGPT read skill sources from the repository and start host-managed native creation without requiring a literal `$skill-creator` command? yes / no / not sure
 - Did ChatGPT avoid claiming local install, doctor checks, hash checks, or Memory Cache repair? yes / no / not sure
 - Did it avoid creating permanent Codex agents? yes / no / not sure
 

@@ -13,6 +13,83 @@ test("ChatGPT repository installer, profiles, sources, and UI metadata validate"
   assert.deepEqual(validateChatGptRepositorySetup(root), []);
 });
 
+test("ChatGPT native creation is host-managed and does not require literal tool discovery", () => {
+  const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
+  assert.equal(config.schema_version, 2);
+  assert.equal(config.native_creator, undefined);
+  assert.equal(config.native_creation.mode, "host_managed_automatic");
+  assert.equal(config.native_creation.creator_skill, "skill-creator");
+  assert.equal(config.native_creation.literal_invocation_required, false);
+  assert.equal(config.native_creation.tool_discovery_required, false);
+  assert.equal(config.native_creation.capability_preflight_required, false);
+  assert.equal(config.native_creation.surface, "chatgpt_create_with_chat");
+  assert.equal(config.installation_rules.require_visible_install_confirmation, undefined);
+});
+
+test("ChatGPT setup state model separates approval, creation, confirmation, and installation", () => {
+  const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
+  assert.deepEqual(config.installation_states, [
+    "onboarding_complete",
+    "workflow_profile_approved",
+    "skill_list_approved",
+    "source_resolved",
+    "creation_requested",
+    "created",
+    "needs_user_confirmation",
+    "installed",
+    "already_present_needs_review",
+    "blocked",
+  ]);
+  assert.equal(config.installation_confirmation.required, true);
+  assert.equal(config.installation_confirmation.assistant_ui_introspection_required, false);
+  assert.equal(config.installation_confirmation.conversational_approval_authorizes_creation, true);
+  assert.equal(config.installation_confirmation.conversational_approval_alone_marks_installed, false);
+  assert.deepEqual(config.installation_confirmation.accepted_confirmation_sources, [
+    "native_install_action",
+    "host_reported_install_result",
+  ]);
+});
+
+test("ChatGPT voice-mode setup can approve decisions but cannot mark skills installed", () => {
+  const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
+  assert.equal(config.voice_mode_rules.voice_approval_can_authorize_profile, true);
+  assert.equal(config.voice_mode_rules.voice_approval_can_authorize_skill_list, true);
+  assert.equal(config.voice_mode_rules.voice_approval_can_authorize_creation, true);
+  assert.equal(config.voice_mode_rules.voice_approval_alone_marks_installed, false);
+  assert.equal(config.voice_mode_rules.assistant_must_not_claim_ui_introspection, true);
+});
+
+test("ChatGPT provider-cost preflight is required before paid external execution", () => {
+  const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
+  assert.equal(config.provider_cost_preflight.default_paid_external_execution, "disabled");
+  assert.equal(config.provider_cost_preflight.provider_mention_is_not_consent, true);
+  assert.equal(config.provider_cost_preflight.require_current_explicit_approval, true);
+  assert.equal(config.provider_cost_preflight.unknown_cost_label, "Unknown");
+  for (const field of [
+    "provider",
+    "tool_or_operation",
+    "inputs_and_operation_count",
+    "estimated_or_unknown_cost",
+    "billing_unit",
+    "uploaded_data_scope",
+    "privacy_risks",
+    "limits",
+    "retry_policy",
+    "verification_plan",
+  ]) {
+    assert.ok(config.provider_cost_preflight.required_fields.includes(field), `missing ${field}`);
+  }
+});
+
+test("ChatGPT bootstrap forbids false literal skill-creator blockers", () => {
+  const bootstrap = readFileSync(join(root, "CHATGPT_INSTALL.md"), "utf8");
+  assert.match(bootstrap, /host-managed Create with chat workflow/);
+  assert.match(bootstrap, /Do not treat `skill-creator` as a literal command/);
+  assert.match(bootstrap, /Lack of a visible literal `skill-creator` tool is not a blocker/);
+  assert.match(bootstrap, /Conversational or voice approval does not mean installed/);
+  assert.doesNotMatch(bootstrap, /cannot invoke `?\$skill-creator`?/i);
+});
+
 test("ChatGPT source manifest covers every repository skill in declared install order", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
   const manifest = buildChatGptSkillSourceManifest(root);

@@ -3,7 +3,9 @@
 ## Unreleased
 
 - Added repository-source native ChatGPT setup for all 34 public workflow skills, with core, creative, and full profiles.
-- Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through ChatGPT's built-in `$skill-creator`.
+- Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through ChatGPT's host-managed Create with chat workflow.
+- Clarified native ChatGPT setup so `skill-creator` is treated as an automatic host capability, not a literal command, MCP tool, or function tool the user must invoke.
+- Added state-model rules for ChatGPT setup: approval, creation, native confirmation, `needs_user_confirmation`, `installed`, existing-skill review, and `blocked` remain separate.
 - Added `agents/openai.yaml` UI metadata, starter prompts, and invocation policy for every public skill.
 - Added a checked-in source inventory with raw GitHub URLs and SHA-256 hashes, plus regression tests that reject stale or incomplete source mappings.
 - Made onboarding, pipeline-core, workflow-orchestrator, and brief-architect surface-aware while preserving the existing Codex project-local path.

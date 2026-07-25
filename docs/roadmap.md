@@ -23,7 +23,7 @@ The current kit focuses on a provider-neutral Codex workflow baseline:
 
 - Custom-agent spawning depends on the local Codex environment. The installed instructions and skills remain useful without spawning, but routed subagent execution depends on local support.
 - Native ChatGPT Skills are created individually from declared repository sources, not by the project-local installer. They do not create `.codex/agents` files, local manifests, Memory Cache, or a permanent ChatGPT agent roster.
-- Skill availability, `$skill-creator`, public repository access, installation confirmation, and cross-surface synchronization depend on the ChatGPT account and workspace.
+- Skill availability, host-managed native creation, public repository access, installation confirmation, and cross-surface synchronization depend on the ChatGPT account and workspace.
 - Artifact schemas are lightweight contract checks, not full formal JSON Schema validation for every artifact paragraph.
 - Cross-platform coverage is split between the default Linux validation workflow and a path-sensitive cross-platform workflow that also supports manual dispatch.
 - The Hipson Adapter is lightweight by default. Full Hipson remains separate and optional.
@@ -36,7 +36,7 @@ The current kit focuses on a provider-neutral Codex workflow baseline:
 - Expand validated public examples for common creative workflow paths.
 - Keep artifact contracts, gate coverage, and handoff continuity machine-checked.
 - Keep package contents, privacy audit, release checks, issue templates, and repository settings aligned with public-source safety.
-- Keep native ChatGPT repository sources aligned with the Agent Skills format, temporary role model, provider-neutral boundary, and current `$skill-creator` behavior.
+- Keep native ChatGPT repository sources aligned with the Agent Skills format, temporary role model, provider-neutral boundary, and current Create with chat behavior.
 
 ## Future Candidates
 

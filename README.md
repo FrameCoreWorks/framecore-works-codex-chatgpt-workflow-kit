@@ -15,7 +15,7 @@ Using ChatGPT Skills? Jump to [Install Directly From The Repo In ChatGPT](#insta
 
 ## Install Directly From The Repo In ChatGPT
 
-This path is for ChatGPT users who have native Skills and the built-in `$skill-creator`. It creates the selected skills from the public repository source. It does not run the Codex installer or require local repository files.
+This path is for ChatGPT users who have native Skills and access to ChatGPT's Create with chat workflow. It creates the selected skills from the public repository source. It does not run the Codex installer or require local repository files.
 
 1. Open a new ChatGPT conversation.
 2. Paste the complete prompt below.
@@ -23,7 +23,7 @@ This path is for ChatGPT users who have native Skills and the built-in `$skill-c
 4. Review the proposed skill profile and confirm native installation as ChatGPT presents each selected skill.
 
 ```text
-Use ChatGPT's built-in $skill-creator to install native ChatGPT Skills directly from this repository:
+Create native ChatGPT Skills directly from this repository using ChatGPT's built-in Create with chat workflow:
 
 https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
@@ -34,9 +34,9 @@ https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-w
 
 Then read the setup configuration and exact skill source inventory referenced by that contract. Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup.
 
-Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. Do not claim that a skill is installed until ChatGPT's native skill creation and visible installation flow has been completed and confirmed.
+Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. ChatGPT may use its built-in skill-creator automatically, but do not require me to type $skill-creator and do not block just because no literal tool with that name is visible. Do not claim that a skill is installed until ChatGPT's native skill creation and host-reported installation flow has been completed and confirmed.
 
-If you cannot read the public repository files or invoke $skill-creator, stop and tell me which capability is unavailable. Do not substitute a Codex installation or pretend setup succeeded.
+If you cannot read the public repository files, or if the ChatGPT host reports that native Skill creation is unavailable, stop and tell me which capability is unavailable. Do not substitute a Codex installation or pretend setup succeeded.
 ```
 
 The canonical behavior is defined in [CHATGPT_INSTALL.md](CHATGPT_INSTALL.md). The exact profile order is in [config/chatgpt-skills.json](config/chatgpt-skills.json), and [config/chatgpt-skill-sources.json](config/chatgpt-skill-sources.json) lists every source file and SHA-256 hash ChatGPT should read.
@@ -48,7 +48,7 @@ This skill kit adds a project-local creative workflow layer to Codex and exposes
 At a glance, the repo includes:
 
 - **20 Codex role-agent templates** for routing, creative planning, prompting, QA, delivery, and execution documentation.
-- **34 portable workflow skills** for brief building, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for ChatGPT's built-in skill creation flow.
+- **34 portable workflow skills** for brief building, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for ChatGPT's host-managed skill creation flow.
 - **Project-local install and onboarding** with doctor/preflight, dry-run, manifest tracking, update, repair, and uninstall.
 - **Workflow contracts** for gates, handoffs, artifact schemas, examples, Loop Protocol, and provider-neutral safety boundaries.
 
@@ -85,7 +85,7 @@ ChatGPT ultimately controls native implicit invocation, so exact natural-languag
 | New to Codex and want the full workflow in one project | [Copy-Paste Install Prompt](#copy-paste-install-prompt) | Codex guides cloning, checks, onboarding, dry-run, and project-local install. |
 | Comfortable with terminal commands | [Install Flow](#install-flow) | You run the guided installer or manual command sequence yourself. |
 | Already installed and want the newest repo changes | [Update An Existing Workspace](#update-an-existing-workspace) | Codex or terminal updates only FrameCore-managed files recorded in `.framecore/manifest.json`. |
-| Using native ChatGPT Skills | [Install Directly From The Repo In ChatGPT](#install-directly-from-the-repo-in-chatgpt) | Paste one prompt, complete onboarding, select a profile, and let `$skill-creator` create the selected skills from repository sources. |
+| Using native ChatGPT Skills | [Install Directly From The Repo In ChatGPT](#install-directly-from-the-repo-in-chatgpt) | Paste one prompt, complete onboarding, select a profile, and let ChatGPT's host-managed Create with chat flow create the selected skills from repository sources. |
 | Only reviewing before install | [Included Agents And Skills](docs/included-agents-and-skills.md) and [Workflow Map](docs/workflow-map.md) | You can inspect the inventory, routes, gates, artifacts, examples, and safety boundaries first. |
 | Testing and sending feedback | [Tester Feedback Guide](docs/tester-feedback.md) and [Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md#live-e2e-test) | Use the live checklists and a short report format that tells maintainers what happened and where it stopped. |
 
@@ -98,7 +98,7 @@ For the shortest version, use [Getting Started In 5 Minutes](docs/getting-starte
 There are two beginner paths:
 
 - **Codex install:** use this when you want the full local workflow in a shell-capable Codex workspace. Codex can clone the repo, run onboarding, install project-local files, render `.codex/agents/*.toml`, and optionally initialize `Context/` plus `Memory Cache/`.
-- **Native ChatGPT Skills:** use this when ChatGPT exposes **Skills** and the built-in `$skill-creator`. Paste the repository setup prompt above, complete onboarding, approve the smallest useful profile, and let ChatGPT create each selected skill from its declared GitHub sources. ChatGPT does not install `.codex/agents`; role-agent concepts become temporary responsibilities inside the current task. See [Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md).
+- **Native ChatGPT Skills:** use this when ChatGPT exposes **Skills** and Create with chat. Paste the repository setup prompt above, complete onboarding, approve the smallest useful profile, and let ChatGPT create each selected skill from its declared GitHub sources. ChatGPT may use `skill-creator` automatically; do not treat it as a literal command you must type. ChatGPT does not install `.codex/agents`; role-agent concepts become temporary responsibilities inside the current task. See [Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md).
 
 Recommended helper: install [GitHub Desktop](https://desktop.github.com/) if cloning a repository feels unfamiliar. It gives you a visual way to clone this repo, choose where it lives on your computer, see changed files, commit changes, and push to GitHub without memorizing Git commands. GitHub Desktop is optional; it does not run the installer by itself, and the kit can still be installed from a shell-capable Codex workspace or terminal.
 
@@ -188,7 +188,7 @@ Onboarding writes `framecore.config.json` before the managed install so local pr
 | --- | --- | --- |
 | OpenAI Codex CLI with custom-agent support | Full project-local install, `AGENTS.md`, skills, rendered `.codex/agents/*.toml`, guided install, doctor, update, repair, uninstall | Recommended full experience. |
 | OpenAI Codex or ChatGPT environments that read project instructions but do not expose custom-agent spawning | `AGENTS.md`, installed skills, workflow docs, examples, artifact contracts | `.codex/agents/*.toml` may be inert, but the workflow contracts remain useful. |
-| Native ChatGPT Skills | Repository-source skill creation, UI metadata, guided onboarding, reusable workflow instructions, and temporary task roles | Requires native Skills, public GitHub source access, and ChatGPT's built-in `$skill-creator`. Each selected skill needs a visible final installation status. |
+| Native ChatGPT Skills | Repository-source skill creation, UI metadata, guided onboarding, reusable workflow instructions, and temporary task roles | Requires native Skills, public GitHub source access, and ChatGPT's host-managed Create with chat flow. Each selected skill needs a host-reported final installation status. |
 | Other AGENTS-aware coding agents or editors | `AGENTS.md`, docs, examples, and reusable skill files when read manually | Custom-agent `.toml` files are Codex-specific and may not be consumed. |
 | Chat-only environments without native Skills | Documentation and manual guidance only | Use a ChatGPT account with native Skills, or use a local terminal or shell-capable Codex workspace. |
 

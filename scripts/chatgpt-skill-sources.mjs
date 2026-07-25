@@ -20,20 +20,29 @@ const REQUIRED_BOOTSTRAP_SECTIONS = [
   "Beginner Preflight",
   "Onboarding Questions",
   "Profile Selection",
+  "State Model",
   "Native Skill Creation",
   "Existing Skill Guard",
   "Temporary Roles",
   "Post-Install Invocation",
   "Safety Boundaries",
+  "Voice Mode",
+  "Provider Cost Preflight",
   "Completion Criteria",
   "Failure Handling",
 ];
 const REQUIRED_BOOTSTRAP_PHRASES = [
-  "$skill-creator",
+  "skill-creator",
   "config/chatgpt-skills.json",
   "config/chatgpt-skill-sources.json",
   "Which language should I use for setup?",
   "Ask these questions one at a time",
+  "host-managed",
+  "literal command",
+  "tool discovery",
+  "creation_requested",
+  "needs_user_confirmation",
+  "Conversational or voice approval does not mean installed",
   "Do not use Codex `skill-installer`",
   "Do not claim bulk completion",
   "smallest sufficient route",
@@ -193,22 +202,75 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     bootstrap_path: "CHATGPT_INSTALL.md",
     source_manifest_path: MANIFEST_PATH,
     source_root: ".agents/skills",
-    native_creator: "$skill-creator",
   };
-  if (config.schema_version !== 1) errors.push({ message: "ChatGPT setup schema_version must be 1.", file: configPath });
+  if (config.schema_version !== 2) errors.push({ message: "ChatGPT setup schema_version must be 2.", file: configPath });
   for (const [key, value] of Object.entries(expectedConfig)) {
     if (config[key] !== value) errors.push({ message: `ChatGPT setup ${key} must be ${value}.`, file: configPath });
   }
+  if ("native_creator" in config) errors.push({ message: "ChatGPT setup must not require a literal native_creator command.", file: configPath });
   for (const key of ["repository", "raw_base_url", "bootstrap_url", "source_manifest_url"]) {
     if (typeof config[key] !== "string" || !config[key].startsWith("https://")) errors.push({ message: `ChatGPT setup ${key} must be a public HTTPS URL.`, file: configPath });
   }
   for (const removedKey of ["format", "default_output_dir", "archive", "mime_type"]) {
     if (removedKey in config) errors.push({ message: `ChatGPT repository setup must not define package field: ${removedKey}`, file: configPath });
   }
+  const nativeCreation = config.native_creation ?? {};
+  const expectedNativeCreation = {
+    mode: "host_managed_automatic",
+    creator_skill: "skill-creator",
+    literal_invocation_required: false,
+    tool_discovery_required: false,
+    capability_preflight_required: false,
+    surface: "chatgpt_create_with_chat",
+  };
+  for (const [key, value] of Object.entries(expectedNativeCreation)) {
+    if (nativeCreation[key] !== value) errors.push({ message: `ChatGPT native_creation ${key} must be ${value}.`, file: configPath });
+  }
+
+  const confirmation = config.installation_confirmation ?? {};
+  if (confirmation.required !== true || confirmation.assistant_ui_introspection_required !== false || confirmation.conversational_approval_authorizes_creation !== true || confirmation.conversational_approval_alone_marks_installed !== false) {
+    errors.push({ message: "ChatGPT installation confirmation must separate approval, creation, and installed status.", file: configPath });
+  }
+  const acceptedConfirmationSources = Array.isArray(confirmation.accepted_confirmation_sources) ? confirmation.accepted_confirmation_sources : [];
+  for (const source of ["native_install_action", "host_reported_install_result"]) {
+    if (!acceptedConfirmationSources.includes(source)) errors.push({ message: `ChatGPT installation confirmation is missing source: ${source}`, file: configPath });
+  }
+
+  const expectedStates = [
+    "onboarding_complete",
+    "workflow_profile_approved",
+    "skill_list_approved",
+    "source_resolved",
+    "creation_requested",
+    "created",
+    "needs_user_confirmation",
+    "installed",
+    "already_present_needs_review",
+    "blocked",
+  ];
+  if (JSON.stringify(config.installation_states) !== JSON.stringify(expectedStates)) {
+    errors.push({ message: `ChatGPT installation states must be exactly: ${expectedStates.join(", ")}.`, file: configPath });
+  }
+
+  const voiceMode = config.voice_mode_rules ?? {};
+  if (voiceMode.voice_approval_can_authorize_profile !== true || voiceMode.voice_approval_can_authorize_skill_list !== true || voiceMode.voice_approval_can_authorize_creation !== true || voiceMode.voice_approval_alone_marks_installed !== false || voiceMode.assistant_must_not_claim_ui_introspection !== true) {
+    errors.push({ message: "ChatGPT voice mode rules must allow approval but forbid false installed claims or UI introspection claims.", file: configPath });
+  }
+
+  const providerPreflight = config.provider_cost_preflight ?? {};
+  if (providerPreflight.default_paid_external_execution !== "disabled" || providerPreflight.provider_mention_is_not_consent !== true || providerPreflight.require_current_explicit_approval !== true || providerPreflight.unknown_cost_label !== "Unknown") {
+    errors.push({ message: "ChatGPT provider cost preflight must keep paid external execution disabled unless explicitly approved.", file: configPath });
+  }
+  const preflightFields = Array.isArray(providerPreflight.required_fields) ? providerPreflight.required_fields : [];
+  for (const field of ["provider", "tool_or_operation", "estimated_or_unknown_cost", "billing_unit", "uploaded_data_scope", "privacy_risks", "retry_policy", "verification_plan"]) {
+    if (!preflightFields.includes(field)) errors.push({ message: `ChatGPT provider cost preflight is missing required field: ${field}`, file: configPath });
+  }
+
   const rules = config.installation_rules ?? {};
-  for (const key of ["onboarding_before_creation", "first_question_is_setup_language", "create_each_skill_separately", "require_visible_install_confirmation", "codex_agent_files_are_sources"]) {
+  for (const key of ["onboarding_before_creation", "first_question_is_setup_language", "create_each_skill_separately", "codex_agent_files_are_sources"]) {
     if (typeof rules[key] !== "boolean") errors.push({ message: `ChatGPT installation rule must be boolean: ${key}`, file: configPath });
   }
+  if ("require_visible_install_confirmation" in rules) errors.push({ message: "ChatGPT installation rules must not require assistant-visible install UI introspection.", file: configPath });
   if (rules.codex_agent_files_are_sources !== false || rules.allow_unconfirmed_completion_claim !== false || rules.roles_are_temporary_in_chatgpt !== true) {
     errors.push({ message: "ChatGPT installation rules must keep Codex agent files out, roles temporary, and completion evidence-based.", file: configPath });
   }

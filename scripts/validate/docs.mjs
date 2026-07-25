@@ -205,10 +205,10 @@ export function run(ctx) {
   if (existsSync(chatGptSkillsDoc)) {
     const text = read(chatGptSkillsDoc);
     const sections = markdownSections(text);
-    for (const section of ["Purpose", "Product Boundary", "Repository Contract", "Copy-Paste Prompt", "Onboarding Flow", "Profile Selection", "Source Resolution", "Native Installation Flow", "Existing Skill Guard", "Temporary Role Model", "Post-Install Invocation Behavior", "Live E2E Test", "Maintainer Validation", "Stop Conditions", "Related Docs"]) {
+    for (const section of ["Purpose", "Product Boundary", "Repository Contract", "Copy-Paste Prompt", "Onboarding Flow", "Profile Selection", "Source Resolution", "State Model", "Native Installation Flow", "Existing Skill Guard", "Temporary Role Model", "Post-Install Invocation Behavior", "Voice Mode", "Provider Cost Preflight", "Live E2E Test", "Maintainer Validation", "Stop Conditions", "Related Docs"]) {
       if (!sections.has(section)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required section: ${section}`, [chatGptSkillsDoc]);
     }
-    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "$skill-creator", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "setup language", "temporary responsibility", "must not report bulk success", "allow_implicit_invocation: true", "smallest sufficient route", "$workflow-orchestrator", "$pipeline-core", "explicit-only", "all 34"]) {
+    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "skill-creator", "host-managed", "literal `$skill-creator` invocation", "needs_user_confirmation", "voice approval does not prove native installation", "estimated cost or `Unknown`", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "setup language", "temporary responsibility", "must not report bulk success", "allow_implicit_invocation: true", "smallest sufficient route", "$workflow-orchestrator", "$pipeline-core", "explicit-only", "all 34"]) {
       if (!text.includes(phrase)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required phrase: ${phrase}`, [chatGptSkillsDoc]);
     }
   }
@@ -378,7 +378,7 @@ export function run(ctx) {
     for (const phrase of ["## Supported Agent Surfaces", "OpenAI Codex CLI with custom-agent support", "Chat-only environments without native Skills", "GitHub Desktop", "created by FrameCore Works", "https://buycoffee.to/framecoreworks", "This kit ships the routing and contract layer", "symlinks"]) {
       if (!text.includes(phrase)) addFinding("WEAK_README_POSITIONING", `README is missing required positioning phrase: ${phrase}`, [readmePath]);
     }
-    for (const phrase of ["Install Directly From The Repo In ChatGPT", "CHATGPT_INSTALL.md", "config/chatgpt-skill-sources.json", "docs/chatgpt-skills-onboarding.md", "$skill-creator", "Your first response must ask only which language"]) {
+    for (const phrase of ["Install Directly From The Repo In ChatGPT", "CHATGPT_INSTALL.md", "config/chatgpt-skill-sources.json", "docs/chatgpt-skills-onboarding.md", "Create with chat", "Your first response must ask only which language"]) {
       if (!text.includes(phrase)) addFinding("WEAK_README_CHATGPT_SKILLS", `README is missing required native ChatGPT Skills phrase: ${phrase}`, [readmePath]);
     }
     for (const phrase of ["Global install is available only for advanced users", "writes to the current user's home workspace", "npm run doctor -- --mode global", "node scripts/install.mjs --mode dry-run --target \"$HOME\"", "node scripts/install.mjs --mode global --confirm-global"]) {

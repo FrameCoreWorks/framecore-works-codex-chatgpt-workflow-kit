@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "mode": "repository-source",
   "surface": "native-chatgpt-skills",
   "repository": "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit",
@@ -10,12 +10,65 @@
   "source_manifest_path": "config/chatgpt-skill-sources.json",
   "source_manifest_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/config/chatgpt-skill-sources.json",
   "source_root": ".agents/skills",
-  "native_creator": "$skill-creator",
+  "native_creation": {
+    "mode": "host_managed_automatic",
+    "creator_skill": "skill-creator",
+    "literal_invocation_required": false,
+    "tool_discovery_required": false,
+    "capability_preflight_required": false,
+    "surface": "chatgpt_create_with_chat"
+  },
+  "installation_confirmation": {
+    "required": true,
+    "assistant_ui_introspection_required": false,
+    "conversational_approval_authorizes_creation": true,
+    "conversational_approval_alone_marks_installed": false,
+    "accepted_confirmation_sources": [
+      "native_install_action",
+      "host_reported_install_result"
+    ]
+  },
+  "installation_states": [
+    "onboarding_complete",
+    "workflow_profile_approved",
+    "skill_list_approved",
+    "source_resolved",
+    "creation_requested",
+    "created",
+    "needs_user_confirmation",
+    "installed",
+    "already_present_needs_review",
+    "blocked"
+  ],
+  "voice_mode_rules": {
+    "voice_approval_can_authorize_profile": true,
+    "voice_approval_can_authorize_skill_list": true,
+    "voice_approval_can_authorize_creation": true,
+    "voice_approval_alone_marks_installed": false,
+    "assistant_must_not_claim_ui_introspection": true
+  },
+  "provider_cost_preflight": {
+    "default_paid_external_execution": "disabled",
+    "provider_mention_is_not_consent": true,
+    "require_current_explicit_approval": true,
+    "unknown_cost_label": "Unknown",
+    "required_fields": [
+      "provider",
+      "tool_or_operation",
+      "inputs_and_operation_count",
+      "estimated_or_unknown_cost",
+      "billing_unit",
+      "uploaded_data_scope",
+      "privacy_risks",
+      "limits",
+      "retry_policy",
+      "verification_plan"
+    ]
+  },
   "installation_rules": {
     "onboarding_before_creation": true,
     "first_question_is_setup_language": true,
     "create_each_skill_separately": true,
-    "require_visible_install_confirmation": true,
     "allow_unconfirmed_completion_claim": false,
     "codex_agent_files_are_sources": false,
     "roles_are_temporary_in_chatgpt": true
