@@ -60,7 +60,7 @@ This keeps the installed role roster stable while still giving the workflow doma
 
 ## Installed Workflow Skills
 
-Skills are portable workflow contracts. They define when a capability should be used, what input it needs, what artifact it should produce, and which safety rules apply. Codex discovers the source folders locally; ChatGPT reads the declared repository sources and creates the selected native Skills through the host-managed Create with chat flow. They are not paid provider integrations.
+Skills are portable workflow contracts. They define when a capability should be used, what input it needs, what artifact it should produce, and which safety rules apply. Codex discovers the source folders locally; ChatGPT Work reads the declared repository sources after the README prompt invokes `@skill-creator`, then creates the selected native Skills through Create with chat. They are not paid provider integrations.
 
 | Skill | Main use |
 | --- | --- |

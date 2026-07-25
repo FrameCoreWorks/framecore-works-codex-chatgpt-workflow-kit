@@ -32,7 +32,7 @@ Do not use global install. Do not enable paid external execution tools. Do not u
 If this Codex environment cannot run shell commands, tell me I need a shell-capable Codex workspace or help from a technical user. If shell commands work but git and gh are not installed or not available, tell me nothing was installed yet, recommend GitHub Desktop as the easiest visual cloning tool, and tell me to clone this repository into a temporary, tools, or GitHub folder outside my project. If I do not know how to clone this repository, recommend GitHub Desktop as the easiest visual cloning tool and remind me to clone into a temporary or tools folder outside my project.
 ```
 
-If you paste this into a normal ChatGPT chat and only receive an explanation, nothing was installed. Use a shell-capable Codex workspace for installation.
+If you paste this Codex prompt into the ChatGPT Chat surface and only receive an explanation, nothing was installed. For the Codex installation, use a shell-capable Codex workspace. For native ChatGPT Skills, switch ChatGPT to Work and use the separate `@skill-creator` prompt from [README](../README.md#install-directly-from-the-repo-in-chatgpt).
 
 If Codex cannot run local commands, this kit still remains documented, but installation needs a terminal-capable environment or a technical helper.
 

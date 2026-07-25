@@ -4,9 +4,9 @@
 
 This guide explains how a user can paste one instruction into ChatGPT and create native ChatGPT Skills directly from the public source files in this repository.
 
-This is not the Codex project-local installer. ChatGPT does not clone the repository, run shell commands, create `AGENTS.md`, render `.codex/agents/*.toml`, initialize `Memory Cache/`, or write a local manifest. It reads the declared public skill sources and creates the selected native skills through ChatGPT's host-managed Create with chat workflow.
+This is not the Codex project-local installer. ChatGPT does not clone the repository, run shell commands, create `AGENTS.md`, render `.codex/agents/*.toml`, initialize `Memory Cache/`, or write a local manifest. It reads the declared public skill sources and creates the selected native skills through ChatGPT Work with `@skill-creator`.
 
-Use this path when native Skills and Create with chat are available in the user's ChatGPT account. Eligible accounts include `skill-creator`, but ChatGPT uses it automatically when asked to create or modify a Skill. The user should not need to type `$skill-creator`, and the assistant should not block setup only because no literal tool or command with that name is visible. Availability remains controlled by the current ChatGPT product surface and workspace policy.
+Use this path when native Skills and Work are available in the user's ChatGPT account. The recommended tested entry is **ChatGPT > Work**, followed by the README prompt whose first line says `Use @skill-creator`. The alternate product path is **Plugins > Skills > Create > Create with chat**, which opens the same creation surface. The `@skill-creator` text is a native Skill mention, not a `$skill-creator` command, shell command, MCP tool, or function tool. Availability remains controlled by the current ChatGPT product surface and workspace policy.
 
 Official product references:
 
@@ -47,10 +47,10 @@ Every public skill keeps its canonical contract in `.agents/skills/<skill-name>/
 
 ## Copy-Paste Prompt
 
-Paste the complete prompt below into a new ChatGPT conversation:
+Open ChatGPT, switch the top selector from **Chat** to **Work**, and paste the complete prompt below. Do not paste it into the regular Chat surface.
 
 ```text
-Create native ChatGPT Skills directly from this repository using ChatGPT's built-in Create with chat workflow:
+Use @skill-creator to help me create and install native ChatGPT Skills from this public repository. Keep the setup conversational and follow the repository's onboarding contract:
 
 https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
@@ -61,12 +61,14 @@ https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-w
 
 Then read the setup configuration and exact skill source inventory referenced by that contract. Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup.
 
-Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. ChatGPT may use its built-in skill-creator automatically, but do not require me to type $skill-creator and do not block just because no literal tool with that name is visible. Do not claim that a skill is installed until ChatGPT's native skill creation and host-reported installation flow has been completed and confirmed.
+This prompt is intended for ChatGPT Work with @skill-creator selected. If this conversation is in the regular Chat surface or @skill-creator is unavailable, stop and tell me to switch to Work and paste this complete prompt again.
+
+Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. Treat @skill-creator as the active native Skill creation workflow, not as a shell command, dollar command, MCP tool, or function tool. Do not claim that a skill is installed until ChatGPT's native skill creation and host-reported installation flow has been completed and confirmed.
 
 If you cannot read the public repository files, or if the ChatGPT host reports that native Skill creation is unavailable, stop and tell me which capability is unavailable. Do not substitute a Codex installation or pretend setup succeeded.
 ```
 
-The GitHub link identifies the source. The explicit instruction to read `CHATGPT_INSTALL.md` authorizes ChatGPT to use the repository's setup contract for this task.
+The GitHub link identifies the source. The `@skill-creator` mention selects the native creation skill, and the explicit instruction to read `CHATGPT_INSTALL.md` authorizes ChatGPT to use the repository's setup contract for this task.
 
 ## Onboarding Flow
 
@@ -127,23 +129,23 @@ The setup contract separates decision, creation, confirmation, and installation:
 | `workflow_profile_approved` | The user approved the recommended profile. |
 | `skill_list_approved` | The user approved the exact selected skill list. |
 | `source_resolved` | The current skill's manifest files were read. |
-| `creation_requested` | The current skill was submitted to the host-managed native creation flow. |
+| `creation_requested` | The current skill was submitted to the native creation flow in ChatGPT Work. |
 | `created` | The host created a draft or equivalent native creation result. |
 | `needs_user_confirmation` | The host is waiting for user installation or review. |
 | `installed` | The host reported completed native installation. |
 | `already_present_needs_review` | A similar existing skill needs review before reuse or replacement. |
 | `blocked` | A real required operation failed or the host reported native creation unavailable. |
 
-Approval is not installation. A spoken or typed "yes" can approve the profile, list, or creation attempt, but it cannot mark a skill `installed` unless the host reports native installation success. Lack of a visible literal `skill-creator` tool is not a blocker.
+Approval is not installation. A spoken or typed "yes" can approve the profile, list, or creation attempt, but it cannot mark a skill `installed` unless the host reports native installation success. The setup entry point is the active `@skill-creator` mention in Work, not a separate function tool or MCP tool.
 
 ## Native Installation Flow
 
 After source resolution, ChatGPT processes the approved skill list in declared order:
 
-1. Submit one skill to ChatGPT's host-managed native Create with chat workflow. The host may use `skill-creator` automatically.
+1. Submit one skill to the native Create with chat workflow already selected by `@skill-creator` in ChatGPT Work.
 2. Preserve the canonical name, description, resources, and UI metadata.
 3. Keep that skill separate from other repository skills unless the user explicitly requests a redesign.
-4. Do not require literal `$skill-creator` invocation, function-tool discovery, MCP-tool discovery, or assistant-side UI introspection.
+4. Do not search for a `$skill-creator` command, function tool, MCP tool, or assistant-side UI introspection. The `@skill-creator` mention is the Skill invocation.
 5. If the host creates a draft or asks for installation, record `created` or `needs_user_confirmation` and ask the user to complete the native confirmation when required.
 6. Mark `installed` only after the host reports completed native installation.
 7. Record `blocked` only after a real host error, permission denial, source failure, or native creation unavailability. Include the skill name, file or operation, returned error, and state.
@@ -187,7 +189,7 @@ Use the smallest sufficient route:
 - "Develop this campaign idea" may use `workflow-orchestrator`, brief or strategy skills, and the relevant production skills.
 - "Run the complete project from idea to a QA-ready production pack" justifies a governed multi-stage route through `pipeline-core` and `workflow-orchestrator`.
 
-For predictable explicit routing, invoke `$workflow-orchestrator` to select and track the route, or `$pipeline-core` to run a justified multi-stage workflow with gates and QA. Neither invocation authorizes providers, uploads, publishing, API keys, shell commands, or local files that are unavailable in ChatGPT.
+For predictable explicit routing in ChatGPT Work, invoke `@workflow-orchestrator` to select and track the route, or `@pipeline-core` to run a justified multi-stage workflow with gates and QA. Codex uses `$workflow-orchestrator` and `$pipeline-core` instead. Neither invocation authorizes providers, uploads, publishing, API keys, shell commands, or local files that are unavailable in ChatGPT.
 
 Three skills are explicit-only by policy: `onboarding-preference-tuning`, `hipson-adapter`, and `workflow-self-improvement`. They must not start from unrelated natural-language requests.
 
@@ -207,13 +209,13 @@ Do not store API keys, private URLs, account data, or provider credentials in a 
 
 Repository validation proves source completeness and contract consistency, but it cannot prove the behavior of a live ChatGPT account. Before broad promotion, test the current `main` commit in an account that exposes native Skills and Create with chat:
 
-1. Paste the README repository-source setup prompt into a new conversation.
+1. Switch a new ChatGPT conversation from Chat to Work and paste the README prompt with its leading `@skill-creator` mention.
 2. Confirm that the first response asks only for the setup language.
 3. Complete onboarding and approve a profile without allowing existing skills to skip setup.
 4. Confirm that every selected skill receives an individual visible final status and that no bulk success is claimed early.
 5. Ask for one bounded artifact in natural language and confirm that ChatGPT uses a specialist route instead of the full pipeline.
 6. Ask for an end-to-end multi-stage project and confirm that routing, temporary roles, gates, QA, and stop conditions become visible.
-7. Invoke `$workflow-orchestrator` and `$pipeline-core` explicitly and confirm that their route depth matches the request.
+7. Invoke `@workflow-orchestrator` and `@pipeline-core` explicitly and confirm that their route depth matches the request.
 8. Confirm that explicit-only skills do not run from unrelated requests.
 9. Confirm that ChatGPT does not claim permanent agents, local files, shell checks, providers, uploads, or Memory Cache.
 
@@ -228,7 +230,7 @@ Before publishing changes to ChatGPT-facing skill sources:
 3. Run `npm run chatgpt:skills:check`.
 4. Run `npm run check`.
 5. Run `npm run release:check` before a release.
-6. Test the README copy-paste prompt in a ChatGPT account that exposes native Skills and Create with chat.
+6. Test the README copy-paste prompt in ChatGPT Work with `@skill-creator` available.
 7. Confirm that the first response asks only for setup language and that installation claims match visible native results.
 8. Run the live E2E invocation checks for one bounded request, one multi-stage request, explicit routing, and explicit-only guards.
 
@@ -238,7 +240,8 @@ Do not commit user-specific Workflow Profiles, conversations, private context, l
 
 Stop and explain the boundary when:
 
-- the account does not expose native Skills or Create with chat;
+- the account does not expose native Skills, Work, or `@skill-creator`;
+- the user pasted the prompt into Chat instead of Work;
 - ChatGPT cannot read the public raw GitHub sources;
 - a repository source file is missing or differs from an available hash check;
 - the user has not approved the proposed skill list;

@@ -130,7 +130,7 @@ Keep these out of future public bundles by default:
 4. Extend validation when new bundle-map fields become required.
 5. Classify examples by the future bundle module they exercise.
 6. Keep native ChatGPT repository source mappings deterministic, independently creatable, and free of Codex-only agent files.
-7. Validate the core route and one resource-heavy skill through ChatGPT's host-managed native Create with chat flow before release.
+7. Validate the core route and one resource-heavy skill in ChatGPT Work through the README prompt with its leading `@skill-creator` mention before release.
 8. Keep plugin-specific files out of source until the target plugin format is concrete.
 
 ## Governance Rules

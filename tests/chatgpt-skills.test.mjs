@@ -13,16 +13,23 @@ test("ChatGPT repository installer, profiles, sources, and UI metadata validate"
   assert.deepEqual(validateChatGptRepositorySetup(root), []);
 });
 
-test("ChatGPT native creation is host-managed and does not require literal tool discovery", () => {
+test("ChatGPT native creation starts in Work with an explicit skill mention", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
-  assert.equal(config.schema_version, 2);
+  assert.equal(config.schema_version, 3);
   assert.equal(config.native_creator, undefined);
-  assert.equal(config.native_creation.mode, "host_managed_automatic");
+  assert.equal(config.entry_surface.primary, "chatgpt_work");
+  assert.equal(config.entry_surface.select_before_pasting_prompt, true);
+  assert.equal(config.entry_surface.alternate_path, "plugins_skills_create_with_chat");
+  assert.equal(config.entry_surface.alternate_path_opens_work, true);
+  assert.equal(config.native_creation.mode, "work_surface_explicit_skill_mention");
   assert.equal(config.native_creation.creator_skill, "skill-creator");
-  assert.equal(config.native_creation.literal_invocation_required, false);
+  assert.equal(config.native_creation.creator_invocation, "@skill-creator");
+  assert.equal(config.native_creation.explicit_skill_mention_required, true);
+  assert.equal(config.native_creation.dollar_command_required, false);
   assert.equal(config.native_creation.tool_discovery_required, false);
   assert.equal(config.native_creation.capability_preflight_required, false);
-  assert.equal(config.native_creation.surface, "chatgpt_create_with_chat");
+  assert.equal(config.native_creation.surface, "chatgpt_work");
+  assert.equal(config.native_creation.creation_flow, "create_with_chat");
   assert.equal(config.installation_rules.require_visible_install_confirmation, undefined);
 });
 
@@ -104,13 +111,14 @@ test("ChatGPT provider-cost preflight is required before paid external execution
   }
 });
 
-test("ChatGPT bootstrap forbids false literal skill-creator blockers", () => {
+test("ChatGPT bootstrap requires Work and distinguishes skill mention from tools", () => {
   const bootstrap = readFileSync(join(root, "CHATGPT_INSTALL.md"), "utf8");
-  assert.match(bootstrap, /host-managed Create with chat workflow/);
-  assert.match(bootstrap, /Do not treat `skill-creator` as a literal command/);
-  assert.match(bootstrap, /Lack of a visible literal `skill-creator` tool is not a blocker/);
+  assert.match(bootstrap, /ChatGPT's \*\*Work\*\* surface/);
+  assert.match(bootstrap, /Use @skill-creator/);
+  assert.match(bootstrap, /native Skill mention, not a shell command/);
+  assert.match(bootstrap, /switch to \*\*Work\*\* and paste the complete README prompt again/);
   assert.match(bootstrap, /Conversational or voice approval does not mean installed/);
-  assert.doesNotMatch(bootstrap, /cannot invoke `?\$skill-creator`?/i);
+  assert.doesNotMatch(bootstrap, /user does not need to type `?\$skill-creator`?/i);
 });
 
 test("ChatGPT source manifest covers every repository skill in declared install order", () => {

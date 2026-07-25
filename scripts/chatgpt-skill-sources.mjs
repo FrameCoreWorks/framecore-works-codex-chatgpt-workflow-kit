@@ -42,17 +42,17 @@ const REQUIRED_BOOTSTRAP_PHRASES = [
   "Ask every onboarding question from scratch",
   "small workflow helpers",
   "can be refined or expanded later",
-  "host-managed",
-  "literal command",
-  "tool discovery",
+  "ChatGPT **Work**",
+  "Use @skill-creator",
+  "not a shell command",
   "creation_requested",
   "needs_user_confirmation",
   "Conversational or voice approval does not mean installed",
   "Do not use Codex `skill-installer`",
   "Do not claim bulk completion",
   "smallest sufficient route",
-  "$workflow-orchestrator",
-  "$pipeline-core",
+  "@workflow-orchestrator",
+  "@pipeline-core",
   "explicit-only",
   ".codex/agents/",
 ];
@@ -208,25 +208,39 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     source_manifest_path: MANIFEST_PATH,
     source_root: ".agents/skills",
   };
-  if (config.schema_version !== 2) errors.push({ message: "ChatGPT setup schema_version must be 2.", file: configPath });
+  if (config.schema_version !== 3) errors.push({ message: "ChatGPT setup schema_version must be 3.", file: configPath });
   for (const [key, value] of Object.entries(expectedConfig)) {
     if (config[key] !== value) errors.push({ message: `ChatGPT setup ${key} must be ${value}.`, file: configPath });
   }
-  if ("native_creator" in config) errors.push({ message: "ChatGPT setup must not require a literal native_creator command.", file: configPath });
+  if ("native_creator" in config) errors.push({ message: "ChatGPT setup must use native_creation instead of a legacy native_creator command.", file: configPath });
   for (const key of ["repository", "raw_base_url", "bootstrap_url", "source_manifest_url"]) {
     if (typeof config[key] !== "string" || !config[key].startsWith("https://")) errors.push({ message: `ChatGPT setup ${key} must be a public HTTPS URL.`, file: configPath });
   }
   for (const removedKey of ["format", "default_output_dir", "archive", "mime_type"]) {
     if (removedKey in config) errors.push({ message: `ChatGPT repository setup must not define package field: ${removedKey}`, file: configPath });
   }
+  const entrySurface = config.entry_surface ?? {};
+  const expectedEntrySurface = {
+    primary: "chatgpt_work",
+    select_before_pasting_prompt: true,
+    alternate_path: "plugins_skills_create_with_chat",
+    alternate_path_opens_work: true,
+  };
+  for (const [key, value] of Object.entries(expectedEntrySurface)) {
+    if (entrySurface[key] !== value) errors.push({ message: `ChatGPT entry_surface ${key} must be ${value}.`, file: configPath });
+  }
+
   const nativeCreation = config.native_creation ?? {};
   const expectedNativeCreation = {
-    mode: "host_managed_automatic",
+    mode: "work_surface_explicit_skill_mention",
     creator_skill: "skill-creator",
-    literal_invocation_required: false,
+    creator_invocation: "@skill-creator",
+    explicit_skill_mention_required: true,
+    dollar_command_required: false,
     tool_discovery_required: false,
     capability_preflight_required: false,
-    surface: "chatgpt_create_with_chat",
+    surface: "chatgpt_work",
+    creation_flow: "create_with_chat",
   };
   for (const [key, value] of Object.entries(expectedNativeCreation)) {
     if (nativeCreation[key] !== value) errors.push({ message: `ChatGPT native_creation ${key} must be ${value}.`, file: configPath });
