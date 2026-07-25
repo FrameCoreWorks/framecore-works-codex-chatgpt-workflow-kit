@@ -37,6 +37,11 @@ const REQUIRED_BOOTSTRAP_PHRASES = [
   "config/chatgpt-skill-sources.json",
   "Which language should I use for setup?",
   "Ask these questions one at a time",
+  "Treat this as a fresh setup session",
+  "Do not use ChatGPT Memory",
+  "Ask every onboarding question from scratch",
+  "small workflow helpers",
+  "can be refined or expanded later",
   "host-managed",
   "literal command",
   "tool discovery",
@@ -225,6 +230,17 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
   };
   for (const [key, value] of Object.entries(expectedNativeCreation)) {
     if (nativeCreation[key] !== value) errors.push({ message: `ChatGPT native_creation ${key} must be ${value}.`, file: configPath });
+  }
+
+  const sessionScope = config.setup_session_scope ?? {};
+  if (
+    sessionScope.fresh_onboarding_required !== true ||
+    sessionScope.use_chatgpt_memory_for_answers !== false ||
+    sessionScope.use_previous_conversations_for_answers !== false ||
+    sessionScope.use_existing_skills_as_setup_completion !== false ||
+    sessionScope.reuse_prior_profile_only_if_user_provides_it_in_current_setup !== true
+  ) {
+    errors.push({ message: "ChatGPT setup session scope must require fresh onboarding and forbid memory, prior chats, or existing skills as implicit answers.", file: configPath });
   }
 
   const confirmation = config.installation_confirmation ?? {};

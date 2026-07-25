@@ -26,6 +26,29 @@ test("ChatGPT native creation is host-managed and does not require literal tool 
   assert.equal(config.installation_rules.require_visible_install_confirmation, undefined);
 });
 
+test("ChatGPT setup requires fresh onboarding instead of using memory or prior chats", () => {
+  const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
+  assert.equal(config.setup_session_scope.fresh_onboarding_required, true);
+  assert.equal(config.setup_session_scope.use_chatgpt_memory_for_answers, false);
+  assert.equal(config.setup_session_scope.use_previous_conversations_for_answers, false);
+  assert.equal(config.setup_session_scope.use_existing_skills_as_setup_completion, false);
+  assert.equal(config.setup_session_scope.reuse_prior_profile_only_if_user_provides_it_in_current_setup, true);
+
+  const bootstrap = readFileSync(join(root, "CHATGPT_INSTALL.md"), "utf8");
+  assert.match(bootstrap, /Treat this as a fresh setup session/);
+  assert.match(bootstrap, /Do not use ChatGPT Memory, previous chats, existing skills, saved preferences/);
+  assert.match(bootstrap, /Ask every onboarding question from scratch/);
+});
+
+test("ChatGPT beginner preflight explains the workflow in entry-level language", () => {
+  const bootstrap = readFileSync(join(root, "CHATGPT_INSTALL.md"), "utf8");
+  assert.match(bootstrap, /small workflow helpers ChatGPT can use later in normal conversations/);
+  assert.match(bootstrap, /turn an idea into a clear brief/);
+  assert.match(bootstrap, /prepare simple notes or checklists for sharing with a client or team/);
+  assert.match(bootstrap, /can be refined or expanded later/);
+  assert.doesNotMatch(bootstrap, /delivery preparation/);
+});
+
 test("ChatGPT setup state model separates approval, creation, confirmation, and installation", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
   assert.deepEqual(config.installation_states, [

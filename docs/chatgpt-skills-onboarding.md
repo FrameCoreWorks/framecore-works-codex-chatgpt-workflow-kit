@@ -72,14 +72,16 @@ The GitHub link identifies the source. The explicit instruction to read `CHATGPT
 
 ChatGPT must not create or invoke workflow skills immediately. It first asks which language should be used for setup. After the user answers, it switches to that language and gives a short beginner preflight explaining:
 
-- what the workflow skills do;
-- which onboarding questions will follow;
+- that these are reusable ChatGPT Skills, which are small workflow helpers ChatGPT can use later in normal conversations;
+- that the skills can help turn an idea into a brief, plan creative work, write image or video prompts, build storyboard or campaign plans, review work, and prepare simple notes or checklists for a client or team;
+- that onboarding questions will be asked one at a time so the selected skill set fits the user's work;
 - how the selected native skills will be created from repository sources;
 - that Codex role-agent files become temporary task responsibilities in ChatGPT;
 - which local, provider, credential, publishing, and background actions will not happen;
+- that the skills can be refined or expanded later as the user learns what they need;
 - that setup is incomplete until the native installation results are visible and confirmed.
 
-It then asks one question at a time about work type, use cases, outputs, workflow depth, QA depth, priorities, collaboration context, and forbidden actions. The output is a neutral Workflow Profile. The user's workflow is not named after this repository unless the user asks for that name.
+Treat each run as a fresh setup session. It then asks one question at a time about work type, use cases, outputs, workflow depth, QA depth, priorities, collaboration context, and forbidden actions. Ask every onboarding question from scratch. Do not use ChatGPT Memory, previous chats, existing skills, saved preferences, inferred user history, or answers from another setup run as onboarding answers unless the user explicitly provides a current Workflow Profile in this same setup conversation and asks to reuse it. The output is a neutral Workflow Profile. The user's workflow is not named after this repository unless the user asks for that name.
 
 ## Profile Selection
 

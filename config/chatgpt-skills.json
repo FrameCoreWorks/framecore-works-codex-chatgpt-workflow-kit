@@ -18,6 +18,13 @@
     "capability_preflight_required": false,
     "surface": "chatgpt_create_with_chat"
   },
+  "setup_session_scope": {
+    "fresh_onboarding_required": true,
+    "use_chatgpt_memory_for_answers": false,
+    "use_previous_conversations_for_answers": false,
+    "use_existing_skills_as_setup_completion": false,
+    "reuse_prior_profile_only_if_user_provides_it_in_current_setup": true
+  },
   "installation_confirmation": {
     "required": true,
     "assistant_ui_introspection_required": false,

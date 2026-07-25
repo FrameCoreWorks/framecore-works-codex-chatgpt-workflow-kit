@@ -28,12 +28,17 @@ Which language should I use for setup? Type any language, or type "default" for 
 
 Do not inspect existing skills, summarize the repository, recommend a profile, perform capability preflight, or invoke another skill before the user answers.
 
+Treat this as a fresh setup session. Do not use ChatGPT Memory, previous chats, existing skills, saved preferences, inferred user history, or answers from another setup run as onboarding answers. Ask every onboarding question from scratch unless the user explicitly provides a current Workflow Profile in this same setup conversation and asks to reuse it.
+
 ## Beginner Preflight
 
 After the user selects a language, continue in that language and briefly explain:
 
-- this repository contains reusable workflow skills for planning, creative production, prompts, QA, iteration, and delivery;
-- ChatGPT will ask onboarding questions one at a time, recommend a suitable skill profile, and then create the selected native skills from the repository source;
+- this repository contains reusable ChatGPT Skills, which are small workflow helpers ChatGPT can use later in normal conversations;
+- these skills can help turn an idea into a clear brief, plan creative work, write image or video prompts, build storyboard or campaign plans, check work before final output, and prepare simple notes or checklists for sharing with a client or team;
+- ChatGPT will ask onboarding questions one at a time so the skill set fits the user's work, not the source repository author's workflow;
+- after onboarding, ChatGPT will recommend a suitable skill profile, show the exact skill list, and then create the selected native skills from the repository source;
+- the skills can be refined or expanded later as the user learns what they need;
 - ChatGPT's host-managed Create with chat workflow uses `skill-creator` automatically; the user does not need to type `$skill-creator`, and the assistant must not search for a literal tool with that name;
 - the user may need to confirm ChatGPT's native install action for each created skill, but the assistant does not need to claim that it can see the button or panel;
 - Codex-specific role-agent files are not installed in ChatGPT; equivalent roles are temporary responsibilities used only inside the current task;
