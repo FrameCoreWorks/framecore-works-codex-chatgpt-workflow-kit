@@ -4,16 +4,16 @@
 
 This inventory is the canonical public list of what this Codex workflow skill kit includes before installation. Keep counts, installed/listed items, and public install-surface names here; use [Workflow Map](workflow-map.md) for relationships and [Agent Roster](agent-roster.md) for role responsibilities.
 
-The kit installs a project-local workflow layer for Codex and exposes the same 34 public workflow skills as repository-source native ChatGPT Skills. It includes onboarding, docs, examples, artifact contracts, gates, handoffs, validation scripts, and provider-neutral safety rules. It does not install paid external media providers, API keys, endpoint catalogs, provider CLIs, or background transfer tooling.
+The kit installs a project-local workflow layer for Codex and exposes the same 37 public workflow skills as repository-source native ChatGPT Skills. It includes onboarding, docs, examples, artifact contracts, gates, handoffs, validation scripts, and provider-neutral safety rules. It does not install paid external media providers, API keys, endpoint catalogs, provider CLIs, or background transfer tooling.
 
 ## Summary
 
 | Category | Count | Installed path or source path |
 | --- | ---: | --- |
 | Codex role-agent templates | 20 | `.codex/agents/*.toml.template` rendered into `.codex/agents/*.toml` |
-| Workflow skills | 34 | `.agents/skills/*/SKILL.md` |
-| Native ChatGPT source mappings | 34 skills | `config/chatgpt-skill-sources.json` |
-| Core workflow references | 11 | `.agents/skills/pipeline-core/references/` |
+| Workflow skills | 37 | `.agents/skills/*/SKILL.md` |
+| Native ChatGPT source mappings | 37 skills | `config/chatgpt-skill-sources.json` |
+| Core workflow references | 12 | `.agents/skills/pipeline-core/references/` |
 | Artifact schemas | 1 registry | `config/artifact-schemas.json` |
 | Example workflows | 12 | `examples/*/workflow.json` |
 | Installer and validation scripts | multiple | `scripts/*.mjs` and `tools/*.mjs` |
@@ -56,7 +56,9 @@ Roles and skills are intentionally not a one-to-one list.
 - Some skills share a name with a role because the role and support contract are tightly coupled.
 - Some skills support broader roles instead of becoming separate roles. For example, `output-critic-iteration` supports the `qa-iteration` role, `storyboard-director` supports `storyboard-architect`, and the commercial, cinematography, storytelling, marketing, character, and UGC skills support direction, copy, storyboard, image-prompting, and video-prompting routes.
 
-This keeps the installed role roster stable while still giving the workflow domain-specific support where it is useful. A skill that is not listed as a role is not dead by default; check [Workflow Map](workflow-map.md) for its supporting route.
+The canonical role-to-skill map lives in [`role-skill-map.md`](../.agents/skills/pipeline-core/references/role-skill-map.md). A handoff such as `static-direction` names a workflow responsibility, not necessarily a same-named native ChatGPT skill. ChatGPT should resolve the role through that map, load the smallest supporting skills, create a temporary responsibility for the current task, and avoid inventing a missing same-named skill.
+
+This keeps the installed role roster stable while still giving the workflow domain-specific support where it is useful. A skill that is not listed as a role is not dead by default; check [Workflow Map](workflow-map.md) and the [Role To Skill Map](../.agents/skills/pipeline-core/references/role-skill-map.md) for its supporting route.
 
 ## Installed Workflow Skills
 
@@ -71,6 +73,7 @@ Skills are portable workflow contracts. They define when a capability should be 
 | `cinematography` | Plan shot language, lens choices, camera movement, lighting, blocking, color, texture, and cinematic direction. |
 | `commercial-video-campaign-director` | Create motion direction for commercial video campaigns, product reveals, social clips, and launch videos. |
 | `commercial-visual-campaign-director` | Create visual direction for static commercial campaigns, product visuals, launch assets, and social variants. |
+| `copy-voice` | Produce or refine campaign copy, VO, captions, supers, dialogue, and final text while preserving locked facts. |
 | `creative-music-video-director` | Translate song context, artist persona, motifs, rhythm, and emotional arc into a music-video direction contract. |
 | `creative-video-producer` | Coordinate complete video production packs across strategy, story, storyboard, prompts, audio, captions, editing, QA, and delivery. |
 | `delivery-documentation` | Package final files, QA status, source lists, usage notes, caveats, excluded files, and delivery manifests. |
@@ -88,12 +91,14 @@ Skills are portable workflow contracts. They define when a capability should be 
 | `output-critic-iteration` | Review produced outputs against brief, references, prompts, copy locks, observables, and acceptance criteria. |
 | `pipeline-core` | Route workflows through roles, gates, handoffs, artifacts, request diagnostics, reasoning routes, Loop Protocol, QA, delivery, and governance. |
 | `reference-pack-curator` | Structure references into canonical sources, aliases, role tags, suppression rules, conflicts, and continuity anchors. |
+| `research-evidence` | Verify claims, source-backed facts, tool limits, assumptions, and evidence boundaries. |
 | `remotion-video-production` | Plan, implement, review, and QA deterministic React/TypeScript video compositions, reusable variants, and local Remotion renders. |
 | `producer-ai-task-builder` | Build text-only music, music-video, visible-singing, lip-sync-triage, and repair task packets without provider execution. |
 | `screenplay-story-architect` | Develop original loglines, pitches, treatments, beat sheets, scenes, dialogue, coverage, rewrites, and production handoffs. |
 | `storyboard-board-architect` | Specify storyboard board, production board, or shot board graphics with panel structure and board copy. |
 | `storyboard-director` | Convert direction into beats, scenes, shot cards, timing, transitions, and continuity rules. |
 | `storytelling` | Plan narrative structure, story beats, emotional arcs, scene logic, continuity, and multi-shot workflows. |
+| `tool-routing-cost` | Plan provider-neutral tool routing, cost preflight, upload boundaries, approval requirements, fallback limits, and execution risk. |
 | `ugc` | Plan UGC-style creator ads, talking-head scripts, social proof concepts, hooks, and creator-read copy. |
 | `video-prompt-architect` | Create final provider-neutral video prompt packs from approved storyboard, motion direction, references, and copy. |
 | `workflow-orchestrator` | Route workflows, maintain project state, assign role-based agents, enforce gates, own Loop State, and decide loopbacks and stop decisions. |
@@ -103,12 +108,12 @@ Skills are portable workflow contracts. They define when a capability should be 
 
 | Group | Skills | Primary role relationship |
 | --- | --- | --- |
-| Core routing and governance | `pipeline-core`, `workflow-orchestrator`, `onboarding-preference-tuning`, `workflow-self-improvement` | Own install-time behavior, route selection, Project State, onboarding preferences, and explicit-only improvement proposals. |
-| Intake, references, evidence, and packets | `brief-architect`, `reference-pack-curator`, `instruction-packet-factory`, `hipson-adapter` | Support brief, reference, research, and bounded packet roles without installing full Hipson. |
+| Core routing and governance | `pipeline-core`, `workflow-orchestrator`, `onboarding-preference-tuning`, `tool-routing-cost`, `workflow-self-improvement` | Own install-time behavior, route selection, Project State, safe execution planning, onboarding preferences, and explicit-only improvement proposals. |
+| Intake, references, evidence, and packets | `brief-architect`, `research-evidence`, `reference-pack-curator`, `instruction-packet-factory`, `hipson-adapter` | Support brief, evidence, reference, research, and bounded packet roles without installing full Hipson. |
 | Creative direction and strategy support | `ecommerce-campaign-strategy-director`, `screenplay-story-architect`, `marketing`, `character-design`, `cinematography`, `commercial-video-campaign-director`, `commercial-visual-campaign-director`, `creative-music-video-director`, `storytelling`, `ugc` | Support ecommerce strategy, `static-direction`, `motion-direction`, `music-video-direction`, `storyboard-architect`, `copy-voice`, `image-prompting`, and `video-prompting`. |
 | Video production, captions, and local editing | `creative-video-producer`, `producer-ai-task-builder`, `caption-studio`, `opencut-video-studio`, `remotion-video-production` | Coordinate complete video packs, text-only music/video task packets, caption contracts, timeline edit packs, and deterministic React/TypeScript compositions without bundling provider execution. |
 | Prompting, boards, and coded-video planning | `image-prompt-architect`, `video-prompt-architect`, `storyboard-director`, `storyboard-board-architect`, `hyperframes-workflow`, `hyperframes-prompting`, `hyperframes-gsap-guidance` | Support prompt, storyboard, board, and HyperFrames routes. |
-| QA, delivery, and asset handling | `output-critic-iteration`, `asset-manifest`, `delivery-documentation`, `humanizer` | Support `qa-iteration`, `asset-manifest`, `delivery-documentation`, and `copy-voice` responsibilities. |
+| QA, delivery, copy, and asset handling | `copy-voice`, `output-critic-iteration`, `asset-manifest`, `delivery-documentation`, `humanizer` | Support `copy-voice`, `qa-iteration`, `asset-manifest`, and `delivery-documentation` responsibilities. |
 
 ## Other Included Workflow Assets
 
@@ -118,6 +123,7 @@ Skills are portable workflow contracts. They define when a capability should be 
 | `config/artifact-schemas.json` | Required fields and example fixtures for workflow artifacts. |
 | `config/provider-neutral-policy.json` | Public boundary for what the kit does and does not install or execute. |
 | `config/text-image-policy.json` | Built-in Codex/ChatGPT image generation policy for static raster graphics with visible text. |
+| `.agents/skills/pipeline-core/references/role-skill-map.md` | Machine-checked mapping between Codex role IDs, temporary ChatGPT responsibilities, and supporting public skills. |
 | `.agents/skills/pipeline-core/references/prompt-format-and-continuity.md` | Generator-specific prompt-field rules and continuity-carrier requirements for independently generated images and shots. |
 | `examples/*/workflow.json` | Checked example routes that demonstrate role order, gates, artifacts, and handoffs. |
 | `scripts/install.mjs` | Project-local install, update, repair, uninstall, manifest, backup, and symlink safety logic. |

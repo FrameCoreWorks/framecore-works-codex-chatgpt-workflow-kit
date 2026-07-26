@@ -1,0 +1,6 @@
+version: 1
+metadata:
+  display_name: "Research Evidence"
+  short_description: "Verify claims, sources, limits, and evidence."
+  default_prompt: "Use $research-evidence to verify claims and source boundaries."
+  allow_implicit_invocation: true

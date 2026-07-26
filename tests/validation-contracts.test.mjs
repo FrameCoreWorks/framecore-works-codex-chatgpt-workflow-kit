@@ -114,6 +114,22 @@ test("validation rejects skill-level gate and handoff drift", () => {
   assert.match(output, /UNKNOWN_SKILL_HANDOFF_TARGET/);
 });
 
+test("validation rejects role-to-skill map drift", () => {
+  const dir = copyRepoFixture("framecore-validate-role-skill-map-");
+  const file = join(dir, ".agents/skills/pipeline-core/references/role-skill-map.md");
+  const text = readFileSync(file, "utf8");
+  writeFileSync(file, text
+    .replace("| `copy-voice` |", "| `missing-role` |")
+    .replace("`hyperframes-gsap-guidance`", "`missing-hyperframes-skill`"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  const output = `${result.stderr}${result.stdout}`;
+  assert.match(output, /UNKNOWN_ROLE_SKILL_MAP_ROLE/);
+  assert.match(output, /MISSING_ROLE_SKILL_MAP/);
+  assert.match(output, /UNKNOWN_ROLE_SUPPORT_SKILL/);
+});
+
 test("validation rejects a skill handoff without a review gate", () => {
   const dir = copyRepoFixture("framecore-validate-skill-review-gate-");
   const file = join(dir, ".agents/skills/humanizer/SKILL.md");

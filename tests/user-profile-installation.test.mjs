@@ -70,7 +70,7 @@ async function simulateCodexProfile(profile) {
 
   const installedSkills = readdirSync(join(target, ".agents/skills"), { withFileTypes: true }).filter((entry) => entry.isDirectory()).length;
   const installedAgents = readdirSync(join(target, ".codex/agents")).filter((name) => name.endsWith(".toml")).length;
-  assert.equal(installedSkills, 34);
+  assert.equal(installedSkills, 37);
   assert.equal(installedAgents, 20);
   assert.equal(manifest.incomplete, false);
   assert.ok(manifest.managed_paths.includes(".agents/skills/pipeline-core/references/prompt-format-and-continuity.md"));

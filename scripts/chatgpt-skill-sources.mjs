@@ -18,6 +18,7 @@ const REQUIRED_BOOTSTRAP_SECTIONS = [
   "Source Of Truth",
   "First Response",
   "Beginner Preflight",
+  "Onboarding Context Choice",
   "Onboarding Questions",
   "Profile Selection",
   "Installation Mode",
@@ -38,10 +39,11 @@ const REQUIRED_BOOTSTRAP_PHRASES = [
   "config/chatgpt-skills.json",
   "config/chatgpt-skill-sources.json",
   "Which language should I use for setup?",
-  "Ask these questions one at a time",
-  "Treat this as a fresh setup session",
-  "Do not use ChatGPT Memory",
-  "Ask every onboarding question from scratch",
+  "ask these questions one at a time",
+  "History-assisted onboarding",
+  "provisional",
+  "confirm or correct",
+  "remaining unresolved questions",
   "small workflow helpers",
   "edit any skill, expand it",
   "ChatGPT **Work**",
@@ -213,7 +215,7 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     source_manifest_path: MANIFEST_PATH,
     source_root: ".agents/skills",
   };
-  if (config.schema_version !== 4) errors.push({ message: "ChatGPT setup schema_version must be 4.", file: configPath });
+  if (config.schema_version !== 5) errors.push({ message: "ChatGPT setup schema_version must be 5.", file: configPath });
   for (const [key, value] of Object.entries(expectedConfig)) {
     if (config[key] !== value) errors.push({ message: `ChatGPT setup ${key} must be ${value}.`, file: configPath });
   }
@@ -253,13 +255,20 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
 
   const sessionScope = config.setup_session_scope ?? {};
   if (
-    sessionScope.fresh_onboarding_required !== true ||
-    sessionScope.use_chatgpt_memory_for_answers !== false ||
-    sessionScope.use_previous_conversations_for_answers !== false ||
+    sessionScope.context_source_selection_required !== true ||
+    sessionScope.default_context_source !== "fresh" ||
+    JSON.stringify(sessionScope.allowed_context_sources) !== JSON.stringify(["fresh", "history_assisted", "current_profile"]) ||
+    sessionScope.history_assisted_requires_current_user_approval !== true ||
+    sessionScope.use_chatgpt_memory_when_history_assisted !== true ||
+    sessionScope.use_previous_conversations_when_history_assisted !== true ||
+    sessionScope.history_access_must_be_available !== true ||
+    sessionScope.history_observations_are_provisional !== true ||
+    sessionScope.user_confirmation_required_before_profile_use !== true ||
+    sessionScope.ask_only_unresolved_questions_after_confirmation !== true ||
     sessionScope.use_existing_skills_as_setup_completion !== false ||
     sessionScope.reuse_prior_profile_only_if_user_provides_it_in_current_setup !== true
   ) {
-    errors.push({ message: "ChatGPT setup session scope must require fresh onboarding and forbid memory, prior chats, or existing skills as implicit answers.", file: configPath });
+    errors.push({ message: "ChatGPT setup session scope must offer fresh, history-assisted, and current-profile modes, with explicit approval and confirmation of provisional history observations.", file: configPath });
   }
 
   const modes = config.installation_modes ?? {};

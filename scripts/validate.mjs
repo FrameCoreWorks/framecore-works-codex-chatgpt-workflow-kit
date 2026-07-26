@@ -77,6 +77,7 @@ findings.push(...chatGptSkillState.findings);
 const gateRegistry = join(validationRoot, ".agents/skills/pipeline-core/references/gate-registry.md");
 const handoffMatrix = join(validationRoot, ".agents/skills/pipeline-core/references/handoff-matrix.md");
 const workflowBlueprints = join(validationRoot, ".agents/skills/pipeline-core/references/workflow-blueprints.md");
+const roleSkillMap = join(validationRoot, ".agents/skills/pipeline-core/references/role-skill-map.md");
 const loopProtocol = join(validationRoot, ".agents/skills/pipeline-core/references/loop-protocol.md");
 const inferenceReasoningMethods = join(validationRoot, ".agents/skills/pipeline-core/references/inference-reasoning-methods.md");
 const promptFormatAndContinuity = join(validationRoot, ".agents/skills/pipeline-core/references/prompt-format-and-continuity.md");
@@ -87,6 +88,7 @@ const paths = {
   gateRegistry,
   handoffMatrix,
   workflowBlueprints,
+  roleSkillMap,
   loopProtocol,
   inferenceReasoningMethods,
   promptFormatAndContinuity,
@@ -113,6 +115,7 @@ const contractState = validateContracts({
   helpers,
   paths,
   requiredRoleSet,
+  knownSkillNames,
   agentTemplateGates,
   agentDir,
   artifactSchemaNames

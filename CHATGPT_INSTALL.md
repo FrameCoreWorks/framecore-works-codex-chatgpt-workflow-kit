@@ -30,7 +30,7 @@ Which language should I use for setup? Type any language, or type "default" for 
 
 Do not inspect existing skills, summarize the repository, recommend a profile, perform capability preflight, or invoke another skill before the user answers.
 
-Treat this as a fresh setup session. Do not use ChatGPT Memory, previous chats, existing skills, saved preferences, inferred user history, or answers from another setup run as onboarding answers. Ask every onboarding question from scratch unless the user explicitly provides a current Workflow Profile in this same setup conversation and asks to reuse it.
+Do not silently assume onboarding answers from memory, history, existing skills, or another setup run. After the beginner preflight, ask the user which onboarding context source to use.
 
 ## Beginner Preflight
 
@@ -53,9 +53,28 @@ After the user selects a language, continue in that language and briefly explain
 
 Keep this explanation concise and beginner-friendly. Then begin onboarding.
 
+## Onboarding Context Choice
+
+Ask how the user wants to build the Workflow Profile:
+
+1. **Fresh onboarding:** ask all onboarding questions from the beginning.
+2. **History-assisted onboarding:** with the user's current approval, use only ChatGPT Memory and previous conversations that are actually available to this ChatGPT surface.
+3. **Current profile:** use a Workflow Profile the user provides in this setup conversation.
+
+For history-assisted onboarding:
+
+- never claim access to memory or conversation history that the active surface does not expose;
+- summarize only work-pattern observations relevant to the workflow, without reproducing private conversation text or unrelated personal details;
+- label every observation provisional and show the proposed answers to the user;
+- ask the user to confirm or correct the proposed answers before using them;
+- after confirmation, treat only confirmed observations as onboarding answers and ask the remaining unresolved questions one at a time;
+- if history is unavailable or insufficient, say so and continue with fresh questions instead of inventing answers.
+
+Existing installed skills do not count as onboarding answers or proof that setup is complete.
+
 ## Onboarding Questions
 
-Ask these questions one at a time. Wait for an answer before asking the next one.
+In fresh mode, ask these questions one at a time and wait for each answer. In history-assisted or current-profile mode, map confirmed information to these questions, then ask only unresolved questions one at a time.
 
 1. What kind of work should this workflow help with?
 2. What are the main use cases?

@@ -25,6 +25,8 @@
         "pipeline-core",
         "workflow-orchestrator",
         "instruction-packet-factory",
+        "research-evidence",
+        "tool-routing-cost",
         "workflow-self-improvement"
       ],
       "roles": [
@@ -70,6 +72,7 @@
         "cinematography",
         "commercial-video-campaign-director",
         "commercial-visual-campaign-director",
+        "copy-voice",
         "creative-music-video-director",
         "creative-video-producer",
         "delivery-documentation",
@@ -81,11 +84,13 @@
         "output-critic-iteration",
         "producer-ai-task-builder",
         "reference-pack-curator",
+        "research-evidence",
         "remotion-video-production",
         "screenplay-story-architect",
         "storyboard-board-architect",
         "storyboard-director",
         "storytelling",
+        "tool-routing-cost",
         "ugc",
         "video-prompt-architect"
       ],
@@ -141,10 +146,13 @@
       "skills": [
         "commercial-video-campaign-director",
         "commercial-visual-campaign-director",
+        "copy-voice",
         "ecommerce-campaign-strategy-director",
         "image-prompt-architect",
         "marketing",
         "output-critic-iteration",
+        "research-evidence",
+        "tool-routing-cost",
         "ugc",
         "video-prompt-architect"
       ],
@@ -182,7 +190,8 @@
         "docs/openai-api-policy.md"
       ],
       "skills": [
-        "pipeline-core"
+        "pipeline-core",
+        "tool-routing-cost"
       ],
       "roles": [
         "tool-routing-cost",
@@ -270,6 +279,7 @@
         "cinematography",
         "commercial-video-campaign-director",
         "commercial-visual-campaign-director",
+        "copy-voice",
         "creative-music-video-director",
         "creative-video-producer",
         "delivery-documentation",
@@ -288,11 +298,13 @@
         "pipeline-core",
         "producer-ai-task-builder",
         "reference-pack-curator",
+        "research-evidence",
         "remotion-video-production",
         "screenplay-story-architect",
         "storyboard-board-architect",
         "storyboard-director",
         "storytelling",
+        "tool-routing-cost",
         "ugc",
         "video-prompt-architect",
         "workflow-orchestrator",
@@ -399,7 +411,8 @@
         "examples/hipson-adapter-packets/"
       ],
       "skills": [
-        "hipson-adapter"
+        "hipson-adapter",
+        "research-evidence"
       ],
       "roles": [
         "instruction-packet-factory",

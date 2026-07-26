@@ -75,6 +75,7 @@ Static raster graphics with visible text are the built-in exception to a purely 
 
 - [Workflow Stages](workflow-stages.md)
 - [Workflow Blueprints](../.agents/skills/pipeline-core/references/workflow-blueprints.md)
+- [Role To Skill Map](../.agents/skills/pipeline-core/references/role-skill-map.md)
 - [Gate Registry](../.agents/skills/pipeline-core/references/gate-registry.md)
 - [Handoff Matrix](../.agents/skills/pipeline-core/references/handoff-matrix.md)
 - [Using The Kit](using-the-kit.md)

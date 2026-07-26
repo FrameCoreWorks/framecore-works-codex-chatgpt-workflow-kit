@@ -2,11 +2,14 @@
 
 ## Unreleased
 
-- Added repository-source native ChatGPT setup for all 34 public workflow skills, with core, creative, and full profiles.
+- Added repository-source native ChatGPT setup for all 37 public workflow skills, with core, creative, and full profiles.
 - Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through an active `@skill-creator` workflow in ChatGPT Work.
 - Added full batch and guided ChatGPT installation modes, using scoped conversational approval instead of a separate install button, modal, native action, or host callback.
 - Added state-model rules for ChatGPT setup: mode selection, conversational approval, creation, `created_not_installed`, `installed`, existing-skill review, and `blocked` remain separate.
 - Added beginner guidance for automatic and explicit skill invocation, editing and expanding installed skills, and creating new personal skills with `@skill-creator`.
+- Added opt-in history-assisted onboarding that turns available ChatGPT Memory and previous conversations into provisional workflow observations, requires user confirmation, and asks only unresolved profile questions.
+- Added a machine-checked role-to-skill map so Codex role agents and temporary ChatGPT responsibilities are not mistaken for missing same-named native skills.
+- Added public `copy-voice`, `research-evidence`, and `tool-routing-cost` skills so the matching workflow roles are directly installable in ChatGPT and project-local Codex installs.
 - Added `agents/openai.yaml` UI metadata, starter prompts, and invocation policy for every public skill.
 - Added a checked-in source inventory with raw GitHub URLs and SHA-256 hashes, plus regression tests that reject stale or incomplete source mappings.
 - Made onboarding, pipeline-core, workflow-orchestrator, and brief-architect surface-aware while preserving the existing Codex project-local path.

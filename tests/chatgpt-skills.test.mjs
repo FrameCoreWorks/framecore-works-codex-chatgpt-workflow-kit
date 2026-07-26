@@ -15,7 +15,7 @@ test("ChatGPT repository installer, profiles, sources, and UI metadata validate"
 
 test("ChatGPT native creation starts in Work with an explicit skill mention", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
-  assert.equal(config.schema_version, 4);
+  assert.equal(config.schema_version, 5);
   assert.equal(config.native_creator, undefined);
   assert.equal(config.entry_surface.primary, "chatgpt_work");
   assert.equal(config.entry_surface.select_before_pasting_prompt, true);
@@ -33,18 +33,32 @@ test("ChatGPT native creation starts in Work with an explicit skill mention", ()
   assert.equal(config.installation_rules.require_visible_install_confirmation, undefined);
 });
 
-test("ChatGPT setup requires fresh onboarding instead of using memory or prior chats", () => {
+test("ChatGPT setup offers fresh, history-assisted, and current-profile onboarding", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
-  assert.equal(config.setup_session_scope.fresh_onboarding_required, true);
-  assert.equal(config.setup_session_scope.use_chatgpt_memory_for_answers, false);
-  assert.equal(config.setup_session_scope.use_previous_conversations_for_answers, false);
+  assert.equal(config.setup_session_scope.context_source_selection_required, true);
+  assert.equal(config.setup_session_scope.default_context_source, "fresh");
+  assert.deepEqual(config.setup_session_scope.allowed_context_sources, [
+    "fresh",
+    "history_assisted",
+    "current_profile",
+  ]);
+  assert.equal(config.setup_session_scope.history_assisted_requires_current_user_approval, true);
+  assert.equal(config.setup_session_scope.use_chatgpt_memory_when_history_assisted, true);
+  assert.equal(config.setup_session_scope.use_previous_conversations_when_history_assisted, true);
+  assert.equal(config.setup_session_scope.history_access_must_be_available, true);
+  assert.equal(config.setup_session_scope.history_observations_are_provisional, true);
+  assert.equal(config.setup_session_scope.user_confirmation_required_before_profile_use, true);
+  assert.equal(config.setup_session_scope.ask_only_unresolved_questions_after_confirmation, true);
   assert.equal(config.setup_session_scope.use_existing_skills_as_setup_completion, false);
   assert.equal(config.setup_session_scope.reuse_prior_profile_only_if_user_provides_it_in_current_setup, true);
 
   const bootstrap = readFileSync(join(root, "CHATGPT_INSTALL.md"), "utf8");
-  assert.match(bootstrap, /Treat this as a fresh setup session/);
-  assert.match(bootstrap, /Do not use ChatGPT Memory, previous chats, existing skills, saved preferences/);
-  assert.match(bootstrap, /Ask every onboarding question from scratch/);
+  assert.match(bootstrap, /## Onboarding Context Choice/);
+  assert.match(bootstrap, /History-assisted onboarding/);
+  assert.match(bootstrap, /provisional/);
+  assert.match(bootstrap, /confirm or correct/);
+  assert.match(bootstrap, /remaining unresolved questions/);
+  assert.doesNotMatch(bootstrap, /Do not use ChatGPT Memory, previous chats/);
 });
 
 test("ChatGPT beginner preflight explains the workflow in entry-level language", () => {
@@ -145,7 +159,7 @@ test("ChatGPT bootstrap requires Work and distinguishes skill mention from tools
 test("ChatGPT source manifest covers every repository skill in declared install order", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
   const manifest = buildChatGptSkillSourceManifest(root);
-  assert.equal(manifest.skills.length, 34);
+  assert.equal(manifest.skills.length, 37);
   assert.deepEqual(manifest.skills.map((skill) => skill.name), config.profiles.full.skills);
   for (const skill of manifest.skills) {
     assert.ok(skill.files.some((file) => file.path === "SKILL.md"));
@@ -162,12 +176,15 @@ test("new portable production skills are included in creative and full profiles"
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
   const expected = [
     "caption-studio",
+    "copy-voice",
     "creative-video-producer",
     "ecommerce-campaign-strategy-director",
     "opencut-video-studio",
     "producer-ai-task-builder",
+    "research-evidence",
     "remotion-video-production",
     "screenplay-story-architect",
+    "tool-routing-cost",
   ];
   for (const skill of expected) {
     assert.ok(config.profiles.creative.skills.includes(skill), `creative profile is missing ${skill}`);

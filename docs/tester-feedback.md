@@ -66,6 +66,9 @@ If using ChatGPT Skills:
 - Did the skill name, description, and starter prompt display correctly? yes / no / partly
 - Did onboarding start before setup was called complete? yes / no
 - Was the setup language the first question? yes / no
+- Onboarding context: fresh / history-assisted / current profile
+- If history-assisted, did ChatGPT show provisional observations and ask for confirmation before using them? yes / no / not applicable
+- Did ChatGPT avoid claiming access to unavailable history or inventing prior answers? yes / no / not sure
 - Did the tester switch from Chat to Work, paste the prompt with `@skill-creator`, and reach native skill creation from the repository sources? yes / no / not sure
 - Did ChatGPT continue without waiting for a separate install button or native action? yes / no / not sure
 - In batch mode, did one approval cover the exact approved list? yes / no / not applicable

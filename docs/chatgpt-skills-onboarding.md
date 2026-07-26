@@ -41,7 +41,7 @@ Three checked-in files make the setup self-describing:
 | --- | --- |
 | [`CHATGPT_INSTALL.md`](../CHATGPT_INSTALL.md) | Canonical behavior ChatGPT follows after the user explicitly requests repository skill setup. |
 | [`config/chatgpt-skills.json`](../config/chatgpt-skills.json) | Public repository identity, bootstrap URLs, safety rules, profiles, and installation order. |
-| [`config/chatgpt-skill-sources.json`](../config/chatgpt-skill-sources.json) | Exact source files, raw GitHub URLs, and SHA-256 hashes for all 34 skills. |
+| [`config/chatgpt-skill-sources.json`](../config/chatgpt-skill-sources.json) | Exact source files, raw GitHub URLs, and SHA-256 hashes for all 37 skills. |
 
 Every public skill keeps its canonical contract in `.agents/skills/<skill-name>/SKILL.md`. Its optional references, templates, scripts, fixtures, and `agents/openai.yaml` metadata are listed explicitly in the source manifest. ChatGPT must not infer a skill from an old local copy or a similarly named existing skill.
 
@@ -97,7 +97,17 @@ ChatGPT must not create or invoke workflow skills immediately. It first asks whi
 - how natural-language routing and explicit `@skill-name` invocation work;
 - that setup is incomplete until every selected skill has a real creation result.
 
-Treat each run as a fresh setup session. It then asks one question at a time about work type, use cases, outputs, workflow depth, QA depth, priorities, collaboration context, and forbidden actions. Ask every onboarding question from scratch. Do not use ChatGPT Memory, previous chats, existing skills, saved preferences, inferred user history, or answers from another setup run as onboarding answers unless the user explicitly provides a current Workflow Profile in this same setup conversation and asks to reuse it. The output is a neutral Workflow Profile. The user's workflow is not named after this repository unless the user asks for that name.
+## Onboarding Context Choice
+
+After the beginner preflight, ChatGPT asks the user to choose an onboarding context source:
+
+- **Fresh onboarding:** answer every profile question from the beginning.
+- **History-assisted onboarding:** explicitly approve using ChatGPT Memory and previous conversations that are actually available to the current surface.
+- **Current profile:** provide a Workflow Profile in the current setup conversation.
+
+History-assisted onboarding is opt-in. ChatGPT must not claim access it does not have, reproduce unrelated private conversation text, or silently convert inferred history into final answers. It presents concise, provisional work-pattern observations for confirmation or correction. Only confirmed observations can satisfy onboarding questions; unresolved questions are then asked one at a time. If history is unavailable or insufficient, setup falls back to fresh questions.
+
+The resulting neutral Workflow Profile covers work type, use cases, outputs, workflow depth, QA depth, priorities, collaboration context, and forbidden actions. Existing skills are not setup answers or proof of completion. The user's workflow is not named after this repository unless the user asks for that name.
 
 ## Profile Selection
 
@@ -105,9 +115,9 @@ The profile order is defined in `config/chatgpt-skills.json`:
 
 | Profile | Intended use |
 | --- | --- |
-| `core` | Onboarding, pipeline rules, orchestration, brief creation, QA, and delivery foundations. |
+| `core` | Onboarding, pipeline rules, orchestration, brief creation, evidence checks, copy, safe tool planning, QA, and delivery foundations. |
 | `creative` | Core plus the main creative direction, prompting, storyboard, campaign, Humanizer, and asset skills. |
-| `full` | All 34 public skills, including ecommerce strategy, screenplay, creative video production, captions, OpenCut planning, Remotion production, Producer AI packets, HyperFrames, Hipson Adapter, and workflow self-improvement skills. |
+| `full` | All 37 public skills, including research evidence, copy and voice, ecommerce strategy, screenplay, creative video production, captions, OpenCut planning, Remotion production, safe tool-routing and cost planning, Producer AI packets, HyperFrames, Hipson Adapter, and workflow self-improvement skills. |
 
 ChatGPT recommends the smallest profile that covers the Workflow Profile. A smaller custom selection is valid for narrow use cases. Before creation begins, ChatGPT shows every selected skill name and a one-line reason, then asks for approval.
 

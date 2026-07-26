@@ -1,5 +1,5 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "mode": "repository-source",
   "surface": "native-chatgpt-skills",
   "repository": "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit",
@@ -28,9 +28,20 @@
     "creation_flow": "create_with_chat"
   },
   "setup_session_scope": {
-    "fresh_onboarding_required": true,
-    "use_chatgpt_memory_for_answers": false,
-    "use_previous_conversations_for_answers": false,
+    "context_source_selection_required": true,
+    "default_context_source": "fresh",
+    "allowed_context_sources": [
+      "fresh",
+      "history_assisted",
+      "current_profile"
+    ],
+    "history_assisted_requires_current_user_approval": true,
+    "use_chatgpt_memory_when_history_assisted": true,
+    "use_previous_conversations_when_history_assisted": true,
+    "history_access_must_be_available": true,
+    "history_observations_are_provisional": true,
+    "user_confirmation_required_before_profile_use": true,
+    "ask_only_unresolved_questions_after_confirmation": true,
     "use_existing_skills_as_setup_completion": false,
     "reuse_prior_profile_only_if_user_provides_it_in_current_setup": true
   },
@@ -141,12 +152,15 @@
   },
   "profiles": {
     "core": {
-      "summary": "Guided onboarding, workflow routing, brief creation, QA, and delivery foundations.",
+      "summary": "Guided onboarding, workflow routing, brief creation, copy, evidence, safe tool planning, QA, and delivery foundations.",
       "skills": [
         "onboarding-preference-tuning",
         "pipeline-core",
         "workflow-orchestrator",
         "brief-architect",
+        "research-evidence",
+        "copy-voice",
+        "tool-routing-cost",
         "output-critic-iteration",
         "delivery-documentation"
       ]
@@ -158,6 +172,7 @@
         "pipeline-core",
         "workflow-orchestrator",
         "brief-architect",
+        "research-evidence",
         "reference-pack-curator",
         "instruction-packet-factory",
         "asset-manifest",
@@ -169,6 +184,7 @@
         "creative-music-video-director",
         "screenplay-story-architect",
         "humanizer",
+        "copy-voice",
         "image-prompt-architect",
         "marketing",
         "output-critic-iteration",
@@ -182,6 +198,7 @@
         "caption-studio",
         "opencut-video-studio",
         "remotion-video-production",
+        "tool-routing-cost",
         "delivery-documentation"
       ]
     },
@@ -192,6 +209,7 @@
         "pipeline-core",
         "workflow-orchestrator",
         "brief-architect",
+        "research-evidence",
         "reference-pack-curator",
         "instruction-packet-factory",
         "asset-manifest",
@@ -203,6 +221,7 @@
         "creative-music-video-director",
         "screenplay-story-architect",
         "humanizer",
+        "copy-voice",
         "image-prompt-architect",
         "marketing",
         "storyboard-board-architect",
@@ -215,6 +234,7 @@
         "caption-studio",
         "opencut-video-studio",
         "remotion-video-production",
+        "tool-routing-cost",
         "hyperframes-gsap-guidance",
         "hyperframes-prompting",
         "hyperframes-workflow",

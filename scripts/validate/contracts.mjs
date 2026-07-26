@@ -34,9 +34,17 @@ function parseWorkflowBlueprintContracts(text, helpers) {
   return contracts;
 }
 
+function listCellTokens(value) {
+  return value
+    .split(",")
+    .map((item) => item.trim().replace(/`/g, ""))
+    .filter(Boolean);
+}
+
 export function run(ctx) {
   const {
     artifactAlternatives,
+    backtickTokens,
     cleanCell,
     createFindings,
     markdownSections,
@@ -45,15 +53,82 @@ export function run(ctx) {
     read
   } = ctx.helpers;
   const { findings, addFinding } = createFindings(ctx.root);
-  const { artifactSchemasPath, artifactTemplates, gateRegistry, handoffMatrix, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, workflowBlueprints } = ctx.paths;
+  const { artifactSchemasPath, artifactTemplates, gateRegistry, handoffMatrix, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, roleSkillMap, workflowBlueprints } = ctx.paths;
 
   let knownGates = new Map();
   let knownHandoffPairs = new Set();
   let knownWorkflowBlueprints = new Set();
   let workflowBlueprintContracts = new Map();
 
-  for (const file of [gateRegistry, handoffMatrix, workflowBlueprints, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, artifactTemplates]) {
+  for (const file of [gateRegistry, handoffMatrix, workflowBlueprints, roleSkillMap, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, artifactTemplates]) {
     if (!existsSync(file)) addFinding("MISSING_PIPELINE_FILE", "Required pipeline core file is missing.", [file]);
+  }
+
+  if (existsSync(roleSkillMap)) {
+    const text = read(roleSkillMap);
+    for (const phrase of [
+      "Roles and skills are intentionally not a one-to-one inventory",
+      "temporary responsibility",
+      "does not mean ChatGPT must find or install",
+      "Do not invent, install, or invoke a same-named skill",
+      "`copy-voice`",
+      "`research-evidence`",
+      "`tool-routing-cost`",
+      "`hyperframes-producer`"
+    ]) {
+      if (!text.includes(phrase)) {
+        addFinding("WEAK_ROLE_SKILL_MAP", `Role-to-skill map is missing required phrase: ${phrase}`, [roleSkillMap]);
+      }
+    }
+
+    const rows = parseMarkdownTable(text, ["roleId", "codexImplementation", "chatGptImplementation", "supportingSkills"]);
+    const rolesSeen = new Set();
+    const roleRows = new Map();
+    for (const row of rows) {
+      if (!row.roleId) continue;
+      if (rolesSeen.has(row.roleId)) {
+        addFinding("DUPLICATE_ROLE_SKILL_MAP_ROLE", `Role-to-skill map duplicates role: ${row.roleId}`, [roleSkillMap]);
+      }
+      rolesSeen.add(row.roleId);
+      roleRows.set(row.roleId, row);
+      if (!ctx.requiredRoleSet.has(row.roleId)) {
+        addFinding("UNKNOWN_ROLE_SKILL_MAP_ROLE", `Role-to-skill map references unknown role: ${row.roleId}`, [roleSkillMap]);
+      }
+      const supportSkills = listCellTokens(row.supportingSkills);
+      if (supportSkills.length === 0) {
+        addFinding("EMPTY_ROLE_SUPPORT_SKILLS", `Role-to-skill map row has no supporting skills: ${row.roleId}`, [roleSkillMap]);
+      }
+      for (const skill of supportSkills) {
+        if (!ctx.knownSkillNames.has(skill)) {
+          addFinding("UNKNOWN_ROLE_SUPPORT_SKILL", `Role-to-skill map references unknown supporting skill: ${skill}`, [roleSkillMap]);
+        }
+      }
+      if (!row.chatGptImplementation.includes("temporary responsibility")) {
+        addFinding("WEAK_ROLE_CHATGPT_IMPLEMENTATION", `Role-to-skill map must mark ChatGPT role as temporary responsibility: ${row.roleId}`, [roleSkillMap]);
+      }
+    }
+    for (const role of ctx.requiredRoleSet) {
+      if (!rolesSeen.has(role)) {
+        addFinding("MISSING_ROLE_SKILL_MAP", `Role-to-skill map is missing role: ${role}`, [roleSkillMap]);
+      }
+    }
+
+    const requiredSupport = new Map([
+      ["copy-voice", ["humanizer"]],
+      ["research-evidence", ["instruction-packet-factory"]],
+      ["tool-routing-cost", ["pipeline-core"]],
+      ["hyperframes-producer", ["hyperframes-workflow", "hyperframes-prompting", "hyperframes-gsap-guidance"]]
+    ]);
+    for (const [role, skills] of requiredSupport) {
+      const row = roleRows.get(role);
+      if (!row) continue;
+      const supportSkills = new Set(listCellTokens(row.supportingSkills));
+      for (const skill of skills) {
+        if (!supportSkills.has(skill)) {
+          addFinding("WEAK_ROLE_SUPPORT_SKILLS", `Role-to-skill map ${role} must include supporting skill: ${skill}`, [roleSkillMap]);
+        }
+      }
+    }
   }
 
   if (existsSync(promptFormatAndContinuity)) {

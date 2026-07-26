@@ -38,7 +38,7 @@ The beginner path expects the target workspace to already exist. Lower-level scr
 
 Yes, when the ChatGPT account exposes native Skills and Work. Switch the top selector from Chat to Work, then paste the repository-source prompt from README with its leading `@skill-creator` mention. ChatGPT first asks for the setup language, runs onboarding, recommends the smallest useful profile, reads each selected skill from the declared raw GitHub sources, and creates the native skills through Create with chat. The alternate path is Plugins > Skills > Create > Create with chat. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
 
-### Does one ChatGPT prompt install all 34 skills automatically?
+### Does one ChatGPT prompt install all 37 skills automatically?
 
 The prompt starts and governs the complete setup, but each repository skill remains a separate native ChatGPT Skill. After onboarding and approval of the exact list, choose:
 
@@ -46,6 +46,12 @@ The prompt starts and governs the complete setup, but each repository skill rema
 - **Guided installation:** ChatGPT explains one skill at a time, asks for conversational approval, creates it, and then continues.
 
 No separate install button or modal is required by this repository workflow. Reading the repository or receiving approval is not success by itself. Every skill still needs a real result from the active `@skill-creator` workflow.
+
+### Can onboarding use my ChatGPT history?
+
+Yes, when you explicitly choose history-assisted onboarding and the active ChatGPT surface actually exposes Memory or previous conversations. ChatGPT first shows a short list of provisional work-pattern observations. You confirm or correct them before they become onboarding answers, and ChatGPT asks only about the remaining gaps.
+
+If history is unavailable, ChatGPT must say so and continue with fresh questions. It must not invent prior knowledge, reproduce unrelated private conversation text, or treat existing skills as proof that setup is complete.
 
 ### How do I use, change, or create skills after installation?
 

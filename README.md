@@ -40,7 +40,12 @@ https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-w
 
 Then read the setup configuration and exact skill source inventory referenced by that contract. Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup.
 
-Treat this as a fresh setup session. Do not use ChatGPT Memory, previous chats, existing skills, saved preferences, inferred user history, or answers from another setup run as onboarding answers. Ask every onboarding question from scratch unless I explicitly provide a current Workflow Profile in this same setup conversation and ask you to reuse it.
+After the beginner preflight, ask me how to build my Workflow Profile:
+1. Fresh onboarding: ask every onboarding question from the beginning.
+2. History-assisted onboarding: with my approval, use only ChatGPT Memory and previous conversations that are actually available in this ChatGPT surface.
+3. Current profile: use a Workflow Profile I provide in this setup conversation.
+
+Do not silently infer answers. In history-assisted mode, show a concise list of provisional work-pattern observations, ask me to confirm or correct them, and use only confirmed observations as answers. Then ask only the remaining unresolved questions one at a time. If memory or chat history is unavailable, say so and continue with fresh questions. Existing installed skills do not mean setup is complete.
 
 This prompt is intended for ChatGPT Work with @skill-creator selected. If this conversation is in the regular Chat surface or @skill-creator is unavailable, stop and tell me to switch to Work and paste this complete prompt again.
 
@@ -70,7 +75,7 @@ This skill kit adds a project-local creative workflow layer to Codex and exposes
 At a glance, the repo includes:
 
 - **20 Codex role-agent templates** for routing, creative planning, prompting, QA, delivery, and execution documentation.
-- **34 portable workflow skills** for brief building, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for creation through the active `@skill-creator` workflow.
+- **37 portable workflow skills** for brief building, research evidence, copy and voice, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, safe tool-routing and cost planning, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for creation through the active `@skill-creator` workflow.
 - **Project-local install and onboarding** with doctor/preflight, dry-run, manifest tracking, update, repair, and uninstall.
 - **Workflow contracts** for gates, handoffs, artifact schemas, examples, Loop Protocol, and provider-neutral safety boundaries.
 

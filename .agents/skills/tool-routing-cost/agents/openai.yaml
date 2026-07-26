@@ -1,0 +1,6 @@
+version: 1
+metadata:
+  display_name: "Tool Routing Cost"
+  short_description: "Plan tool routes, costs, approvals, and risks."
+  default_prompt: "Use $tool-routing-cost to plan a safe tool route and cost preflight."
+  allow_implicit_invocation: true

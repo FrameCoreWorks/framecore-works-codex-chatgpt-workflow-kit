@@ -71,6 +71,7 @@ Read only what is needed:
 - `references/workflow-operating-model.md` for stage order and review gates.
 - `references/loop-protocol.md` for `brief -> checklist -> execute -> evaluate -> critique -> repair -> repeat -> stop`, loop state, repair boundaries, regression checks, and stop decisions.
 - `references/workflow-blueprints.md` for common task routes and loopback boundaries.
+- `references/role-skill-map.md` for the canonical distinction and mapping between Codex workflow role IDs and supporting public skills on Codex and ChatGPT.
 - `references/handoff-matrix.md` for allowed handoffs and required fields.
 - `references/gate-registry.md` for canonical gate names.
 - `references/inference-reasoning-methods.md` for compact reasoning routes, runtime route boundaries, candidate limits, and raw trace prohibitions.

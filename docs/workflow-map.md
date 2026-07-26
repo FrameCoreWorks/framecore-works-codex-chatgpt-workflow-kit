@@ -13,7 +13,7 @@ Use this document when you need the full mental model before installing, customi
 | Project instructions | `AGENTS.template.md` | Installed workspace behavior, safety boundaries, local workflow entry point. |
 | Role agents | `.codex/agents/*.toml.template` | Codex custom-agent role files rendered into the target workspace. |
 | Workflow skills | `.agents/skills/*/SKILL.md` | Reusable contracts for when to act, required inputs, outputs, guardrails, and handoff. |
-| Pipeline core | `.agents/skills/pipeline-core/` | Role routes, gates, handoffs, Project State, Loop Protocol, artifact templates, reasoning routes, generator-specific prompt formats, continuity carriers, and safety policy. |
+| Pipeline core | `.agents/skills/pipeline-core/` | Role routes, role-to-skill mapping, gates, handoffs, Project State, Loop Protocol, artifact templates, reasoning routes, generator-specific prompt formats, continuity carriers, and safety policy. |
 | Public examples | `examples/*/workflow.json` | Machine-checked route examples for common workflow shapes. |
 | Install lifecycle | `scripts/install.mjs`, `scripts/guided-install.mjs`, `scripts/doctor.mjs` | Project-local install, onboarding, dry-run, update, repair, uninstall, and diagnostics. |
 | Bundle readiness | `config/bundle-map.json`, `docs/bundle-readiness.md` | Future package boundaries without changing current install behavior. |
@@ -36,9 +36,9 @@ Use this document when you need the full mental model before installing, customi
 
 ## Role To Skill Support Map
 
-Some roles have a same-named skill. Other roles are supported by broader specialist skills. This is intentional: role agents own handoff state, while skills provide reusable domain contracts.
+The machine-checked source of truth is [Role To Skill Map](../.agents/skills/pipeline-core/references/role-skill-map.md). Some roles have a same-named skill. Other roles are supported by broader specialist skills. This is intentional: role agents own handoff state, while skills provide reusable domain contracts.
 
-If a skill appears here but does not appear as a role-agent template, treat it as support knowledge for the listed role, not as an orphaned agent. Routing still goes through the role IDs in [Agent Roster](agent-roster.md) and [Handoff Matrix](../.agents/skills/pipeline-core/references/handoff-matrix.md).
+If a skill appears here but does not appear as a role-agent template, treat it as support knowledge for the listed role, not as an orphaned agent. If a role appears in a handoff but no same-named ChatGPT skill exists, resolve it through the Role To Skill Map as a temporary responsibility, not as a missing install. Routing still goes through the role IDs in [Agent Roster](agent-roster.md) and [Handoff Matrix](../.agents/skills/pipeline-core/references/handoff-matrix.md).
 
 | Role agent | Supporting skill or knowledge | Primary artifact | Review gate |
 | --- | --- | --- | --- |
@@ -46,17 +46,17 @@ If a skill appears here but does not appear as a role-agent template, treat it a
 | `workflow-orchestrator` | `workflow-orchestrator`, `pipeline-core` | Project State, Workflow Request Diagnostic | `workflow_route`, `request_diagnostic_fit` |
 | `brief-architect` | `brief-architect` | Brief Contract | `brief_completeness` |
 | `reference-curator` | `reference-pack-curator`, `hipson-adapter` when a packet helps | Reference Pack | `reference_authority_fit` |
-| `research-evidence` | `hipson-adapter`, `instruction-packet-factory`, `pipeline-core` | Evidence Note | `evidence_fit` |
+| `research-evidence` | `research-evidence`, `hipson-adapter`, `instruction-packet-factory`, `pipeline-core` | Evidence Note | `evidence_fit` |
 | `instruction-packet-factory` | `instruction-packet-factory`, `hipson-adapter` | Instruction Packet | `instruction_packet_fit` |
 | `static-direction` | `ecommerce-campaign-strategy-director`, `commercial-visual-campaign-director`, `marketing`, `character-design`, `storytelling` | Direction Contract | `direction_fit` |
 | `motion-direction` | `ecommerce-campaign-strategy-director`, `creative-video-producer`, `commercial-video-campaign-director`, `cinematography`, `storytelling`, `ugc` | Motion Direction Contract | `direction_fit` |
 | `music-video-direction` | `creative-music-video-director`, `producer-ai-task-builder`, `cinematography`, `storytelling` | Music Video Direction Contract | `direction_fit` |
 | `storyboard-architect` | `screenplay-story-architect`, `creative-video-producer`, `storyboard-director`, `cinematography`, `storytelling` | Storyboard Contract | `structure_fit` |
 | `storyboard-board-architect` | `storyboard-board-architect`, `image-prompt-architect` | Board Artifact Prompt | `storyboard_board_fit` |
-| `copy-voice` | `humanizer`, `caption-studio`, `producer-ai-task-builder`, `marketing`, `ugc` | Copy Pack | `copy_fit` |
+| `copy-voice` | `copy-voice`, `humanizer`, `caption-studio`, `producer-ai-task-builder`, `marketing`, `ugc` | Copy Pack | `copy_fit` |
 | `image-prompting` | `image-prompt-architect`, `pipeline-core` text-image policy | Prompt Pack or Image Prompt Contract | `promptability_fit` |
 | `video-prompting` | `video-prompt-architect`, `creative-video-producer`, `producer-ai-task-builder`, `cinematography`, `storytelling` | Video Prompt Pack | `promptability_fit` |
-| `tool-routing-cost` | `pipeline-core`, provider-neutral policy docs | Tool Routing Plan | `schema_pricing_fit` |
+| `tool-routing-cost` | `tool-routing-cost`, `pipeline-core`, provider-neutral policy docs | Tool Routing Plan | `schema_pricing_fit` |
 | `execution-manifest` | `creative-video-producer`, `opencut-video-studio`, `remotion-video-production`, `asset-manifest`, `pipeline-core` | Execution Manifest, local Edit Pack, or Remotion Production Brief | `execution_manifest_fit` |
 | `hyperframes-producer` | `hyperframes-workflow`, `hyperframes-prompting`, `hyperframes-gsap-guidance` | HyperFrames Production Brief | `execution_manifest_fit` |
 | `asset-manifest` | `asset-manifest` | Asset Manifest | `asset_manifest_fit` |
