@@ -20,11 +20,13 @@ const REQUIRED_BOOTSTRAP_SECTIONS = [
   "Beginner Preflight",
   "Onboarding Questions",
   "Profile Selection",
+  "Installation Mode",
+  "Conversational Approval",
   "State Model",
   "Native Skill Creation",
   "Existing Skill Guard",
   "Temporary Roles",
-  "Post-Install Invocation",
+  "Post-Install Use And Customization",
   "Safety Boundaries",
   "Voice Mode",
   "Provider Cost Preflight",
@@ -41,18 +43,21 @@ const REQUIRED_BOOTSTRAP_PHRASES = [
   "Do not use ChatGPT Memory",
   "Ask every onboarding question from scratch",
   "small workflow helpers",
-  "can be refined or expanded later",
+  "edit any skill, expand it",
   "ChatGPT **Work**",
   "Use @skill-creator",
   "not a shell command",
-  "creation_requested",
-  "needs_user_confirmation",
-  "Conversational or voice approval does not mean installed",
+  "Full batch installation",
+  "Guided installation",
+  "installation_mode_selected",
+  "created_not_installed",
+  "Do not wait for a separate interface prompt",
   "Do not use Codex `skill-installer`",
-  "Do not claim bulk completion",
+  "Do not claim batch completion",
   "smallest sufficient route",
   "@workflow-orchestrator",
   "@pipeline-core",
+  "Use @skill-creator to help me create a skill.",
   "explicit-only",
   ".codex/agents/",
 ];
@@ -208,7 +213,7 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     source_manifest_path: MANIFEST_PATH,
     source_root: ".agents/skills",
   };
-  if (config.schema_version !== 3) errors.push({ message: "ChatGPT setup schema_version must be 3.", file: configPath });
+  if (config.schema_version !== 4) errors.push({ message: "ChatGPT setup schema_version must be 4.", file: configPath });
   for (const [key, value] of Object.entries(expectedConfig)) {
     if (config[key] !== value) errors.push({ message: `ChatGPT setup ${key} must be ${value}.`, file: configPath });
   }
@@ -257,23 +262,55 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     errors.push({ message: "ChatGPT setup session scope must require fresh onboarding and forbid memory, prior chats, or existing skills as implicit answers.", file: configPath });
   }
 
-  const confirmation = config.installation_confirmation ?? {};
-  if (confirmation.required !== true || confirmation.assistant_ui_introspection_required !== false || confirmation.conversational_approval_authorizes_creation !== true || confirmation.conversational_approval_alone_marks_installed !== false) {
-    errors.push({ message: "ChatGPT installation confirmation must separate approval, creation, and installed status.", file: configPath });
+  const modes = config.installation_modes ?? {};
+  const batchMode = modes.options?.batch ?? {};
+  const guidedMode = modes.options?.guided ?? {};
+  if (
+    modes.selection_required !== true ||
+    modes.default !== "guided" ||
+    batchMode.approval_scope !== "approved_skill_list" ||
+    batchMode.approval_count !== 1 ||
+    batchMode.explain_each_before_creation !== false ||
+    batchMode.continue_without_additional_approval !== true ||
+    guidedMode.approval_scope !== "current_skill" ||
+    guidedMode.approval_count !== "one_per_skill" ||
+    guidedMode.explain_each_before_creation !== true ||
+    guidedMode.continue_without_additional_approval !== false
+  ) {
+    errors.push({ message: "ChatGPT installation modes must define one-approval batch and per-skill guided creation.", file: configPath });
   }
-  const acceptedConfirmationSources = Array.isArray(confirmation.accepted_confirmation_sources) ? confirmation.accepted_confirmation_sources : [];
-  for (const source of ["native_install_action", "host_reported_install_result"]) {
-    if (!acceptedConfirmationSources.includes(source)) errors.push({ message: `ChatGPT installation confirmation is missing source: ${source}`, file: configPath });
+
+  const confirmation = config.installation_confirmation ?? {};
+  if (
+    confirmation.required !== true ||
+    confirmation.method !== "conversation" ||
+    confirmation.separate_ui_prompt_expected !== false ||
+    confirmation.assistant_ui_introspection_required !== false ||
+    confirmation.batch_approval_authorizes_all_selected_skills !== true ||
+    confirmation.guided_approval_authorizes_current_skill !== true ||
+    confirmation.approval_alone_marks_installed !== false
+  ) {
+    errors.push({ message: "ChatGPT installation confirmation must use scoped conversational approval without a separate UI prompt.", file: configPath });
+  }
+  const acceptedReplies = Array.isArray(confirmation.accepted_user_replies) ? confirmation.accepted_user_replies : [];
+  for (const reply of ["yes", "approve", "install", "tak", "zatwierdzam", "instaluj"]) {
+    if (!acceptedReplies.includes(reply)) errors.push({ message: `ChatGPT installation confirmation is missing conversational reply: ${reply}`, file: configPath });
+  }
+  const installEvidence = Array.isArray(confirmation.successful_install_evidence) ? confirmation.successful_install_evidence : [];
+  for (const source of ["active_skill_creator_reports_created_and_saved", "skill_visible_in_chatgpt_skills_library"]) {
+    if (!installEvidence.includes(source)) errors.push({ message: `ChatGPT installation confirmation is missing success evidence: ${source}`, file: configPath });
   }
 
   const expectedStates = [
     "onboarding_complete",
     "workflow_profile_approved",
     "skill_list_approved",
+    "installation_mode_selected",
+    "installation_approved",
     "source_resolved",
-    "creation_requested",
+    "creation_in_progress",
     "created",
-    "needs_user_confirmation",
+    "created_not_installed",
     "installed",
     "already_present_needs_review",
     "blocked",
@@ -283,7 +320,7 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
   }
 
   const voiceMode = config.voice_mode_rules ?? {};
-  if (voiceMode.voice_approval_can_authorize_profile !== true || voiceMode.voice_approval_can_authorize_skill_list !== true || voiceMode.voice_approval_can_authorize_creation !== true || voiceMode.voice_approval_alone_marks_installed !== false || voiceMode.assistant_must_not_claim_ui_introspection !== true) {
+  if (voiceMode.voice_approval_can_authorize_profile !== true || voiceMode.voice_approval_can_authorize_skill_list !== true || voiceMode.voice_approval_can_select_installation_mode !== true || voiceMode.voice_approval_can_authorize_creation !== true || voiceMode.approval_alone_marks_installed !== false || voiceMode.assistant_must_not_claim_ui_introspection !== true) {
     errors.push({ message: "ChatGPT voice mode rules must allow approval but forbid false installed claims or UI introspection claims.", file: configPath });
   }
 
@@ -301,7 +338,7 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     if (typeof rules[key] !== "boolean") errors.push({ message: `ChatGPT installation rule must be boolean: ${key}`, file: configPath });
   }
   if ("require_visible_install_confirmation" in rules) errors.push({ message: "ChatGPT installation rules must not require assistant-visible install UI introspection.", file: configPath });
-  if (rules.codex_agent_files_are_sources !== false || rules.allow_unconfirmed_completion_claim !== false || rules.roles_are_temporary_in_chatgpt !== true) {
+  if (rules.codex_agent_files_are_sources !== false || rules.allow_batch_mode_after_one_conversational_approval !== true || rules.allow_guided_mode_with_per_skill_conversational_approval !== true || rules.wait_for_separate_host_install_action !== false || rules.allow_unconfirmed_completion_claim !== false || rules.roles_are_temporary_in_chatgpt !== true) {
     errors.push({ message: "ChatGPT installation rules must keep Codex agent files out, roles temporary, and completion evidence-based.", file: configPath });
   }
 

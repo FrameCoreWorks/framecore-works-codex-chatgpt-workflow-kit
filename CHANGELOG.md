@@ -3,9 +3,10 @@
 ## Unreleased
 
 - Added repository-source native ChatGPT setup for all 34 public workflow skills, with core, creative, and full profiles.
-- Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through ChatGPT's host-managed Create with chat workflow.
-- Clarified native ChatGPT setup so `skill-creator` is treated as an automatic host capability, not a literal command, MCP tool, or function tool the user must invoke.
-- Added state-model rules for ChatGPT setup: approval, creation, native confirmation, `needs_user_confirmation`, `installed`, existing-skill review, and `blocked` remain separate.
+- Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through an active `@skill-creator` workflow in ChatGPT Work.
+- Added full batch and guided ChatGPT installation modes, using scoped conversational approval instead of a separate install button, modal, native action, or host callback.
+- Added state-model rules for ChatGPT setup: mode selection, conversational approval, creation, `created_not_installed`, `installed`, existing-skill review, and `blocked` remain separate.
+- Added beginner guidance for automatic and explicit skill invocation, editing and expanding installed skills, and creating new personal skills with `@skill-creator`.
 - Added `agents/openai.yaml` UI metadata, starter prompts, and invocation policy for every public skill.
 - Added a checked-in source inventory with raw GitHub URLs and SHA-256 hashes, plus regression tests that reject stale or incomplete source mappings.
 - Made onboarding, pipeline-core, workflow-orchestrator, and brief-architect surface-aware while preserving the existing Codex project-local path.
@@ -15,7 +16,7 @@
 - Promoted the ecommerce bundle boundary from planned to current public coverage through a dedicated strategy skill.
 - Added `remotion-video-production` for deterministic React/TypeScript video compositions, frame-based animation, reusable variants, local render planning, and evidence-backed QA.
 - Renamed the GitHub repository to include ChatGPT in the canonical public name while preserving the existing package identifier for install-manifest compatibility.
-- Added a machine-validated post-install invocation policy, smallest-sufficient-route guidance, explicit `$workflow-orchestrator` and `$pipeline-core` routes, explicit-only skill guards, and a live ChatGPT Skills E2E checklist.
+- Added a machine-validated post-install invocation policy, smallest-sufficient-route guidance, explicit `@workflow-orchestrator` and `@pipeline-core` ChatGPT routes, explicit-only skill guards, and a live ChatGPT Skills E2E checklist.
 
 ## 1.1.0 - 2026-06-23
 

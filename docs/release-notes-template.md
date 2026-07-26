@@ -37,8 +37,10 @@ Briefly describe what changed and who benefits from the release.
 ## Native ChatGPT Skills
 
 - Repository profiles changed:
+- Batch and guided conversational approval modes verified:
 - Source manifest updated and validated:
 - Representative ChatGPT Work plus `@skill-creator` Create with chat setup results:
+- Post-install use, editing, expansion, and new-skill guidance verified:
 - ChatGPT compatibility notes:
 
 ## Validation And Package Checks

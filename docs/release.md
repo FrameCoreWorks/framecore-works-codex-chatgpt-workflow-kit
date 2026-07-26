@@ -113,7 +113,7 @@ ChatGPT creates native skills from checked-in repository sources. Before publish
 2. Confirm `config/chatgpt-skill-sources.json` contains all 34 skills and only intended files.
 3. Run `npm run chatgpt:skills:check`.
 4. Paste the README ChatGPT setup prompt into a compatible ChatGPT account.
-5. Verify the ChatGPT Work entry, leading `@skill-creator` mention, language-first onboarding, profile approval, one-skill-at-a-time native creation, and truthful final statuses.
+5. Verify the ChatGPT Work entry, leading `@skill-creator` mention, language-first onboarding, profile approval, batch and guided conversational approval modes, separate native skill creation, and truthful final statuses.
 
 Do not commit personal Workflow Profiles, conversations, ChatGPT account state, local manifests, private references, or any source not declared for the public skills.
 

@@ -54,7 +54,7 @@ ChatGPT users do not run the Codex installer. They switch ChatGPT from Chat to W
 
 `CHATGPT_INSTALL.md`, `config/chatgpt-skills.json`, and `config/chatgpt-skill-sources.json` define the behavior, profile order, exact source files, raw URLs, and hashes. `.codex/agents`, `AGENTS.md`, local preferences, Context, Memory Cache, and private workspace state are excluded from the ChatGPT skill route.
 
-Account eligibility, workspace permissions, public repository access, native Skill creation, installation confirmation, and any cross-surface synchronization are controlled by the current ChatGPT product surface. The repo requires host-reported installation status and forbids false completion claims. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
+Account eligibility, workspace permissions, public repository access, native Skill creation, and any cross-surface synchronization are controlled by the current ChatGPT product surface. The repository uses conversational approval in batch or guided mode, does not wait for a separate install modal, and requires a real `@skill-creator` creation result before reporting a skill as installed. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
 
 ## Manifest Compatibility
 

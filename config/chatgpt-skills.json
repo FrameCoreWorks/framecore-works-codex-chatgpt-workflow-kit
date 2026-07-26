@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "mode": "repository-source",
   "surface": "native-chatgpt-skills",
   "repository": "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit",
@@ -34,24 +34,58 @@
     "use_existing_skills_as_setup_completion": false,
     "reuse_prior_profile_only_if_user_provides_it_in_current_setup": true
   },
+  "installation_modes": {
+    "selection_required": true,
+    "default": "guided",
+    "options": {
+      "batch": {
+        "summary": "Create every approved skill in one continuous run after one conversational approval.",
+        "approval_scope": "approved_skill_list",
+        "approval_count": 1,
+        "explain_each_before_creation": false,
+        "continue_without_additional_approval": true
+      },
+      "guided": {
+        "summary": "Explain one skill, ask for conversational approval, create it, then continue to the next skill.",
+        "approval_scope": "current_skill",
+        "approval_count": "one_per_skill",
+        "explain_each_before_creation": true,
+        "continue_without_additional_approval": false
+      }
+    }
+  },
   "installation_confirmation": {
     "required": true,
+    "method": "conversation",
+    "accepted_user_replies": [
+      "yes",
+      "approve",
+      "approved",
+      "install",
+      "tak",
+      "zatwierdzam",
+      "instaluj"
+    ],
+    "separate_ui_prompt_expected": false,
     "assistant_ui_introspection_required": false,
-    "conversational_approval_authorizes_creation": true,
-    "conversational_approval_alone_marks_installed": false,
-    "accepted_confirmation_sources": [
-      "native_install_action",
-      "host_reported_install_result"
+    "batch_approval_authorizes_all_selected_skills": true,
+    "guided_approval_authorizes_current_skill": true,
+    "approval_alone_marks_installed": false,
+    "successful_install_evidence": [
+      "active_skill_creator_reports_created_and_saved",
+      "skill_visible_in_chatgpt_skills_library"
     ]
   },
   "installation_states": [
     "onboarding_complete",
     "workflow_profile_approved",
     "skill_list_approved",
+    "installation_mode_selected",
+    "installation_approved",
     "source_resolved",
-    "creation_requested",
+    "creation_in_progress",
     "created",
-    "needs_user_confirmation",
+    "created_not_installed",
     "installed",
     "already_present_needs_review",
     "blocked"
@@ -59,8 +93,9 @@
   "voice_mode_rules": {
     "voice_approval_can_authorize_profile": true,
     "voice_approval_can_authorize_skill_list": true,
+    "voice_approval_can_select_installation_mode": true,
     "voice_approval_can_authorize_creation": true,
-    "voice_approval_alone_marks_installed": false,
+    "approval_alone_marks_installed": false,
     "assistant_must_not_claim_ui_introspection": true
   },
   "provider_cost_preflight": {
@@ -85,6 +120,9 @@
     "onboarding_before_creation": true,
     "first_question_is_setup_language": true,
     "create_each_skill_separately": true,
+    "allow_batch_mode_after_one_conversational_approval": true,
+    "allow_guided_mode_with_per_skill_conversational_approval": true,
+    "wait_for_separate_host_install_action": false,
     "allow_unconfirmed_completion_claim": false,
     "codex_agent_files_are_sources": false,
     "roles_are_temporary_in_chatgpt": true

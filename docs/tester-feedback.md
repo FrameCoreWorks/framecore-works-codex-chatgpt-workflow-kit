@@ -60,11 +60,17 @@ If installed successfully:
 If using ChatGPT Skills:
 - Setup prompt used: README / custom
 - Selected profile: core / creative / full / custom
-- Native skill statuses: installed / needs confirmation / existing needs review / blocked
+- Installation mode: full batch / guided
+- Conversational approval used: yes / approve / install / tak / zatwierdzam / instaluj / other
+- Native skill statuses: installed / created_not_installed / existing needs review / blocked
 - Did the skill name, description, and starter prompt display correctly? yes / no / partly
 - Did onboarding start before setup was called complete? yes / no
 - Was the setup language the first question? yes / no
 - Did the tester switch from Chat to Work, paste the prompt with `@skill-creator`, and reach native skill creation from the repository sources? yes / no / not sure
+- Did ChatGPT continue without waiting for a separate install button or native action? yes / no / not sure
+- In batch mode, did one approval cover the exact approved list? yes / no / not applicable
+- In guided mode, did ChatGPT explain and ask approval for each skill? yes / no / not applicable
+- Did final guidance explain automatic use, `@skill-name`, editing, expansion, and new-skill creation? yes / no / partly
 - Did ChatGPT avoid claiming local install, doctor checks, hash checks, or Memory Cache repair? yes / no / not sure
 - Did it avoid creating permanent Codex agents? yes / no / not sure
 

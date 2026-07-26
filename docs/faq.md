@@ -40,7 +40,24 @@ Yes, when the ChatGPT account exposes native Skills and Work. Switch the top sel
 
 ### Does one ChatGPT prompt install all 34 skills automatically?
 
-The prompt starts and governs the complete setup, but each repository skill remains a separate native ChatGPT Skill. ChatGPT must complete onboarding, obtain approval for the selected profile, create skills in the declared order, and show a visible status for each one. It must not claim all 34 are installed merely because it read the repository.
+The prompt starts and governs the complete setup, but each repository skill remains a separate native ChatGPT Skill. After onboarding and approval of the exact list, choose:
+
+- **Full batch installation:** type one clear approval in the conversation. `@skill-creator` then creates all approved skills in order without asking again between skills.
+- **Guided installation:** ChatGPT explains one skill at a time, asks for conversational approval, creates it, and then continues.
+
+No separate install button or modal is required by this repository workflow. Reading the repository or receiving approval is not success by itself. Every skill still needs a real result from the active `@skill-creator` workflow.
+
+### How do I use, change, or create skills after installation?
+
+Describe a task normally and ChatGPT may select a suitable eligible skill automatically. For predictable selection, type `@` and choose the skill name.
+
+To change an installed skill, open Work, select `@skill-creator`, name the skill, and explain what should change. You can add examples, preferred output formats, decision rules, references, or QA checks.
+
+To create a new skill, start in Work with:
+
+```text
+Use @skill-creator to help me create a skill.
+```
 
 ## Configuration Questions
 

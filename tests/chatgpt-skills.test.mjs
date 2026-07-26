@@ -15,7 +15,7 @@ test("ChatGPT repository installer, profiles, sources, and UI metadata validate"
 
 test("ChatGPT native creation starts in Work with an explicit skill mention", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
-  assert.equal(config.schema_version, 3);
+  assert.equal(config.schema_version, 4);
   assert.equal(config.native_creator, undefined);
   assert.equal(config.entry_surface.primary, "chatgpt_work");
   assert.equal(config.entry_surface.select_before_pasting_prompt, true);
@@ -52,40 +52,57 @@ test("ChatGPT beginner preflight explains the workflow in entry-level language",
   assert.match(bootstrap, /small workflow helpers ChatGPT can use later in normal conversations/);
   assert.match(bootstrap, /turn an idea into a clear brief/);
   assert.match(bootstrap, /prepare simple notes or checklists for sharing with a client or team/);
-  assert.match(bootstrap, /can be refined or expanded later/);
+  assert.match(bootstrap, /edit any skill, expand it/);
   assert.doesNotMatch(bootstrap, /delivery preparation/);
 });
 
-test("ChatGPT setup state model separates approval, creation, confirmation, and installation", () => {
+test("ChatGPT setup supports batch and guided conversational approval", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
+  assert.equal(config.installation_modes.selection_required, true);
+  assert.equal(config.installation_modes.default, "guided");
+  assert.equal(config.installation_modes.options.batch.approval_scope, "approved_skill_list");
+  assert.equal(config.installation_modes.options.batch.approval_count, 1);
+  assert.equal(config.installation_modes.options.batch.continue_without_additional_approval, true);
+  assert.equal(config.installation_modes.options.guided.approval_scope, "current_skill");
+  assert.equal(config.installation_modes.options.guided.approval_count, "one_per_skill");
+  assert.equal(config.installation_modes.options.guided.explain_each_before_creation, true);
   assert.deepEqual(config.installation_states, [
     "onboarding_complete",
     "workflow_profile_approved",
     "skill_list_approved",
+    "installation_mode_selected",
+    "installation_approved",
     "source_resolved",
-    "creation_requested",
+    "creation_in_progress",
     "created",
-    "needs_user_confirmation",
+    "created_not_installed",
     "installed",
     "already_present_needs_review",
     "blocked",
   ]);
   assert.equal(config.installation_confirmation.required, true);
+  assert.equal(config.installation_confirmation.method, "conversation");
+  assert.equal(config.installation_confirmation.separate_ui_prompt_expected, false);
   assert.equal(config.installation_confirmation.assistant_ui_introspection_required, false);
-  assert.equal(config.installation_confirmation.conversational_approval_authorizes_creation, true);
-  assert.equal(config.installation_confirmation.conversational_approval_alone_marks_installed, false);
-  assert.deepEqual(config.installation_confirmation.accepted_confirmation_sources, [
-    "native_install_action",
-    "host_reported_install_result",
+  assert.equal(config.installation_confirmation.batch_approval_authorizes_all_selected_skills, true);
+  assert.equal(config.installation_confirmation.guided_approval_authorizes_current_skill, true);
+  assert.equal(config.installation_confirmation.approval_alone_marks_installed, false);
+  assert.deepEqual(config.installation_confirmation.successful_install_evidence, [
+    "active_skill_creator_reports_created_and_saved",
+    "skill_visible_in_chatgpt_skills_library",
   ]);
+  for (const reply of ["yes", "approve", "install", "tak", "zatwierdzam", "instaluj"]) {
+    assert.ok(config.installation_confirmation.accepted_user_replies.includes(reply));
+  }
 });
 
 test("ChatGPT voice-mode setup can approve decisions but cannot mark skills installed", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
   assert.equal(config.voice_mode_rules.voice_approval_can_authorize_profile, true);
   assert.equal(config.voice_mode_rules.voice_approval_can_authorize_skill_list, true);
+  assert.equal(config.voice_mode_rules.voice_approval_can_select_installation_mode, true);
   assert.equal(config.voice_mode_rules.voice_approval_can_authorize_creation, true);
-  assert.equal(config.voice_mode_rules.voice_approval_alone_marks_installed, false);
+  assert.equal(config.voice_mode_rules.approval_alone_marks_installed, false);
   assert.equal(config.voice_mode_rules.assistant_must_not_claim_ui_introspection, true);
 });
 
@@ -117,7 +134,11 @@ test("ChatGPT bootstrap requires Work and distinguishes skill mention from tools
   assert.match(bootstrap, /Use @skill-creator/);
   assert.match(bootstrap, /native Skill mention, not a shell command/);
   assert.match(bootstrap, /switch to \*\*Work\*\* and paste the complete README prompt again/);
-  assert.match(bootstrap, /Conversational or voice approval does not mean installed/);
+  assert.match(bootstrap, /Full batch installation/);
+  assert.match(bootstrap, /Guided installation/);
+  assert.match(bootstrap, /Do not wait for a separate interface prompt/);
+  assert.match(bootstrap, /active `@skill-creator` workflow reports that it created and saved/);
+  assert.match(bootstrap, /Use @skill-creator to help me create a skill\./);
   assert.doesNotMatch(bootstrap, /user does not need to type `?\$skill-creator`?/i);
 });
 
