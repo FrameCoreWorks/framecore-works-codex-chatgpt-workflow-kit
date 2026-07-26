@@ -521,3 +521,18 @@ test("validation rejects weak default validate workflow safety", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_VALIDATE_WORKFLOW/);
   assert.match(`${result.stderr}${result.stdout}`, /UNSAFE_VALIDATE_WORKFLOW/);
 });
+
+test("validation rejects GitHub Actions backed by the deprecated Node 20 runtime", () => {
+  const dir = copyRepoFixture("framecore-validate-stale-actions-runtime-");
+  const workflow = join(dir, ".github/workflows/validate.yml");
+  writeFileSync(
+    workflow,
+    readFileSync(workflow, "utf8")
+      .replace("actions/checkout@v7", "actions/checkout@v4")
+      .replace("actions/setup-node@v7", "actions/setup-node@v4")
+  );
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /STALE_GITHUB_ACTION_RUNTIME/);
+});

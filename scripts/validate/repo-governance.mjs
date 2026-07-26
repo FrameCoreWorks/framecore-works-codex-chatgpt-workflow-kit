@@ -1,6 +1,15 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
+function usesNode24ActionRuntime(text) {
+  const node24Major = String.raw`v(?:[5-9]|[1-9]\d+)`;
+  return (
+    new RegExp(String.raw`actions/checkout@${node24Major}\b`).test(text) &&
+    new RegExp(String.raw`actions/setup-node@${node24Major}\b`).test(text) &&
+    /package-manager-cache:\s*false/.test(text)
+  );
+}
+
 export function run(ctx) {
   const { createFindings, markdownSections, read } = ctx.helpers;
   const { findings, addFinding } = createFindings(ctx.root);
@@ -304,6 +313,9 @@ export function run(ctx) {
     if (unsafeWorkflowPatterns.some((pattern) => pattern.test(text))) {
       addFinding("UNSAFE_VALIDATE_WORKFLOW", "validate workflow must not publish, upload artifacts, use secrets, or request write permissions.", [validateWorkflow]);
     }
+    if (!usesNode24ActionRuntime(text)) {
+      addFinding("STALE_GITHUB_ACTION_RUNTIME", "validate workflow must use checkout/setup-node releases backed by Node 24 and explicitly disable unused npm package-manager caching.", [validateWorkflow]);
+    }
   }
   
   const releaseWorkflow = join(validationRoot, ".github/workflows/release-check.yml");
@@ -314,6 +326,9 @@ export function run(ctx) {
     }
     if (unsafeWorkflowPatterns.some((pattern) => pattern.test(text))) {
       addFinding("UNSAFE_RELEASE_WORKFLOW", "release-check workflow must not publish, upload artifacts, use secrets, or request write permissions.", [releaseWorkflow]);
+    }
+    if (!usesNode24ActionRuntime(text)) {
+      addFinding("STALE_GITHUB_ACTION_RUNTIME", "release-check workflow must use checkout/setup-node releases backed by Node 24 and explicitly disable unused npm package-manager caching.", [releaseWorkflow]);
     }
   }
   
@@ -341,6 +356,9 @@ export function run(ctx) {
     }
     if (unsafeWorkflowPatterns.some((pattern) => pattern.test(text))) {
       addFinding("UNSAFE_CROSS_PLATFORM_WORKFLOW", "cross-platform workflow must not publish, upload artifacts, use secrets, or request write permissions.", [crossPlatformWorkflow]);
+    }
+    if (!usesNode24ActionRuntime(text)) {
+      addFinding("STALE_GITHUB_ACTION_RUNTIME", "cross-platform workflow must use checkout/setup-node releases backed by Node 24 and explicitly disable unused npm package-manager caching.", [crossPlatformWorkflow]);
     }
   }
   
