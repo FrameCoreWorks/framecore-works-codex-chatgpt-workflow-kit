@@ -8,6 +8,8 @@
   - no external provider execution
   - no visible text
   - product must remain fully visible
+- creative_prompt_contracts:
+  - `lamp-hero-image` revision 1: portable image contract with a product-identity carrier attached to the request
 - expected_observables:
   - compact scale
   - adjustable lamp head
@@ -26,6 +28,8 @@
   - no text overlays
   - no messy private-looking workspace
   - no branded devices
+- creative_prompt_contracts:
+  - `lamp-lifestyle-image` revision 1: portable image contract with product identity and readable composition controls
 - expected_observables:
   - small-space context
   - lamp as main subject
@@ -42,6 +46,8 @@
   - planning only
   - no video generation
   - continuity must preserve lamp shape
+- creative_prompt_contracts:
+  - `lamp-product-reveal` revision 1: video planning contract requiring an actual per-shot continuity carrier before execution
 - expected_observables:
   - footprint
   - adjustability

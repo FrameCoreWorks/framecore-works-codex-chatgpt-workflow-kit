@@ -1,5 +1,18 @@
 # Copy Pack
 
+- copy_pack_status: ready_to_use
+- author_context:
+  - speaker: product team using only approved product facts
+  - audience: people comparing compact desk organizers
+  - channel: product-page supporting copy
+  - goal: explain the practical use without promising outcomes
+  - content_type: product description
+  - concrete_anchor: the organizer keeps small desk items together
+- fact_and_lock_ledger:
+  - approved facts: compact desk organizer; keeps small desk items together
+  - personal_experience: none claimed
+  - source_status: user-provided facts only
+  - exact_copy_locks: Compact setup, clearer focus; Learn more
 - headlines:
   - Compact setup, clearer focus
 - body_copy:
@@ -15,3 +28,18 @@
 - exact_text_locks:
   - "Compact setup, clearer focus"
   - "Learn more"
+- human_voice_review:
+  - author_and_audience_fit: pass
+  - factual_honesty: pass
+  - channel_and_structure_fit: pass; no unrequested marketing architecture added
+  - high_risk_patterns: none
+  - controlled_imperfection: off
+- copy_delivery_loop:
+  - iteration: 1
+  - max_iterations: 3
+  - phases_completed: draft, deep_review, revision, final_QA, delivery
+  - evidence: checked approved facts and exact copy locks against the brief
+  - root_cause: removed an unsupported productivity claim from the draft
+  - repair_target: body_copy
+  - regression_check: confirmed the repaired line preserves the approved facts and exact locks
+  - stop_decision: stop_sufficient

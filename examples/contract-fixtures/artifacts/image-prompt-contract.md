@@ -4,12 +4,23 @@
 - exact_visible_text:
   - "Compact setup, clearer focus"
   - "Learn more"
+- text_layout_contract:
+  - hierarchy: headline followed by CTA
+  - safe area: protect the upper-left text area and product silhouette
+  - correction path: shorten copy or regenerate in one pass
 - final_prompt: Create a clean product-neutral static graphic with the exact visible text included directly in the generated image, clear hierarchy, safe margins, no extra words, and no duplicate text.
 - negative_constraints:
   - no text overlays after generation
   - no invented logos
   - no unsupported feature claims
   - no extra visible text
+- reference_roles:
+  - `lamp-master` controls product identity and is attached to the generation unit
+- continuity_carrier:
+  - approved `lamp-master` reference image, attached and actual
+- edit_delta_contract: not applicable; this is a new static graphic, not an edit.
+- adapter_verification:
+  - pending until a user-selected execution surface is checked against the prompt contract
 - QA_checks:
   - exact text appears once
   - spelling is correct

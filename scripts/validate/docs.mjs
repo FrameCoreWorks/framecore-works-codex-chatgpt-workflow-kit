@@ -36,6 +36,8 @@ export function run(ctx) {
     "docs/loop-protocol.md",
     "docs/loop-protocol-integration-plan.md",
     "docs/artifact-schemas.md",
+    "docs/creative-prompting-workflow.md",
+    "docs/human-voice-and-copy-delivery.md",
     "docs/example-authoring.md",
     "docs/workflow-stages.md",
     "docs/onboarding.md",
@@ -53,6 +55,30 @@ export function run(ctx) {
   ];
   for (const doc of requiredDocs) {
     if (!existsSync(join(validationRoot, doc))) addFinding("MISSING_DOC", `Required documentation file is missing: ${doc}`, [join(validationRoot, doc)]);
+  }
+
+  const creativePromptingDoc = join(validationRoot, "docs/creative-prompting-workflow.md");
+  if (existsSync(creativePromptingDoc)) {
+    const text = read(creativePromptingDoc);
+    const sections = markdownSections(text);
+    for (const section of ["Purpose", "The Contract", "Image Work", "Edit Work", "Video Work", "Continuity", "Target Adaptation", "QA And Handoffs", "Related Docs"]) {
+      if (!sections.has(section)) addFinding("WEAK_CREATIVE_PROMPTING_DOC", `Creative prompting guide is missing required section: ${section}`, [creativePromptingDoc]);
+    }
+    for (const phrase of ["Creative Prompt Contract", "attachment plan", "preservation locks", "official-source check", "rewrite-forward", "promptability_fit", "post_execution_fit", "does not create a new permanent agent"]) {
+      if (!text.includes(phrase)) addFinding("WEAK_CREATIVE_PROMPTING_DOC", `Creative prompting guide is missing required phrase: ${phrase}`, [creativePromptingDoc]);
+    }
+  }
+
+  const humanVoiceDoc = join(validationRoot, "docs/human-voice-and-copy-delivery.md");
+  if (existsSync(humanVoiceDoc)) {
+    const text = read(humanVoiceDoc);
+    const sections = markdownSections(text);
+    for (const section of ["Purpose", "What The Workflow Does", "Delivery Loop", "Channel And Structure", "Truth And Voice", "Evidence Basis And Limits", "Research Log", "Related Docs"]) {
+      if (!sections.has(section)) addFinding("WEAK_HUMAN_VOICE_DOC", `Human Voice guide is missing required section: ${section}`, [humanVoiceDoc]);
+    }
+    for (const phrase of ["detector", "draft -> deep review -> revision -> final QA -> delivery", "Controlled imperfection", "does not automatically add a hook", "Copy Pack", "three iterations"]) {
+      if (!text.includes(phrase)) addFinding("WEAK_HUMAN_VOICE_DOC", `Human Voice guide is missing required phrase: ${phrase}`, [humanVoiceDoc]);
+    }
   }
   
   const onboardingDoc = join(validationRoot, "docs/onboarding.md");
@@ -208,7 +234,7 @@ export function run(ctx) {
     for (const section of ["Purpose", "Product Boundary", "Repository Contract", "Copy-Paste Prompt", "Onboarding Flow", "Onboarding Context Choice", "Profile Selection", "Installation Modes", "Source Resolution", "State Model", "Native Installation Flow", "Existing Skill Guard", "Temporary Role Model", "Post-Install Use, Editing, And New Skills", "Voice Mode", "Provider Cost Preflight", "Live E2E Test", "Maintainer Validation", "Stop Conditions", "Related Docs"]) {
       if (!sections.has(section)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required section: ${section}`, [chatGptSkillsDoc]);
     }
-    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "ChatGPT > Work", "Use @skill-creator", "Plugins > Skills > Create > Create with chat", "native Skill mention", "Full batch installation", "Guided installation", "created_not_installed", "Do not wait for a separate install button", "estimated cost or `Unknown`", "History-assisted onboarding", "provisional", "confirmation or correction", "unresolved questions", "small workflow helpers", "edited, expanded", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "setup language", "temporary responsibility", "must not report batch success", "allow_implicit_invocation: true", "smallest sufficient route", "@workflow-orchestrator", "@pipeline-core", "Use @skill-creator to help me create a skill.", "explicit-only", "all 37"]) {
+    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "ChatGPT > Work", "Use @skill-creator", "Plugins > Skills > Create > Create with chat", "native Skill mention", "Full batch installation", "Guided installation", "created_not_installed", "Do not wait for a separate install button", "estimated cost or `Unknown`", "History-assisted onboarding", "provisional", "confirmation or correction", "unresolved questions", "small workflow helpers", "edited, expanded", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "setup language", "temporary responsibility", "must not report batch success", "allow_implicit_invocation: true", "smallest sufficient route", "@workflow-orchestrator", "@pipeline-core", "Use @skill-creator to help me create a skill.", "explicit-only", "all 35"]) {
       if (!text.includes(phrase)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required phrase: ${phrase}`, [chatGptSkillsDoc]);
     }
   }
@@ -378,6 +404,9 @@ export function run(ctx) {
     for (const phrase of ["## Supported Agent Surfaces", "OpenAI Codex CLI with custom-agent support", "Chat-only environments without native Skills", "GitHub Desktop", "created by FrameCore Works", "https://buycoffee.to/framecoreworks", "This kit ships the routing and contract layer", "symlinks"]) {
       if (!text.includes(phrase)) addFinding("WEAK_README_POSITIONING", `README is missing required positioning phrase: ${phrase}`, [readmePath]);
     }
+    for (const phrase of ["## Human-In-The-Loop Boundary", "not an autonomous agent system", "not background workers", "not start hidden background work", "user remains responsible", "cannot certify the quality of a model response"]) {
+      if (!text.includes(phrase)) addFinding("WEAK_HUMAN_IN_THE_LOOP_BOUNDARY", `README is missing required human-in-the-loop boundary phrase: ${phrase}`, [readmePath]);
+    }
     for (const phrase of ["Install Directly From The Repo In ChatGPT", "CHATGPT_INSTALL.md", "config/chatgpt-skill-sources.json", "docs/chatgpt-skills-onboarding.md", "switch the top selector from **Chat** to **Work**", "Use @skill-creator", "Plugins > Skills > Create > Create with chat", "Your first response must ask only which language", "History-assisted onboarding", "provisional", "confirm or correct", "remaining unresolved questions"]) {
       if (!text.includes(phrase)) addFinding("WEAK_README_CHATGPT_SKILLS", `README is missing required native ChatGPT Skills phrase: ${phrase}`, [readmePath]);
     }
@@ -386,6 +415,18 @@ export function run(ctx) {
     }
     if (!appearsInOrder(text, ["Run the repository checks", "Run doctor/preflight", "Run onboarding", "Run install dry-run", "after onboarding", "Install project-local only"])) {
       addFinding("WEAK_README_INSTALL_PROMPT", "README install prompt must keep canonical order: check, doctor, onboarding, post-onboarding dry-run, project-local install.", [readmePath]);
+    }
+  }
+
+  const architectureDoc = join(validationRoot, "docs/architecture.md");
+  if (existsSync(architectureDoc)) {
+    const text = read(architectureDoc);
+    const sections = markdownSections(text);
+    if (!sections.has("Human-In-The-Loop Boundary")) {
+      addFinding("WEAK_HUMAN_IN_THE_LOOP_BOUNDARY", "Architecture must document the human-in-the-loop boundary.", [architectureDoc]);
+    }
+    for (const phrase of ["not an autonomous agent runtime", "not background workers", "The user owns goals", "cannot certify creative quality", "stop decisions"]) {
+      if (!text.includes(phrase)) addFinding("WEAK_HUMAN_IN_THE_LOOP_BOUNDARY", `Architecture is missing required human-in-the-loop boundary phrase: ${phrase}`, [architectureDoc]);
     }
   }
   

@@ -2,7 +2,17 @@
 
 ## Unreleased
 
-- Added repository-source native ChatGPT setup for all 37 public workflow skills, with core, creative, and full profiles.
+- Added Human Voice and Copy Delivery governance for ready-to-use copy,
+  captions, dialogue, VO, supers, and delivery wording. The policy preserves
+  author authority, factual boundaries, channel-fit structure, exact copy, and
+  controlled-imperfection limits without detector evasion or persona imitation.
+- Added the bounded Copy Delivery Loop: `draft -> deep review -> revision ->
+  final QA -> delivery`, with Copy Pack evidence, a three-iteration maximum,
+  reusable QA and delivery handoffs, fixtures, and validation coverage.
+
+- Added a versioned Creative Prompt Contract layer for image, edit, and video work, including reference ownership, exact text layout, bounded edit deltas, continuity carriers, rewrite-forward rules, target adaptation checks, execution evidence, public fixtures, and validator coverage.
+- Consolidated HyperFrames into a single public `hyperframes-workflow` skill that now covers workflow structure, implementation prompting, GSAP/timeline guidance, captions, overlays, render QA, and delivery handoff.
+- Added repository-source native ChatGPT setup for all 35 public workflow skills, with core, creative, and full profiles.
 - Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through an active `@skill-creator` workflow in ChatGPT Work.
 - Added full batch and guided ChatGPT installation modes, using scoped conversational approval instead of a separate install button, modal, native action, or host callback.
 - Added state-model rules for ChatGPT setup: mode selection, conversational approval, creation, `created_not_installed`, `installed`, existing-skill review, and `blocked` remain separate.

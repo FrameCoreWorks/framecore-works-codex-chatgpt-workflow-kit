@@ -85,6 +85,89 @@ test("validation rejects weak prompt format and continuity governance", () => {
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_PROMPT_FORMAT_CONTINUITY/);
 });
 
+test("validation rejects a creative prompt fixture that loses a strict continuity carrier", () => {
+  const dir = copyRepoFixture("framecore-validate-creative-prompt-carrier-");
+  const file = join(dir, "examples/contract-fixtures/creative-prompt-contracts.json");
+  const fixtures = JSON.parse(readFileSync(file, "utf8"));
+  const validVideo = fixtures.cases.find((entry) => entry.id === "valid-video-contract");
+  validVideo.contract.continuity.continuity_carriers[0].state = "planned";
+  writeFileSync(file, `${JSON.stringify(fixtures, null, 2)}\n`);
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /CREATIVE_PROMPT_FIXTURE_REJECTED/);
+  assert.match(`${result.stderr}${result.stdout}`, /STRICT_CONTINUITY_CARRIER_REQUIRED/);
+});
+
+test("validation rejects creative prompt fixtures with an untested expected failure", () => {
+  const dir = copyRepoFixture("framecore-validate-creative-prompt-fixture-");
+  const file = join(dir, "examples/contract-fixtures/creative-prompt-contracts.json");
+  const fixtures = JSON.parse(readFileSync(file, "utf8"));
+  const invalidTarget = fixtures.cases.find((entry) => entry.id === "reject-target-without-source-check");
+  invalidTarget.expected_code = "MISSING_EXPECTATION";
+  writeFileSync(file, `${JSON.stringify(fixtures, null, 2)}\n`);
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /CREATIVE_PROMPT_FIXTURE_ACCEPTED/);
+});
+
+test("validation rejects a creative prompting guide without target-adaptation boundary", () => {
+  const dir = copyRepoFixture("framecore-validate-creative-prompt-doc-");
+  const file = join(dir, "docs/creative-prompting-workflow.md");
+  writeFileSync(file, readFileSync(file, "utf8").replace("## Target Adaptation", "## Target Details"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_CREATIVE_PROMPTING_DOC/);
+});
+
+test("validation rejects a ready Copy Pack fixture without bounded delivery-loop evidence", () => {
+  const dir = copyRepoFixture("framecore-validate-copy-delivery-loop-");
+  const file = join(dir, "examples/contract-fixtures/copy-delivery-contracts.json");
+  const fixtures = JSON.parse(readFileSync(file, "utf8"));
+  const validCopy = fixtures.cases.find((entry) => entry.id === "mandatory-delivery-loop-recorded");
+  delete validCopy.record.copy_delivery_loop;
+  writeFileSync(file, `${JSON.stringify(fixtures, null, 2)}\n`);
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  const output = `${result.stderr}${result.stdout}`;
+  assert.match(output, /COPY_DELIVERY_FIXTURE_REJECTED/);
+  assert.match(output, /MISSING_COPY_DELIVERY_LOOP/);
+});
+
+test("validation rejects uncontrolled imperfection in a precision-critical Copy Pack", () => {
+  const dir = copyRepoFixture("framecore-validate-copy-imperfection-");
+  const file = join(dir, "examples/contract-fixtures/copy-delivery-contracts.json");
+  const fixtures = JSON.parse(readFileSync(file, "utf8"));
+  const validCopy = fixtures.cases.find((entry) => entry.id === "default-human-voice-has-no-artificial-errors");
+  validCopy.record.human_voice_review.controlled_imperfection = {
+    mode: "on",
+    basis: "explicit_user_request",
+    elements: ["ellipsis"],
+    typo_count: 0
+  };
+  validCopy.record.author_context.channel = "business_email";
+  writeFileSync(file, `${JSON.stringify(fixtures, null, 2)}\n`);
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  const output = `${result.stderr}${result.stdout}`;
+  assert.match(output, /COPY_DELIVERY_FIXTURE_REJECTED/);
+  assert.match(output, /CONTROLLED_IMPERFECTION_PRECISION_CONFLICT/);
+});
+
+test("validation rejects a Human Voice guide without the bounded delivery loop", () => {
+  const dir = copyRepoFixture("framecore-validate-human-voice-doc-");
+  const file = join(dir, "docs/human-voice-and-copy-delivery.md");
+  writeFileSync(file, readFileSync(file, "utf8").replace("## Delivery Loop", "## Editorial Review"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_HUMAN_VOICE_DOC/);
+});
+
 test("validation requires every canonical gate including diagnostics and sufficiency", () => {
   const dir = copyRepoFixture("framecore-validate-required-gates-");
   const file = join(dir, ".agents/skills/pipeline-core/references/gate-registry.md");
@@ -120,7 +203,7 @@ test("validation rejects role-to-skill map drift", () => {
   const text = readFileSync(file, "utf8");
   writeFileSync(file, text
     .replace("| `copy-voice` |", "| `missing-role` |")
-    .replace("`hyperframes-gsap-guidance`", "`missing-hyperframes-skill`"));
+    .replace("`hyperframes-workflow`", "`missing-hyperframes-skill`"));
 
   const result = failRun(["scripts/validate.mjs", dir]);
   assert.notEqual(result.status, 0);

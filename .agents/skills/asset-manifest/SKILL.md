@@ -39,15 +39,17 @@ Produce an Asset Manifest with:
 - excluded files with reasons
 - missing or ambiguous files
 - checksum or reproducibility notes when useful
+- continuity carriers and accepted output references when assets are part of a generated sequence
 - handoff notes for `qa-iteration` or `delivery-documentation`
 
 ## Process
 
 1. Inspect the requested files and classify them as source, working, final candidate, rejected, cache, or metadata.
 2. Record only reviewable assets and explicit exclusions.
-3. Preserve relative paths when possible so the manifest remains portable.
-4. Flag missing source context, uncertain versions, or files that need human confirmation.
-5. Hand off only files that can be explained and traced.
+3. For generated sequences, record the actual continuity carrier used by each dependent request and identify which outputs have been accepted for rewrite-forward.
+4. Preserve relative paths when possible so the manifest remains portable.
+5. Flag missing source context, uncertain versions, or files that need human confirmation.
+6. Hand off only files that can be explained and traced.
 
 ## Decision Rules
 
@@ -71,6 +73,8 @@ Hand off to `qa-iteration` with:
 
 - `file_list`
 - `source_traceability`
+- `continuity_carriers`
+- `accepted_output_refs`
 - `excluded_files`
 - `acceptance_criteria`
 - `open_questions`
@@ -83,5 +87,6 @@ Hand off to `delivery-documentation` only after QA identifies accepted assets.
 - Final candidates are separated from working files and exclusions.
 - Exclusions explain why the file is not deliverable.
 - Paths are portable and public-safe.
+- Continuity carriers and accepted output references are factual, request-bound, and not inferred from planned states.
 - The manifest does not contain hidden metadata, caches, secrets, or private links.
 - Open questions are explicit instead of hidden in prose.

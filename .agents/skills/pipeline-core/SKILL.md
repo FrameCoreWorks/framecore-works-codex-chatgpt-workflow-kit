@@ -77,7 +77,11 @@ Read only what is needed:
 - `references/inference-reasoning-methods.md` for compact reasoning routes, runtime route boundaries, candidate limits, and raw trace prohibitions.
 - `references/text-image-generation-policy.md` for visible text in raster graphics.
 - `references/prompt-format-and-continuity.md` for generator-specific prompt fields, independent generation units, continuity carriers, and standalone prompt rules.
+- `references/creative-prompting-standard.md` for portable image, edit, and video prompt contracts, reference roles, attachment ownership, target verification, rewrite-forward, and adapter evidence.
 - `references/humanizer-routing.md` for copy polish routing.
+- `references/human-voice-and-copy-delivery.md` for author context, truthful
+  Human Voice controls, format-sensitive copy decisions, and the bounded Copy
+  Delivery Loop.
 - `references/hyperframes-workflow.md` for coded-video workflow.
 
 ## Decision Rules
@@ -94,6 +98,9 @@ Read only what is needed:
 - Use role IDs from the public kit. Use local display names only from Codex onboarding config, or user-selected labels in the current ChatGPT conversation.
 - Do not skip upstream gates when later roles depend on their artifacts.
 - Route text, VO, captions, and user-facing polish through `humanizer` when copy quality matters.
+- Route ready-to-use copy through `copy-voice` with the Human Voice and Copy
+  Delivery policy. Use the existing Loop Protocol for at least one bounded
+  review-and-revision cycle; do not create a second editorial loop.
 - Route deterministic React/TypeScript video composition through `remotion-video-production`.
 - Route coded-video planning through HyperFrames skills when the requested runtime is specifically HyperFrames or HTML/GSAP composition.
 - Route Hipson-style packets through `hipson-adapter` unless the user chooses full Hipson separately.
@@ -112,12 +119,21 @@ Read only what is needed:
 - Static raster graphics with visible text must use the native Codex/ChatGPT image generator powered by GPT Image 2 in one pass with text included.
 - Resolve generator prompt fields and negative handling before producing generator-specific prompts. Do not attach a universal negative-prompt block.
 - Treat separately generated images and shots as independent units. Claim strict continuity only when each request has a concrete continuity carrier.
+- For image, edit, or video prompting, use a revisioned Creative Prompt Contract when the work has strict locks, multiple requests, target adaptation, or execution readiness needs. Keep the prompt revision, reference roles, attachment plan, continuity carrier, QA observables, and adapter status together.
+- Treat one primary action and one primary camera move as defaults for a short video unit. Any exception needs a concrete rationale and evidence that QA can inspect.
+- Keep model fields, reference limits, edit modes, audio behavior, and target-specific syntax pending until an official source check confirms the active surface.
+- Use rewrite-forward only from an accepted actual output, never from a planned end frame or repeated prose.
 - Do not substitute Python-generated artwork, SVG, HTML/canvas, Sharp/composited PNG, or other coded artwork unless the user explicitly asks for coded, vector, template, or editable source output.
 - Delivery follows QA when generated assets exist.
 - Upload, publish, or external delivery requires an explicit current user request.
 - Workflow self-improvement creates proposals, not automatic mutations; when implementation is requested, use the self-improvement sufficiency gate to choose `stop_sufficient`, `patch_one_gap`, or `ask_user`.
 - Loop Protocol work must record an iteration budget, acceptance matrix, evidence, root cause, minimal repair or loopback target, regression check, and one stop decision: `stop_sufficient`, `patch_one_gap`, `ask_user`, or `blocked`.
 - Do not continue a loop only because the result could be better in theory.
+- Do not add a hook, CTA, list, heading, emoji, hashtag, question, artificial
+  roughness, or generic marketing structure without a confirmed channel, goal,
+  audience, legal, timing, or accessibility reason.
+- Do not fabricate author experience, testimonials, sources, quotes, metrics,
+  results, promises, or user history to make text feel more authentic.
 - Do not store raw chain-of-thought, raw reasoning traces, raw debate transcripts, private URLs, provider responses, secrets, `.env` files, or copied private project context.
 - A runtime route or model recommendation is not permission to call an API, use an external provider, upload files, run destructive commands, or install routing infrastructure.
 - Do not add private project context, secrets, local machine paths, or provider-specific execution dependencies.
@@ -156,6 +172,8 @@ Hand off with:
 - Reasoning routes are compact, bounded, and do not store raw reasoning traces.
 - Runtime routes keep provider/API/upload permissions false unless the current user explicitly asks for the protected action.
 - Loop state has checklist-before-execution, evidence-backed evaluation, root cause, minimal repair or loopback target, regression check, and stop decision.
+- Ready-to-use text has a Copy Pack status, author context, fact-and-lock
+  review, Human Voice review, and bounded Copy Delivery Loop evidence.
 - Missing artifacts trigger loopback instead of guesswork.
 - The selected route is the smallest sufficient route; a full pipeline is used only when explicitly requested or justified by multi-stage dependencies.
 - External delivery or execution is not implied without user instruction.

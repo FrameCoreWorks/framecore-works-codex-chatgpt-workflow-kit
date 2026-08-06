@@ -36,6 +36,7 @@ Optional:
 Produce a Reference Pack with:
 
 - canonical references and their roles
+- control ownership and attachment requirements for references that must carry strict continuity
 - mood, style, example, and exclusion references separated
 - aliases and continuity anchors
 - suppression rules
@@ -44,7 +45,7 @@ Produce a Reference Pack with:
 
 ## Process
 
-1. Classify each reference by authority and purpose.
+1. Classify each reference by authority, purpose, and permitted control: identity, source, style, motion, performance, audio, or coverage.
 2. Separate canonical source from mood or style inspiration.
 3. Capture aliases and continuity anchors.
 4. Record suppression rules and conflicts clearly.
@@ -55,6 +56,7 @@ Produce a Reference Pack with:
 - Canonical beats inspirational when they conflict.
 - If reference authority is unclear, ask or label it as uncertain.
 - Keep style inspiration from overriding product, character, or copy requirements.
+- For a strict lock, record the alias that must be attached to each affected generation unit. A role tag alone is not a continuity carrier.
 - Do not use private references not provided or approved for the task.
 
 ## Guardrails
@@ -72,6 +74,8 @@ Hand off to `static-direction`, `motion-direction`, `music-video-direction`, `st
 
 - `reference_pack`
 - `continuity_anchors`
+- `reference_roles` and `control_ownership`
+- `attachment_requirements`
 - `suppression_rules`
 - `conflict_notes`
 - `reference_gaps`
@@ -82,4 +86,5 @@ Hand off to `static-direction`, `motion-direction`, `music-video-direction`, `st
 - Aliases are clear and reusable.
 - Conflicts are visible.
 - Suppression rules are actionable.
+- Reference ownership is explicit enough to prevent style inspiration from overwriting locked source facts.
 - Downstream roles can use the pack without reinterpreting raw references.

@@ -25,7 +25,7 @@ Use this page when deciding where a task should enter the pipeline, which artifa
 | Structure | `storyboard-architect` | motion direction, timing constraints | Storyboard Contract | `structure_fit` | video prompt or HyperFrames |
 | Storyboard board | `storyboard-board-architect` | storyboard, visual direction | Board Artifact Prompt | `storyboard_board_fit` | `image-prompting` or `qa-iteration` |
 | Copy | `copy-voice` | direction, tone, audience | Copy Pack | `copy_fit` | prompt role |
-| Prompting | `image-prompting`, `video-prompting` | direction, copy, references | Prompt Pack | `promptability_fit` | `tool-routing-cost` or QA |
+| Prompting | `image-prompting`, `video-prompting` | direction, copy, references | Prompt Pack and Creative Prompt Contract when strict controls apply | `promptability_fit` | `tool-routing-cost` or QA |
 | Tool routing | `tool-routing-cost` | prompt pack, approval status | Tool Routing Plan | `schema_pricing_fit` | `execution-manifest` |
 | Execution manifest | `execution-manifest`, `hyperframes-producer` | selected tool, approved inputs | Execution Manifest or HyperFrames Production Brief | `execution_manifest_fit` | `asset-manifest` |
 | Asset manifest | `asset-manifest` | output files, source notes | Asset Manifest | `asset_manifest_fit` | `qa-iteration` |

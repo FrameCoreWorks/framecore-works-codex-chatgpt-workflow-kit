@@ -30,6 +30,8 @@ material.
 - Claim ledger entries for approved, unsupported, conflicting, or blocked
   statements.
 - Tool-limit notes for `tool-routing-cost`, prompt packs, or QA.
+- Author-boundary notes that distinguish user-provided first-hand facts from
+  unsupported personal or social-proof claims.
 - Handoff notes for `brief-architect`, `reference-curator`, `copy-voice`,
   `instruction-packet-factory`, `qa-iteration`, or `delivery-documentation`.
 
@@ -42,7 +44,10 @@ material.
    available.
 4. Separate confirmed facts from inference, opinion, and missing evidence.
 5. Record conflicts, stale sources, unavailable sources, and confidence limits.
-6. Convert evidence into a compact decision note for the next workflow role.
+6. For ready-to-use copy, state whether each material claim, quote, result,
+   testimonial, first-hand observation, or personal statement is user-provided,
+   verified, unresolved, or prohibited.
+7. Convert evidence into a compact decision note for the next workflow role.
 
 ## Decision Rules
 
@@ -65,6 +70,8 @@ material.
 - Do not store raw private project context in public artifacts.
 - Do not turn evidence notes into long research dumps; preserve only what the
   next role needs.
+- Do not infer an author's experience, beliefs, emotions, or history from a
+  writing preference or a generic brief.
 
 ## Handoff
 

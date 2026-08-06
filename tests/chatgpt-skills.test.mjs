@@ -159,7 +159,7 @@ test("ChatGPT bootstrap requires Work and distinguishes skill mention from tools
 test("ChatGPT source manifest covers every repository skill in declared install order", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
   const manifest = buildChatGptSkillSourceManifest(root);
-  assert.equal(manifest.skills.length, 37);
+  assert.equal(manifest.skills.length, 35);
   assert.deepEqual(manifest.skills.map((skill) => skill.name), config.profiles.full.skills);
   for (const skill of manifest.skills) {
     assert.ok(skill.files.some((file) => file.path === "SKILL.md"));

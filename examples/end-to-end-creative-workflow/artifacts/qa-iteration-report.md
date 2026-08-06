@@ -17,6 +17,13 @@
 - verification_results:
   - No generated media is included in this fixture.
   - Planning artifacts are accepted only as review drafts.
+- prompt_contract_checks:
+  - prompts are standalone planning artifacts with explicit product-identity continuity requirements
+  - no target-specific syntax is claimed without a selected target surface
+- continuity_checks:
+  - a future product-reveal execution needs an actual per-shot carrier; planning wording alone is not proof of continuity
+- adapter_checks:
+  - no adapter translation or execution surface was selected for this planning fixture
 - root_cause:
   - Missing product specs are upstream brief gaps, not QA-only delivery issues.
 - loopback_target:

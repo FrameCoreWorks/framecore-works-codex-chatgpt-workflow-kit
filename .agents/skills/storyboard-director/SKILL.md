@@ -40,6 +40,7 @@ Produce a Storyboard Contract with:
 - transitions and pacing notes
 - continuity rules
 - per-shot generation mode and required continuity carrier when downstream shots will be generated separately
+- actual-output rewrite-forward requirement when a later shot must continue from an accepted prior result
 - copy placement notes
 - prompt and production handoff notes
 
@@ -47,7 +48,7 @@ Produce a Storyboard Contract with:
 
 1. Start from approved direction and required deliverables.
 2. Break the idea into beats, then scenes, then shot cards.
-3. Assign timing, transition, and continuity rules.
+3. Assign timing, transition, continuity rules, and the expected end state only when it matters to the next shot.
 4. For separately generated shots, distinguish planning inheritance from the actual reference, source clip, chained frame, or native shared context required by each request.
 5. Mark copy, VO, caption, or board dependencies.
 6. Hand off to prompt, board, or coded-video roles after structure is stable.
@@ -59,6 +60,7 @@ Produce a Storyboard Contract with:
 - Keep shot cards concrete enough for prompts but not overloaded with generator syntax.
 - If copy placement affects shot design, route through `copy-voice` before final prompt work.
 - A start state, end state, or repeated description is planning metadata, not proof of strict generated continuity. Name the carrier or mark continuity approximate.
+- Use a hard cut when no verified bridge exists between distinct states. If another seam is required, identify the reference, source clip, chained frame, or accepted actual output that carries it.
 
 ## Guardrails
 
@@ -79,6 +81,7 @@ Hand off to `video-prompting`, `storyboard-board-architect`, or `hyperframes-pro
 - `continuity_rules`
 - `generation_modes`
 - `continuity_carrier_requirements`
+- `rewrite_forward_requirements`
 - `copy_dependencies`
 
 ## QA Checklist
@@ -87,5 +90,6 @@ Hand off to `video-prompting`, `storyboard-board-architect`, or `hyperframes-pro
 - Each shot has purpose, timing, and continuity notes.
 - Copy dependencies are visible.
 - Separately generated shots identify their generation mode and any required continuity carrier.
+- A planned end frame is never presented as an actual carrier for the next request.
 - Structure can be prompted or produced without reconstructing direction.
 - No final execution or prompt generation is included.

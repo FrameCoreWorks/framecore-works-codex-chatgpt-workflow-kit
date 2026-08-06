@@ -39,12 +39,13 @@ Produce Cinematography Notes with:
 - movement, blocking, and timing notes
 - lighting, color, texture, and depth cues
 - continuity constraints across shots
+- shot-contract notes for frame, action, camera behavior, setting, light, and end state when it affects the next shot
 - handoff notes for prompt, storyboard, or coded-video roles
 
 ## Process
 
 1. Start from objective and viewer attention, not from decorative style.
-2. Assign camera behavior to each required beat or asset type.
+2. Assign one primary camera behavior and one readable action to each short required beat or asset type.
 3. Tie lighting and texture to mood, product readability, or narrative clarity.
 4. Keep shot language concise enough to survive prompt handoff.
 5. Flag any shot choice that conflicts with format, safety, or copy readability.
@@ -54,6 +55,8 @@ Produce Cinematography Notes with:
 - Use specific visual terms only when they serve the brief.
 - Prefer readable product or subject framing over dramatic but unclear shots.
 - Keep motion instructions feasible for the target medium.
+- Use a hard cut by default when no verified bridge carries the required state into the next shot. Document another seam only when its carrier is known.
+- If a short shot needs multiple actions or camera moves, provide the reason and the observable evidence QA should use.
 - If visual references conflict with the brief, preserve the brief and note the conflict.
 
 ## Guardrails
@@ -73,6 +76,7 @@ Hand off with:
 - `shot_language`
 - `lighting_and_texture`
 - `continuity_rules`
+- `shot_contract_notes`
 - `prompt_constraints`
 
 ## QA Checklist
@@ -81,4 +85,5 @@ Hand off with:
 - Camera, lighting, and blocking are concrete.
 - Text, product, or subject readability is protected.
 - Continuity notes are usable by the next role.
+- Camera and action complexity remains bounded or has an explicit exception.
 - No final prompt or execution step is included.

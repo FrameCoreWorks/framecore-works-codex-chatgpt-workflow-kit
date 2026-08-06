@@ -55,6 +55,8 @@ Use `templates/screenplay-development-pack.md` as the standard scaffold.
 5. Give every scene a purpose, pressure source, visual action, turn, image or sound anchor, entrance state, and exit state.
 6. Write dialogue through subtext, behavior, silence, interruption, and contradiction before exposition.
 7. Convert accepted story material into timing, continuity locks, copy blocks, and production-facing handoff fields.
+8. Label story-stage dialogue, VO, and supers as drafts until `copy-voice` and
+   the bounded Copy Delivery Loop approve them for ready-to-use delivery.
 
 ## Decision Rules
 
@@ -72,6 +74,8 @@ Use `templates/screenplay-development-pack.md` as the standard scaffold.
 - Do not invent factual, product, medical, legal, or performance claims.
 - Do not treat this skill as a provider, generation, editing, or publishing route.
 - Label assumptions and material that still needs user approval.
+- Do not invent a speaker's lived experience, emotion, or history to make
+  dialogue feel authentic.
 
 ## Handoff
 
@@ -104,3 +108,5 @@ Common handoffs are `motion-direction`, `storyboard-architect`, `copy-voice`, `v
 - Atmosphere is actionable for storyboard, camera, sound, and edit decisions.
 - Facts, claims, characters, and continuity locks remain intact.
 - The handoff can feed production without another structural rewrite.
+- Ready-to-use dialogue, VO, or supers preserve author context and exact-copy
+  locks through the Copy Delivery Loop.

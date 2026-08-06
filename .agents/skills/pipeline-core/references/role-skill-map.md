@@ -26,7 +26,7 @@ then stop or hand off.
 | `intent-confirmation` | `.codex/agents/intent-confirmation.toml` | temporary responsibility | `pipeline-core`, `workflow-orchestrator` |
 | `workflow-orchestrator` | `.codex/agents/workflow-orchestrator.toml` | temporary responsibility | `workflow-orchestrator`, `pipeline-core` |
 | `brief-architect` | `.codex/agents/brief-architect.toml` | temporary responsibility | `brief-architect` |
-| `reference-curator` | `.codex/agents/reference-curator.toml` | temporary responsibility | `reference-pack-curator`, `hipson-adapter` |
+| `reference-curator` | `.codex/agents/reference-curator.toml` | temporary responsibility | `reference-pack-curator`, `pipeline-core`, `hipson-adapter` |
 | `research-evidence` | `.codex/agents/research-evidence.toml` | temporary responsibility | `research-evidence`, `pipeline-core`, `instruction-packet-factory`, `reference-pack-curator` |
 | `instruction-packet-factory` | `.codex/agents/instruction-packet-factory.toml` | temporary responsibility | `instruction-packet-factory`, `hipson-adapter` |
 | `static-direction` | `.codex/agents/static-direction.toml` | temporary responsibility | `commercial-visual-campaign-director`, `ecommerce-campaign-strategy-director`, `marketing`, `character-design` |
@@ -36,13 +36,13 @@ then stop or hand off.
 | `storyboard-board-architect` | `.codex/agents/storyboard-board-architect.toml` | temporary responsibility | `storyboard-board-architect`, `image-prompt-architect` |
 | `copy-voice` | `.codex/agents/copy-voice.toml` | temporary responsibility | `copy-voice`, `humanizer`, `marketing`, `ugc`, `caption-studio` |
 | `image-prompting` | `.codex/agents/image-prompting.toml` | temporary responsibility | `image-prompt-architect`, `pipeline-core` |
-| `video-prompting` | `.codex/agents/video-prompting.toml` | temporary responsibility | `video-prompt-architect`, `creative-video-producer`, `producer-ai-task-builder` |
+| `video-prompting` | `.codex/agents/video-prompting.toml` | temporary responsibility | `video-prompt-architect`, `pipeline-core`, `creative-video-producer`, `producer-ai-task-builder` |
 | `tool-routing-cost` | `.codex/agents/tool-routing-cost.toml` | temporary responsibility | `tool-routing-cost`, `pipeline-core` |
 | `execution-manifest` | `.codex/agents/execution-manifest.toml` | temporary responsibility | `pipeline-core`, `asset-manifest`, `remotion-video-production`, `opencut-video-studio` |
-| `asset-manifest` | `.codex/agents/asset-manifest.toml` | temporary responsibility | `asset-manifest` |
+| `asset-manifest` | `.codex/agents/asset-manifest.toml` | temporary responsibility | `asset-manifest`, `pipeline-core` |
 | `qa-iteration` | `.codex/agents/qa-iteration.toml` | temporary responsibility | `output-critic-iteration`, `pipeline-core` |
 | `delivery-documentation` | `.codex/agents/delivery-documentation.toml` | temporary responsibility | `delivery-documentation`, `humanizer` |
-| `hyperframes-producer` | `.codex/agents/hyperframes-producer.toml` | temporary responsibility | `hyperframes-workflow`, `hyperframes-prompting`, `hyperframes-gsap-guidance` |
+| `hyperframes-producer` | `.codex/agents/hyperframes-producer.toml` | temporary responsibility | `hyperframes-workflow` |
 
 ## Non-One-To-One Contracts
 
@@ -51,7 +51,8 @@ need supporting skills beyond their same-named contract:
 
 - `copy-voice` owns the Copy Pack responsibility. `humanizer` is still a
   supporting skill for natural voice and polish; it does not replace copy
-  strategy, hooks, supers, VO, dialogue, platform variants, or claim checks.
+  strategy, channel-sensitive hooks, supers, VO, dialogue, platform variants,
+  claim checks, or the bounded Copy Delivery Loop.
 - `research-evidence` owns verification and Evidence Notes. It may use
   supporting packet and reference skills to organize the work, but it must not
   invent sources, fake browsing, or treat unverified claims as facts.
@@ -62,9 +63,10 @@ need supporting skills beyond their same-named contract:
   supported by `asset-manifest`, `remotion-video-production`, or
   `opencut-video-studio`, but only after the relevant execution boundary is
   explicit.
-- `hyperframes-producer` coordinates three focused HyperFrames skills:
-  workflow structure, implementation prompting, and GSAP motion guidance. They
-  remain separate support skills because each can also be used independently.
+- `hyperframes-producer` is supported by the single integrated
+  `hyperframes-workflow` skill, which covers workflow structure,
+  implementation prompting, GSAP-style motion guidance, captions, overlays,
+  render QA, and delivery manifest details.
 
 ## Handoff Resolution Rules
 

@@ -15,7 +15,9 @@ Use this skill when:
 - Existing captions need timing, spelling, readability, style, or occlusion review.
 - A broader video package needs a bounded caption layer before editing or delivery.
 
-Use `copy-voice` first when the actual wording is not yet approved.
+Use `copy-voice` first when the actual wording is not yet approved. If caption
+work substantially revises ready-to-use wording, return it through the Copy
+Delivery Loop before marking the captions final.
 
 ## Inputs
 
@@ -52,6 +54,9 @@ Use `templates/caption-task-pack.md` for nontrivial jobs.
 5. Set line count, words per beat, reading speed, emphasis behavior, position, safe zones, and collision priorities.
 6. Define an available local route such as an editor timeline, coded-video captions, ASS/subtitle burn-in, or sidecar subtitle delivery.
 7. Review dense frames, timing boundaries, spelling, speaker changes, occlusion, contrast, CTA conflicts, and final duration.
+8. Treat any wording change as a copy decision: preserve author context, facts,
+   names, exact copy locks, and controlled-imperfection status rather than
+   silently rewriting for fit.
 
 ## Decision Rules
 
@@ -69,6 +74,8 @@ Use `templates/caption-task-pack.md` for nontrivial jobs.
 - Do not add project dependencies or claim a render succeeded without inspecting and running the actual project route.
 - Keep private transcripts and source media out of public examples, logs, and reusable skill files.
 - Do not silently choose a visual style when the choice materially affects the output.
+- Do not add hashtags, emojis, CTAs, hooks, or a more casual voice merely to
+  make captions feel more engaging.
 
 ## Handoff
 
@@ -98,3 +105,5 @@ Hand off with:
 - Text does not cover faces, products, UI, logos, CTAs, or platform controls.
 - Style is consistent with content and accessible enough for the target use.
 - Output status distinguishes a plan, edit pack, sidecar file, and verified render.
+- Any ready-to-use wording revision has an approved Copy Pack and bounded
+  editorial-loop evidence.

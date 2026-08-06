@@ -169,7 +169,7 @@ Before finalizing an image or video prompt pack, resolve the target generator, t
 
 Treat every separately generated image or shot as an independent generation unit. A strict identity, product, wardrobe, prop, location, lighting, or screen-direction lock needs a continuity carrier attached to that exact request, such as an approved reference, board, keyframe, chained frame, or verified native shared context. Textual phrases such as `same character` or `continue the previous shot` are not strict continuity carriers by themselves.
 
-See [Prompt Format And Continuity](../.agents/skills/pipeline-core/references/prompt-format-and-continuity.md) for the checked contract.
+See [Prompt Format And Continuity](../.agents/skills/pipeline-core/references/prompt-format-and-continuity.md) for the checked contract. For exact text, edits, reference ownership, target adaptation, adapter evidence, or rewrite-forward, see [Creative Prompting Workflow](creative-prompting-workflow.md).
 
 ## Hipson Adapter Prompts
 

@@ -2,6 +2,20 @@
 
 This workflow skill kit is a provider-neutral workflow layer with two supported surfaces. Codex receives a project-local install with instructions, role-agent files, skills, templates, gates, and a manifest. ChatGPT creates selected native skills from declared public repository sources, with temporary task roles and conversation-visible state.
 
+## Human-In-The-Loop Boundary
+
+The kit governs collaboration between a user and an active Codex or ChatGPT
+surface. It is not an autonomous agent runtime: role-agent templates and skills
+are instructions and contracts, not background workers, a task queue, or a
+guarantee of model compliance.
+
+The user owns goals, facts, permissions, approvals, and final decisions. Local
+tools enforce selected filesystem, manifest, schema, fixture, and package
+checks. They cannot certify creative quality, prove that a model followed every
+instruction, or complete unrequested work in the background. Artifacts, QA
+notes, caveats, and stop decisions are the evidence for work that was actually
+reviewed.
+
 ## System Layers
 
 ```mermaid
@@ -20,7 +34,7 @@ flowchart TD
 
 ## Layer Responsibilities
 
-- Pipeline core: role routing, review gates, handoffs, project state, artifact templates, and artifact schema validation.
+- Pipeline core: role routing, review gates, handoffs, project state, Creative Prompt Contracts, artifact templates, and artifact schema validation.
 - Production skills: brief, reference, research, direction, copy, prompt, QA, delivery, Humanizer, and HyperFrames workflow knowledge.
 - Expansion layer: lightweight Hipson Adapter for research maps, internet mapping packets, bounded instruction packets, review packets, and execution packets.
 - Governance layer: explicit workflow self-improvement logs and change proposals. It is report-only unless the user asks for a specific change.
@@ -40,6 +54,13 @@ Each `SKILL.md` is an operational contract. It tells Codex or ChatGPT:
 The contract keeps runtime behavior predictable without turning each skill into a long manual. Detailed examples and domain references belong in `references/`, `templates/`, or `examples/` when they are too large for the skill body.
 
 Artifact contracts are tracked separately in `config/artifact-schemas.json`. Validation checks that gate-required artifacts, template sections, and registered example fixtures keep the same required fields.
+
+For image, edit, and video work with strict controls, the pipeline can also use a
+Creative Prompt Contract. It is a revisioned planning artifact that binds prompt
+intent to reference roles, per-request attachments, text layout, edit
+preservation, shot requirements, continuity carriers, target verification, and
+QA observables. It is reviewed through existing prompt and QA gates; it does not
+create a new provider integration or execution permission.
 
 Example routes are tracked in `examples/*/workflow.json`. Validation checks that each example uses known role IDs, known gates, known artifacts, and handoffs that exist in the handoff matrix.
 

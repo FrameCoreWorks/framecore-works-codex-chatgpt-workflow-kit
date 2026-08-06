@@ -41,6 +41,8 @@ Produce a Delivery Manifest with:
 - usage notes and caveats
 - delivery action taken or explicit statement that delivery was not requested
 - concise user-facing summary polished with `humanizer` when useful
+- Copy Pack status and editorial-loop evidence when final user-facing text is
+  included in delivery
 
 ## Process
 
@@ -49,6 +51,8 @@ Produce a Delivery Manifest with:
 3. Separate local completion from upload, publishing, or external delivery.
 4. Include caveats and unresolved risks plainly.
 5. Keep the final summary short enough for the user to act on.
+6. Do not describe text as ready-to-use when its Copy Pack lacks author context,
+   fact and lock review, and a completed bounded Copy Delivery Loop.
 
 ## Decision Rules
 
@@ -63,6 +67,8 @@ Produce a Delivery Manifest with:
 - Do not include secrets, private links, hidden metadata, caches, or rejected assets.
 - Do not claim QA passed unless it did.
 - Do not hide caveats or excluded files.
+- Do not turn a delivery summary into fabricated personal endorsement, source,
+  result, or promise.
 
 ## Handoff
 

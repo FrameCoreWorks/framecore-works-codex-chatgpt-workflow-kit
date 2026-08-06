@@ -32,6 +32,20 @@ Keep field names stable once public examples rely on them. If a field needs to c
 
 Project State is the durable recovery artifact for active workflow runs. Its schema should keep enough information for a new Codex session to resume safely: last completed gate, unresolved decisions, blockers, touched files, visible risks, request diagnostic, reasoning route, runtime route, loop state, loop evidence references, next action, and `recovery_prompt`.
 
+Creative Prompt Contract is the portable per-generation-unit artifact for image,
+edit, and video planning. It records a revisioned prompt, reference roles,
+attachment ownership, text layout, edit preservation, shot requirements,
+continuity carriers, QA observables, and readiness. It does not authorize target
+execution. Its detailed field rules and target-dependent boundaries are in
+`.agents/skills/pipeline-core/references/creative-prompting-standard.md`.
+
+Copy Pack is the ready-to-use text artifact for copy, captions, dialogue, VO,
+supers, and delivery wording. Its `copy_pack_status` separates a working draft
+from final text. A ready-to-use Copy Pack records author context, fact and
+exact-copy locks, Human Voice review, and bounded Copy Delivery Loop evidence.
+That record preserves editorial accountability without requiring a permanent
+author persona or a separate workflow loop.
+
 Workflow Request Diagnostic, reasoning route fields, runtime route fields, Loop State, and Self-Improvement Sufficiency Gate are lightweight contracts. They do not authorize provider execution, uploads, destructive commands, global installs, pushes, OpenAI API calls, or external routing infrastructure.
 
 ## Fixture Rules
@@ -59,6 +73,16 @@ Use `examples/contract-fixtures/artifacts/` for minimal fixtures when the artifa
 - every registered example fixture contains all required fields.
 
 Validation does not judge creative quality. It only checks that artifact contracts have enough structure for gates, handoffs, examples, and downstream roles to agree on the same fields.
+
+The dedicated creative prompt fixture validator also checks deterministic
+contract behavior: text locks, edit preservation, strict continuity carriers,
+official-source verification for named targets, bounded video heuristics, and
+adapter evidence before execution readiness.
+
+The dedicated copy-delivery fixture validator checks that ready-to-use Copy
+Packs keep factual and author boundaries, make channel and structure decisions
+explicit, keep controlled imperfection off by default, and complete the bounded
+editorial delivery sequence before final packaging.
 
 ## Adding An Artifact
 

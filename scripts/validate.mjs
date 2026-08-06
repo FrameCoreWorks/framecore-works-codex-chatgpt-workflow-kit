@@ -20,6 +20,8 @@ import {
 import { run as validateAgents } from "./validate/agents.mjs";
 import { run as validateBundles } from "./validate/bundles.mjs";
 import { run as validateChatGptSkills } from "./validate/chatgpt-skills.mjs";
+import { run as validateCopyDeliveryContracts } from "./validate/copy-delivery-contracts.mjs";
+import { run as validateCreativePromptContracts } from "./validate/creative-prompt-contracts.mjs";
 import { run as validateContracts } from "./validate/contracts.mjs";
 import { run as validateDocs } from "./validate/docs.mjs";
 import { run as validateExamples } from "./validate/examples.mjs";
@@ -81,9 +83,14 @@ const roleSkillMap = join(validationRoot, ".agents/skills/pipeline-core/referenc
 const loopProtocol = join(validationRoot, ".agents/skills/pipeline-core/references/loop-protocol.md");
 const inferenceReasoningMethods = join(validationRoot, ".agents/skills/pipeline-core/references/inference-reasoning-methods.md");
 const promptFormatAndContinuity = join(validationRoot, ".agents/skills/pipeline-core/references/prompt-format-and-continuity.md");
+const creativePromptingStandard = join(validationRoot, ".agents/skills/pipeline-core/references/creative-prompting-standard.md");
+const humanVoicePolicy = join(validationRoot, ".agents/skills/pipeline-core/references/human-voice-and-copy-delivery.md");
 const artifactTemplates = join(validationRoot, ".agents/skills/pipeline-core/templates/artifact-templates.md");
+const creativePromptContractTemplate = join(validationRoot, ".agents/skills/pipeline-core/templates/creative-prompt-contract.md");
 const artifactSchemasPath = join(validationRoot, "config/artifact-schemas.json");
 const bundleMapPath = join(validationRoot, "config/bundle-map.json");
+const creativePromptContractFixtures = join(validationRoot, "examples/contract-fixtures/creative-prompt-contracts.json");
+const copyDeliveryContractFixtures = join(validationRoot, "examples/contract-fixtures/copy-delivery-contracts.json");
 const paths = {
   gateRegistry,
   handoffMatrix,
@@ -92,9 +99,14 @@ const paths = {
   loopProtocol,
   inferenceReasoningMethods,
   promptFormatAndContinuity,
+  creativePromptingStandard,
+  humanVoicePolicy,
   artifactTemplates,
+  creativePromptContractTemplate,
   artifactSchemasPath,
-  bundleMapPath
+  bundleMapPath,
+  creativePromptContractFixtures,
+  copyDeliveryContractFixtures
 };
 
 const schemaState = validateSchemas({ root: validationRoot, helpers, paths });
@@ -122,6 +134,12 @@ const contractState = validateContracts({
 });
 findings.push(...contractState.findings);
 const { knownGates, knownHandoffPairs, knownWorkflowBlueprints, workflowBlueprintContracts } = contractState;
+
+const creativePromptContractState = validateCreativePromptContracts({ root: validationRoot, helpers, paths });
+findings.push(...creativePromptContractState.findings);
+
+const copyDeliveryContractState = validateCopyDeliveryContracts({ root: validationRoot, helpers, paths });
+findings.push(...copyDeliveryContractState.findings);
 
 findings.push(...validateSkillRouting({
   root: validationRoot,

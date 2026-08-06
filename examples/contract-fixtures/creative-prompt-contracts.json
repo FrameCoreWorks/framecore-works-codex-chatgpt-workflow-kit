@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "valid-image-text-contract",
+      "expect": "pass",
+      "contract": {
+        "contract_schema": "creative_prompt_contract.v1",
+        "contract_id": "lamp-promo-image",
+        "revision": 1,
+        "content_checksum": "sha256:3c1b1b71caac088ac060aebba5e81e5e8a3f12e7f23529a9ed45e943f5ec5040",
+        "task_kind": "image",
+        "readiness": "planning_only",
+        "target": {
+          "target_generator": "unresolved",
+          "task_mode": "text-to-image",
+          "prompt_field_shape": "portable main prompt",
+          "negative_handling_mode": "integrated_constraints",
+          "official_source_check": {
+            "status": "not_required"
+          }
+        },
+        "prompt": {
+          "text": "Create a compact desk lamp product graphic with the quoted copy included directly in the image.",
+          "image_scene": {
+            "subject": "compact modular desk lamp",
+            "state_or_action": "switched on with an adjustable head",
+            "setting": "clear small desk",
+            "lighting": "soft warm key light with readable product edges",
+            "composition": "three-quarter product view with protected text area",
+            "finish": "clean realistic ecommerce photography"
+          }
+        },
+        "reference_roles": [
+          {
+            "alias": "lamp-master",
+            "role": "identity",
+            "control_ownership": "product geometry and finish",
+            "strict_lock": true
+          }
+        ],
+        "attachment_plan": [
+          {
+            "alias": "lamp-master",
+            "request_scope": "this_generation_unit"
+          }
+        ],
+        "text_layout_contract": {
+          "visible_text": true,
+          "exact_text": [
+            "Compact setup, clearer focus"
+          ],
+          "hierarchy": "headline only",
+          "safe_area": "upper-left protected area away from the lamp",
+          "text_count_limit": 1,
+          "correction_path": "shorten copy or regenerate"
+        },
+        "continuity": {
+          "strict_locks": [
+            "product identity"
+          ],
+          "continuity_carriers": [
+            {
+              "lock": "product identity",
+              "alias": "lamp-master",
+              "carrier_type": "approved reference image",
+              "state": "actual"
+            }
+          ],
+          "approximate_risks": []
+        },
+        "qa_observables": [
+          "lamp geometry matches the approved source",
+          "exact headline appears once",
+          "headline remains clear of the product"
+        ]
+      }
+    },
+    {
+      "id": "valid-edit-contract",
+      "expect": "pass",
+      "contract": {
+        "contract_schema": "creative_prompt_contract.v1",
+        "contract_id": "lamp-background-edit",
+        "revision": 2,
+        "content_checksum": "sha256:0292b14301f15cb6ffac39379acdc969e24189a28a19607a76b7b610785454fc",
+        "task_kind": "edit",
+        "readiness": "planning_only",
+        "target": {
+          "target_generator": "unresolved",
+          "task_mode": "edit",
+          "prompt_field_shape": "portable edit instruction",
+          "negative_handling_mode": "integrated_constraints",
+          "official_source_check": {
+            "status": "not_required"
+          }
+        },
+        "prompt": {
+          "text": "Replace only the desk background with a clean warm-gray surface while preserving the lamp exactly.",
+          "image_scene": {
+            "subject": "approved desk lamp",
+            "state_or_action": "unchanged switched-on product",
+            "setting": "clean warm-gray desk surface",
+            "lighting": "preserve current soft warm product light",
+            "composition": "preserve source composition",
+            "finish": "realistic ecommerce photography"
+          }
+        },
+        "reference_roles": [
+          {
+            "alias": "lamp-source",
+            "role": "source",
+            "control_ownership": "all source pixels except the requested background change",
+            "strict_lock": true
+          }
+        ],
+        "attachment_plan": [
+          {
+            "alias": "lamp-source",
+            "request_scope": "this_generation_unit"
+          }
+        ],
+        "text_layout_contract": {
+          "visible_text": false,
+          "exact_text": [],
+          "hierarchy": "not applicable",
+          "safe_area": "not applicable",
+          "text_count_limit": 0,
+          "correction_path": "not applicable"
+        },
+        "edit_delta_contract": {
+          "source_alias": "lamp-source",
+          "requested_changes": [
+            "replace only the desk background"
+          ],
+          "preserve_locks": [
+            "lamp geometry",
+            "lamp light state",
+            "source composition"
+          ],
+          "excluded_changes": [
+            "no product redesign",
+            "no new text"
+          ],
+          "verification_observables": [
+            "lamp silhouette is unchanged",
+            "only the background changes"
+          ]
+        },
+        "continuity": {
+          "strict_locks": [
+            "product identity"
+          ],
+          "continuity_carriers": [
+            {
+              "lock": "product identity",
+              "alias": "lamp-source",
+              "carrier_type": "source image",
+              "state": "actual"
+            }
+          ],
+          "approximate_risks": []
+        },
+        "qa_observables": [
+          "lamp silhouette is unchanged",
+          "background is warm gray",
+          "no text was added"
+        ]
+      }
+    },
+    {
+      "id": "valid-video-contract",
+      "expect": "pass",
+      "contract": {
+        "contract_schema": "creative_prompt_contract.v1",
+        "contract_id": "lamp-adjustment-shot",
+        "revision": 1,
+        "content_checksum": "sha256:808827f8f30cf99266e857f9c733229b9f0ad2d1ff891abf2b957c7bc5e8ed0a",
+        "task_kind": "video",
+        "readiness": "planning_only",
+        "target": {
+          "target_generator": "example-video-surface",
+          "task_mode": "image-to-video",
+          "prompt_field_shape": "main prompt and attached first frame",
+          "negative_handling_mode": "integrated_constraints",
+          "official_source_check": {
+            "status": "verified",
+            "source_url": "https://example.org/official-video-reference",
+            "checked_on": "2026-07-28"
+          }
+        },
+        "prompt": {
+          "text": "A hand adjusts the desk lamp head upward while the camera makes a slow push-in. Preserve the attached lamp frame and finish on the lit product.",
+          "image_scene": {
+            "subject": "compact modular desk lamp",
+            "state_or_action": "a hand lifts the adjustable head",
+            "setting": "clear desk",
+            "lighting": "soft warm product light",
+            "composition": "medium product shot",
+            "finish": "realistic product video"
+          }
+        },
+        "reference_roles": [
+          {
+            "alias": "lamp-start-frame",
+            "role": "source",
+            "control_ownership": "opening product identity and composition",
+            "strict_lock": true
+          }
+        ],
+        "attachment_plan": [
+          {
+            "alias": "lamp-start-frame",
+            "request_scope": "this_generation_unit"
+          }
+        ],
+        "text_layout_contract": {
+          "visible_text": false,
+          "exact_text": [],
+          "hierarchy": "not applicable",
+          "safe_area": "not applicable",
+          "text_count_limit": 0,
+          "correction_path": "not applicable"
+        },
+        "shot_contract": {
+          "duration_seconds": 4,
+          "frame": "medium product shot",
+          "subject": "desk lamp and one hand",
+          "action": "hand lifts the lamp head upward",
+          "action_count": 1,
+          "camera_move": "slow push-in",
+          "camera_move_count": 1,
+          "setting": "clear desk",
+          "lighting": "soft warm product light",
+          "audio_or_dialogue": "none",
+          "video_text_mode": "none",
+          "end_state": "lamp head raised and light visible"
+        },
+        "timing_beats": [
+          {
+            "start_seconds": 0,
+            "end_seconds": 4,
+            "description": "one continuous adjustment"
+          }
+        ],
+        "continuity": {
+          "strict_locks": [
+            "product identity"
+          ],
+          "continuity_carriers": [
+            {
+              "lock": "product identity",
+              "alias": "lamp-start-frame",
+              "carrier_type": "attached start frame",
+              "state": "actual"
+            }
+          ],
+          "approximate_risks": []
+        },
+        "qa_observables": [
+          "one hand adjusts the lamp head",
+          "camera performs a slow push-in",
+          "final lamp state is raised and lit"
+        ]
+      }
+    },
+    {
+      "id": "reject-missing-text-lock",
+      "expect": "fail",
+      "expected_code": "TEXT_LAYOUT_EXACT_TEXT_REQUIRED",
+      "contract": {
+        "contract_schema": "creative_prompt_contract.v1",
+        "contract_id": "missing-text-lock",
+        "revision": 1,
+        "content_checksum": "sha256:invalid",
+        "task_kind": "image",
+        "readiness": "planning_only",
+        "target": { "target_generator": "unresolved", "official_source_check": { "status": "not_required" } },
+        "prompt": { "text": "Create a product graphic with a headline." },
+        "reference_roles": [],
+        "attachment_plan": [],
+        "text_layout_contract": { "visible_text": true, "exact_text": [], "hierarchy": "headline", "safe_area": "upper-left", "text_count_limit": 1, "correction_path": "regenerate" },
+        "continuity": { "strict_locks": [], "continuity_carriers": [], "approximate_risks": [] },
+        "qa_observables": ["headline is readable"]
+      }
+    },
+    {
+      "id": "reject-edit-without-preservation",
+      "expect": "fail",
+      "expected_code": "EDIT_DELTA_PRESERVATION_REQUIRED",
+      "contract": {
+        "contract_schema": "creative_prompt_contract.v1",
+        "contract_id": "unbounded-edit",
+        "revision": 1,
+        "content_checksum": "sha256:invalid",
+        "task_kind": "edit",
+        "readiness": "planning_only",
+        "target": { "target_generator": "unresolved", "official_source_check": { "status": "not_required" } },
+        "prompt": { "text": "Change the background." },
+        "reference_roles": [{ "alias": "source", "role": "source", "control_ownership": "source image", "strict_lock": true }],
+        "attachment_plan": [{ "alias": "source", "request_scope": "this_generation_unit" }],
+        "text_layout_contract": { "visible_text": false, "exact_text": [] },
+        "edit_delta_contract": { "source_alias": "source", "requested_changes": ["change background"], "preserve_locks": [], "excluded_changes": [], "verification_observables": [] },
+        "continuity": { "strict_locks": [], "continuity_carriers": [], "approximate_risks": [] },
+        "qa_observables": ["background changes"]
+      }
+    },
+    {
+      "id": "reject-strict-lock-with-planned-carrier",
+      "expect": "fail",
+      "expected_code": "STRICT_CONTINUITY_CARRIER_REQUIRED",
+      "contract": {
+        "contract_schema": "creative_prompt_contract.v1",
+        "contract_id": "planned-carrier",
+        "revision": 1,
+        "content_checksum": "sha256:invalid",
+        "task_kind": "video",
+        "readiness": "planning_only",
+        "target": { "target_generator": "unresolved", "official_source_check": { "status": "not_required" } },
+        "prompt": { "text": "Continue the product scene." },
+        "reference_roles": [{ "alias": "planned-end", "role": "source", "control_ownership": "planned ending", "strict_lock": true }],
+        "attachment_plan": [{ "alias": "planned-end", "request_scope": "this_generation_unit" }],
+        "text_layout_contract": { "visible_text": false, "exact_text": [] },
+        "shot_contract": { "duration_seconds": 3, "frame": "medium", "subject": "lamp", "action": "turns on", "action_count": 1, "camera_move": "static", "camera_move_count": 1, "setting": "desk", "lighting": "soft", "video_text_mode": "none" },
+        "continuity": { "strict_locks": ["product identity"], "continuity_carriers": [{ "lock": "product identity", "alias": "planned-end", "carrier_type": "planned frame", "state": "planned" }], "approximate_risks": [] },
+        "qa_observables": ["lamp turns on"]
+      }
+    },
+    {
+      "id": "reject-target-without-source-check",
+      "expect": "fail",
+      "expected_code": "OFFICIAL_SOURCE_CHECK_REQUIRED",
+      "contract": {
+        "contract_schema": "creative_prompt_contract.v1",
+        "contract_id": "unverified-target",
+        "revision": 1,
+        "content_checksum": "sha256:invalid",
+        "task_kind": "image",
+        "readiness": "planning_only",
+        "target": { "target_generator": "named-target", "official_source_check": { "status": "pending" } },
+        "prompt": { "text": "Create a lamp image." },
+        "reference_roles": [],
+        "attachment_plan": [],
+        "text_layout_contract": { "visible_text": false, "exact_text": [] },
+        "continuity": { "strict_locks": [], "continuity_carriers": [], "approximate_risks": [] },
+        "qa_observables": ["lamp is visible"]
+      }
+    },
+    {
+      "id": "reject-execution-with-unverified-adapter",
+      "expect": "fail",
+      "expected_code": "ADAPTER_VERIFICATION_REQUIRED",
+      "contract": {
+        "contract_schema": "creative_prompt_contract.v1",
+        "contract_id": "unverified-adapter",
+        "revision": 1,
+        "content_checksum": "sha256:invalid",
+        "task_kind": "image",
+        "readiness": "execution_ready",
+        "target": { "target_generator": "named-target", "official_source_check": { "status": "verified", "source_url": "https://example.org/official", "checked_on": "2026-07-28" } },
+        "prompt": { "text": "Create a lamp image." },
+        "reference_roles": [],
+        "attachment_plan": [],
+        "text_layout_contract": { "visible_text": false, "exact_text": [] },
+        "continuity": { "strict_locks": [], "continuity_carriers": [], "approximate_risks": [] },
+        "qa_observables": ["lamp is visible"],
+        "adapter_verification": { "status": "pending", "contract_revision": 1, "content_checksum": "sha256:invalid", "semantic_drops": [], "semantic_additions": [] },
+        "execution_evidence": { "attached_aliases": [], "output_refs": [], "inspected_by": "pending", "acceptance_status": "pending" }
+      }
+    }
+  ]
+}

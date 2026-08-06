@@ -31,6 +31,18 @@ test("validation rejects weak onboarding guide and assisted install prompt", () 
   assert.match(`${result.stderr}${result.stdout}`, /WEAK_INSTALL_PROMPT/);
 });
 
+test("validation rejects missing human-in-the-loop boundaries", () => {
+  const dir = copyRepoFixture("framecore-validate-human-loop-boundary-");
+  const readme = join(dir, "README.md");
+  const architecture = join(dir, "docs/architecture.md");
+  writeFileSync(readme, readFileSync(readme, "utf8").replace("## Human-In-The-Loop Boundary", "## Workflow Boundary"));
+  writeFileSync(architecture, readFileSync(architecture, "utf8").replace("not an autonomous agent runtime", "autonomous agent runtime"));
+
+  const result = failRun(["scripts/validate.mjs", dir]);
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stderr}${result.stdout}`, /WEAK_HUMAN_IN_THE_LOOP_BOUNDARY/);
+});
+
 test("validation rejects weak team configuration guide", () => {
   const dir = copyRepoFixture("framecore-validate-team-configuration-");
   const doc = join(dir, "docs/team-configuration.md");

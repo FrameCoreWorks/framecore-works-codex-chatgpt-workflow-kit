@@ -281,10 +281,6 @@ your-project/
         templates/
       humanizer/
         SKILL.md
-      hyperframes-gsap-guidance/
-        SKILL.md
-      hyperframes-prompting/
-        SKILL.md
       hyperframes-workflow/
         SKILL.md
       image-prompt-architect/

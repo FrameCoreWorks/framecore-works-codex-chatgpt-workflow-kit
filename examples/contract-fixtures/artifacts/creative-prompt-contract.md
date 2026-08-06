@@ -1,0 +1,26 @@
+# Creative Prompt Contract
+
+- contract_schema: creative_prompt_contract.v1
+- contract_id: compact-lamp-hero
+- revision: 1
+- content_checksum: sha256: fixture-level checksum is validated in the JSON contract fixture.
+- task_kind: image
+- target: unresolved portable image planning surface
+- prompt: compact modular desk lamp, switched on, on a clear desk in a three-quarter ecommerce view with soft warm light, crisp edges, and a calm neutral finish
+- reference_roles:
+  - `lamp-master` controls product identity and geometry
+- attachment_plan:
+  - attach `lamp-master` to this generation unit
+- text_layout_contract:
+  - visible_text: false
+  - correction_path: not applicable
+- edit_delta_contract: not applicable
+- shot_contract: not applicable
+- continuity:
+  - strict lock: product identity
+  - continuity_carrier: `lamp-master`, attached and actual
+- qa_observables:
+  - product geometry remains recognizable
+  - product is fully visible
+  - warm light is readable
+- readiness: planning_only

@@ -131,6 +131,23 @@ Use these labels when useful:
 - `delivery-documentation` includes QA status, caveats, final stop decision, and
   user-facing next action.
 
+## Copy Delivery Profile
+
+For ready-to-use text, retain the canonical loop and use this bounded profile:
+
+`draft -> deep review -> revision -> final QA -> delivery`
+
+`copy-voice` records the author context, facts and exact-copy locks, Human
+Voice review, iteration evidence, root cause, repair target, regression check,
+and stop decision in the Copy Pack. `humanizer` improves naturalness without
+inventing authority or changing locks. `research-evidence` verifies material
+claims. `qa-iteration` is used when independent critique, evidence, or
+loopback is needed.
+
+At least one review-and-revision cycle is required for a ready-to-use Copy Pack.
+Default maximum: three iterations. Do not create a separate editorial loop or
+expose internal editorial traces in ordinary user delivery.
+
 ## Guardrails
 
 - Do not store raw chain-of-thought, raw reasoning traces, raw debate

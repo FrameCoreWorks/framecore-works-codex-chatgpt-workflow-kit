@@ -135,6 +135,9 @@
 
 ## Copy Pack
 
+- copy_pack_status: draft | ready_to_use
+- author_context:
+- fact_and_lock_ledger:
 - headlines:
 - body_copy:
 - VO:
@@ -142,11 +145,14 @@
 - supers:
 - CTA:
 - exact_text_locks:
+- human_voice_review:
+- copy_delivery_loop:
 
 ## Prompt Pack
 
 - prompts:
 - constraints:
+- creative_prompt_contracts:
 - expected_observables:
 - acceptance_criteria:
 
@@ -154,9 +160,32 @@
 
 - model_policy:
 - exact_visible_text:
+- text_layout_contract:
 - final_prompt:
 - negative_constraints:
+- reference_roles:
+- continuity_carrier:
+- edit_delta_contract:
+- adapter_verification:
 - QA_checks:
+
+## Creative Prompt Contract
+
+- contract_schema:
+- contract_id:
+- revision:
+- content_checksum:
+- task_kind:
+- target:
+- prompt:
+- reference_roles:
+- attachment_plan:
+- text_layout_contract:
+- edit_delta_contract:
+- shot_contract:
+- continuity:
+- qa_observables:
+- readiness:
 
 ## Tool Routing Plan
 
@@ -173,6 +202,8 @@
 - tool:
 - params_summary:
 - source_assets:
+- adapter_verification:
+- execution_evidence:
 - output_files:
 - redaction_status:
 - errors:
@@ -195,6 +226,8 @@
 - versions:
 - sources:
 - checksums:
+- continuity_carriers:
+- accepted_output_refs:
 - excluded_files:
 - traceability_notes:
 
@@ -205,6 +238,9 @@
 - defects:
 - critical_questions:
 - verification_results:
+- prompt_contract_checks:
+- continuity_checks:
+- adapter_checks:
 - root_cause:
 - loopback_target:
 - regression_check:

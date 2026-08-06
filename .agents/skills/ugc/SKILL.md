@@ -50,6 +50,8 @@ Produce a UGC Script Pack with:
 3. Use only verified proof points or clearly labeled assumptions.
 4. Keep script variants distinct by angle, not just wording.
 5. Route final polish through `humanizer` when the script should sound more natural.
+6. Before delivering a ready-to-use creator script, use `copy-voice` to record
+   author context, claim and copy locks, and the bounded Copy Delivery Loop.
 
 ## Decision Rules
 
@@ -64,6 +66,8 @@ Produce a UGC Script Pack with:
 - Do not create deceptive social proof.
 - Do not execute video generation or choose external providers.
 - Do not change legal copy or required disclaimers.
+- Do not write a first-person experience, result, or recommendation unless the
+  user supplied the speaker and supporting facts for this task.
 
 ## Handoff
 
@@ -84,3 +88,5 @@ Hand off to `copy-voice`, `motion-direction`, `storyboard-architect`, or `video-
 - CTA matches the brief.
 - No fake testimonial or identity is implied.
 - Script can be read naturally by a creator.
+- A ready-to-use script does not add a hook, CTA, fake informality, or
+  controlled imperfection unless the brief and channel support it.

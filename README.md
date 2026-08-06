@@ -72,14 +72,32 @@ The canonical behavior is defined in [CHATGPT_INSTALL.md](CHATGPT_INSTALL.md). T
 
 This skill kit adds a project-local creative workflow layer to Codex and exposes the same public skill contracts as repository-source native ChatGPT Skills. It does not install paid providers or API-key tooling. It gives the active surface a structured way to move work from request intake to brief, references, direction, prompts, QA, and delivery notes. Codex additionally supports local agents, manifests, and long-session recovery files.
 
+## Human-In-The-Loop Boundary
+
+This is a human-in-the-loop workflow kit, not an autonomous agent system. It
+helps a user and the active Codex or ChatGPT surface structure work through
+skills, temporary or local role responsibilities, gates, artifacts, and QA.
+
+The user remains responsible for the goal, facts, source materials,
+permissions, approvals, and final decisions. Role-agent templates and skills
+guide model behavior; they are not background workers, a task queue, or a
+guarantee that every workflow step was followed. Local tooling can enforce
+install, manifest, path, schema, fixture, and package-safety rules, but it
+cannot certify the quality of a model response or silently complete work.
+
+The kit does not start hidden background work, autonomously execute a workflow,
+or claim that an unverified step has been completed. Where evidence matters,
+the workflow records artifacts, QA results, caveats, and the user-visible stop
+decision.
+
 At a glance, the repo includes:
 
 - **20 Codex role-agent templates** for routing, creative planning, prompting, QA, delivery, and execution documentation.
-- **37 portable workflow skills** for brief building, research evidence, copy and voice, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, safe tool-routing and cost planning, image and video prompting, storyboard work, Humanizer, HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for creation through the active `@skill-creator` workflow.
+- **35 portable workflow skills** for brief building, research evidence, copy and voice, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, safe tool-routing and cost planning, image and video prompting, storyboard work, Humanizer, integrated HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for creation through the active `@skill-creator` workflow.
 - **Project-local install and onboarding** with doctor/preflight, dry-run, manifest tracking, update, repair, and uninstall.
 - **Workflow contracts** for gates, handoffs, artifact schemas, examples, Loop Protocol, and provider-neutral safety boundaries.
 
-For the full inventory, see [Included Agents And Skills](docs/included-agents-and-skills.md). For iterative QA and repair discipline, see [Loop Protocol](docs/loop-protocol.md). For the staged adoption plan, see [Loop Protocol Integration Plan](docs/loop-protocol-integration-plan.md).
+For the full inventory, see [Included Agents And Skills](docs/included-agents-and-skills.md). For iterative QA and repair discipline, see [Loop Protocol](docs/loop-protocol.md). For ready-to-use copy, voice, captions, and editorial delivery rules, see [Human Voice And Copy Delivery](docs/human-voice-and-copy-delivery.md). For the staged adoption plan, see [Loop Protocol Integration Plan](docs/loop-protocol-integration-plan.md).
 
 | Area | Included examples |
 | --- | --- |
@@ -573,6 +591,8 @@ See also:
 - [Roadmap](docs/roadmap.md)
 - [Architecture](docs/architecture.md)
 - [Artifact Schemas](docs/artifact-schemas.md)
+- [Creative Prompting Workflow](docs/creative-prompting-workflow.md)
+- [Human Voice And Copy Delivery](docs/human-voice-and-copy-delivery.md)
 - [Example Authoring](docs/example-authoring.md)
 - [Workflow Stages](docs/workflow-stages.md)
 - [Onboarding](docs/onboarding.md)

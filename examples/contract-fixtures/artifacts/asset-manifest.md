@@ -9,6 +9,10 @@
   - public artifact template
 - checksums:
   - not calculated for this documentation fixture
+- continuity_carriers:
+  - none; no generated sequence is claimed by this fixture
+- accepted_output_refs:
+  - none; no output has been reviewed or accepted
 - excluded_files:
   - generated media
   - local configs

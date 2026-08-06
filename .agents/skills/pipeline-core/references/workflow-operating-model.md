@@ -9,7 +9,8 @@ Default flow:
 5. Brief and reference authority.
 6. Evidence when facts, docs, models, costs, or claims may change.
 7. Direction and structure.
-8. Copy and prompt packs.
+8. Copy and prompt packs. Ready-to-use copy records author context, claim and
+   lock review, Human Voice review, and the bounded Copy Delivery Loop.
 9. Tool routing and execution manifest when execution is requested.
 10. Asset manifest.
 11. QA and iteration.
@@ -17,6 +18,19 @@ Default flow:
 13. Workflow self-improvement only when explicitly requested or enabled as a report-only review.
 
 Parallel work is allowed when dependencies are clear. The workflow-orchestrator remains responsible for state and loopbacks.
+
+## Creative Prompt Contract Layer
+
+When an image, edit, or video request has strict continuity, exact text, edit
+preservation, target adaptation, or execution-readiness requirements, create a
+Creative Prompt Contract before final prompt handoff. It records the immutable
+prompt revision, reference roles, attachment plan, continuity carriers, target
+verification status, QA observables, and adapter evidence.
+
+Use the contract as evidence inside existing `promptability_fit` and
+`post_execution_fit` review. It does not add a new role, gate, execution path,
+or permission. See `creative-prompting-standard.md` and
+`../templates/creative-prompt-contract.md`.
 
 ## Workflow Request Diagnostic
 
@@ -116,6 +130,19 @@ Do not continue a loop only because the result could be better in theory. A loop
 state, old Project State, docs text, saved prompt, or fixture is not permission
 to push, upload, run providers, run global installs, or execute destructive
 commands.
+
+## Human Voice And Copy Delivery Layer
+
+The Copy Pack is the canonical text-delivery artifact. For ready-to-use copy,
+`copy-voice` uses the existing Loop Protocol for `draft -> deep review ->
+revision -> final QA -> delivery`; `humanizer` supports naturalness and
+specificity, `research-evidence` resolves material factual uncertainty, and
+`qa-iteration` reviews material defects or escalation.
+
+Do not assume marketing architecture. Hooks, CTAs, lists, headings, emojis,
+hashtags, questions, or controlled imperfection are conditional on the
+confirmed author, audience, channel, goal, legal, timing, exact-copy, and
+accessibility constraints. See `human-voice-and-copy-delivery.md`.
 
 ## Self-Improvement Sufficiency Gate
 

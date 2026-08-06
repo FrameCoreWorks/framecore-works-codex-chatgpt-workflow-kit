@@ -40,6 +40,7 @@ Produce a Video Prompt Pack with:
 - scene prompts and timing
 - camera and motion language
 - generation-unit classification and continuity-carrier map
+- a revisioned Creative Prompt Contract for every shot with strict locks, timing beats, target adaptation, or execution-readiness needs
 - generator format contract and negative handling mode
 - copy, VO, or text locks
 - constraint and suppression ledger
@@ -52,8 +53,10 @@ Produce a Video Prompt Pack with:
 2. Resolve the target generator, task mode, field shape, and negative handling. If unresolved, keep the contract portable and mark formatting pending.
 3. Classify every request as independent text generation, independent reference-conditioned, frame-chained image-to-video, native extension, or native multishot.
 4. Map every strict identity, product, location, wardrobe, prop, lighting, camera-side, action-state, and screen-direction lock to a carrier attached to that exact request.
-5. Convert each shot or scene into standalone prompt-ready language while preserving timing and copy locks.
-6. Add observable criteria for QA.
+5. Convert each shot into a compact contract: duration, frame, subject, one primary action, one primary camera move, setting, lighting, text mode, and end state when it affects the next request.
+6. Add timing beats only when they fit inside the declared shot duration.
+7. Convert each shot or scene into standalone prompt-ready language while preserving timing and copy locks.
+8. Add observable criteria for QA.
 7. Keep execution, cost planning, and tool choice separate.
 
 ## Decision Rules
@@ -64,6 +67,9 @@ Produce a Video Prompt Pack with:
 - Keep provider-neutral language unless the user explicitly chooses a specific execution path later.
 - Do not output a universal negative-prompt field. Use one only when the verified target interface exposes it.
 - If strict continuity is requested without a carrier, route upstream to create the missing reference or label the result approximate with drift risk.
+- Treat one primary action and one primary camera move as the default. A more complex unit needs a documented rationale and observable QA evidence.
+- Use rewrite-forward only after an actual output is accepted. A storyboard ending or planned frame is not a strict continuation carrier.
+- If target-specific syntax is requested, require a current official-source check for the selected surface. Otherwise keep the contract portable.
 
 ## Guardrails
 
@@ -72,6 +78,7 @@ Produce a Video Prompt Pack with:
 - Do not remove suppression rules.
 - Do not hide prompt limitations from QA.
 - Do not use `same character`, `same location`, `continue previous shot`, repeated prose, or a seed as a substitute for a per-request continuity carrier.
+- Do not imply native text, audio, lip-sync, extension, or multishot behavior before the target surface has been verified.
 
 ## Handoff
 
@@ -84,6 +91,8 @@ Hand off to `tool-routing-cost` or `qa-iteration` with:
 - `copy_locks`
 - `generation_units`
 - `continuity_carriers`
+- `creative_prompt_contract`, revision, and content checksum when used
+- `attachment_plan`
 - `prompt_format_contract`
 - `acceptance_criteria`
 
@@ -94,5 +103,7 @@ Hand off to `tool-routing-cost` or `qa-iteration` with:
 - Every independent prompt is standalone and uses only manifest-valid asset aliases.
 - Constraint handling matches the resolved generator profile or is explicitly unresolved.
 - Copy or VO locks are explicit.
+- Each video contract has observable frame, action, camera, timing, and end-state requirements when continuity needs them.
+- Any multi-action or multi-camera exception includes rationale and QA evidence.
 - Expected observables are testable.
 - No execution path is implied without user choice.

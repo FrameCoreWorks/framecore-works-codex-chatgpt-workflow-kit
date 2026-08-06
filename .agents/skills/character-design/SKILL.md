@@ -40,12 +40,13 @@ Produce a Character System with:
 - allowed variation ranges
 - suppression rules and conflict notes
 - prompt handoff notes for `image-prompting`, `video-prompting`, or `storyboard-architect`
+- approved identity carrier aliases and their attachment requirements for strict cross-request continuity
 
 ## Process
 
 1. Identify canonical character facts and separate them from style inspiration.
 2. Define immutable traits before variant traits.
-3. Turn visual references into concise continuity language.
+3. Turn visual references into concise continuity language and name the actual reference aliases that can carry strict identity.
 4. State what can change by shot, scene, format, or platform.
 5. Prepare handoff notes that are concrete enough for prompt authors.
 
@@ -54,6 +55,7 @@ Produce a Character System with:
 - Prefer a few strong identity anchors over a long descriptive inventory.
 - If references conflict, prioritize canonical source material and document the conflict.
 - Treat wardrobe, props, and expressions as controlled variants unless the brief locks them.
+- Do not call a character lock strict unless the approved identity carrier can be attached to every affected request.
 - Keep character design separate from final prompt wording.
 
 ## Guardrails
@@ -74,6 +76,7 @@ Hand off with:
 - `allowed_variants`
 - `suppression_rules`
 - `prompt_handoff_notes`
+- `identity_carrier_aliases`
 
 ## QA Checklist
 
@@ -81,4 +84,5 @@ Hand off with:
 - Canonical references are named or summarized.
 - Suppression rules are actionable.
 - Prompt handoff notes avoid vague adjectives.
+- Strict identity requests identify actual reusable carriers rather than only repeated description.
 - The system supports the requested formats without executing generation.

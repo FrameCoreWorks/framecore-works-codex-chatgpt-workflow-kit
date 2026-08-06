@@ -40,6 +40,7 @@ Produce a Creative Video Production Pack containing:
 - VO, dialogue, supers, captions, music, and SFX plan
 - local editing and cutdown plan
 - per-shot acceptance criteria
+- Creative Prompt Contracts for strict image, edit, or video controls when needed
 - manifest fields, QA checklist, loopback targets, and delivery status
 
 Use `templates/creative-video-production-pack.md` for nontrivial work.
@@ -51,7 +52,10 @@ Use `templates/creative-video-production-pack.md` for nontrivial work.
 3. Choose the primary route: commercial, ecommerce, narrative, UGC, music video, explainer, footage-first edit, or coded video.
 4. Add `screenplay-story-architect` when narrative writing must be solved before storyboard and prompt work.
 5. Build direction, beat map, shot cards, timing, first/last-frame logic, copy, audio, and caption requirements.
-6. Prepare keyframe and video prompt handoffs with observable acceptance criteria, without executing external tools.
+   Route ready-to-use copy, VO, dialogue, supers, and substantive caption
+   rewrites through `copy-voice` and the bounded Copy Delivery Loop before
+   production handoff.
+6. Prepare keyframe and video prompt handoffs with observable acceptance criteria, reference-role ownership, per-request attachment plans, and actual continuity-carrier requirements, without executing external tools.
 7. Select a local edit route and define asset bin, timeline events, protected windows, cutdowns, and export targets.
 8. Run QA against brief, source truth, continuity, copy, product fidelity, audio, captions, platform constraints, and delivery requirements.
 9. Route only the failed layer back for minimal repair, then regression-check dependent outputs.
@@ -65,6 +69,7 @@ Use `templates/creative-video-production-pack.md` for nontrivial work.
 - Use `remotion-video-production` for deterministic React/TypeScript compositions, reusable props, data-driven variants, and frame-accurate renders.
 - Use HyperFrames skills when the requested runtime is specifically HyperFrames or the route is centered on HTML/GSAP composition.
 - Critical product, packaging, logo, face, character, claim, CTA, or visible-text shots require sequential QA before the route advances.
+- A continuation shot may use rewrite-forward only from an accepted actual output, never from a planned end frame.
 - A short cutdown is a re-authored variant, not merely a trim of the master.
 
 ## Guardrails
@@ -73,6 +78,8 @@ Use `templates/creative-video-production-pack.md` for nontrivial work.
 - Never claim a provider run, local render, timeline edit, or file output unless it actually occurred on an available surface.
 - Do not upload local or private source assets without explicit current approval and an available approved route.
 - Do not invent licensing, claim approval, voice rights, music clearance, product facts, or source provenance.
+- Do not treat a polished script, VO, caption, or super as approved final copy
+  until its author context, factual locks, and editorial-loop evidence exist.
 - Keep generator-specific prompt formatting in the relevant prompt skill; do not attach a universal negative prompt.
 - Preserve source files and accepted finals. Exclude superseded or failed outputs from delivery.
 

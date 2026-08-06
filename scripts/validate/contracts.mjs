@@ -53,14 +53,14 @@ export function run(ctx) {
     read
   } = ctx.helpers;
   const { findings, addFinding } = createFindings(ctx.root);
-  const { artifactSchemasPath, artifactTemplates, gateRegistry, handoffMatrix, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, roleSkillMap, workflowBlueprints } = ctx.paths;
+  const { artifactSchemasPath, artifactTemplates, creativePromptingStandard, gateRegistry, handoffMatrix, humanVoicePolicy, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, roleSkillMap, workflowBlueprints } = ctx.paths;
 
   let knownGates = new Map();
   let knownHandoffPairs = new Set();
   let knownWorkflowBlueprints = new Set();
   let workflowBlueprintContracts = new Map();
 
-  for (const file of [gateRegistry, handoffMatrix, workflowBlueprints, roleSkillMap, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, artifactTemplates]) {
+  for (const file of [gateRegistry, handoffMatrix, workflowBlueprints, roleSkillMap, inferenceReasoningMethods, loopProtocol, promptFormatAndContinuity, creativePromptingStandard, humanVoicePolicy, artifactTemplates]) {
     if (!existsSync(file)) addFinding("MISSING_PIPELINE_FILE", "Required pipeline core file is missing.", [file]);
   }
 
@@ -117,7 +117,7 @@ export function run(ctx) {
       ["copy-voice", ["humanizer"]],
       ["research-evidence", ["instruction-packet-factory"]],
       ["tool-routing-cost", ["pipeline-core"]],
-      ["hyperframes-producer", ["hyperframes-workflow", "hyperframes-prompting", "hyperframes-gsap-guidance"]]
+    ["hyperframes-producer", ["hyperframes-workflow"]]
     ]);
     for (const [role, skills] of requiredSupport) {
       const row = roleRows.get(role);
@@ -147,6 +147,45 @@ export function run(ctx) {
     ]) {
       if (!text.includes(phrase)) {
         addFinding("WEAK_PROMPT_FORMAT_CONTINUITY", `Prompt format and continuity contract is missing required phrase: ${phrase}`, [promptFormatAndContinuity]);
+      }
+    }
+  }
+
+  if (existsSync(creativePromptingStandard)) {
+    const text = read(creativePromptingStandard);
+    for (const phrase of [
+      "Creative Prompting Standard",
+      "Coverage Ledger",
+      "Default Heuristics",
+      "Target-Dependent Policy",
+      "official_source_check",
+      "Reference And Attachment Rules",
+      "Edit Delta",
+      "Continuity And Rewrite-Forward",
+      "Adapter Verification And Evidence",
+      "Do not add a new gate"
+    ]) {
+      if (!text.includes(phrase)) {
+        addFinding("WEAK_CREATIVE_PROMPTING_STANDARD", `Creative prompting standard is missing required phrase: ${phrase}`, [creativePromptingStandard]);
+      }
+    }
+  }
+
+  if (existsSync(humanVoicePolicy)) {
+    const text = read(humanVoicePolicy);
+    for (const phrase of [
+      "Human Voice And Copy Delivery",
+      "Situation Recognition",
+      "Format-Sensitive Rules",
+      "Truth And Author Boundaries",
+      "Controlled Imperfection",
+      "Mandatory Copy Delivery Loop",
+      "draft -> deep review -> revision -> final QA -> delivery",
+      "Default maximum: three iterations",
+      "No new permanent role or parallel loop"
+    ]) {
+      if (!text.includes(phrase)) {
+        addFinding("WEAK_HUMAN_VOICE_POLICY", `Human Voice policy is missing required phrase: ${phrase}`, [humanVoicePolicy]);
       }
     }
   }

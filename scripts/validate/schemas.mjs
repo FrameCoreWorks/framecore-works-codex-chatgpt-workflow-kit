@@ -37,7 +37,7 @@ export function run(ctx) {
   if (existsSync(artifactTemplates)) {
     const text = read(artifactTemplates);
     const sections = markdownSections(text);
-    for (const section of ["Task Confirmation", "Workflow Request Diagnostic", "Loop State", "Brief Contract", "Reference Pack", "Instruction Packet", "Storyboard Contract", "Board Artifact Prompt", "Prompt Pack", "Execution Manifest", "HyperFrames Production Brief", "QA / Iteration Report", "Delivery Manifest", "Self-Improvement Sufficiency Gate"]) {
+    for (const section of ["Task Confirmation", "Workflow Request Diagnostic", "Loop State", "Brief Contract", "Reference Pack", "Instruction Packet", "Storyboard Contract", "Board Artifact Prompt", "Copy Pack", "Prompt Pack", "Execution Manifest", "HyperFrames Production Brief", "QA / Iteration Report", "Delivery Manifest", "Self-Improvement Sufficiency Gate"]) {
       if (!sections.has(section)) addFinding("MISSING_TEMPLATE_SECTION", `Artifact template section is missing: ${section}`, [artifactTemplates]);
     }
     if (artifactSchemas?.artifacts) {
@@ -85,10 +85,14 @@ export function run(ctx) {
           }
           if (artifactName === "Image Prompt Contract") {
             const fixtureText = read(exampleFile);
-            for (const phrase of ["native Codex/ChatGPT image generator", "one pass", "exact_visible_text", "QA_checks"]) {
+            const modelPolicy = fixtureText.match(/^- model_policy:\s*(.+)$/m)?.[1] ?? "";
+            for (const phrase of ["native Codex/ChatGPT image generator", "exact_visible_text", "QA_checks"]) {
               if (!fixtureText.includes(phrase)) {
                 addFinding("WEAK_TEXT_IMAGE_ARTIFACT_FIXTURE", `Image Prompt Contract fixture must enforce text-bearing image policy phrase: ${phrase}`, [exampleFile, artifactSchemasPath]);
               }
+            }
+            if (!modelPolicy.includes("one pass")) {
+              addFinding("WEAK_TEXT_IMAGE_ARTIFACT_FIXTURE", "Image Prompt Contract fixture model_policy must enforce one-pass text generation.", [exampleFile, artifactSchemasPath]);
             }
           }
         }

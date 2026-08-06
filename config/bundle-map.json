@@ -5,7 +5,7 @@
   "bundles": {
     "pipeline-core": {
       "status": "current-public",
-      "summary": "Core workflow operating layer: instructions, routing, gates, handoffs, artifact contracts, Loop Protocol, Project State, and safe recovery policy.",
+      "summary": "Core workflow operating layer: instructions, routing, gates, handoffs, artifact contracts, Creative Prompt Contracts, Loop Protocol, Project State, and safe recovery policy.",
       "public_installable": true,
       "dependencies": [],
       "source_paths": [
@@ -19,7 +19,9 @@
         "docs/loop-protocol.md",
         "docs/loop-protocol-integration-plan.md",
         "docs/workflow-stages.md",
-        "docs/artifact-schemas.md"
+        "docs/artifact-schemas.md",
+        "docs/creative-prompting-workflow.md",
+        "docs/human-voice-and-copy-delivery.md"
       ],
       "skills": [
         "pipeline-core",
@@ -286,8 +288,6 @@
         "ecommerce-campaign-strategy-director",
         "hipson-adapter",
         "humanizer",
-        "hyperframes-gsap-guidance",
-        "hyperframes-prompting",
         "hyperframes-workflow",
         "image-prompt-architect",
         "instruction-packet-factory",
@@ -373,16 +373,12 @@
       ],
       "source_paths": [
         ".agents/skills/hyperframes-workflow/",
-        ".agents/skills/hyperframes-gsap-guidance/",
-        ".agents/skills/hyperframes-prompting/",
         ".agents/skills/pipeline-core/references/hyperframes-workflow.md",
         "docs/hyperframes.md",
         "examples/hyperframes-video/"
       ],
       "skills": [
-        "hyperframes-workflow",
-        "hyperframes-gsap-guidance",
-        "hyperframes-prompting"
+        "hyperframes-workflow"
       ],
       "roles": [
         "hyperframes-producer"

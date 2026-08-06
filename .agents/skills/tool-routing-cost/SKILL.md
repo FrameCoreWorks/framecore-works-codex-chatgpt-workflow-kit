@@ -21,6 +21,8 @@ or any task where cost, privacy, or capability uncertainty matters.
   required approvals.
 - Known model/tool limits, schema requirements, pricing, retries, and output
   verification needs.
+- Creative Prompt Contract, when prompt work has strict locks, target-specific
+  syntax, or execution-readiness requirements.
 - Provider-neutral policy, upload policy, and current activation state.
 
 ## Outputs
@@ -30,6 +32,8 @@ or any task where cost, privacy, or capability uncertainty matters.
 - Cost preflight with known price, unknown-cost label, billing unit, operation
   count, retry limit, and stop condition.
 - Upload and privacy scope, including what may leave the workspace.
+- Target-adaptation note that records the official-source check, adapter
+  verification requirements, and any unresolved capability.
 - Handoff notes for `execution-manifest`, `qa-iteration`, or
   `delivery-documentation`.
 
@@ -38,8 +42,10 @@ or any task where cost, privacy, or capability uncertainty matters.
 1. Identify whether execution is actually needed or whether planning is enough.
 2. Resolve the smallest tool route that satisfies the user-approved task.
 3. Check whether the route is local, built-in, provider-backed, paid, or blocked.
-4. State cost, upload, credential, and provider-activation requirements.
-5. Define retry limits, verification method, output path, and stop condition.
+4. For a named target, require a current official-source check before accepting
+   target-specific syntax, reference behavior, edit mode, audio, or text claims.
+5. State cost, upload, credential, and provider-activation requirements.
+6. Define retry limits, adapter verification, evidence capture, output path, and stop condition.
 6. Prepare an execution contract only if the user explicitly approved execution
    and all required gates are satisfied.
 
@@ -50,6 +56,8 @@ or any task where cost, privacy, or capability uncertainty matters.
   missing, stop before execution.
 - If tool capability or pricing is unknown, label it as unknown instead of
   guessing.
+- A verified target surface is still not permission to execute. It only makes
+  its documented fields eligible for planning.
 - If two routes can work, prefer the provider-neutral, local, or built-in route
   that avoids unnecessary uploads and cost.
 - If the user requested ChatGPT Skills installation, do not treat skill creation
@@ -77,6 +85,7 @@ approved route notes to `delivery-documentation` when execution is complete.
 ## QA Checklist
 
 - Route, tool, and operation are specific.
+- Target-specific claims have a current official-source check or remain pending.
 - Cost is known or clearly marked unknown.
 - Upload and privacy scope are explicit.
 - Required approvals and missing blockers are visible.

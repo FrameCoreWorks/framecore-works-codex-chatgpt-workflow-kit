@@ -1,7 +1,7 @@
 interface:
   display_name: "HyperFrames Workflow"
-  short_description: "Plan coded video structure, timing, and render QA"
-  default_prompt: "Use $hyperframes-workflow to plan this coded video from scene structure through render QA."
+  short_description: "Plan coded video structure, prompts, GSAP timing, and render QA"
+  default_prompt: "Use $hyperframes-workflow to plan this coded video from scene structure through implementation prompt, motion timing, and render QA."
 
 policy:
   allow_implicit_invocation: true

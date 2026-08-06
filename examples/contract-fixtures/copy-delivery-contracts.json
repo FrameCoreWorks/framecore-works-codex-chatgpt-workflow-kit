@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "social-post-without-automatic-cta",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "project maintainer", "audience": "people discussing writing tools", "channel": "social_post", "goal": "explain one concrete concern", "content_type": "social_post", "concrete_anchor": "the assistant agrees before checking the premise" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["the assistant agrees before checking the premise"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": ["CTA", "hashtags", "emoji", "list"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked the supplied mechanism"], "root_cause": "removed a generic opener", "repair_target": "body_copy", "regression_check": "rechecked the factual statement and omitted CTA", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "comment-responds-to-specific-thought",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "team member", "audience": "original poster", "channel": "comment", "goal": "respond to a specific argument", "content_type": "comment", "concrete_anchor": "the claim treats agreement as evidence" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["the claim treats agreement as evidence"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": ["generic praise", "CTA", "mini_article"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["reviewed the quoted point"], "root_cause": "removed generic praise", "repair_target": "opening", "regression_check": "confirmed the response addresses the supplied point", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "business-email-keeps-formality",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "service team", "audience": "customer", "channel": "business_email", "goal": "confirm the next step", "content_type": "email", "concrete_anchor": "the requested document is due on the stated date" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["document due date"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": ["next_step"], "included_elements": ["next_step"], "unrequested_elements": ["casual anecdote", "emoji"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked purpose, formality, and next step"], "root_cause": "removed corporate filler", "repair_target": "body_copy", "regression_check": "confirmed the due-date lock remains intact", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "caption-adds-context-without-hashtags",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "brand account", "audience": "video viewer", "channel": "caption", "goal": "add context to a product demonstration", "content_type": "caption", "concrete_anchor": "the demonstration shows the storage compartment" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["storage compartment"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": ["hashtags", "emoji", "CTA"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked it adds context beyond visible action"], "root_cause": "removed image-description repetition", "repair_target": "caption", "regression_check": "confirmed the product fact stays unchanged", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "polemic-without-fake-experience",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "editor", "audience": "industry readers", "channel": "article", "goal": "state a critical view", "content_type": "polemic", "concrete_anchor": "agreement can conceal a badly framed question" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["agreement can conceal a badly framed question"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": ["bait", "automatic softening", "CTA"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": ["contrast"], "high_risk_pattern_reason": "the argument compares agreement with evidence", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 2, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked claims remain framed as argument"], "root_cause": "removed an unsupported first-person claim", "repair_target": "opening", "regression_check": "confirmed no personal observation is implied", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "useful-structure-in-specification",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "product team", "audience": "implementation team", "channel": "documentation", "goal": "state required steps", "content_type": "specification", "concrete_anchor": "the sequence has three required checks" },
+        "fact_and_lock_ledger": { "source_status": "verified", "locked_facts": ["three required checks"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": ["headings", "list"], "included_elements": ["headings", "list"], "unrequested_elements": ["CTA", "emoji"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked structure against required steps"], "root_cause": "clarified one ambiguous heading", "repair_target": "heading", "regression_check": "confirmed all three checks remain listed", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "explicit-marketing-request",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "campaign team", "audience": "newsletter subscribers", "channel": "marketing_email", "goal": "invite readers to a launch page", "content_type": "offer", "concrete_anchor": "launch page opens on the confirmed date" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["launch date"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": ["hook", "CTA", "hashtags"], "included_elements": ["hook", "CTA", "hashtags"], "unrequested_elements": [] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": ["CTA"], "high_risk_pattern_reason": "explicit marketing request", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked CTA and launch-date lock"], "root_cause": "shortened an unsupported benefit claim", "repair_target": "body_copy", "regression_check": "confirmed requested CTA remains and claims are bounded", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "user-provided-personal-facts-only",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "user", "audience": "professional peers", "channel": "post", "goal": "share a supplied observation", "content_type": "social_post", "concrete_anchor": "the user-provided observation" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["the supplied observation"], "personal_experience_status": "user_provided", "first_person_claim": true, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": ["CTA"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked all first-person facts against supplied notes"], "root_cause": "removed an added detail not in the notes", "repair_target": "body_copy", "regression_check": "confirmed no unsupplied experience remains", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "default-human-voice-has-no-artificial-errors",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "support team", "audience": "customer", "channel": "reply", "goal": "answer a question clearly", "content_type": "response", "concrete_anchor": "the stated account setting" },
+        "fact_and_lock_ledger": { "source_status": "verified", "locked_facts": ["account setting"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": ["artificial typo", "CTA"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked spelling and fact lock"], "root_cause": "removed a filler sentence", "repair_target": "body_copy", "regression_check": "confirmed the answer is complete and accurate", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "controlled-imperfection-for-explicit-raw-comment",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "user", "audience": "discussion participants", "channel": "comment", "goal": "post a slightly raw discussion response", "content_type": "comment", "concrete_anchor": "the user explicitly requested a less-polished draft" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["discussion topic"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": ["CTA", "named-style imitation"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "on", "basis": "explicit_user_request", "elements": ["brief self-correction"], "typo_count": 0 } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked the raw voice does not change the supplied fact"], "root_cause": "removed a second hesitation", "repair_target": "body_copy", "regression_check": "confirmed one controlled element and no CTA", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "precision-content-keeps-imperfection-off",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "operations team", "audience": "staff", "channel": "safety_instruction", "goal": "state a required action", "content_type": "safety_instruction", "concrete_anchor": "the stated required action" },
+        "fact_and_lock_ledger": { "source_status": "verified", "locked_facts": ["required action"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": ["heading", "list"], "included_elements": ["heading", "list"], "unrequested_elements": ["informal aside"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["checked exact instruction wording"], "root_cause": "removed an ambiguous phrase", "repair_target": "instruction", "regression_check": "confirmed required action remains exact", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "mandatory-delivery-loop-recorded",
+      "expected_code": "VALID",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "project team", "audience": "client", "channel": "delivery_note", "goal": "summarize accepted copy", "content_type": "delivery_note", "concrete_anchor": "the accepted Copy Pack" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["accepted Copy Pack"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": ["CTA", "emoji"] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 2, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["reviewed the source note and client-facing wording"], "root_cause": "removed a claim not in the source note", "repair_target": "summary", "regression_check": "confirmed all remaining statements appear in the source note", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "reject-ready-copy-without-loop",
+      "expected_code": "MISSING_COPY_DELIVERY_LOOP",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "team", "audience": "reader", "channel": "post", "goal": "inform", "content_type": "social_post", "concrete_anchor": "a supplied fact" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["fact"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": [] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] }
+        }
+      }
+    },
+    {
+      "id": "reject-fabricated-first-person-claim",
+      "expected_code": "FABRICATED_AUTHOR_EXPERIENCE",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "team", "audience": "reader", "channel": "post", "goal": "inform", "content_type": "social_post", "concrete_anchor": "a supplied fact" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["fact"], "personal_experience_status": "none", "first_person_claim": true, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": [] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["reviewed copy"], "root_cause": "none", "repair_target": "body_copy", "regression_check": "none", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "reject-imperfection-in-business-email",
+      "expected_code": "CONTROLLED_IMPERFECTION_PRECISION_CONFLICT",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "team", "audience": "customer", "channel": "business_email", "goal": "confirm a step", "content_type": "email", "concrete_anchor": "a supplied due date" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["due date"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": [] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": [], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "on", "basis": "explicit_user_request", "elements": ["ellipsis"], "typo_count": 0 } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["reviewed copy"], "root_cause": "none", "repair_target": "body_copy", "regression_check": "none", "stop_decision": "stop_sufficient" }
+      }
+    },
+    {
+      "id": "reject-multiple-high-risk-patterns-without-reason",
+      "expected_code": "HIGH_RISK_PATTERN_REASON_REQUIRED",
+      "record": {
+        "copy_pack_status": "ready_to_use",
+        "author_context": { "speaker": "team", "audience": "reader", "channel": "post", "goal": "inform", "content_type": "social_post", "concrete_anchor": "a supplied fact" },
+        "fact_and_lock_ledger": { "source_status": "user_provided", "locked_facts": ["fact"], "personal_experience_status": "none", "first_person_claim": false, "invented_claims": false },
+        "format_decisions": { "requested_elements": [], "included_elements": [], "unrequested_elements": [] },
+        "human_voice_review": { "author_and_audience_fit": "pass", "factual_honesty": "pass", "channel_and_structure_fit": "pass", "high_risk_patterns": ["contrast", "perfect_triad"], "high_risk_pattern_reason": "", "controlled_imperfection": { "mode": "off", "elements": [] } },
+        "copy_delivery_loop": { "iteration": 1, "max_iterations": 3, "phases_completed": ["draft", "deep_review", "revision", "final_qa", "delivery"], "evidence": ["reviewed copy"], "root_cause": "none", "repair_target": "body_copy", "regression_check": "none", "stop_decision": "stop_sufficient" }
+      }
+    }
+  ]
+}
