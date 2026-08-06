@@ -1,5 +1,5 @@
 {
-  "schema_version": 5,
+  "schema_version": 6,
   "mode": "repository-source",
   "surface": "native-chatgpt-skills",
   "repository": "https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit",
@@ -26,6 +26,19 @@
     "capability_preflight_required": false,
     "surface": "chatgpt_work",
     "creation_flow": "create_with_chat"
+  },
+  "source_resolution": {
+    "start_after": "installation_approved",
+    "setup_must_continue_without_source_access": true,
+    "access_order": [
+      "active_skill_creator_repository_route",
+      "github_repository_paths",
+      "raw_source_manifest"
+    ],
+    "raw_urls_are_verification_fallback": true,
+    "failure_scope": "current_skill",
+    "require_source_before_creation": true,
+    "user_supplied_source_fallback_allowed": false
   },
   "setup_session_scope": {
     "context_source_selection_required": true,

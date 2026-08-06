@@ -12,13 +12,33 @@ If this contract is opened in the regular **Chat** surface without an active `@s
 
 ## Source Of Truth
 
-Read these public files before creating any skill:
+The public GitHub repository is the canonical source for every native Skill.
+Do not resolve sources while asking for the setup language, giving the beginner
+preflight, collecting onboarding answers, or recommending a profile. Complete
+those conversational steps first.
 
-1. Setup configuration: `https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/config/chatgpt-skills.json`
-2. Exact source inventory and hashes: `https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/config/chatgpt-skill-sources.json`
-3. Every selected `SKILL.md`, `agents/openai.yaml`, reference, template, and supporting file listed in that source inventory.
+After the user approves the exact skill list, selects batch or guided mode, and
+gives the required conversational approval, resolve the source for the current
+skill immediately before creating it. Use this access order:
+
+1. Let the active `@skill-creator` use its available public repository-reading
+   route for `https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit`
+   and the current skill's declared repository paths.
+2. If that route is unavailable, use accessible regular GitHub repository paths.
+3. Use the raw setup configuration, source inventory, and selected source files
+   as an exact-file and hash-verification fallback when those URLs are available:
+   - `https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/config/chatgpt-skills.json`
+   - `https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/config/chatgpt-skill-sources.json`
+   - the selected `SKILL.md`, `agents/openai.yaml`, reference, template, and supporting files listed there.
 
 Use the declared `main` ref and the exact repository paths from the source inventory. Do not infer missing files from similarly named local or previously installed skills. Do not read `.codex/agents/` as ChatGPT skill sources.
+
+An unavailable raw URL is not a reason to stop onboarding or profile selection.
+If no public source route can read the current skill when creation is due, record
+that current skill as `blocked`, preserve the completed onboarding and approved
+selection, and explain that repository access is unavailable in this Work
+session. Do not claim that the skill was created or installed, and do not ask
+the user to paste substitute skill files.
 
 ## First Response
 
@@ -125,7 +145,7 @@ Track setup with these states:
 - `skill_list_approved`: the user approved the exact selected skill list.
 - `installation_mode_selected`: the user chose batch or guided installation.
 - `installation_approved`: the required conversational approval was received for the batch or current skill.
-- `source_resolved`: the current skill's declared source files were read from the manifest.
+- `source_resolved`: the current skill's declared source files were resolved through an available public repository route; the manifest remains the exact-file inventory.
 - `creation_in_progress`: the active `@skill-creator` workflow is creating the current native Skill.
 - `created`: `@skill-creator` created the native Skill.
 - `created_not_installed`: only a draft or unsaved result exists.
@@ -140,14 +160,15 @@ Approval is not installation. Profile approval and list approval select the work
 After mode selection and conversational approval, process selected skills in the order declared by the chosen profile:
 
 1. Find the skill in `config/chatgpt-skill-sources.json`.
-2. Read every repository file listed for that skill from its `raw_url`.
-3. If cryptographic hashing is available, compare each file with its declared SHA-256. If hashing is unavailable, say that source integrity was not independently verified. Never claim a hash check that did not run.
-4. Create the skill through the already active `@skill-creator` workflow in ChatGPT Work. Do not search for or wait for a separate function tool, MCP tool, dollar command, install modal, host callback, or assistant-side UI introspection.
-5. Preserve the source skill name and description. Include all listed references, templates, scripts, fixtures, and `agents/openai.yaml` metadata that the native skill supports.
-6. Keep each repository skill as a separate native ChatGPT Skill. Do not silently merge, rename, omit, or rewrite skill contracts.
-7. In batch mode, continue to the next selected skill after recording the current result. Do not ask for another approval unless the exact list changes or a replacement decision is needed.
-8. In guided mode, stop before each skill, give its plain-language description, and wait for that skill's conversational approval.
-9. Mark `installed` only after `@skill-creator` reports that it created and saved the native Skill, or the skill is visible in the ChatGPT Skills library. If only a draft exists, record `created_not_installed`. If a real permission, source, or creation failure occurs, record `blocked` with the skill name, failed operation, returned error, and current state.
+2. Resolve the current skill through the source-access order in **Source Of Truth**. Do not make raw GitHub access a preflight requirement for the whole setup.
+3. Read every canonical repository file available for that selected skill. If cryptographic hashing is available, compare each readable file with its declared SHA-256. If hashing is unavailable, say that source integrity was not independently verified. Never claim a hash check that did not run.
+4. If no public route can read the current skill's required source files, record only that skill as `blocked`, name the unavailable source capability, and do not create a substitute skill. In guided mode, ask whether to retry later or stop. In batch mode, stop the batch and list the skills that were not attempted.
+5. Create the skill through the already active `@skill-creator` workflow in ChatGPT Work. Do not search for or wait for a separate function tool, MCP tool, dollar command, install modal, host callback, or assistant-side UI introspection.
+6. Preserve the source skill name and description. Include all listed references, templates, scripts, fixtures, and `agents/openai.yaml` metadata that the native skill supports.
+7. Keep each repository skill as a separate native ChatGPT Skill. Do not silently merge, rename, omit, or rewrite skill contracts.
+8. In batch mode, continue to the next selected skill after recording the current result. Do not ask for another approval unless the exact list changes or a replacement decision is needed.
+9. In guided mode, stop before each skill, give its plain-language description, and wait for that skill's conversational approval.
+10. Mark `installed` only after `@skill-creator` reports that it created and saved the native Skill, or the skill is visible in the ChatGPT Skills library. If only a draft exists, record `created_not_installed`. If a real permission, source, or creation failure occurs, record `blocked` with the skill name, failed operation, returned error, and current state.
 
 Do not use Codex `skill-installer`. Do not claim that reading repository files or receiving `yes` installed a skill. Do not stop merely because no separate host install action appears. Do not claim batch completion until every selected skill has an individual final status.
 
@@ -244,4 +265,4 @@ The final guidance must explain ordinary natural-language routing, explicit `@sk
 
 ## Failure Handling
 
-If the conversation is in **Chat** instead of **Work**, stop and tell the user to switch to **Work** and paste the complete README prompt again. If `@skill-creator` is unavailable in Work, ChatGPT cannot read the raw repository files, or `@skill-creator` fails to create and save a skill after a real attempt, stop and identify the missing capability or returned error. The absence of a separate install button, native action, host callback, or UI prompt is not a blocker. Do not substitute a Codex installation, pretend the skills were installed, or ask the user to provide generated skill packages.
+If the conversation is in **Chat** instead of **Work**, stop and tell the user to switch to **Work** and paste the complete README prompt again. If `@skill-creator` is unavailable in Work, stop and identify that missing capability. A raw GitHub access failure before creation is not a setup blocker: finish onboarding and profile selection, then use the source-access order for the current skill. If no public source route can read that skill, record that skill as blocked and identify the unavailable repository access. If `@skill-creator` fails to create and save a skill after a real attempt, record that skill as blocked with the returned error. The absence of a separate install button, native action, host callback, or UI prompt is not a blocker. Do not substitute a Codex installation, pretend the skills were installed, or ask the user to provide generated skill packages.

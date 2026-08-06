@@ -35,10 +35,12 @@ https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
 This is a ChatGPT repository-source setup, not a Codex project-local install.
 
-First read and follow the canonical setup contract:
+Use this repository as the canonical source and follow its setup contract:
 https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/CHATGPT_INSTALL.md
 
-Then read the setup configuration and exact skill source inventory referenced by that contract. Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup.
+Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup. Do not require GitHub or raw GitHub access during the language question, beginner explanation, onboarding, profile recommendation, list approval, or installation-mode choice.
+
+After I approve the exact skill list and its installation mode, use the active @skill-creator workflow to read the selected skill from the public repository through its available native repository route. Use the raw configuration, source inventory, and raw file URLs referenced by the contract only as exact-file and hash-verification fallbacks when they are accessible. An unavailable raw URL is not a reason to end onboarding.
 
 After the beginner preflight, ask me how to build my Workflow Profile:
 1. Fresh onboarding: ask every onboarding question from the beginning.
@@ -63,7 +65,7 @@ When setup finishes, explain in simple language:
 
 Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. Treat @skill-creator as the active native Skill creation workflow, not as a shell command, dollar command, MCP tool, or function tool.
 
-If you cannot read the public repository files, @skill-creator is unavailable, or @skill-creator fails to create and save a skill after a real attempt, stop and tell me which capability is unavailable. The absence of a separate install button or native action is not a blocker. Do not substitute a Codex installation or pretend setup succeeded.
+If @skill-creator is unavailable, stop and tell me to switch to Work with @skill-creator enabled. If a selected skill cannot be read through any public repository route at creation time, mark only that skill as blocked, preserve the completed onboarding and approved list, and tell me that repository access is unavailable in this Work session. Do not substitute a Codex installation, a guessed skill, or user-pasted source files. The absence of a separate install button or native action is not a blocker.
 ```
 
 The canonical behavior is defined in [CHATGPT_INSTALL.md](CHATGPT_INSTALL.md). The exact profile order is in [config/chatgpt-skills.json](config/chatgpt-skills.json), and [config/chatgpt-skill-sources.json](config/chatgpt-skill-sources.json) lists every source file and SHA-256 hash ChatGPT should read.
@@ -239,7 +241,7 @@ Onboarding writes `framecore.config.json` before the managed install so local pr
 | --- | --- | --- |
 | OpenAI Codex CLI with custom-agent support | Full project-local install, `AGENTS.md`, skills, rendered `.codex/agents/*.toml`, guided install, doctor, update, repair, uninstall | Recommended full experience. |
 | OpenAI Codex or ChatGPT environments that read project instructions but do not expose custom-agent spawning | `AGENTS.md`, installed skills, workflow docs, examples, artifact contracts | `.codex/agents/*.toml` may be inert, but the workflow contracts remain useful. |
-| Native ChatGPT Skills | Repository-source skill creation, UI metadata, guided onboarding, reusable workflow instructions, and temporary task roles | Requires native Skills, ChatGPT Work, `@skill-creator`, public GitHub source access, conversational approval in batch or guided mode, and a real creation result for each selected skill. |
+| Native ChatGPT Skills | Repository-source skill creation, UI metadata, guided onboarding, reusable workflow instructions, and temporary task roles | Requires native Skills, ChatGPT Work, `@skill-creator`, conversational approval in batch or guided mode, and public source access when each selected skill is created. |
 | Other AGENTS-aware coding agents or editors | `AGENTS.md`, docs, examples, and reusable skill files when read manually | Custom-agent `.toml` files are Codex-specific and may not be consumed. |
 | Chat-only environments without native Skills | Documentation and manual guidance only | Use a ChatGPT account with native Skills, or use a local terminal or shell-capable Codex workspace. |
 

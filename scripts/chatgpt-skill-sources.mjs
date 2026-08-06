@@ -215,7 +215,7 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     source_manifest_path: MANIFEST_PATH,
     source_root: ".agents/skills",
   };
-  if (config.schema_version !== 5) errors.push({ message: "ChatGPT setup schema_version must be 5.", file: configPath });
+  if (config.schema_version !== 6) errors.push({ message: "ChatGPT setup schema_version must be 6.", file: configPath });
   for (const [key, value] of Object.entries(expectedConfig)) {
     if (config[key] !== value) errors.push({ message: `ChatGPT setup ${key} must be ${value}.`, file: configPath });
   }
@@ -251,6 +251,23 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
   };
   for (const [key, value] of Object.entries(expectedNativeCreation)) {
     if (nativeCreation[key] !== value) errors.push({ message: `ChatGPT native_creation ${key} must be ${value}.`, file: configPath });
+  }
+
+  const sourceResolution = config.source_resolution ?? {};
+  if (
+    sourceResolution.start_after !== "installation_approved" ||
+    sourceResolution.setup_must_continue_without_source_access !== true ||
+    JSON.stringify(sourceResolution.access_order) !== JSON.stringify([
+      "active_skill_creator_repository_route",
+      "github_repository_paths",
+      "raw_source_manifest",
+    ]) ||
+    sourceResolution.raw_urls_are_verification_fallback !== true ||
+    sourceResolution.failure_scope !== "current_skill" ||
+    sourceResolution.require_source_before_creation !== true ||
+    sourceResolution.user_supplied_source_fallback_allowed !== false
+  ) {
+    errors.push({ message: "ChatGPT source resolution must start only after approval, prefer the active creator's repository route, and block only the current skill when no public source is available.", file: configPath });
   }
 
   const sessionScope = config.setup_session_scope ?? {};

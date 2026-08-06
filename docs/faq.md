@@ -36,7 +36,7 @@ The beginner path expects the target workspace to already exist. Lower-level scr
 
 ### Can I install these as native ChatGPT Skills?
 
-Yes, when the ChatGPT account exposes native Skills and Work. Switch the top selector from Chat to Work, then paste the repository-source prompt from README with its leading `@skill-creator` mention. ChatGPT first asks for the setup language, runs onboarding, recommends the smallest useful profile, reads each selected skill from the declared raw GitHub sources, and creates the native skills through Create with chat. The alternate path is Plugins > Skills > Create > Create with chat. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
+Yes, when the ChatGPT account exposes native Skills and Work. Switch the top selector from Chat to Work, then paste the repository-source prompt from README with its leading `@skill-creator` mention. ChatGPT first asks for the setup language, runs onboarding, recommends the smallest useful profile, and only after the user approves a selected list resolves each skill through the public repository route available to `@skill-creator`. Raw GitHub URLs are a verification fallback, not a requirement for starting onboarding. The alternate path is Plugins > Skills > Create > Create with chat. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
 
 ### Does one ChatGPT prompt install all 35 skills automatically?
 
