@@ -15,7 +15,7 @@ test("ChatGPT repository installer, profiles, sources, and UI metadata validate"
 
 test("ChatGPT native creation starts in Work with an explicit skill mention", () => {
   const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
-  assert.equal(config.schema_version, 6);
+  assert.equal(config.schema_version, 5);
   assert.equal(config.native_creator, undefined);
   assert.equal(config.entry_surface.primary, "chatgpt_work");
   assert.equal(config.entry_surface.select_before_pasting_prompt, true);
@@ -31,27 +31,6 @@ test("ChatGPT native creation starts in Work with an explicit skill mention", ()
   assert.equal(config.native_creation.surface, "chatgpt_work");
   assert.equal(config.native_creation.creation_flow, "create_with_chat");
   assert.equal(config.installation_rules.require_visible_install_confirmation, undefined);
-});
-
-test("ChatGPT delays source resolution and scopes an unavailable source to the current skill", () => {
-  const config = JSON.parse(readFileSync(join(root, "config/chatgpt-skills.json"), "utf8"));
-  assert.equal(config.source_resolution.start_after, "installation_approved");
-  assert.equal(config.source_resolution.setup_must_continue_without_source_access, true);
-  assert.deepEqual(config.source_resolution.access_order, [
-    "active_skill_creator_repository_route",
-    "github_repository_paths",
-    "raw_source_manifest",
-  ]);
-  assert.equal(config.source_resolution.raw_urls_are_verification_fallback, true);
-  assert.equal(config.source_resolution.failure_scope, "current_skill");
-  assert.equal(config.source_resolution.require_source_before_creation, true);
-  assert.equal(config.source_resolution.user_supplied_source_fallback_allowed, false);
-
-  const bootstrap = readFileSync(join(root, "CHATGPT_INSTALL.md"), "utf8");
-  assert.match(bootstrap, /Do not resolve sources while asking for the setup language/);
-  assert.match(bootstrap, /active `@skill-creator` use its available public repository-reading\s+route/);
-  assert.match(bootstrap, /An unavailable raw URL is not a reason to stop onboarding/);
-  assert.match(bootstrap, /current skill as `blocked`/);
 });
 
 test("ChatGPT setup offers fresh, history-assisted, and current-profile onboarding", () => {

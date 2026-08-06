@@ -77,7 +77,7 @@ When setup finishes, explain in simple language:
 
 Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. Treat @skill-creator as the active native Skill creation workflow, not as a shell command, dollar command, MCP tool, or function tool.
 
-Do not require public repository access during the language question, beginner preflight, onboarding, profile recommendation, list approval, or installation-mode choice. After approval, use the active `@skill-creator` workflow's available public repository route for each selected skill. Treat raw GitHub URLs as an exact-file and hash-verification fallback, not as an onboarding prerequisite. If no public route can read a selected skill when it is due for creation, mark only that skill as blocked, preserve the completed onboarding and approved list, and report the unavailable access accurately. The absence of a separate install button or native action is not a blocker. Do not substitute a Codex installation, guessed content, or user-pasted source files.
+If you cannot read the public repository files, @skill-creator is unavailable, or @skill-creator fails to create and save a skill after a real attempt, stop and tell me which capability is unavailable. The absence of a separate install button or native action is not a blocker. Do not substitute a Codex installation or pretend setup succeeded.
 ```
 
 The GitHub link identifies the source. The `@skill-creator` mention selects the native creation skill, and the explicit instruction to read `CHATGPT_INSTALL.md` authorizes ChatGPT to use the repository's setup contract for this task.
@@ -134,13 +134,11 @@ For either mode, approval is typed or spoken in the conversation. Replies such a
 
 For each approved skill, ChatGPT:
 
-1. Starts source resolution only after the exact list, installation mode, and conversational approval are complete.
-2. First lets active `@skill-creator` use any available public repository-reading route for the repository and the selected skill's canonical path.
-3. Uses accessible GitHub repository paths next, then the declared `raw_url` entries in `config/chatgpt-skill-sources.json` as an exact-file and hash-verification fallback.
-4. Preserves `SKILL.md`, `agents/openai.yaml`, and all listed supporting files.
-5. Verifies SHA-256 when the active surface can perform that check.
-6. States clearly when cryptographic verification is unavailable instead of claiming that it ran.
-7. If no public route can read the current skill's required files, records that current skill as `blocked`. This does not erase onboarding or falsely mark the rest of the selected list installed.
+1. Resolves the skill in `config/chatgpt-skill-sources.json`.
+2. Reads every declared `raw_url` for that skill.
+3. Preserves `SKILL.md`, `agents/openai.yaml`, and all listed supporting files.
+4. Verifies SHA-256 when the active surface can perform that check.
+5. States clearly when cryptographic verification is unavailable instead of claiming that it ran.
 
 The checked-in manifest is regenerated after canonical skill changes with:
 
@@ -165,7 +163,7 @@ The setup contract separates decision, creation, confirmation, and installation:
 | `skill_list_approved` | The user approved the exact selected skill list. |
 | `installation_mode_selected` | The user selected batch or guided installation. |
 | `installation_approved` | Conversational approval was received for the batch or current skill. |
-| `source_resolved` | The current skill's declared files were resolved through an available public repository route; the manifest remains the exact-file inventory. |
+| `source_resolved` | The current skill's manifest files were read. |
 | `creation_in_progress` | The active `@skill-creator` workflow is creating the skill. |
 | `created` | `@skill-creator` created the native Skill. |
 | `created_not_installed` | Only a draft or unsaved result exists. |
@@ -177,7 +175,7 @@ Approval authorizes the chosen scope, but it is not proof of successful creation
 
 ## Native Installation Flow
 
-After source resolution for the current skill, ChatGPT processes the approved skill list in declared order:
+After source resolution, ChatGPT processes the approved skill list in declared order:
 
 1. Create one skill through the already active `@skill-creator` workflow in ChatGPT Work.
 2. Preserve the canonical name, description, resources, and UI metadata.
@@ -297,7 +295,7 @@ Stop and explain the boundary when:
 
 - the account does not expose native Skills, Work, or `@skill-creator`;
 - the user pasted the prompt into Chat instead of Work;
-- a selected skill cannot be read through any public repository route when it is due for creation;
+- ChatGPT cannot read the public raw GitHub sources;
 - a repository source file is missing or differs from an available hash check;
 - the user has not approved the proposed skill list;
 - `@skill-creator` fails to create and save a skill after a real attempt;
@@ -306,7 +304,7 @@ Stop and explain the boundary when:
 
 The absence of a separate install button, native action, host callback, or modal is not a stop condition.
 
-An unavailable raw GitHub URL before creation is not a stop condition. Continue the conversational setup and attempt source resolution only for the selected skill after approval. Never replace a failed repository-source setup with a false success report.
+Never replace a failed repository-source setup with a false success report.
 
 ## Related Docs
 
