@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/FrameCoreWorks/static-graphic-design-creator",
+  "source_commit": "c3cbdf766411ca7e1131bc034bfa74ebad2efe71",
+  "license": "Apache-2.0",
+  "integration": "Existing skills only; no standalone skill, bundle, installer or runtime dependency.",
+  "files": [
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/concept-development-and-originality.md",
+      "source_sha256": "b50516654c07844a5e489778cf3fd1f2111d0567fe549a8714111a22cf48b8df",
+      "target_path": ".agents/skills/commercial-visual-campaign-director/references/concept-development-and-originality.md",
+      "treatment": "adapted_reference"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/deliverable-profiles.md",
+      "source_sha256": "04db46e5ca4d0887a76fd5784f637862a02fee17ed7c4b47116d636004bb3094",
+      "target_path": ".agents/skills/commercial-visual-campaign-director/references/deliverable-profiles.md",
+      "treatment": "adapted_reference"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/poster-style-and-composition-atlas.md",
+      "source_sha256": "c329051930efe0f5d11959071e7b8bcef7a3e6fe2ad2f3c160a0b03ae7727055",
+      "target_path": ".agents/skills/commercial-visual-campaign-director/references/poster-style-and-composition-atlas.md",
+      "treatment": "adapted_reference"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/poster-style-translation-catalog.md",
+      "source_sha256": "afc2c5a640eca38c166a12b9b0fc7ca142ce38a2c3206479f53354e2af0b1361",
+      "target_path": ".agents/skills/commercial-visual-campaign-director/references/poster-style-translation-catalog.md",
+      "treatment": "adapted_reference"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/poster-movements-and-production-atlas.md",
+      "source_sha256": "f5415e4e25531cd8ccdf9e132aca06ae9febbb5011150999ae3dd8321c511984",
+      "target_path": ".agents/skills/commercial-visual-campaign-director/references/poster-movements-and-production-atlas.md",
+      "treatment": "adapted_reference"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/event-poster-design-codes.json",
+      "source_sha256": "bd83b741b49dbdb11d8b3aac375e1cb2f8b1cb44b61e5cf90fede3ea604f9af2",
+      "target_path": ".agents/skills/commercial-visual-campaign-director/references/event-poster-design-codes.json",
+      "treatment": "unchanged_data"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/copy-development-and-human-voice.md",
+      "source_sha256": "6afac39cd439f9246d102a1a292cafbfecde467258ab9df989bdad10f84fe275",
+      "target_path": ".agents/skills/copy-voice/references/copy-development-and-human-voice.md",
+      "treatment": "adapted_reference"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/unified-static-prompt-contract.md",
+      "source_sha256": "70931d43f1a477e0e39fe6a2ab6b603f89751598138e9d291e206b2e1086fe72",
+      "target_path": ".agents/skills/image-prompt-architect/references/unified-static-prompt-contract.md",
+      "treatment": "adapted_reference"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/typography-and-text-feasibility.md",
+      "source_sha256": "f3f3a62b2bc75adbb45e4f7465144d958552bf72532d329c7577fed2a6920464",
+      "target_path": ".agents/skills/image-prompt-architect/references/typography-and-text-feasibility.md",
+      "treatment": "adapted_reference"
+    },
+    {
+      "source_path": ".agents/skills/static-graphic-design-creator/references/material-artifact-diagnosis.md",
+      "source_sha256": "967b2110c63605ffea5121a37b534f9809f696ade0c4faeebc35d70a03b19ac3",
+      "target_path": ".agents/skills/output-critic-iteration/references/material-artifact-diagnosis.md",
+      "treatment": "adapted_reference"
+    }
+  ],
+  "evidence_limits": [
+    "Upstream PDF provenance is retained as declared evidence; the original PDF was not independently re-inspected.",
+    "Catalog names and grouping retain John Savage AI attribution; descriptions retain FrameCore Works attribution.",
+    "Historical source links are inherited references, not a new live source audit.",
+    "No images generated; no native ChatGPT save flow tested."
+  ]
+}

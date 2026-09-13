@@ -8,3 +8,15 @@ workflow setup and repository-source native ChatGPT Skills.
 This NOTICE file is provided for Apache-2.0 redistribution clarity. Add any
 required third-party notices here if future versions include third-party source
 material that requires attribution.
+
+Static graphic design references and catalog lookup semantics are adapted from
+FrameCoreWorks/static-graphic-design-creator, Apache-2.0, source commit
+c3cbdf766411ca7e1131bc034bfa74ebad2efe71. Existing Workflow Kit roles own the
+adapted material; standalone installation and lifecycle code are not included.
+
+The bundled 200 Event Poster Design Codes catalog retains its source
+attribution: code names and category grouping by John Savage AI; individual
+English descriptions and operational interpretations by FrameCore Works.
+The original PDF, promotional material, fonts and rendered artworks are not
+included. Source metadata and evidence limits are recorded in
+docs/static-graphic-design-provenance.json and the catalog itself.

@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Fixed manifest path containment for doctor, update, repair and uninstall,
+  including metadata links, dangling links and file-identity aliases.
+- Made numbered backups exclusive and shared with onboarding; preserved
+  retired-file ownership until backup/removal completes and protected unhashed
+  files during interrupted-install recovery.
+- Preserved shared/local configuration inheritance during onboarding and
+  rejected malformed JSON layer types before writes.
+- Separated maintainer validation from npm payload checks, fixed symlinked CLI
+  entrypoints, and added an offline real-tarball regression for all exported CLIs.
+
+- Merged Static Graphic Design Creator domain knowledge into the existing
+  static direction, copy, reference, image prompting, QA and asset-manifest
+  skills. Retained the 35-skill inventory and current install profiles.
+- Added objective-first design references, the attributed 200-code poster
+  catalog, integrated prompt/typography guidance, scoped repair and explicit
+  component handoffs, with local read-only Node checks and install regressions.
+- Added a source provenance map and a repository evaluation with prioritized
+  follow-up fixes; no external generation or provider dependency is introduced.
+
 - Added Human Voice and Copy Delivery governance for ready-to-use copy,
   captions, dialogue, VO, supers, and delivery wording. The policy preserves
   author authority, factual boundaries, channel-fit structure, exact copy, and

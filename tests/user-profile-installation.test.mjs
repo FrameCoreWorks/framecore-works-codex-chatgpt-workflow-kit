@@ -3,6 +3,7 @@ import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
+import { loadFrameCoreConfig } from "../scripts/config-validation.mjs";
 import { buildChatGptSkillSourceManifest } from "../scripts/chatgpt-skill-sources.mjs";
 import { root, run, runInteractiveOnboarding } from "./helpers.mjs";
 
@@ -42,7 +43,7 @@ async function simulateCodexProfile(profile) {
 
   const configPath = join(target, "framecore.config.json");
   const configText = readFileSync(configPath, "utf8");
-  const config = JSON.parse(configText);
+  const config = loadFrameCoreConfig({ target }).config;
   const orchestrator = readFileSync(join(target, ".codex/agents/workflow-orchestrator.toml"), "utf8");
   const qa = readFileSync(join(target, ".codex/agents/qa-iteration.toml"), "utf8");
   const delivery = readFileSync(join(target, ".codex/agents/delivery-documentation.toml"), "utf8");

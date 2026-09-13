@@ -3,8 +3,8 @@ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "no
 import { dirname, join } from "node:path";
 import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { assertNoSymlinkPath, hasHelpFlag, isMainModule, printHelpAndExit, repoRoot, readJson } from "./common.mjs";
-import { assertValidFrameCoreConfig, isSafeRelativePath } from "./config-validation.mjs";
+import { assertNoSymlinkPath, backupFile, hasHelpFlag, isMainModule, printHelpAndExit, repoRoot, readJson } from "./common.mjs";
+import { assertValidFrameCoreConfig, isSafeRelativePath, loadFrameCoreConfig, localConfigOverrides } from "./config-validation.mjs";
 
 function argValue(name, fallback) {
   const index = process.argv.indexOf(name);
@@ -21,14 +21,6 @@ function ensureTarget(target, createTarget) {
   if (!statSync(target).isDirectory()) {
     throw new Error("target workspace is not a directory.");
   }
-}
-
-function nextBackupPath(destination) {
-  const first = `${destination}.bak`;
-  if (!existsSync(first)) return first;
-  let index = 1;
-  while (existsSync(`${first}.${index}`)) index += 1;
-  return `${first}.${index}`;
 }
 
 const onboardingCopy = {
@@ -247,9 +239,11 @@ function printNextSteps(language) {
 
 export async function runOnboarding({ target = process.cwd(), defaults = false, createTarget = false } = {}) {
   ensureTarget(target, createTarget);
-  const defaultsConfig = readJson(join(repoRoot, "config/defaults.example.json"));
   const configPath = join(target, "framecore.config.json");
-  const config = structuredClone(defaultsConfig);
+  assertNoSymlinkPath(target, configPath);
+  const loaded = loadFrameCoreConfig({ target, configPath });
+  assertValidFrameCoreConfig(loaded.config);
+  const config = structuredClone(loaded.config);
   const roles = readJson(join(repoRoot, "config/agent-naming.schema.json")).roles;
   let onboardingLanguage = "en";
 
@@ -276,12 +270,15 @@ export async function runOnboarding({ target = process.cwd(), defaults = false, 
     config.hipson.connect_full_repo = await askYesNo(rl, copy.fullHipson, config.hipson.connect_full_repo, copy);
 
     console.log(copy.roleNamesIntro);
-    const defaultRoleNames = await askYesNo(rl, copy.defaultRoleNames, true, copy);
+    const defaultRoleNames = await askYesNo(rl, copy.defaultRoleNames, Object.keys(config.agent_display_names).length === 0, copy);
+    if (defaultRoleNames) {
+      for (const role of Object.keys(config.agent_display_names)) config.agent_display_names[role] = role;
+    }
     if (!defaultRoleNames) {
       console.log(copy.roleNamesHelp);
       for (const role of roles) {
-        const value = await ask(rl, role, role);
-        if (value !== role) config.agent_display_names[role] = value;
+        const value = await ask(rl, role, config.agent_display_names[role] ?? role);
+        if (value !== role || role in config.agent_display_names) config.agent_display_names[role] = value;
       }
     }
     rl.close();
@@ -289,17 +286,19 @@ export async function runOnboarding({ target = process.cwd(), defaults = false, 
 
   assertValidFrameCoreConfig(config);
   assertNoSymlinkPath(target, configPath);
+  const recipeTarget = join(target, ".framecore/automation-recipes/workflow-self-improvement-review.json");
+  if (config.workflow_self_improvement.recurring_review_enabled) assertNoSymlinkPath(target, recipeTarget);
 
   if (existsSync(configPath)) {
-    writeFileSync(nextBackupPath(configPath), readFileSync(configPath, "utf8"));
+    backupFile(configPath);
   }
 
   mkdirSync(dirname(configPath), { recursive: true });
-  writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`);
+  const overrides = localConfigOverrides(loaded.config, config, loaded.localConfig);
+  writeFileSync(configPath, `${JSON.stringify(overrides, null, 2)}\n`);
 
   if (config.workflow_self_improvement.recurring_review_enabled) {
     const recipeSource = join(repoRoot, "config/automation-recipes/workflow-self-improvement-review.example.json");
-    const recipeTarget = join(target, ".framecore/automation-recipes/workflow-self-improvement-review.json");
     assertNoSymlinkPath(target, recipeTarget);
     mkdirSync(dirname(recipeTarget), { recursive: true });
     writeFileSync(recipeTarget, readFileSync(recipeSource, "utf8"));
@@ -323,7 +322,7 @@ Purpose:
 
 Options:
   --target <path>  Workspace where framecore.config.json should be written.
-  --defaults       Write default preferences without interactive questions.
+  --defaults       Keep effective preferences without interactive questions.
   --create-target  Create the target folder if it does not exist.
 
 Output:

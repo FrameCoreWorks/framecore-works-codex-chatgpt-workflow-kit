@@ -111,6 +111,13 @@ For the full inventory, see [Included Agents And Skills](docs/included-agents-an
 
 The kit provides the workflow spine: roles, gates, handoffs, artifact expectations, examples, safety boundaries, onboarding, and update/repair lifecycle. Users can layer deeper domain-specific prompting or execution tools on top, but those provider/tool integrations are intentionally not bundled here.
 
+[Static graphic design](docs/static-graphic-design.md) is integrated into the
+existing direction, copy, reference, image-prompting, QA and asset-manifest
+skills. It adds objective-first concepts, composition and typography guidance,
+an optional 200-code poster catalog, one-pass prompt construction and bounded
+repair/DTP handoffs. There is no separate Static Graphic Design Creator skill
+or installation; the inventory remains 35 skills.
+
 ### How Skills Start After Install
 
 On both supported surfaces, ordinary natural-language requests can route to eligible installed skills. Routing should stay proportional to the task:

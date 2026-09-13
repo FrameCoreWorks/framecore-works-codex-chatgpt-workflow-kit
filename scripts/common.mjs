@@ -1,11 +1,15 @@
-import { existsSync, lstatSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, lstatSync, readdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
 
 export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
+export function isSourceCheckout(root = repoRoot) {
+  return [".git", ".github", "tests"].some((entry) => existsSync(join(root, entry)));
+}
+
 export function isMainModule(metaUrl) {
-  return process.argv[1] ? resolve(fileURLToPath(metaUrl)) === resolve(process.argv[1]) : false;
+  return process.argv[1] ? realpathSync(fileURLToPath(metaUrl)) === realpathSync(process.argv[1]) : false;
 }
 
 export function readJson(path) {
@@ -55,9 +59,9 @@ export function selfTargetMessage() {
 
 export function nextBackupPath(destination) {
   const first = `${destination}.bak`;
-  if (!existsSync(first)) return first;
+  if (!lstatSync(first, { throwIfNoEntry: false })) return first;
   let index = 1;
-  while (existsSync(`${first}.${index}`)) index += 1;
+  while (lstatSync(`${first}.${index}`, { throwIfNoEntry: false })) index += 1;
   return `${first}.${index}`;
 }
 
@@ -67,9 +71,17 @@ export function fileContentEquals(destination, content) {
 }
 
 export function backupFile(destination) {
-  const backupPath = nextBackupPath(destination);
-  writeFileSync(backupPath, readFileSync(destination));
-  return backupPath;
+  const content = readFileSync(destination);
+  // Exclusive creation also protects candidates occupied after the path check.
+  while (true) {
+    const backupPath = nextBackupPath(destination);
+    try {
+      writeFileSync(backupPath, content, { flag: "wx" });
+      return backupPath;
+    } catch (error) {
+      if (error.code !== "EEXIST") throw error;
+    }
+  }
 }
 
 /**
@@ -87,7 +99,8 @@ export function assertNoSymlinkPath(root, destination) {
   let current = resolvedRoot;
   for (const part of parts) {
     current = join(current, part);
-    if (existsSync(current) && lstatSync(current).isSymbolicLink()) {
+    const stats = lstatSync(current, { throwIfNoEntry: false });
+    if (stats?.isSymbolicLink()) {
       throw new Error(`refusing symlink in managed path: ${relativePosix(resolvedRoot, current)}`);
     }
   }

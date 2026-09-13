@@ -53,6 +53,11 @@ Each `SKILL.md` is an operational contract. It tells Codex or ChatGPT:
 
 The contract keeps runtime behavior predictable without turning each skill into a long manual. Detailed examples and domain references belong in `references/`, `templates/`, or `examples/` when they are too large for the skill body.
 
+[Static graphic design](static-graphic-design.md) follows this model: its domain
+references, optional Node checks and templates live inside existing specialist
+skills. It reuses their roles, gates and artifacts rather than introducing a
+standalone skill, installer, provider runtime or orchestration layer.
+
 Artifact contracts are tracked separately in `config/artifact-schemas.json`. Validation checks that gate-required artifacts, template sections, and registered example fixtures keep the same required fields.
 
 For image, edit, and video work with strict controls, the pipeline can also use a

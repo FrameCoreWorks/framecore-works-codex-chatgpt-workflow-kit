@@ -113,6 +113,18 @@ Mutating commands should be run against a specific target path. Global install i
 
 Use `--force` only when you intentionally want the installer to back up and overwrite user-owned conflicts. It does not bypass config validation.
 
+Update retires obsolete managed files with backups. Modified or unhashed retired
+files require `--force`; dry-run reports retirement without writing. Repair
+retains old ownership instead. See [migration behavior](migration-guide.md).
+
+`framecore-validate [root]` automatically checks source checkouts or npm payloads.
+Use `--scope source` to require maintainer tests and CI, or `--scope package` to
+check shipped workflow assets without files intentionally omitted from npm.
+`npm run validate` always uses source scope. The packed guided installer runs
+package validation and source-hash integrity, not the omitted maintainer test
+suite. Tests build and unpack a real offline npm tarball and exercise every
+exported CLI without global installation or publication.
+
 ## Packaging And Release Checks
 
 For release review, run:

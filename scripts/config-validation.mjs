@@ -44,24 +44,54 @@ function mergeObjects(base, override) {
 }
 
 export function mergeFrameCoreConfig(...configs) {
+  for (const config of configs) {
+    if (!isPlainObject(config)) throw new Error("config layer must be a JSON object");
+  }
   return configs.reduce((merged, config) => mergeObjects(merged, config), {});
+}
+
+function readConfigLayer(path, label) {
+  let config;
+  try {
+    config = readJson(path);
+  } catch {
+    throw new Error(`${label} config must contain valid JSON`);
+  }
+  if (!isPlainObject(config)) throw new Error(`${label} config must be a JSON object`);
+  return config;
+}
+
+// Preserve explicit existing overrides, but do not pin inherited defaults.
+export function localConfigOverrides(before, after, local = {}) {
+  const result = structuredClone(local);
+  for (const [key, value] of Object.entries(after)) {
+    if (isPlainObject(value) && isPlainObject(before[key])) {
+      const nested = localConfigOverrides(before[key], value, local[key] ?? {});
+      if (Object.keys(nested).length > 0) result[key] = nested;
+    } else if (value !== before[key]) {
+      result[key] = value;
+    }
+  }
+  return result;
 }
 
 export function loadFrameCoreConfig({ target, configPath = join(target, "framecore.config.json") }) {
   const defaultsPath = join(repoRoot, "config/defaults.example.json");
   const sharedPath = join(target, "framecore.config.shared.json");
-  const layers = [readJson(defaultsPath)];
+  const layers = [readConfigLayer(defaultsPath, "defaults")];
   const loaded = {
     defaultsPath,
     sharedPath: existsSync(sharedPath) ? sharedPath : null,
     localPath: existsSync(configPath) ? configPath : null,
   };
 
-  if (loaded.sharedPath) layers.push(readJson(loaded.sharedPath));
-  if (loaded.localPath) layers.push(readJson(loaded.localPath));
+  if (loaded.sharedPath) layers.push(readConfigLayer(loaded.sharedPath, "framecore.config.shared.json"));
+  const localConfig = loaded.localPath ? readConfigLayer(loaded.localPath, "framecore.config.json") : {};
+  layers.push(localConfig);
 
   return {
     ...loaded,
+    localConfig,
     config: mergeFrameCoreConfig(...layers),
   };
 }

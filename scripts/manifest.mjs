@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, lstatSync, readFileSync } from "node:fs";
-import { isAbsolute, resolve, sep } from "node:path";
+import { isAbsolute, relative, resolve, sep } from "node:path";
+import { assertNoSymlinkPath } from "./common.mjs";
 
 function isPlainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -19,7 +20,19 @@ export function resolveManagedPath(target, entry) {
   if (resolved === root || !resolved.startsWith(`${root}${sep}`)) {
     throw new Error(`refusing managed path outside target: ${entry}`);
   }
+  if (relative(root, resolved).split(sep).join("/") !== entry) {
+    throw new Error("refusing non-canonical managed path");
+  }
+  assertNoSymlinkPath(root, resolved);
   return resolved;
+}
+
+export function readManifest(target) {
+  const manifestPath = resolveManagedPath(target, ".framecore/manifest.json");
+  if (!existsSync(manifestPath)) return null;
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  assertValidManifest(target, manifest);
+  return manifest;
 }
 
 export function sha256File(path) {
@@ -43,6 +56,7 @@ export function validateManifest(target, manifest) {
   }
 
   const seen = new Set();
+  const seenFiles = new Set();
   for (const entry of manifest.managed_paths) {
     if (typeof entry !== "string" || entry.trim().length === 0) {
       errors.push("manifest managed_paths must contain non-empty strings");
@@ -54,8 +68,11 @@ export function validateManifest(target, manifest) {
     seen.add(entry);
     try {
       const resolved = resolveManagedPath(target, entry);
-      if (existsSync(resolved)) {
-        const stats = lstatSync(resolved);
+      const stats = lstatSync(resolved, { throwIfNoEntry: false, bigint: true });
+      if (stats) {
+        const identity = `${stats.dev}:${stats.ino}`;
+        if (seenFiles.has(identity)) errors.push("manifest contains paths pointing to the same file");
+        seenFiles.add(identity);
         if (stats.isSymbolicLink()) {
           errors.push(`manifest managed path points to a symlink: ${entry}`);
         } else if (stats.isDirectory()) {
@@ -63,7 +80,7 @@ export function validateManifest(target, manifest) {
         }
       }
     } catch {
-      errors.push("manifest contains an unsafe managed path entry");
+      errors.push("manifest contains an unsafe managed path entry (outside target or symlink)");
     }
   }
 

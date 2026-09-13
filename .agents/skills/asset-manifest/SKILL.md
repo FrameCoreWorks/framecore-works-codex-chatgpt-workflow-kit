@@ -17,6 +17,11 @@ Use this skill when:
 
 Do not use this skill to review creative quality, rewrite assets, upload files, or decide final acceptance.
 
+For explicitly requested separate static-design components, use
+[component/version handoffs](references/static-design-components.md) and their
+manifest template. Track selected versions, full project copy, dependencies and
+assembly limitations without turning an ordinary poster into a layered workflow.
+
 ## Inputs
 
 Required:

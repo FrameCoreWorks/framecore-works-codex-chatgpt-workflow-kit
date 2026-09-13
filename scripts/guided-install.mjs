@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { isAbsolute, join, relative, resolve } from "node:path";
 import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { hasHelpFlag, npmArgs, npmCommand, printHelpAndExit, repoRoot } from "./common.mjs";
+import { hasHelpFlag, isSourceCheckout, npmArgs, npmCommand, printHelpAndExit, repoRoot } from "./common.mjs";
 
 function argValue(name, fallback) {
   const index = process.argv.indexOf(name);
@@ -116,7 +116,11 @@ export async function runGuidedInstall({
   console.log("Mode: project-local only");
   console.log("External execution tools: not enabled");
 
-  if (!skipCheck) runNpmCheck({ target: resolvedTarget });
+  if (!skipCheck && isSourceCheckout()) runNpmCheck({ target: resolvedTarget });
+  else if (!skipCheck) {
+    runNodeStep("Package validation", ["scripts/validate.mjs", "--scope", "package"], { target: resolvedTarget });
+    runNodeStep("Skill source integrity", ["scripts/chatgpt-skill-sources.mjs", "--check"], { target: resolvedTarget });
+  }
   else console.log("\n== Repository checks ==\nskipped by --skip-check");
 
   runNodeStep("Doctor preflight", ["scripts/doctor.mjs", "--mode", "project-local", "--target", resolvedTarget], { target: resolvedTarget });

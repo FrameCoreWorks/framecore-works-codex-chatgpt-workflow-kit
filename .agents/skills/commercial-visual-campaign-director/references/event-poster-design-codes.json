@@ -1,0 +1,1807 @@
+{
+  "schema_version": 1,
+  "collection": "200 Event Poster Design Codes",
+  "integration_revision": 2,
+  "source": {
+    "title": "200 Event Poster Design Codes | John Savage AI",
+    "author": "John Savage AI",
+    "uploaded_filename": "200-event-poster-design-codes-v2_kopia.pdf",
+    "file_sha256": "9e89970dfc5f482d3477b3efacc3ccef5382e737d0c58be2cc7aec320194e80f",
+    "page_count": 6,
+    "catalog_pages": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "version_in_filename": "v2",
+    "declared_document_version": "Unknown",
+    "imported_on": "2026-09-08",
+    "attribution": "Code names and category grouping: John Savage AI. Operational interpretation: FrameCore Works."
+  },
+  "source_instructions": [
+    "Attach your reference event poster.",
+    "Copy one complete code line from the following pages.",
+    "Paste it with your image to rebuild the poster in that style."
+  ],
+  "source_rebuild_contract": {
+    "preserve": [
+      "factual content"
+    ],
+    "rebuild": [
+      "layout",
+      "hierarchy",
+      "palette",
+      "typography",
+      "materials",
+      "image treatment"
+    ]
+  },
+  "evidence_limits": {
+    "per_code_visual_specifications": "not supplied",
+    "rendered_examples": "not supplied",
+    "native_generator_command_support": "Unknown",
+    "exact_font_palette_or_seed": "Unknown"
+  },
+  "internal_ids": "EP001-EP200 are local lookup identifiers assigned in category order, then top-to-bottom row order; they are not printed individual code IDs or native model controls.",
+  "canonical_code_lines_sha256": "da4fd222eb075f9188394434d3ea14753b77acf7d2b6fd93b4834dc1bacf4485",
+  "categories": [
+    {
+      "number": 1,
+      "name": "MODERNIST SYSTEMS",
+      "pdf_page": 2,
+      "codes": [
+        {
+          "id": "EP001",
+          "code": "/Bauhaus Signal Theatre /rebuild",
+          "shorthand": "/Bauhaus Signal Theatre",
+          "interpretation": {
+            "description_en": "Modular geometry and strong typography create a clear visual signal with a measured information hierarchy."
+          }
+        },
+        {
+          "id": "EP002",
+          "code": "/Constructivist Rhythm Grid /rebuild",
+          "shorthand": "/Constructivist Rhythm Grid",
+          "interpretation": {
+            "description_en": "Diagonal axes and rhythmic type blocks direct attention through the message with purposeful energy."
+          }
+        },
+        {
+          "id": "EP003",
+          "code": "/Dutch Modular Collision /rebuild",
+          "shorthand": "/Dutch Modular Collision",
+          "interpretation": {
+            "description_en": "Contrasting modules share alignment edges; a consistent grid keeps deliberate collisions legible."
+          }
+        },
+        {
+          "id": "EP004",
+          "code": "/International Grid Sabotage /rebuild",
+          "shorthand": "/International Grid Sabotage",
+          "interpretation": {
+            "description_en": "Break one alignment inside an otherwise ordered grid to emphasize the key message while preserving hierarchy."
+          }
+        },
+        {
+          "id": "EP005",
+          "code": "/DeStijl Frequency Theatre /rebuild",
+          "shorthand": "/DeStijl Frequency Theatre",
+          "interpretation": {
+            "description_en": "Horizontal and vertical bands organize rectangular colour fields, balancing type rhythm with open space."
+          }
+        },
+        {
+          "id": "EP006",
+          "code": "/Modernist Color Interruption /rebuild",
+          "shorthand": "/Modernist Color Interruption",
+          "interpretation": {
+            "description_en": "Interrupt a restrained composition with one contrasting colour field that marks a specific point of attention."
+          }
+        },
+        {
+          "id": "EP007",
+          "code": "/Geometric Program Assembly /rebuild",
+          "shorthand": "/Geometric Program Assembly",
+          "interpretation": {
+            "description_en": "Repeated geometric units structure the supplied program, using scale to separate title and functional details."
+          }
+        },
+        {
+          "id": "EP008",
+          "code": "/Rational Layout Mutiny /rebuild",
+          "shorthand": "/Rational Layout Mutiny",
+          "interpretation": {
+            "description_en": "Introduce one motivated disruption into a rational information layout, adding character without losing reading order."
+          }
+        },
+        {
+          "id": "EP009",
+          "code": "/Minimal Axis Drama /rebuild",
+          "shorthand": "/Minimal Axis Drama",
+          "interpretation": {
+            "description_en": "Use generous negative space and one dominant axis to create tension around minimal typography."
+          }
+        },
+        {
+          "id": "EP010",
+          "code": "/Primary Shape Festival /rebuild",
+          "shorthand": "/Primary Shape Festival",
+          "interpretation": {
+            "description_en": "Large simple shapes create an upbeat rhythm around one clear focal element and a readable message."
+          }
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "name": "PRINT IMPERFECTIONS",
+      "pdf_page": 2,
+      "codes": [
+        {
+          "id": "EP011",
+          "code": "/Two Ink Collision /rebuild",
+          "shorthand": "/Two Ink Collision",
+          "interpretation": {
+            "description_en": "Simulate two named inks on a separate substrate; controlled overprint supplies contrast without unexplained extra colours."
+          }
+        },
+        {
+          "id": "EP012",
+          "code": "/Misregistered Color Ritual /rebuild",
+          "shorthand": "/Misregistered Color Ritual",
+          "interpretation": {
+            "description_en": "Offset selected colour separations slightly to create edge fringes while keeping functional text stable and readable."
+          }
+        },
+        {
+          "id": "EP013",
+          "code": "/Screenprint Texture Riot /rebuild",
+          "shorthand": "/Screenprint Texture Riot",
+          "interpretation": {
+            "description_en": "Combine broad screenprint-like colour areas with localized coverage variation to give a bold composition physical character."
+          }
+        },
+        {
+          "id": "EP014",
+          "code": "/Overprinted Shadow Layers /rebuild",
+          "shorthand": "/Overprinted Shadow Layers",
+          "interpretation": {
+            "description_en": "Build depth through darker overlapping print-like planes rather than unrelated digital drop shadows."
+          }
+        },
+        {
+          "id": "EP015",
+          "code": "/Halftone Noise Carnival /rebuild",
+          "shorthand": "/Halftone Noise Carnival",
+          "interpretation": {
+            "description_en": "Vary halftone scale to shape image tone and rhythm while keeping small factual text free of interference."
+          }
+        },
+        {
+          "id": "EP016",
+          "code": "/Fluorescent Ink Collision /rebuild",
+          "shorthand": "/Fluorescent Ink Collision",
+          "interpretation": {
+            "description_en": "Introduce one fluorescent-looking simulated ink into a limited palette to strengthen a specific attention cue."
+          }
+        },
+        {
+          "id": "EP017",
+          "code": "/Soy Ink Fever /rebuild",
+          "shorthand": "/Soy Ink Fever",
+          "interpretation": {
+            "description_en": "Use matte colour areas and subtle paper absorption for tactile restraint; the label supplies no environmental claim."
+          }
+        },
+        {
+          "id": "EP018",
+          "code": "/Stencil Print Frenzy /rebuild",
+          "shorthand": "/Stencil Print Frenzy",
+          "interpretation": {
+            "description_en": "Stencil-derived shapes and readable letter bridges form a repeatable, assertive visual rhythm."
+          }
+        },
+        {
+          "id": "EP019",
+          "code": "/Rubber Stamp Orchestra /rebuild",
+          "shorthand": "/Rubber Stamp Orchestra",
+          "interpretation": {
+            "description_en": "Organize accents as stamp-like modules with varied pressure and placement, without invented official seals."
+          }
+        },
+        {
+          "id": "EP020",
+          "code": "/Letterpress Pressure Drama /rebuild",
+          "shorthand": "/Letterpress Pressure Drama",
+          "interpretation": {
+            "description_en": "Suggest pressed letter impressions and controlled pressure variation while keeping letter contours readable."
+          }
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "name": "INDUSTRIAL BRUTALISM",
+      "pdf_page": 2,
+      "codes": [
+        {
+          "id": "EP021",
+          "code": "/Concrete Basement Ritual /rebuild",
+          "shorthand": "/Concrete Basement Ritual",
+          "interpretation": {
+            "description_en": "Contrast a restrained concrete-like plane with a decisive text block for a direct announcement."
+          }
+        },
+        {
+          "id": "EP022",
+          "code": "/Steel Frame Announcement /rebuild",
+          "shorthand": "/Steel Frame Announcement",
+          "interpretation": {
+            "description_en": "Use a structural frame to divide information, keeping metallic treatment subordinate to the message."
+          }
+        },
+        {
+          "id": "EP023",
+          "code": "/Warehouse Type Monolith /rebuild",
+          "shorthand": "/Warehouse Type Monolith",
+          "interpretation": {
+            "description_en": "Give the title weight through a monumental type block and large surrounding negative space."
+          }
+        },
+        {
+          "id": "EP024",
+          "code": "/Raw Cement Cabaret /rebuild",
+          "shorthand": "/Raw Cement Cabaret",
+          "interpretation": {
+            "description_en": "Confine irregular cement-like texture to one region so it enriches a raw layout without competing with copy."
+          }
+        },
+        {
+          "id": "EP025",
+          "code": "/Industrial Warning System /rebuild",
+          "shorthand": "/Industrial Warning System",
+          "interpretation": {
+            "description_en": "Technical-signage-inspired contrast and segmentation prioritize supplied facts without inventing warnings or numbers."
+          }
+        },
+        {
+          "id": "EP026",
+          "code": "/Scaffold Poster Machine /rebuild",
+          "shorthand": "/Scaffold Poster Machine",
+          "interpretation": {
+            "description_en": "Build a visible compositional skeleton from vertical and horizontal supports, aligning text to its structure."
+          }
+        },
+        {
+          "id": "EP027",
+          "code": "/Utility Label Theatre /rebuild",
+          "shorthand": "/Utility Label Theatre",
+          "interpretation": {
+            "description_en": "Group event facts into concise label-like blocks for a functional information system."
+          }
+        },
+        {
+          "id": "EP028",
+          "code": "/Hazard Stripe Opera /rebuild",
+          "shorthand": "/Hazard Stripe Opera",
+          "interpretation": {
+            "description_en": "Use one diagonal stripe field to direct attention toward the title without implying an actual hazard."
+          }
+        },
+        {
+          "id": "EP029",
+          "code": "/Factory Floor Festival /rebuild",
+          "shorthand": "/Factory Floor Festival",
+          "interpretation": {
+            "description_en": "Directional marks and segmented planes create an organized reading route across the poster."
+          }
+        },
+        {
+          "id": "EP030",
+          "code": "/Exposed Bolt Graphics /rebuild",
+          "shorthand": "/Exposed Bolt Graphics",
+          "interpretation": {
+            "description_en": "Sparse joint-like details reinforce a structural frame and its information spacing rather than adding clutter."
+          }
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "name": "EDITORIAL FASHION",
+      "pdf_page": 2,
+      "codes": [
+        {
+          "id": "EP031",
+          "code": "/Avant Magazine Spread /rebuild",
+          "shorthand": "/Avant Magazine Spread",
+          "interpretation": {
+            "description_en": "Pair an asymmetrically placed image with a large headline while keeping the information layer calm."
+          }
+        },
+        {
+          "id": "EP032",
+          "code": "/Fashion Editorial Intrusion /rebuild",
+          "shorthand": "/Fashion Editorial Intrusion",
+          "interpretation": {
+            "description_en": "Use one decisive crop or type-image overlap to establish an editorial visual relationship."
+          }
+        },
+        {
+          "id": "EP033",
+          "code": "/Independent Journal Drama /rebuild",
+          "shorthand": "/Independent Journal Drama",
+          "interpretation": {
+            "description_en": "Separate headline, supporting copy and facts into a restrained, independent-publication-like hierarchy."
+          }
+        },
+        {
+          "id": "EP034",
+          "code": "/Artbook Layout Collision /rebuild",
+          "shorthand": "/Artbook Layout Collision",
+          "interpretation": {
+            "description_en": "Offset image and text planes like a deliberately composed art-book spread, using margins to create tension."
+          }
+        },
+        {
+          "id": "EP035",
+          "code": "/Curatorial Culture Dispatch /rebuild",
+          "shorthand": "/Curatorial Culture Dispatch",
+          "interpretation": {
+            "description_en": "Use precise supplied captions and measured imagery to foreground event context without inventing institutional authority."
+          }
+        },
+        {
+          "id": "EP036",
+          "code": "/Oversized Caption Theatre /rebuild",
+          "shorthand": "/Oversized Caption Theatre",
+          "interpretation": {
+            "description_en": "Enlarge one supplied caption into the focal element and organize remaining facts around that reversed hierarchy."
+          }
+        },
+        {
+          "id": "EP037",
+          "code": "/Runway Program Interruption /rebuild",
+          "shorthand": "/Runway Program Interruption",
+          "interpretation": {
+            "description_en": "Structure supplied program items rhythmically and introduce one deliberate interruption for emphasis."
+          }
+        },
+        {
+          "id": "EP038",
+          "code": "/Glossy Editorial Sabotage /rebuild",
+          "shorthand": "/Glossy Editorial Sabotage",
+          "interpretation": {
+            "description_en": "Restrict gloss to one surface, contrasting it with matte typography and a clear information layout."
+          }
+        },
+        {
+          "id": "EP039",
+          "code": "/Literary Review Spectacle /rebuild",
+          "shorthand": "/Literary Review Spectacle",
+          "interpretation": {
+            "description_en": "Let typography lead through scale and spacing, using imagery as a supporting commentary."
+          }
+        },
+        {
+          "id": "EP040",
+          "code": "/Photo Essay Festival /rebuild",
+          "shorthand": "/Photo Essay Festival",
+          "interpretation": {
+            "description_en": "Arrange a small set of relevant crops as a visual story, preserving one clear lead image."
+          }
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "name": "COLLAGE EPHEMERA",
+      "pdf_page": 3,
+      "codes": [
+        {
+          "id": "EP041",
+          "code": "/Found Receipt Symphony /rebuild",
+          "shorthand": "/Found Receipt Symphony",
+          "interpretation": {
+            "description_en": "Arrange supplied facts in narrow receipt-like bands without adding fictional purchases or prices."
+          }
+        },
+        {
+          "id": "EP042",
+          "code": "/Torn Ticket Mosaic /rebuild",
+          "shorthand": "/Torn Ticket Mosaic",
+          "interpretation": {
+            "description_en": "Compose ticket-like fragments around one focal element while preserving the integrity of supplied facts."
+          }
+        },
+        {
+          "id": "EP043",
+          "code": "/Matchbook Memory Collage /rebuild",
+          "shorthand": "/Matchbook Memory Collage",
+          "interpretation": {
+            "description_en": "Use compact panels and a cover-interior contrast to give the message an intimate keepsake quality."
+          }
+        },
+        {
+          "id": "EP044",
+          "code": "/Postcard Layer Carnival /rebuild",
+          "shorthand": "/Postcard Layer Carnival",
+          "interpretation": {
+            "description_en": "Layer rectangular image crops into a postcard-like memory composition with a clear primary image."
+          }
+        },
+        {
+          "id": "EP045",
+          "code": "/Stamped Envelope Theatre /rebuild",
+          "shorthand": "/Stamped Envelope Theatre",
+          "interpretation": {
+            "description_en": "Use envelope-like address blocks and a restrained stamp motif to organize only the supplied event facts."
+          }
+        },
+        {
+          "id": "EP046",
+          "code": "/Transit Pass Ritual /rebuild",
+          "shorthand": "/Transit Pass Ritual",
+          "interpretation": {
+            "description_en": "Group copy through pass-like modules and linear rhythm without generating new access codes."
+          }
+        },
+        {
+          "id": "EP047",
+          "code": "/Vintage Label Collision /rebuild",
+          "shorthand": "/Vintage Label Collision",
+          "interpretation": {
+            "description_en": "Combine contrasting label outlines in layers, using a shared hierarchy to unify their different shapes."
+          }
+        },
+        {
+          "id": "EP048",
+          "code": "/Handbill Scrap Archive /rebuild",
+          "shorthand": "/Handbill Scrap Archive",
+          "interpretation": {
+            "description_en": "Build a controlled archive of selected handbill-like fragments around an immediately recognizable primary message."
+          }
+        },
+        {
+          "id": "EP049",
+          "code": "/Polaroid Ephemera Wall /rebuild",
+          "shorthand": "/Polaroid Ephemera Wall",
+          "interpretation": {
+            "description_en": "Use framed supplied photos and subtle placement variation for a personal event record without unrelated imagery."
+          }
+        },
+        {
+          "id": "EP050",
+          "code": "/Carbon Copy Cabaret /rebuild",
+          "shorthand": "/Carbon Copy Cabaret",
+          "interpretation": {
+            "description_en": "Add a restrained carbon-copy-like offset behind a sharp primary text layer to suggest printed depth."
+          }
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "name": "NIGHTLIFE NEON",
+      "pdf_page": 3,
+      "codes": [
+        {
+          "id": "EP051",
+          "code": "/Laser Grid Cabaret /rebuild",
+          "shorthand": "/Laser Grid Cabaret",
+          "interpretation": {
+            "description_en": "Use narrow light lines as a directional spatial grid while reserving clear areas for information."
+          }
+        },
+        {
+          "id": "EP052",
+          "code": "/Ultraviolet Club Ritual /rebuild",
+          "shorthand": "/Ultraviolet Club Ritual",
+          "interpretation": {
+            "description_en": "Contrast a dark field with selected cool luminous accents, preserving a readable title."
+          }
+        },
+        {
+          "id": "EP053",
+          "code": "/Electric Marquee Mirage /rebuild",
+          "shorthand": "/Electric Marquee Mirage",
+          "interpretation": {
+            "description_en": "Suggest a marquee through controlled luminous lettering or points within a restrained surrounding field."
+          }
+        },
+        {
+          "id": "EP054",
+          "code": "/Acid Light Theatre /rebuild",
+          "shorthand": "/Acid Light Theatre",
+          "interpretation": {
+            "description_en": "Pair two sharply contrasting colours with one decisive light streak to create focused tension."
+          }
+        },
+        {
+          "id": "EP055",
+          "code": "/Fluorescent Tunnel Festival /rebuild",
+          "shorthand": "/Fluorescent Tunnel Festival",
+          "interpretation": {
+            "description_en": "Create tunnel-like depth with converging light planes while keeping the information block flat and stable."
+          }
+        },
+        {
+          "id": "EP056",
+          "code": "/Midnight Signage Fever /rebuild",
+          "shorthand": "/Midnight Signage Fever",
+          "interpretation": {
+            "description_en": "Arrange luminous signage-like modules into a nocturnal rhythm without inventing advertising copy."
+          }
+        },
+        {
+          "id": "EP057",
+          "code": "/Neon Shadow Opera /rebuild",
+          "shorthand": "/Neon Shadow Opera",
+          "interpretation": {
+            "description_en": "Balance one luminous accent against a decisive shadow field without obscuring required information."
+          }
+        },
+        {
+          "id": "EP058",
+          "code": "/Luminous Wire Spectacle /rebuild",
+          "shorthand": "/Luminous Wire Spectacle",
+          "interpretation": {
+            "description_en": "Draw a form or direction with thin luminous lines for a lightweight composition without excessive flares."
+          }
+        },
+        {
+          "id": "EP059",
+          "code": "/Afterhours Color Circuit /rebuild",
+          "shorthand": "/Afterhours Color Circuit",
+          "interpretation": {
+            "description_en": "Connect title and facts through a coherent circuit of colour accents in a nocturnal field."
+          }
+        },
+        {
+          "id": "EP060",
+          "code": "/Blacklight Type Carnival /rebuild",
+          "shorthand": "/Blacklight Type Carnival",
+          "interpretation": {
+            "description_en": "Set one fluorescent-looking typographic focal point on a dark field with simple high-contrast supporting facts."
+          }
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "name": "LUXURY CULTURE",
+      "pdf_page": 3,
+      "codes": [
+        {
+          "id": "EP061",
+          "code": "/Quiet Luxury Theatre /rebuild",
+          "shorthand": "/Quiet Luxury Theatre",
+          "interpretation": {
+            "description_en": "Use generous margins, a limited palette and precise type proportions for a restrained, refined presentation."
+          }
+        },
+        {
+          "id": "EP062",
+          "code": "/Sculpted Serif Campaign /rebuild",
+          "shorthand": "/Sculpted Serif Campaign",
+          "interpretation": {
+            "description_en": "Make expressive serif letterforms the primary motif, using measured spacing and restrained light."
+          }
+        },
+        {
+          "id": "EP063",
+          "code": "/Velvet Gallery Invitation /rebuild",
+          "shorthand": "/Velvet Gallery Invitation",
+          "interpretation": {
+            "description_en": "Pair a soft dark surface with restrained light typography for intimacy while preserving practical readability."
+          }
+        },
+        {
+          "id": "EP064",
+          "code": "/Marble Culture Announcement /rebuild",
+          "shorthand": "/Marble Culture Announcement",
+          "interpretation": {
+            "description_en": "Combine a calm stone-like field with architectural text alignment for material stability and order."
+          }
+        },
+        {
+          "id": "EP065",
+          "code": "/Gilded Minimal Spectacle /rebuild",
+          "shorthand": "/Gilded Minimal Spectacle",
+          "interpretation": {
+            "description_en": "Use one gold-like detail to reinforce a minimal composition without displacing the primary message."
+          }
+        },
+        {
+          "id": "EP066",
+          "code": "/Fashion House Program /rebuild",
+          "shorthand": "/Fashion House Program",
+          "interpretation": {
+            "description_en": "Use disciplined margins and title-program rhythm for an elegant system without implying fashion-brand affiliation."
+          }
+        },
+        {
+          "id": "EP067",
+          "code": "/Perfume Campaign Drama /rebuild",
+          "shorthand": "/Perfume Campaign Drama",
+          "interpretation": {
+            "description_en": "Use a restrained existing focal subject and subtle light for focused advertising-like composition without invented products or claims."
+          }
+        },
+        {
+          "id": "EP068",
+          "code": "/Silk Shadow Typography /rebuild",
+          "shorthand": "/Silk Shadow Typography",
+          "interpretation": {
+            "description_en": "Pair typography with a soft fabric-like shadow to build depth while protecting letter contours."
+          }
+        },
+        {
+          "id": "EP069",
+          "code": "/Ivory Space Cabaret /rebuild",
+          "shorthand": "/Ivory Space Cabaret",
+          "interpretation": {
+            "description_en": "Use a warm pale field and deliberate negative space to emphasize the title and essential facts."
+          }
+        },
+        {
+          "id": "EP070",
+          "code": "/Editorial Gold Restraint /rebuild",
+          "shorthand": "/Editorial Gold Restraint",
+          "interpretation": {
+            "description_en": "Apply a restrained gold-like accent within an editorial grid to mark the importance of one element."
+          }
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "name": "ZINE UNDERGROUND",
+      "pdf_page": 3,
+      "codes": [
+        {
+          "id": "EP071",
+          "code": "/Stapled Punk Dispatch /rebuild",
+          "shorthand": "/Stapled Punk Dispatch",
+          "interpretation": {
+            "description_en": "Use slightly offset blocks and a restrained staple-like motif for independent-publication energy with a clear reading path."
+          }
+        },
+        {
+          "id": "EP072",
+          "code": "/Basement Xerox Riot /rebuild",
+          "shorthand": "/Basement Xerox Riot",
+          "interpretation": {
+            "description_en": "Combine photocopy-like contrast with one readable focal element, keeping dates and addresses free of degradation."
+          }
+        },
+        {
+          "id": "EP073",
+          "code": "/Cutpaste Type Insurrection /rebuild",
+          "shorthand": "/Cutpaste Type Insurrection",
+          "interpretation": {
+            "description_en": "Construct headline tension from cut-letter scale variation while keeping functional facts in a calm block."
+          }
+        },
+        {
+          "id": "EP074",
+          "code": "/Marker Pen Manifesto /rebuild",
+          "shorthand": "/Marker Pen Manifesto",
+          "interpretation": {
+            "description_en": "Use one decisive marker gesture to emphasize approved wording without inventing a manifesto or political position."
+          }
+        },
+        {
+          "id": "EP075",
+          "code": "/Anarchic Flyer Wall /rebuild",
+          "shorthand": "/Anarchic Flyer Wall",
+          "interpretation": {
+            "description_en": "Suggest a layered flyer wall with controlled density and one unmistakable foreground message."
+          }
+        },
+        {
+          "id": "EP076",
+          "code": "/Duct Tape Typography /rebuild",
+          "shorthand": "/Duct Tape Typography",
+          "interpretation": {
+            "description_en": "Use tape-like strips to support letter placement or group text with a specific compositional function."
+          }
+        },
+        {
+          "id": "EP077",
+          "code": "/Garage Gig Debris /rebuild",
+          "shorthand": "/Garage Gig Debris",
+          "interpretation": {
+            "description_en": "Use sparse wear marks and cut elements for raw character without burying information under texture."
+          }
+        },
+        {
+          "id": "EP078",
+          "code": "/Ransom Letter Cabaret /rebuild",
+          "shorthand": "/Ransom Letter Cabaret",
+          "interpretation": {
+            "description_en": "Create a rebellious headline rhythm through contrasting cut letterforms without adding threatening content."
+          }
+        },
+        {
+          "id": "EP079",
+          "code": "/DIY Culture Detonation /rebuild",
+          "shorthand": "/DIY Culture Detonation",
+          "interpretation": {
+            "description_en": "Combine one strong formal collision with a handmade accent for an energetic self-assembled announcement."
+          }
+        },
+        {
+          "id": "EP080",
+          "code": "/Scrawled Margin Noise /rebuild",
+          "shorthand": "/Scrawled Margin Noise",
+          "interpretation": {
+            "description_en": "Keep handwritten gestures at the margins to direct attention without introducing fictional readable notes."
+          }
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "name": "CINEMATIC PHOTOGRAPHY",
+      "pdf_page": 4,
+      "codes": [
+        {
+          "id": "EP081",
+          "code": "/Anamorphic Stage Silence /rebuild",
+          "shorthand": "/Anamorphic Stage Silence",
+          "interpretation": {
+            "description_en": "Use a wide calm image crop within the requested poster format to create cinematic tension."
+          }
+        },
+        {
+          "id": "EP082",
+          "code": "/Film Noir Cabaret /rebuild",
+          "shorthand": "/Film Noir Cabaret",
+          "interpretation": {
+            "description_en": "Build mystery around the approved subject through decisive light-shadow separation and a limited palette."
+          }
+        },
+        {
+          "id": "EP083",
+          "code": "/Backstage Flash Diary /rebuild",
+          "shorthand": "/Backstage Flash Diary",
+          "interpretation": {
+            "description_en": "Use direct flash-like light and an intimate crop for a backstage-diary feeling while preserving identity."
+          }
+        },
+        {
+          "id": "EP084",
+          "code": "/Concert Grain Reverie /rebuild",
+          "shorthand": "/Concert Grain Reverie",
+          "interpretation": {
+            "description_en": "Use subtle grain and the existing scene's light to suggest an emotional event memory."
+          }
+        },
+        {
+          "id": "EP085",
+          "code": "/Spotlight Smoke Portrait /rebuild",
+          "shorthand": "/Spotlight Smoke Portrait",
+          "interpretation": {
+            "description_en": "Isolate the supplied portrait with a spotlight-like source; any haze supports separation without obscuring facial features."
+          }
+        },
+        {
+          "id": "EP086",
+          "code": "/Documentary Crowd Surge /rebuild",
+          "shorthand": "/Documentary Crowd Surge",
+          "interpretation": {
+            "description_en": "Emphasize group energy through a directional crop of a supplied crowd image without inventing participants."
+          }
+        },
+        {
+          "id": "EP087",
+          "code": "/Cinema Lobby Mystery /rebuild",
+          "shorthand": "/Cinema Lobby Mystery",
+          "interpretation": {
+            "description_en": "Create a visual mystery through controlled partial concealment and a clear title without inventing venue facts."
+          }
+        },
+        {
+          "id": "EP088",
+          "code": "/Thirtyfive Millimeter Night /rebuild",
+          "shorthand": "/Thirtyfive Millimeter Night",
+          "interpretation": {
+            "description_en": "Suggest an analog photographic character through natural tonal transitions and restrained grain, without claiming actual camera equipment."
+          }
+        },
+        {
+          "id": "EP089",
+          "code": "/Widescreen Venue Memory /rebuild",
+          "shorthand": "/Widescreen Venue Memory",
+          "interpretation": {
+            "description_en": "Pair a broad crop of the supplied venue with restrained typography for a memory-like composition."
+          }
+        },
+        {
+          "id": "EP090",
+          "code": "/Director Cut Poster /rebuild",
+          "shorthand": "/Director Cut Poster",
+          "interpretation": {
+            "description_en": "Use a decisive crop and strong title-image relationship to establish an authored cinematic composition."
+          }
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "name": "HISTORICAL GLAMOUR",
+      "pdf_page": 4,
+      "codes": [
+        {
+          "id": "EP091",
+          "code": "/Deco Cinema Voltage /rebuild",
+          "shorthand": "/Deco Cinema Voltage",
+          "interpretation": {
+            "description_en": "Use stepped geometry and vertical contrast for a cinema-like rhythm, keeping ornament subordinate to the title."
+          }
+        },
+        {
+          "id": "EP092",
+          "code": "/Bauhaus Cabaret Revival /rebuild",
+          "shorthand": "/Bauhaus Cabaret Revival",
+          "interpretation": {
+            "description_en": "Combine geometric rhythm with one theatrical accent while preserving the actual event identity."
+          }
+        },
+        {
+          "id": "EP093",
+          "code": "/Victorian Circus Modernism /rebuild",
+          "shorthand": "/Victorian Circus Modernism",
+          "interpretation": {
+            "description_en": "Contrast an ornamental headline with a simplified grid, preserving a readable functional information layer."
+          }
+        },
+        {
+          "id": "EP094",
+          "code": "/BelleEpoque Night Theatre /rebuild",
+          "shorthand": "/BelleEpoque Night Theatre",
+          "interpretation": {
+            "description_en": "Use flowing lines and a restrained decorative frame to create an elegant rhythm around the text."
+          }
+        },
+        {
+          "id": "EP095",
+          "code": "/Streamline Moderne Night /rebuild",
+          "shorthand": "/Streamline Moderne Night",
+          "interpretation": {
+            "description_en": "Use streamlined bands and horizontal accents to suggest flow and controlled speed."
+          }
+        },
+        {
+          "id": "EP096",
+          "code": "/Jazz Age Geometry /rebuild",
+          "shorthand": "/Jazz Age Geometry",
+          "interpretation": {
+            "description_en": "Vary geometric scale to create a syncopated rhythm around a stable headline anchor."
+          }
+        },
+        {
+          "id": "EP097",
+          "code": "/Weimar Theatre Fever /rebuild",
+          "shorthand": "/Weimar Theatre Fever",
+          "interpretation": {
+            "description_en": "Use expressive type and tense contrasts for theatrical character without assuming historical authenticity."
+          }
+        },
+        {
+          "id": "EP098",
+          "code": "/Gilded Cabaret Machine /rebuild",
+          "shorthand": "/Gilded Cabaret Machine",
+          "interpretation": {
+            "description_en": "Integrate gold-like details into a structural rhythm that balances ornament and information order."
+          }
+        },
+        {
+          "id": "EP099",
+          "code": "/Silent Film Spectacle /rebuild",
+          "shorthand": "/Silent Film Spectacle",
+          "interpretation": {
+            "description_en": "Use framing and strong tonal contrast to emphasize the title without adding fictional intertitles."
+          }
+        },
+        {
+          "id": "EP100",
+          "code": "/Midcentury Lounge Drama /rebuild",
+          "shorthand": "/Midcentury Lounge Drama",
+          "interpretation": {
+            "description_en": "Pair calm organic shapes with restrained typographic rhythm for a welcoming lounge-like character."
+          }
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "name": "SPORTS BROADCAST",
+      "pdf_page": 4,
+      "codes": [
+        {
+          "id": "EP101",
+          "code": "/Stadium Scoreboard Cabaret /rebuild",
+          "shorthand": "/Stadium Scoreboard Cabaret",
+          "interpretation": {
+            "description_en": "Center the composition on a supplied number or date, using strong segmentation for quick orientation."
+          }
+        },
+        {
+          "id": "EP102",
+          "code": "/Boxing Poster Culture /rebuild",
+          "shorthand": "/Boxing Poster Culture",
+          "interpretation": {
+            "description_en": "Build match-like tension between two relevant elements and a strong title without inventing competitors or scores."
+          }
+        },
+        {
+          "id": "EP103",
+          "code": "/Halftime Graphic Frenzy /rebuild",
+          "shorthand": "/Halftime Graphic Frenzy",
+          "interpretation": {
+            "description_en": "Use rhythmic cuts and strong scale changes for sporting energy, with essential facts in a stable block."
+          }
+        },
+        {
+          "id": "EP104",
+          "code": "/Racing Stripe Theatre /rebuild",
+          "shorthand": "/Racing Stripe Theatre",
+          "interpretation": {
+            "description_en": "Run directional stripes through the composition to reinforce the reading order of title and date."
+          }
+        },
+        {
+          "id": "EP105",
+          "code": "/Varsity Type Spectacle /rebuild",
+          "shorthand": "/Varsity Type Spectacle",
+          "interpretation": {
+            "description_en": "Use substantial high-contrast lettering and restrained framing for team-like energy without invented crests or affiliations."
+          }
+        },
+        {
+          "id": "EP106",
+          "code": "/Scorecard Event Drama /rebuild",
+          "shorthand": "/Scorecard Event Drama",
+          "interpretation": {
+            "description_en": "Organize supplied facts into scorecard-like fields without generating unprovided results."
+          }
+        },
+        {
+          "id": "EP107",
+          "code": "/Arena Broadcast Collision /rebuild",
+          "shorthand": "/Arena Broadcast Collision",
+          "interpretation": {
+            "description_en": "Contrast a broad image plane with simple information bands to establish a clear content hierarchy."
+          }
+        },
+        {
+          "id": "EP108",
+          "code": "/Televised Match Aesthetic /rebuild",
+          "shorthand": "/Televised Match Aesthetic",
+          "interpretation": {
+            "description_en": "Use sports-broadcast-like modules to emphasize the subject and facts while preserving people and equipment."
+          }
+        },
+        {
+          "id": "EP109",
+          "code": "/Championship Poster Noise /rebuild",
+          "shorthand": "/Championship Poster Noise",
+          "interpretation": {
+            "description_en": "Surround a large title with controlled graphic density without inventing trophies or championship claims."
+          }
+        },
+        {
+          "id": "EP110",
+          "code": "/Athletic Program Remix /rebuild",
+          "shorthand": "/Athletic Program Remix",
+          "interpretation": {
+            "description_en": "Use repeatable blocks to compare program items clearly, with a brief-specific dynamic accent."
+          }
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "name": "MATERIAL TYPOGRAPHY",
+      "pdf_page": 4,
+      "codes": [
+        {
+          "id": "EP111",
+          "code": "/Inflatable Letter Theatre /rebuild",
+          "shorthand": "/Inflatable Letter Theatre",
+          "interpretation": {
+            "description_en": "Shape the headline as softly inflated letterforms, using light to protect readable contours."
+          }
+        },
+        {
+          "id": "EP112",
+          "code": "/Chrome Type Monument /rebuild",
+          "shorthand": "/Chrome Type Monument",
+          "interpretation": {
+            "description_en": "Give the headline weight through controlled chrome-like reflections, keeping functional facts in simpler type."
+          }
+        },
+        {
+          "id": "EP113",
+          "code": "/Paper Fold Typography /rebuild",
+          "shorthand": "/Paper Fold Typography",
+          "interpretation": {
+            "description_en": "Construct letterforms from plausible paper folds and edges, creating tactile rhythm without extra words."
+          }
+        },
+        {
+          "id": "EP114",
+          "code": "/Liquid Letter Sculpture /rebuild",
+          "shorthand": "/Liquid Letter Sculpture",
+          "interpretation": {
+            "description_en": "Use fluid sculptural letterforms while preserving recognizable characters and stable spacing."
+          }
+        },
+        {
+          "id": "EP115",
+          "code": "/Foam Block Festival /rebuild",
+          "shorthand": "/Foam Block Festival",
+          "interpretation": {
+            "description_en": "Use soft matte blocks for approachable typographic volume while maintaining readable letter identities."
+          }
+        },
+        {
+          "id": "EP116",
+          "code": "/Glass Type Illusion /rebuild",
+          "shorthand": "/Glass Type Illusion",
+          "interpretation": {
+            "description_en": "Create a glass-like lettering illusion with controlled refraction against a sufficiently contrasting background."
+          }
+        },
+        {
+          "id": "EP117",
+          "code": "/Clay Letter Cabaret /rebuild",
+          "shorthand": "/Clay Letter Cabaret",
+          "interpretation": {
+            "description_en": "Add subtle clay-like surface irregularity while preserving letter anatomy and diacritics."
+          }
+        },
+        {
+          "id": "EP118",
+          "code": "/Fabric Word Architecture /rebuild",
+          "shorthand": "/Fabric Word Architecture",
+          "interpretation": {
+            "description_en": "Construct words through fabric folds and tension, using background contrast to maintain legibility."
+          }
+        },
+        {
+          "id": "EP119",
+          "code": "/Wireframe Type Machine /rebuild",
+          "shorthand": "/Wireframe Type Machine",
+          "interpretation": {
+            "description_en": "Describe letter volume with a wireframe contour system without invented interfaces or labels."
+          }
+        },
+        {
+          "id": "EP120",
+          "code": "/Balloon Font Ritual /rebuild",
+          "shorthand": "/Balloon Font Ritual",
+          "interpretation": {
+            "description_en": "Use rounded balloon-like letters for a lightweight headline, with stable alignment and spacing."
+          }
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "name": "STREET ACTIVISM",
+      "pdf_page": 5,
+      "codes": [
+        {
+          "id": "EP121",
+          "code": "/Wheatpaste Culture Revolt /rebuild",
+          "shorthand": "/Wheatpaste Culture Revolt",
+          "interpretation": {
+            "description_en": "Use layered paper planes for street-notice energy while preserving the approved message and a clear focal point."
+          }
+        },
+        {
+          "id": "EP122",
+          "code": "/Stencil Wall Broadcast /rebuild",
+          "shorthand": "/Stencil Wall Broadcast",
+          "interpretation": {
+            "description_en": "Pair a strong stencil-derived silhouette with concise text on a restrained field."
+          }
+        },
+        {
+          "id": "EP123",
+          "code": "/Protest Banner Theatre /rebuild",
+          "shorthand": "/Protest Banner Theatre",
+          "interpretation": {
+            "description_en": "Use a broad banner-like typographic band to emphasize approved wording without assigning a new political position."
+          }
+        },
+        {
+          "id": "EP124",
+          "code": "/Graffiti Type Assembly /rebuild",
+          "shorthand": "/Graffiti Type Assembly",
+          "interpretation": {
+            "description_en": "Build headline energy from original lettering gestures without copying signatures or adding slogans."
+          }
+        },
+        {
+          "id": "EP125",
+          "code": "/Street Pole Manifesto /rebuild",
+          "shorthand": "/Street Pole Manifesto",
+          "interpretation": {
+            "description_en": "Concentrate the message in stacked vertical segments inspired by public-notice organization."
+          }
+        },
+        {
+          "id": "EP126",
+          "code": "/Pasteup Poster Storm /rebuild",
+          "shorthand": "/Pasteup Poster Storm",
+          "interpretation": {
+            "description_en": "Use irregular pasted-fragment edges for controlled momentum, keeping the headline above the visual layers."
+          }
+        },
+        {
+          "id": "EP127",
+          "code": "/Chalk Pavement Program /rebuild",
+          "shorthand": "/Chalk Pavement Program",
+          "interpretation": {
+            "description_en": "Use chalk-like marks to organize program items on a contrasting field without implying actual pavement signage."
+          }
+        },
+        {
+          "id": "EP128",
+          "code": "/Megaphone Graphic System /rebuild",
+          "shorthand": "/Megaphone Graphic System",
+          "interpretation": {
+            "description_en": "Amplify the message with directional wedges or concentric rhythm without requiring a literal megaphone."
+          }
+        },
+        {
+          "id": "EP129",
+          "code": "/Spraypaint Civic Cabaret /rebuild",
+          "shorthand": "/Spraypaint Civic Cabaret",
+          "interpretation": {
+            "description_en": "Confine spray-like marks around readable text and the approved subject to create focused expression."
+          }
+        },
+        {
+          "id": "EP130",
+          "code": "/Public Notice Mutiny /rebuild",
+          "shorthand": "/Public Notice Mutiny",
+          "interpretation": {
+            "description_en": "Introduce one strong exception into a notice-like layout without creating a false official document."
+          }
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "name": "MUSEUM INSTITUTIONAL",
+      "pdf_page": 5,
+      "codes": [
+        {
+          "id": "EP131",
+          "code": "/Curatorial Grid Silence /rebuild",
+          "shorthand": "/Curatorial Grid Silence",
+          "interpretation": {
+            "description_en": "Use a precise grid and generous spacing to present the event with calm institutional character."
+          }
+        },
+        {
+          "id": "EP132",
+          "code": "/Archive Room Typography /rebuild",
+          "shorthand": "/Archive Room Typography",
+          "interpretation": {
+            "description_en": "Give typography an archive-like rhythm using only supplied captions and facts."
+          }
+        },
+        {
+          "id": "EP133",
+          "code": "/Institutional Identity Ritual /rebuild",
+          "shorthand": "/Institutional Identity Ritual",
+          "interpretation": {
+            "description_en": "Use consistent scales, margins and supplied identifiers without inventing an institution's identity."
+          }
+        },
+        {
+          "id": "EP134",
+          "code": "/Exhibition Catalog Poster /rebuild",
+          "shorthand": "/Exhibition Catalog Poster",
+          "interpretation": {
+            "description_en": "Organize subject, caption and title with catalog-like clarity and no filler microtext."
+          }
+        },
+        {
+          "id": "EP135",
+          "code": "/Gallery Wayfinding Drama /rebuild",
+          "shorthand": "/Gallery Wayfinding Drama",
+          "interpretation": {
+            "description_en": "Use directional divisions and information levels to guide reading while preserving actual venue information."
+          }
+        },
+        {
+          "id": "EP136",
+          "code": "/Museum Label Monument /rebuild",
+          "shorthand": "/Museum Label Monument",
+          "interpretation": {
+            "description_en": "Enlarge an approved label into the focal element, reversing the usual subject-caption relationship."
+          }
+        },
+        {
+          "id": "EP137",
+          "code": "/White Cube Announcement /rebuild",
+          "shorthand": "/White Cube Announcement",
+          "interpretation": {
+            "description_en": "Combine a spacious light field, restrained imagery and precise typography to focus attention on event content."
+          }
+        },
+        {
+          "id": "EP138",
+          "code": "/Collection Index Theatre /rebuild",
+          "shorthand": "/Collection Index Theatre",
+          "interpretation": {
+            "description_en": "Group supplied items in an index-like order without inventing accession or catalog numbers."
+          }
+        },
+        {
+          "id": "EP139",
+          "code": "/Conservation File Aesthetic /rebuild",
+          "shorthand": "/Conservation File Aesthetic",
+          "interpretation": {
+            "description_en": "Use a calm documentary layout to emphasize a source detail without inventing conservation history."
+          }
+        },
+        {
+          "id": "EP140",
+          "code": "/Artifact Caption System /rebuild",
+          "shorthand": "/Artifact Caption System",
+          "interpretation": {
+            "description_en": "Build clear relationships between imagery and supplied captions to preserve subject context and information hierarchy."
+          }
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "name": "SURREAL SPATIAL",
+      "pdf_page": 5,
+      "codes": [
+        {
+          "id": "EP141",
+          "code": "/Impossible Venue Portal /rebuild",
+          "shorthand": "/Impossible Venue Portal",
+          "interpretation": {
+            "description_en": "Create one impossible spatial threshold connected to the subject without changing the actual venue facts."
+          }
+        },
+        {
+          "id": "EP142",
+          "code": "/Floating Stage Dream /rebuild",
+          "shorthand": "/Floating Stage Dream",
+          "interpretation": {
+            "description_en": "Float a single compositional plane around the approved motif to create lightness and a clear text relationship."
+          }
+        },
+        {
+          "id": "EP143",
+          "code": "/Melting Marquee Architecture /rebuild",
+          "shorthand": "/Melting Marquee Architecture",
+          "interpretation": {
+            "description_en": "Deform one scenic form for a surreal accent while keeping lettering and factual information intact."
+          }
+        },
+        {
+          "id": "EP144",
+          "code": "/Endless Staircase Cabaret /rebuild",
+          "shorthand": "/Endless Staircase Cabaret",
+          "interpretation": {
+            "description_en": "Create a spatial riddle through repeated directions and one impossible plane connection while preserving the headline."
+          }
+        },
+        {
+          "id": "EP145",
+          "code": "/Giant Microphone Landscape /rebuild",
+          "shorthand": "/Giant Microphone Landscape",
+          "interpretation": {
+            "description_en": "Turn one relevant enlarged object into a compositional landscape; a literal microphone requires brief support."
+          }
+        },
+        {
+          "id": "EP146",
+          "code": "/Folded City Theatre /rebuild",
+          "shorthand": "/Folded City Theatre",
+          "interpretation": {
+            "description_en": "Fold an image plane into a subject-linked spatial metaphor while preserving protected elements."
+          }
+        },
+        {
+          "id": "EP147",
+          "code": "/Gravity Defying Festival /rebuild",
+          "shorthand": "/Gravity Defying Festival",
+          "interpretation": {
+            "description_en": "Use one clear gravity-defying relationship rather than multiple unrelated floating props."
+          }
+        },
+        {
+          "id": "EP148",
+          "code": "/Miniature Crowd Universe /rebuild",
+          "shorthand": "/Miniature Crowd Universe",
+          "interpretation": {
+            "description_en": "Contrast the main element's scale with relevant small details to suggest a miniature world."
+          }
+        },
+        {
+          "id": "EP149",
+          "code": "/Stage Inside Stage /rebuild",
+          "shorthand": "/Stage Inside Stage",
+          "interpretation": {
+            "description_en": "Nest frames around the same idea at different scales, creating depth without duplicating visible copy."
+          }
+        },
+        {
+          "id": "EP150",
+          "code": "/Cloud Auditorium Mirage /rebuild",
+          "shorthand": "/Cloud Auditorium Mirage",
+          "interpretation": {
+            "description_en": "Use one cloud-like spatial plane around the message when that metaphor follows from the subject."
+          }
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "name": "GLOBAL PRINT TRADITIONS",
+      "pdf_page": 5,
+      "codes": [
+        {
+          "id": "EP151",
+          "code": "/Korean Poster Rhythm /rebuild",
+          "shorthand": "/Korean Poster Rhythm",
+          "interpretation": {
+            "description_en": "Interpret the label through contrasting blocks and negative-space rhythm; specific cultural context requires references."
+          }
+        },
+        {
+          "id": "EP152",
+          "code": "/Chinese Opera Ephemera /rebuild",
+          "shorthand": "/Chinese Opera Ephemera",
+          "interpretation": {
+            "description_en": "Use layered composition and one expressive graphic accent without inventing scripts, costumes or cultural authority."
+          }
+        },
+        {
+          "id": "EP153",
+          "code": "/Polish Theatre Dream /rebuild",
+          "shorthand": "/Polish Theatre Dream",
+          "interpretation": {
+            "description_en": "Build one original text-image metaphor as a theatrical riddle without reproducing a particular poster or artist."
+          }
+        },
+        {
+          "id": "EP154",
+          "code": "/Cuban Screenprint Festival /rebuild",
+          "shorthand": "/Cuban Screenprint Festival",
+          "interpretation": {
+            "description_en": "Combine limited-colour print-like areas with a clear silhouette without automatic national symbols."
+          }
+        },
+        {
+          "id": "EP155",
+          "code": "/Mexican Woodcut Cabaret /rebuild",
+          "shorthand": "/Mexican Woodcut Cabaret",
+          "interpretation": {
+            "description_en": "Use carved positive-negative contrast and motivated cut rhythm without stereotyped ornament."
+          }
+        },
+        {
+          "id": "EP156",
+          "code": "/Indian Matchbox Modernism /rebuild",
+          "shorthand": "/Indian Matchbox Modernism",
+          "interpretation": {
+            "description_en": "Use a compact label composition and one small graphic sign without copying trademarks."
+          }
+        },
+        {
+          "id": "EP157",
+          "code": "/Soviet Circus Montage /rebuild",
+          "shorthand": "/Soviet Circus Montage",
+          "interpretation": {
+            "description_en": "Use dynamic montage and tense axes for spectacle without automatic political symbols or propaganda copy."
+          }
+        },
+        {
+          "id": "EP158",
+          "code": "/French Newwave Flyer /rebuild",
+          "shorthand": "/French Newwave Flyer",
+          "interpretation": {
+            "description_en": "Use an unexpected crop and asymmetrical type-image relationship without claiming historical authenticity."
+          }
+        },
+        {
+          "id": "EP159",
+          "code": "/Italian Futurist Night /rebuild",
+          "shorthand": "/Italian Futurist Night",
+          "interpretation": {
+            "description_en": "Use directional type rhythm and intersecting axes to suggest speed without assigning ideological affiliation."
+          }
+        },
+        {
+          "id": "EP160",
+          "code": "/Brazilian Tropical Modernism /rebuild",
+          "shorthand": "/Brazilian Tropical Modernism",
+          "interpretation": {
+            "description_en": "Pair saturated fields with organic-geometric rhythm without mandatory exotic motifs or cultural claims."
+          }
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "name": "DIGITAL CHROME FUTURE",
+      "pdf_page": 6,
+      "codes": [
+        {
+          "id": "EP161",
+          "code": "/Holographic Club Artifact /rebuild",
+          "shorthand": "/Holographic Club Artifact",
+          "interpretation": {
+            "description_en": "Contrast one iridescent surface with simple typography for a controlled digital accent."
+          }
+        },
+        {
+          "id": "EP162",
+          "code": "/Liquid Chrome Festival /rebuild",
+          "shorthand": "/Liquid Chrome Festival",
+          "interpretation": {
+            "description_en": "Let one fluid chrome-like form reflect a limited palette without making the entire poster metallic."
+          }
+        },
+        {
+          "id": "EP163",
+          "code": "/Y2K Interface Cabaret /rebuild",
+          "shorthand": "/Y2K Interface Cabaret",
+          "interpretation": {
+            "description_en": "Use lightweight panel geometry and one translucent detail for an early-digital tone without fake controls or messages."
+          }
+        },
+        {
+          "id": "EP164",
+          "code": "/Cybernetic Poster Relic /rebuild",
+          "shorthand": "/Cybernetic Poster Relic",
+          "interpretation": {
+            "description_en": "Contrast a technical grid with one fragmented form to suggest a digital artifact without invented code."
+          }
+        },
+        {
+          "id": "EP165",
+          "code": "/Iridescent Type Portal /rebuild",
+          "shorthand": "/Iridescent Type Portal",
+          "interpretation": {
+            "description_en": "Apply controlled iridescent colour shifts to lettering while preserving readable characters and background contrast."
+          }
+        },
+        {
+          "id": "EP166",
+          "code": "/Digital Plastic Nostalgia /rebuild",
+          "shorthand": "/Digital Plastic Nostalgia",
+          "interpretation": {
+            "description_en": "Use tinted translucent surfaces and rounded modules for digital nostalgia without unrelated icon collections."
+          }
+        },
+        {
+          "id": "EP167",
+          "code": "/Metallic Gradient Ritual /rebuild",
+          "shorthand": "/Metallic Gradient Ritual",
+          "interpretation": {
+            "description_en": "Give one metallic-looking gradient a clear hierarchy role within an otherwise restrained composition."
+          }
+        },
+        {
+          "id": "EP168",
+          "code": "/Wireframe Rave System /rebuild",
+          "shorthand": "/Wireframe Rave System",
+          "interpretation": {
+            "description_en": "Use a spatial wireframe and rhythmic segmentation for technical energy without covering the headline or facts."
+          }
+        },
+        {
+          "id": "EP169",
+          "code": "/Pixel Bloom Theatre /rebuild",
+          "shorthand": "/Pixel Bloom Theatre",
+          "interpretation": {
+            "description_en": "Grow deliberate pixel clusters around one accent instead of applying an indiscriminate image-wide pixel filter."
+          }
+        },
+        {
+          "id": "EP170",
+          "code": "/Synthetic Glass Typography /rebuild",
+          "shorthand": "/Synthetic Glass Typography",
+          "interpretation": {
+            "description_en": "Give synthetic glass-like lettering clear edges and a calm background to protect readability."
+          }
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "name": "FOLK CRAFT",
+      "pdf_page": 6,
+      "codes": [
+        {
+          "id": "EP171",
+          "code": "/Embroidered Festival Story /rebuild",
+          "shorthand": "/Embroidered Festival Story",
+          "interpretation": {
+            "description_en": "Use stitch rhythm to construct forms or lettering without inventing regional provenance."
+          }
+        },
+        {
+          "id": "EP172",
+          "code": "/Woodcut Village Cabaret /rebuild",
+          "shorthand": "/Woodcut Village Cabaret",
+          "interpretation": {
+            "description_en": "Use bold carved cuts and substrate contrast to give a simple motif a handmade narrative character."
+          }
+        },
+        {
+          "id": "EP173",
+          "code": "/Quilted Poster Geometry /rebuild",
+          "shorthand": "/Quilted Poster Geometry",
+          "interpretation": {
+            "description_en": "Arrange joined patch-like planes into soft geometry that organizes text through a coherent pattern."
+          }
+        },
+        {
+          "id": "EP174",
+          "code": "/Naive Painting Theatre /rebuild",
+          "shorthand": "/Naive Painting Theatre",
+          "interpretation": {
+            "description_en": "Use original simplified forms and deliberately flat space for directness without copying a particular artist."
+          }
+        },
+        {
+          "id": "EP175",
+          "code": "/Ceramic Tile Announcement /rebuild",
+          "shorthand": "/Ceramic Tile Announcement",
+          "interpretation": {
+            "description_en": "Use tile-like modules as an information frame or grid with consistent joints and readable typography."
+          }
+        },
+        {
+          "id": "EP176",
+          "code": "/Handcarved Letter Ritual /rebuild",
+          "shorthand": "/Handcarved Letter Ritual",
+          "interpretation": {
+            "description_en": "Align carved marks with letter construction to create handmade character without compromising spelling."
+          }
+        },
+        {
+          "id": "EP177",
+          "code": "/Papercut Folk Narrative /rebuild",
+          "shorthand": "/Papercut Folk Narrative",
+          "interpretation": {
+            "description_en": "Build one readable narrative relationship from paper-cut-like layers with a limited number of planes."
+          }
+        },
+        {
+          "id": "EP178",
+          "code": "/Applique Culture Night /rebuild",
+          "shorthand": "/Applique Culture Night",
+          "interpretation": {
+            "description_en": "Layer soft applique-like shapes to support the main sign and information hierarchy through edge contrast."
+          }
+        },
+        {
+          "id": "EP179",
+          "code": "/Blockprint Myth Festival /rebuild",
+          "shorthand": "/Blockprint Myth Festival",
+          "interpretation": {
+            "description_en": "Repeat a blockprint-like mark around an approved motif without automatically adding mythological symbols."
+          }
+        },
+        {
+          "id": "EP180",
+          "code": "/Painted Sign Tradition /rebuild",
+          "shorthand": "/Painted Sign Tradition",
+          "interpretation": {
+            "description_en": "Use original sign-painted lettering gestures without falsely attributing them to a local craftsperson."
+          }
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "name": "NEWSPAPER PUBLISHING",
+      "pdf_page": 6,
+      "codes": [
+        {
+          "id": "EP181",
+          "code": "/Tabloid Culture Shock /rebuild",
+          "shorthand": "/Tabloid Culture Shock",
+          "interpretation": {
+            "description_en": "Use a large headline and decisive contrast blocks for intensity without inventing sensational claims."
+          }
+        },
+        {
+          "id": "EP182",
+          "code": "/Broadsheet Theatre Edition /rebuild",
+          "shorthand": "/Broadsheet Theatre Edition",
+          "interpretation": {
+            "description_en": "Use a broad column grid and calm hierarchy to organize a larger amount of approved copy."
+          }
+        },
+        {
+          "id": "EP183",
+          "code": "/Front Page Cabaret /rebuild",
+          "shorthand": "/Front Page Cabaret",
+          "interpretation": {
+            "description_en": "Pair a dominant headline with one main image in a front-page-like layout without a fake newspaper identity."
+          }
+        },
+        {
+          "id": "EP184",
+          "code": "/Breaking News Festival /rebuild",
+          "shorthand": "/Breaking News Festival",
+          "interpretation": {
+            "description_en": "Draw attention to real event information with a contrasting band without implying unverified urgency or news status."
+          }
+        },
+        {
+          "id": "EP185",
+          "code": "/Classified Ad Spectacle /rebuild",
+          "shorthand": "/Classified Ad Spectacle",
+          "interpretation": {
+            "description_en": "Group short facts in a compact classified-like grid while preserving readable scale and complete copy."
+          }
+        },
+        {
+          "id": "EP186",
+          "code": "/Editorial Column Riot /rebuild",
+          "shorthand": "/Editorial Column Riot",
+          "interpretation": {
+            "description_en": "Break column rhythm once to emphasize selected copy without disrupting logical reading order."
+          }
+        },
+        {
+          "id": "EP187",
+          "code": "/Pressroom Ink Drama /rebuild",
+          "shorthand": "/Pressroom Ink Drama",
+          "interpretation": {
+            "description_en": "Use restrained ink traces and a strong black focal element with a clean functional information layer."
+          }
+        },
+        {
+          "id": "EP188",
+          "code": "/Late Edition Night /rebuild",
+          "shorthand": "/Late Edition Night",
+          "interpretation": {
+            "description_en": "Use a restrained layout and one nocturnal colour accent for a focused late-edition mood."
+          }
+        },
+        {
+          "id": "EP189",
+          "code": "/Sunday Supplement Theatre /rebuild",
+          "shorthand": "/Sunday Supplement Theatre",
+          "interpretation": {
+            "description_en": "Use relaxed column rhythm and spacious imagery for an approachable supplement-like event layout."
+          }
+        },
+        {
+          "id": "EP190",
+          "code": "/Headline Banner Collision /rebuild",
+          "shorthand": "/Headline Banner Collision",
+          "interpretation": {
+            "description_en": "Cross an ordered field with one strong headline band without duplicating or clipping words."
+          }
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "name": "MOTION OPTICAL",
+      "pdf_page": 6,
+      "codes": [
+        {
+          "id": "EP191",
+          "code": "/Velocity Type Storm /rebuild",
+          "shorthand": "/Velocity Type Storm",
+          "interpretation": {
+            "description_en": "Suggest speed through directional letterform displacement while preserving one fully readable text layer."
+          }
+        },
+        {
+          "id": "EP192",
+          "code": "/Spinning Letter Orbit /rebuild",
+          "shorthand": "/Spinning Letter Orbit",
+          "interpretation": {
+            "description_en": "Suggest rotation through an arc-like rhythm around the title without duplicating whole words or disrupting reading order."
+          }
+        },
+        {
+          "id": "EP193",
+          "code": "/Longexposure Type Trails /rebuild",
+          "shorthand": "/Longexposure Type Trails",
+          "interpretation": {
+            "description_en": "Extend restrained trails from one sharp lettering layer while keeping dates and functional facts stable."
+          }
+        },
+        {
+          "id": "EP194",
+          "code": "/Elastic Word Collision /rebuild",
+          "shorthand": "/Elastic Word Collision",
+          "interpretation": {
+            "description_en": "Stretch selected letterforms for energy while preserving correct spelling and recognizable word shape."
+          }
+        },
+        {
+          "id": "EP195",
+          "code": "/Motion Blur Cabaret /rebuild",
+          "shorthand": "/Motion Blur Cabaret",
+          "interpretation": {
+            "description_en": "Restrict motion-like blur to relevant visual elements, keeping title and factual copy as sharp anchors."
+          }
+        },
+        {
+          "id": "EP196",
+          "code": "/Sequential Type Echoes /rebuild",
+          "shorthand": "/Sequential Type Echoes",
+          "interpretation": {
+            "description_en": "Use restrained contour echoes of one shape to suggest sequence without adding extra readable text."
+          }
+        },
+        {
+          "id": "EP197",
+          "code": "/Stroboscopic Poster Rhythm /rebuild",
+          "shorthand": "/Stroboscopic Poster Rhythm",
+          "interpretation": {
+            "description_en": "Arrange a few separated phases of one motif into a static rhythm without claiming animation or flicker."
+          }
+        },
+        {
+          "id": "EP198",
+          "code": "/Rotating Grid Festival /rebuild",
+          "shorthand": "/Rotating Grid Festival",
+          "interpretation": {
+            "description_en": "Rotate one grid plane against stable typography to create controlled spatial tension."
+          }
+        },
+        {
+          "id": "EP199",
+          "code": "/Typographic Speed Tunnel /rebuild",
+          "shorthand": "/Typographic Speed Tunnel",
+          "interpretation": {
+            "description_en": "Use converging directions to suggest a speed tunnel while keeping words correctly ordered and large enough."
+          }
+        },
+        {
+          "id": "EP200",
+          "code": "/Zoom Burst Theatre /rebuild",
+          "shorthand": "/Zoom Burst Theatre",
+          "interpretation": {
+            "description_en": "Radiate accents from one focal element to suggest a zoom-like emphasis within a single static image."
+          }
+        }
+      ]
+    }
+  ],
+  "interpretation_provenance": {
+    "author": "FrameCore Works",
+    "status": "design interpretations derived from code labels and existing Skill design principles; not supplied per-code definitions from the PDF",
+    "languages": [
+      "en"
+    ]
+  },
+  "catalog_commands": [
+    "/codes",
+    "codes",
+    "/kody",
+    "kody"
+  ],
+  "command_scope": "Within this explicitly activated Skill or a request that unambiguously names this Skill; catalog browsing itself does not activate design or rendering.",
+  "future_extension_policy": "Keep the 200 PDF codes and their EP IDs unchanged. Additional authored codes require explicit scope and separate origin attribution; never present them as entries from the PDF.",
+  "localization": "English is the maintained source language. The Skill translates explanatory prose for the user at response time while preserving canonical code strings and IDs. Catalog aliases do not select a response language."
+}

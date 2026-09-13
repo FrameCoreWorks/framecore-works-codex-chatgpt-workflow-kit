@@ -64,6 +64,18 @@ Onboarding itself writes:
 
 When `framecore.config.json` already exists, onboarding writes a numbered backup before replacing it, starting with `framecore.config.json.bak`, then `framecore.config.json.bak.1`, and so on.
 
+Onboarding starts with effective built-in, shared and local preferences, in that
+order. `--defaults` keeps those preferences; it does not reset an existing setup.
+Only changed answers and previously explicit local fields are written locally.
+An empty `{}` is valid and inherits the current defaults. Later shared changes
+remain effective for fields that have no local override. Existing complete
+local configs are preserved as explicit overrides, not silently reduced.
+
+Each config layer must be a JSON object. Invalid JSON, arrays, strings, numbers
+and `null` stop setup before configuration or managed-file writes. Numbered
+backups skip occupied names, including dangling symlinks, and are created
+exclusively so an existing backup is never overwritten.
+
 The later project-local install writes managed workflow assets, rendered agent files, project instructions, and `.framecore/manifest.json`.
 
 When a later update or repair rewrites the manifest, the previous manifest is saved as `.framecore/manifest.json.bak`, `.framecore/manifest.json.bak.1`, and so on.

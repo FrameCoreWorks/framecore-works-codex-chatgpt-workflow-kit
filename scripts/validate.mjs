@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { hasHelpFlag, isAppleDouble, printHelpAndExit, repoRoot, reportFindings, walkFiles } from "./common.mjs";
+import { hasHelpFlag, isAppleDouble, isSourceCheckout, printHelpAndExit, repoRoot, reportFindings, walkFiles } from "./common.mjs";
 import {
   anchorsFor,
   appearsInOrder,
@@ -30,24 +30,35 @@ import { run as validateMarkdownLinks } from "./validate/links.mjs";
 import { run as validateRepoGovernance } from "./validate/repo-governance.mjs";
 import { run as validateSchemas } from "./validate/schemas.mjs";
 import { run as validateSkills, validateRouting as validateSkillRouting } from "./validate/skills.mjs";
+import { run as validateStaticDesign } from "./validate/static-design.mjs";
 
 if (hasHelpFlag()) {
   printHelpAndExit(`
 Usage:
-  node scripts/validate.mjs [repo-root]
+  node scripts/validate.mjs [repo-root] [--scope source|package]
 
 Purpose:
   Validate the workflow kit structure and public repository readiness.
 
 Options:
   repo-root  Optional repository root to validate. Defaults to this repo.
+  --scope    source requires maintainer tests/CI; package validates shipped assets.
+             Default: source for checkouts, package for npm payloads.
 
 Checks:
   Agent templates, skill contracts, gates, handoffs, artifact templates, docs, examples, Markdown links, text-image policy, and release governance.
 `);
 }
 
-const validationRoot = resolve(process.argv[2] ?? repoRoot);
+const args = process.argv.slice(2);
+const scopeIndex = args.indexOf("--scope");
+const scope = scopeIndex < 0 ? null : args.splice(scopeIndex, 2)[1];
+if ((scopeIndex >= 0 && !["source", "package"].includes(scope)) || args.length > 1 || args.some((arg) => arg.startsWith("--"))) {
+  console.error("Usage: framecore-validate [repo-root] [--scope source|package]");
+  process.exit(1);
+}
+const validationRoot = resolve(args[0] ?? repoRoot);
+const packageOnly = scope === "package" || (scope === null && !isSourceCheckout(validationRoot));
 const { findings, addFinding } = createFindings(validationRoot);
 const helpers = {
   anchorsFor,
@@ -116,6 +127,7 @@ const { artifactSchemaNames } = schemaState;
 const bundleState = validateBundles({
   root: validationRoot,
   helpers,
+  packageOnly,
   paths,
   knownSkillNames,
   requiredRoleSet
@@ -140,6 +152,7 @@ findings.push(...creativePromptContractState.findings);
 
 const copyDeliveryContractState = validateCopyDeliveryContracts({ root: validationRoot, helpers, paths });
 findings.push(...copyDeliveryContractState.findings);
+findings.push(...validateStaticDesign({ root: validationRoot, helpers }).findings);
 
 findings.push(...validateSkillRouting({
   root: validationRoot,
@@ -154,7 +167,7 @@ const docsState = validateDocs({ root: validationRoot, helpers, requiredRoles })
 findings.push(...docsState.findings);
 const { requiredDocs } = docsState;
 
-const repoGovernanceState = validateRepoGovernance({ root: validationRoot, helpers });
+const repoGovernanceState = validateRepoGovernance({ root: validationRoot, helpers, packageOnly });
 findings.push(...repoGovernanceState.findings);
 
 const exampleState = validateExamples({
@@ -174,6 +187,7 @@ findings.push(...exampleState.findings);
 findings.push(...validateMarkdownLinks({
   root: validationRoot,
   helpers,
+  packageOnly,
   files: walkFiles(validationRoot).filter((file) => !isAppleDouble(file) && file.endsWith(".md"))
 }));
 

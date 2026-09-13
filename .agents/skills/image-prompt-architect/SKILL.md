@@ -17,6 +17,11 @@ Use this skill when:
 
 Do not use this skill to invent missing strategy, approve outputs, or run generation.
 
+For posters, covers, flyers, menus, cards, labels and text-led graphics, use
+[static graphic prompting](references/static-design-prompting.md). It connects
+the eight construction priorities, typography feasibility, source locks and
+scoped repairs to this existing prompt contract. Load only needed references.
+
 ## Inputs
 
 Required:
@@ -57,7 +62,7 @@ Produce an Image Prompt Pack with:
 6. For an edit, record the source alias, bounded requested changes, preservation locks, excluded changes, and comparison observables.
 7. For image sets, classify each request and bind strict continuity locks to references attached to that request.
 8. Include expected observables that QA can check.
-7. Keep execution separate from prompt authoring.
+9. Keep execution separate from prompt authoring.
 
 ## Decision Rules
 

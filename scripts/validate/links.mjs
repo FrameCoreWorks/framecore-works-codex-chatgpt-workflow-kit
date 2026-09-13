@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { dirname, relative, resolve } from "node:path";
 import { isAppleDouble } from "../common.mjs";
 
 export function run(ctx) {
@@ -15,6 +15,8 @@ export function run(ctx) {
       const [pathPart, anchor] = href.split("#");
       const target = resolve(dirname(file), pathPart || ".");
       if (!existsSync(target)) {
+        const relativeTarget = relative(ctx.root, target).replaceAll("\\", "/");
+        if (ctx.packageOnly && /^(?:\.github|tests)\//.test(relativeTarget)) continue;
         addFinding("BROKEN_MARKDOWN_LINK", `Broken markdown link: ${href}`, [file]);
         continue;
       }

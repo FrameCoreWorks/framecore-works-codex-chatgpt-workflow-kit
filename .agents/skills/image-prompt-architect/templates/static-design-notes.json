@@ -1,0 +1,30 @@
+{
+  "request_kind": "prompt",
+  "task_mode": "generate",
+  "production_intent": "concept_raster",
+  "concept": {
+    "status": "supplied",
+    "lock": "One word held in abundant negative space; no pictorial subject."
+  },
+  "copy": {
+    "route": "locked_copy",
+    "selection_status": "locked",
+    "items": [
+      {
+        "id": "title",
+        "text": "CISZA",
+        "role": "must_read",
+        "required": true,
+        "authority": "fictional_user_supplied_example",
+        "allowed_changes": "none"
+      }
+    ]
+  },
+  "feasibility": {
+    "status": "compact",
+    "review_plan": ["Inspect exact spelling and intended-size reading after an authorized render."]
+  },
+  "references": [],
+  "prompt": "Create one vertical typographic poster containing only the exact word CISZA. Let uninterrupted white space enact silence. Place the word slightly below optical center in substantial black lettering with clear spacing and intact margins. The word and space are the complete composition. No pictorial subject, caption, logo or extra text. Generate the full design and text together in one output. Acceptance requires exact spelling, readable letterforms and the selected quiet spatial relation.",
+  "edit_scope": null
+}

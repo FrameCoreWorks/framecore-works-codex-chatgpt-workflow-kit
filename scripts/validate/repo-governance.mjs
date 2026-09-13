@@ -60,6 +60,7 @@ export function run(ctx) {
     "templates/Memory Cache/artifacts-index.md"
   ];
   for (const file of requiredRepoFiles) {
+    if (ctx.packageOnly && file.startsWith(".github/")) continue;
     if (!existsSync(join(validationRoot, file))) addFinding("MISSING_REPO_FILE", `Required public repo file is missing: ${file}`, [join(validationRoot, file)]);
   }
   
@@ -69,7 +70,11 @@ export function run(ctx) {
     "tests/doctor-manifest.test.mjs",
     "tests/governance.test.mjs",
     "tests/install-onboarding.test.mjs",
+    "tests/install-safety.test.mjs",
+    "tests/config-layers.test.mjs",
+    "tests/package-cli.test.mjs",
     "tests/memory-cache.test.mjs",
+    "tests/static-design.test.mjs",
     "tests/user-profile-installation.test.mjs",
     "tests/validation-contracts.test.mjs",
     "tests/validation-core.test.mjs",
@@ -77,6 +82,7 @@ export function run(ctx) {
     "tests/helpers.mjs"
   ];
   for (const file of requiredTestFiles) {
+    if (ctx.packageOnly) continue;
     if (!existsSync(join(validationRoot, file))) addFinding("MISSING_TEST_SUITE_FILE", `Required focused test suite file is missing: ${file}`, [join(validationRoot, file)]);
   }
   const legacyMonolithTest = join(validationRoot, "tests/workflow-validation.test.mjs");

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { homedir } from "node:os";
 import { join, relative, sep } from "node:path";
-import { hasHelpFlag, isRepoRootTarget, npmArgs, npmCommand, printHelpAndExit, repoRoot, selfTargetMessage, walkFiles } from "./common.mjs";
-import { resolveManagedPath, sha256File, validateManifest } from "./manifest.mjs";
+import { assertNoSymlinkPath, hasHelpFlag, isRepoRootTarget, npmArgs, npmCommand, printHelpAndExit, repoRoot, selfTargetMessage, walkFiles } from "./common.mjs";
+import { readManifest, resolveManagedPath, sha256File, validateManifest } from "./manifest.mjs";
 import { assertValidFrameCoreConfig, loadFrameCoreConfig } from "./config-validation.mjs";
 
 function argValue(name, fallback) {
@@ -14,12 +14,6 @@ function argValue(name, fallback) {
 
 function toManifestPath(target, destination) {
   return relative(target, destination).replaceAll(sep, "/");
-}
-
-function readManifest(target) {
-  const manifestPath = join(target, ".framecore/manifest.json");
-  if (!existsSync(manifestPath)) return null;
-  return JSON.parse(readFileSync(manifestPath, "utf8"));
 }
 
 function reportManifestIntegrity(target, manifest, ok, warn) {
@@ -162,20 +156,20 @@ function runDoctor({ mode }) {
   }
 
   const configPath = join(target, "framecore.config.json");
-  const loadedConfig = loadFrameCoreConfig({ target, configPath });
-  if (loadedConfig.localPath || loadedConfig.sharedPath) {
-    try {
+  try {
+    const loadedConfig = loadFrameCoreConfig({ target, configPath });
+    if (loadedConfig.localPath || loadedConfig.sharedPath) {
       assertValidFrameCoreConfig(loadedConfig.config);
       ok("FrameCore config is valid.");
       if (loadedConfig.sharedPath) ok("framecore.config.shared.json was included.");
       if (loadedConfig.localPath) ok("framecore.config.json was included.");
-    } catch (error) {
-      fail(`FrameCore config is invalid: ${error.message}`);
+    } else if (mode === "project-local" || mode === "update" || mode === "repair") {
+      warn("FrameCore config is missing. Run onboarding before installation for tuned preferences.");
+    } else {
+      ok("No FrameCore config required for this preflight mode.");
     }
-  } else if (mode === "project-local" || mode === "update" || mode === "repair") {
-    warn("FrameCore config is missing. Run onboarding before installation for tuned preferences.");
-  } else {
-    ok("No FrameCore config required for this preflight mode.");
+  } catch (error) {
+    fail(`FrameCore config is invalid: ${error.message}`);
   }
 
   let manifest = null;
@@ -202,6 +196,10 @@ function runDoctor({ mode }) {
     for (const entry of manifest?.managed_paths ?? []) {
       try {
         const resolved = resolveManagedPath(target, entry);
+        if (manifest.incomplete === true && entry !== ".framecore/manifest.json" && !manifest.managed_hashes?.[entry] && existsSync(resolved)) {
+          if (force) warn(`Unverified incomplete-install file requires backup before removal: ${entry}`);
+          else fail(`Incomplete manifest cannot verify ownership for uninstall: ${entry}`);
+        }
         if (existsSync(resolved) && statSync(resolved).isDirectory()) {
           fail(`Uninstall would refuse directory managed path: ${entry}`);
         }
@@ -224,6 +222,12 @@ function runDoctor({ mode }) {
   let conflicts = 0;
   for (const destination of planned) {
     const rel = toManifestPath(target, destination);
+    try {
+      assertNoSymlinkPath(target, destination);
+    } catch (error) {
+      fail(error.message);
+      continue;
+    }
     if (existsSync(destination) && !previousManaged.has(rel)) conflicts += 1;
   }
 

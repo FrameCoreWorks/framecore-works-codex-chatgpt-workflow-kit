@@ -114,6 +114,26 @@ Use the lifecycle commands by intent:
 - `repair` rewrites only paths already listed in `.framecore/manifest.json`.
 - `uninstall` removes only exact files listed in `.framecore/manifest.json`.
 
+Update also retires previously managed files absent from the new kit. Dry-run
+lists these separately. An unchanged retired file is backed up to a numbered
+`.bak` before removal; a modified file or one without a recorded hash stops the
+whole update before writes unless `--force` is explicit. Force still preserves
+the current bytes in a backup. Backups remain user-owned after uninstall.
+
+Repair does not retire files or silently adopt changes to retired files. The
+incomplete manifest keeps old ownership until migration finishes. On a retry,
+an existing unhashed file with different content requires `--force`, because
+it may have been created by the user after the interruption.
+Uninstall also refuses existing unhashed files from an incomplete manifest;
+`--force --yes` permits removal only after backing them up.
+
+Managed entries must use canonical relative paths. Symlinks in metadata or any
+managed path component, duplicate file identities and aliases of active files
+are rejected before mutation. Fix the manifest/path conflict manually rather
+than using force to bypass it. These checks protect pre-planted links; they do
+not provide a transaction against a hostile process replacing directories
+concurrently. Keep the target quiescent during install, update and uninstall.
+
 Before update or repair:
 
 ```bash

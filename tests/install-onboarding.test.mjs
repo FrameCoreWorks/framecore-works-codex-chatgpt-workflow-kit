@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, 
 import { dirname, join, parse } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
+import { loadFrameCoreConfig } from "../scripts/config-validation.mjs";
 import { combinedOutput, copyRepoFixture, failRun, hidden, root, run, runInteractiveOnboarding, sha256 } from "./helpers.mjs";
 
 function listRelativeFiles(dir, base = "") {
@@ -33,7 +34,7 @@ test("onboarding renders project-local config and agent templates", () => {
   assert.match(output, /docs\/using-the-kit\.md/);
   run(["scripts/render-agents.mjs", "--target", dir]);
   assert.ok(existsSync(join(dir, "framecore.config.json")));
-  const config = JSON.parse(readFileSync(join(dir, "framecore.config.json"), "utf8"));
+  const config = loadFrameCoreConfig({ target: dir }).config;
   assert.equal("install_scope" in config, false);
   assert.equal(config.output_dir, "output/workflow");
   assert.equal(config.work_profile.primary_work, "creative production: graphics, video, storyboards, campaign assets, and e-commerce assets");
@@ -68,13 +69,13 @@ test("onboarding rotates config backups instead of overwriting them", () => {
   const configPath = join(dir, "framecore.config.json");
   run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
 
-  writeFileSync(configPath, "first config\n");
+  writeFileSync(configPath, '{"response_tone":"first config"}\n');
   run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
-  writeFileSync(configPath, "second config\n");
+  writeFileSync(configPath, '{"response_tone":"second config"}\n');
   run(["scripts/onboard.mjs", "--defaults", "--target", dir]);
 
-  assert.equal(readFileSync(join(dir, "framecore.config.json.bak"), "utf8"), "first config\n");
-  assert.equal(readFileSync(join(dir, "framecore.config.json.bak.1"), "utf8"), "second config\n");
+  assert.equal(readFileSync(join(dir, "framecore.config.json.bak"), "utf8"), '{"response_tone":"first config"}\n');
+  assert.equal(readFileSync(join(dir, "framecore.config.json.bak.1"), "utf8"), '{"response_tone":"second config"}\n');
 });
 
 test("config validation rejects invalid local config before rendering", () => {
@@ -228,7 +229,7 @@ test("interactive onboarding explains the workflow and can keep default role nam
   assert.match(result.stdout, /docs\/using-the-kit\.md/);
   assert.doesNotMatch(result.stdout, /validation and privacy audit scripts/);
   assert.match(result.stdout, /Use default role names/);
-  const config = JSON.parse(readFileSync(join(dir, "framecore.config.json"), "utf8"));
+  const config = loadFrameCoreConfig({ target: dir }).config;
   assert.deepEqual(config.agent_display_names, {});
   assert.equal(config.delivery.auto_upload, false);
   assert.equal(config.delivery.delivery_requires_current_user_request, true);
@@ -251,7 +252,7 @@ test("interactive onboarding can run in Polish", async () => {
   assert.match(result.stdout, /nie klonuje, nie instaluje, nie aktywuje, nie uploaduje i nie uruchamia/);
   assert.match(result.stdout, /Czy użyć domyślnych nazw ról/);
   assert.match(result.stdout, /Następne kroki:/);
-  const config = JSON.parse(readFileSync(join(dir, "framecore.config.json"), "utf8"));
+  const config = loadFrameCoreConfig({ target: dir }).config;
   assert.equal(config.working_language, "en");
   assert.equal(config.response_tone, "calm, direct, practical");
   assert.equal(config.work_profile.primary_use_cases, "briefs, references, visual direction, prompt packs, QA review, and delivery preparation");
@@ -264,7 +265,7 @@ test("interactive onboarding re-prompts unsafe output directories", async () => 
   const result = await runInteractiveOnboarding(dir, answers);
   assert.equal(result.status, 0);
   assert.match(result.stdout, /Use a safe relative path inside the workspace/);
-  const config = JSON.parse(readFileSync(join(dir, "framecore.config.json"), "utf8"));
+  const config = loadFrameCoreConfig({ target: dir }).config;
   assert.equal(config.output_dir, "output/safe");
 });
 
@@ -310,6 +311,41 @@ test("installer refuses symlinks in managed write paths", (t) => {
   assert.notEqual(result.status, 0);
   assert.match(`${result.stderr}${result.stdout}`, /refusing symlink in managed path/);
   assert.equal(readFileSync(outside, "utf8"), "outside\n");
+});
+
+
+test("installer rejects dangling managed-file symlinks before writes, including with force", async (t) => {
+  for (const mode of ["dry-run", "project-local"]) {
+    for (const force of [false, true]) {
+      await t.test(`${mode}, force=${force}`, (t) => {
+        const fixture = mkdtempSync(join(tmpdir(), "framecore-dangling-link-"));
+        const target = join(fixture, "workspace");
+        const outside = join(fixture, "outside.md");
+        mkdirSync(join(target, ".agents/skills/humanizer"), { recursive: true });
+        try {
+          try {
+            symlinkSync(outside, join(target, ".agents/skills/humanizer/SKILL.md"));
+          } catch (error) {
+            if (["EPERM", "EACCES", "ENOSYS"].includes(error.code)) {
+              t.skip("symlink creation is unavailable in this environment");
+              return;
+            }
+            throw error;
+          }
+          const args = ["scripts/install.mjs", "--mode", mode, "--target", target];
+          if (force) args.push("--force");
+          const result = failRun(args);
+          assert.notEqual(result.status, 0);
+          assert.match(combinedOutput(result), /refusing symlink in managed path/);
+          assert.equal(existsSync(outside), false, "installer must not create the symlink target");
+          assert.equal(existsSync(join(target, ".framecore")), false, "preflight must precede manifest writes");
+          assert.equal(existsSync(join(target, ".codex")), false, "preflight must precede agent writes");
+        } finally {
+          rmSync(fixture, { recursive: true, force: true });
+        }
+      });
+    }
+  }
 });
 
 test("guided installer runs the safe project-local default path", () => {

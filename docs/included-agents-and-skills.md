@@ -72,7 +72,7 @@ Skills are portable workflow contracts. They define when a capability should be 
 | `character-design` | Build character design systems, identity anchors, expression sheets, outfit variants, and consistency rules. |
 | `cinematography` | Plan shot language, lens choices, camera movement, lighting, blocking, color, texture, and cinematic direction. |
 | `commercial-video-campaign-director` | Create motion direction for commercial video campaigns, product reveals, social clips, and launch videos. |
-| `commercial-visual-campaign-director` | Create visual direction for static commercial campaigns, product visuals, launch assets, and social variants. |
+| `commercial-visual-campaign-director` | Create static campaign and graphic direction, concepts, poster/cover/menu/label layouts, source-aware variants and optional poster-code interpretations. |
 | `copy-voice` | Produce or refine campaign copy, VO, captions, supers, dialogue, and final text while preserving locked facts. |
 | `creative-music-video-director` | Translate song context, artist persona, motifs, rhythm, and emotional arc into a music-video direction contract. |
 | `creative-video-producer` | Coordinate complete video production packs across strategy, story, storyboard, prompts, audio, captions, editing, QA, and delivery. |
@@ -81,7 +81,7 @@ Skills are portable workflow contracts. They define when a capability should be 
 | `hipson-adapter` | Create lightweight Hipson-style research maps, internet mapping packets, bounded instruction packets, review packets, and execution packets. |
 | `humanizer` | Polish writing, copy, VO, dialogue, tone, final summaries, and reduce generic AI phrasing while preserving facts. |
 | `hyperframes-workflow` | Plan HyperFrames coded-video structure, implementation prompts, GSAP-style timing, captions, overlays, render QA, and delivery manifest requirements. |
-| `image-prompt-architect` | Create final provider-neutral image prompt packs from approved brief, references, direction, and copy. |
+| `image-prompt-architect` | Create final image prompt packs, integrated static graphics, typography feasibility and scoped edits from approved brief, references, direction and copy. |
 | `instruction-packet-factory` | Create bounded instruction packets, research maps, review packets, and execution packets for workflow roles. |
 | `marketing` | Plan campaigns, offer framing, asset matrices, audience fit, channel adaptation, launch kits, and campaign QA. |
 | `onboarding-preference-tuning` | Run first-time setup for preferences, local display names, output paths, QA strictness, delivery behavior, and optional expansions. |

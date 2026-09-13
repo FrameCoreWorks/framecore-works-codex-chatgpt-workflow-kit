@@ -14,7 +14,7 @@ import {
   selfTargetMessage,
   walkFiles
 } from "./common.mjs";
-import { assertValidManifest, resolveManagedPath, sha256File } from "./manifest.mjs";
+import { readManifest, resolveManagedPath, sha256File } from "./manifest.mjs";
 import { renderAgents } from "./render-agents.mjs";
 import { assertValidFrameCoreConfig, loadFrameCoreConfig } from "./config-validation.mjs";
 
@@ -50,25 +50,20 @@ function toManifestPath(target, destination) {
   return relative(target, destination).replaceAll(sep, "/");
 }
 
-function readManifest(target) {
-  const manifestPath = join(target, ".framecore/manifest.json");
-  if (!existsSync(manifestPath)) return null;
-  return JSON.parse(readFileSync(manifestPath, "utf8"));
-}
-
 /**
  * Builds the ownership record for the target workspace. Hashes are captured
  * only for files that already exist, so the first incomplete manifest can be
  * written before managed files are copied.
  */
-function buildManifest({ target, managedPaths, manifestRel, incomplete = false }) {
+function buildManifest({ target, managedPaths, manifestRel, incomplete = false, preservedHashes = {} }) {
   const packageInfo = readJson(join(repoRoot, "package.json"));
   const managedHashes = {};
   for (const entry of managedPaths) {
     if (entry === manifestRel) continue;
+    if (Object.hasOwn(preservedHashes, entry) && !preservedHashes[entry]) continue;
     const path = resolveManagedPath(target, entry);
     if (existsSync(path) && statSync(path).isFile()) {
-      managedHashes[entry] = sha256File(path);
+      managedHashes[entry] = preservedHashes[entry] ?? sha256File(path);
     }
   }
   return {
@@ -114,6 +109,7 @@ function writeManagedFile({
   managed,
   previousManaged,
   previousHashes = {},
+  protectUnhashed = false,
   force,
   includeManagedPath = () => true,
   backupEvents = []
@@ -129,7 +125,8 @@ function writeManagedFile({
 
   const unchanged = existsSync(destination) && statSync(destination).isFile() && fileContentEquals(destination, content);
   const expectedHash = previousManaged.has(rel) ? previousHashes[rel] : null;
-  const drifted = expectedHash && existsSync(destination) && statSync(destination).isFile() && sha256File(destination) !== expectedHash;
+  const needsIntegrityCheck = expectedHash || (protectUnhashed && previousManaged.has(rel));
+  const drifted = needsIntegrityCheck && existsSync(destination) && statSync(destination).isFile() && sha256File(destination) !== expectedHash;
   if (drifted && !unchanged && !force) {
     throw new Error(`managed file has local changes: ${rel}. Re-run with --force to overwrite after creating a backup.`);
   }
@@ -147,7 +144,7 @@ function writeManagedFile({
   return true;
 }
 
-function copySkillFiles({ target, source, destination, dryRun, planned, managed, previousManaged, previousHashes, force, includeManagedPath, backupEvents }) {
+function copySkillFiles({ target, source, destination, dryRun, planned, managed, previousManaged, previousHashes, protectUnhashed, force, includeManagedPath, backupEvents }) {
   for (const file of walkFiles(source)) {
     const rel = relative(source, file);
     writeManagedFile({
@@ -159,6 +156,7 @@ function copySkillFiles({ target, source, destination, dryRun, planned, managed,
       managed,
       previousManaged,
       previousHashes,
+      protectUnhashed,
       force,
       includeManagedPath,
       backupEvents,
@@ -205,7 +203,6 @@ function install({ mode }) {
   const managed = [];
   const backupEvents = [];
   const previousManifest = readManifest(target);
-  if (previousManifest) assertValidManifest(target, previousManifest);
 
   if (mode === "uninstall") {
     const manifest = previousManifest;
@@ -216,15 +213,26 @@ function install({ mode }) {
     const removals = (manifest.managed_paths ?? []).map((entry) => ({
       entry,
       path: resolveManagedPath(target, entry),
+      unverified: manifest.incomplete === true && entry !== ".framecore/manifest.json" && !manifest.managed_hashes?.[entry],
     }));
     for (const item of removals) {
       if (existsSync(item.path) && statSync(item.path).isDirectory()) {
         throw new Error(`refusing to remove directory managed path: ${item.entry}`);
       }
+      if (item.unverified && existsSync(item.path) && !force) {
+        throw new Error(`incomplete manifest cannot verify ownership: ${item.entry}. Re-run with --force to remove after creating a backup.`);
+      }
     }
     for (const item of removals) {
       console.log(`remove ${item.entry}`);
-      if (hasFlag("--yes")) rmSync(item.path, { force: true });
+      if (hasFlag("--yes")) {
+        assertNoSymlinkPath(target, item.path);
+        if (item.unverified && existsSync(item.path)) {
+          const backupPath = backupFile(item.path);
+          console.log(`backup ${item.entry} -> ${backupPath}`);
+        }
+        rmSync(item.path, { force: true });
+      }
     }
     return;
   }
@@ -243,6 +251,7 @@ function install({ mode }) {
   }
   const includeManagedPath = repair ? (rel) => previousManaged.has(rel) : () => true;
   const previousHashes = previousManifest?.managed_hashes ?? {};
+  const protectUnhashed = previousManifest?.incomplete === true;
 
   copySkillFiles({
     target,
@@ -253,6 +262,7 @@ function install({ mode }) {
     managed,
     previousManaged,
     previousHashes,
+    protectUnhashed,
     force,
     includeManagedPath,
   });
@@ -263,6 +273,7 @@ function install({ mode }) {
     dryRun: true,
     previousManaged,
     previousHashes,
+    protectUnhashed,
     force,
     includeManagedPath,
     returnDetails: true
@@ -282,6 +293,7 @@ function install({ mode }) {
       managed,
       previousManaged,
       previousHashes,
+      protectUnhashed,
       force,
       includeManagedPath,
     });
@@ -290,19 +302,47 @@ function install({ mode }) {
   const manifestPath = join(target, ".framecore/manifest.json");
   assertNoSymlinkPath(target, manifestPath);
   const manifestRel = toManifestPath(target, manifestPath);
+  const currentManaged = new Set([...managed, manifestRel]);
+  const currentFileIds = new Set();
+  for (const entry of currentManaged) {
+    const path = resolveManagedPath(target, entry);
+    if (existsSync(path)) {
+      const stats = statSync(path, { bigint: true });
+      currentFileIds.add(`${stats.dev}:${stats.ino}`);
+    }
+  }
+  const retired = [];
+  const preservedHashes = {};
+  for (const entry of previousManaged) {
+    if (currentManaged.has(entry)) continue;
+    if (repair) {
+      preservedHashes[entry] = previousHashes[entry];
+      continue;
+    }
+    const path = resolveManagedPath(target, entry);
+    if (!existsSync(path)) continue;
+    const stats = statSync(path, { bigint: true });
+    if (currentFileIds.has(`${stats.dev}:${stats.ino}`)) {
+      throw new Error("refusing to retire a path pointing to a current managed file");
+    }
+    if ((!previousHashes[entry] || sha256File(path) !== previousHashes[entry]) && !force) {
+      throw new Error(`retired managed file has local changes or no recorded hash: ${entry}. Re-run with --force to retire it after creating a backup.`);
+    }
+    retired.push({ entry, path });
+  }
   const manifestManaged = repair ? [...previousManaged] : [...new Set([...managed, manifestRel])].sort();
   if (!repair) managed.push(manifestRel);
-  const previewManifest = buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: false });
+  const previewManifest = buildManifest({ target, managedPaths: manifestManaged, manifestRel, preservedHashes });
   if (planned.length > 0 || !existsSync(manifestPath) || !manifestContentEquals(manifestPath, previewManifest)) {
     planned.push(manifestPath);
   }
 
   if (!dryRun) {
-    const writeManagedFiles = planned.some((item) => item !== manifestPath);
+    const writeManagedFiles = planned.some((item) => item !== manifestPath) || retired.length > 0;
     if (writeManagedFiles) {
       writeManifestFile({
         manifestPath,
-        manifest: buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: true }),
+        manifest: buildManifest({ target, managedPaths: [...new Set([...manifestManaged, ...previousManaged])].sort(), manifestRel, incomplete: true, preservedHashes: previousHashes }),
         backupExisting: existsSync(manifestPath),
         backupEvents,
       });
@@ -318,11 +358,12 @@ function install({ mode }) {
         managed: writtenManaged,
         previousManaged,
         previousHashes,
+        protectUnhashed,
         force,
         includeManagedPath,
         backupEvents,
       });
-      renderAgents({ target: installTarget, configPath, dryRun: false, previousManaged, previousHashes, force, includeManagedPath, backupEvents });
+      renderAgents({ target: installTarget, configPath, dryRun: false, previousManaged, previousHashes, protectUnhashed, force, includeManagedPath, backupEvents });
       if (agentsInstructionPath) {
         writeManagedFile({
           target,
@@ -333,13 +374,20 @@ function install({ mode }) {
           managed: writtenManaged,
           previousManaged,
           previousHashes,
+          protectUnhashed,
           force,
           includeManagedPath,
           backupEvents,
         });
       }
     }
-    const finalManifest = buildManifest({ target, managedPaths: manifestManaged, manifestRel, incomplete: false });
+    for (const item of retired) {
+      assertNoSymlinkPath(target, item.path);
+      const backupPath = backupFile(item.path);
+      backupEvents.push({ rel: item.entry, backupPath });
+      rmSync(item.path);
+    }
+    const finalManifest = buildManifest({ target, managedPaths: manifestManaged, manifestRel, preservedHashes });
     if (writeManagedFiles || !existsSync(manifestPath) || !manifestContentEquals(manifestPath, finalManifest)) {
       writeManifestFile({
         manifestPath,
@@ -352,6 +400,9 @@ function install({ mode }) {
 
   for (const item of backupEvents) {
     console.log(`backup ${item.rel} -> ${item.backupPath}`);
+  }
+  for (const item of retired) {
+    console.log(`${dryRun ? "would retire with backup" : "retired with backup"} ${item.entry}`);
   }
   for (const item of planned) {
     console.log(`${dryRun ? "would write" : "wrote"} ${item}`);

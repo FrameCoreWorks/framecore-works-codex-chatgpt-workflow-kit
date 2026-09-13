@@ -102,6 +102,12 @@ Read only what is needed:
   Delivery policy. Use the existing Loop Protocol for at least one bounded
   review-and-revision cycle; do not create a second editorial loop.
 - Route deterministic React/TypeScript video composition through `remotion-video-production`.
+- Static graphic design is integrated into existing roles: `static-direction`
+  owns concept/layout/catalog guidance, `copy-voice` owns wording,
+  `reference-curator` owns source properties, `image-prompting` owns one-pass
+  prompts and text feasibility, `qa-iteration` owns inspected acceptance, and
+  `asset-manifest` owns explicitly requested component inventories. Use only
+  missing stages; do not install or invoke a separate static-design skill.
 - Route coded-video planning through HyperFrames skills when the requested runtime is specifically HyperFrames or HTML/GSAP composition.
 - Route Hipson-style packets through `hipson-adapter` unless the user chooses full Hipson separately.
 - Route unresolved product, offer, audience, channel, claim, asset-matrix, or creative-test strategy through `ecommerce-campaign-strategy-director`.

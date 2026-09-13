@@ -78,6 +78,20 @@ Even then, prefer a documented template or example over committing a user's live
 
 If the team does share settings, use `framecore.config.shared.json` rather than committing a user's live `framecore.config.json`. The installer and renderer merge configuration in this order: built-in defaults, then `framecore.config.shared.json`, then local `framecore.config.json`. Local preferences win, so each user can keep personal tone or display-name choices outside version control.
 
+## Inherited Preferences
+
+For example, a shared config containing `{"working_language":"pl",
+"qa_strictness":"strict","output_dir":"artifacts/team"}` remains effective
+after guided onboarding with `--defaults`. The new local config can be `{}`.
+Adding only `{"response_tone":"concise"}` locally changes the tone without
+pinning the team's language, QA or output location. Run `update` after config
+changes to refresh rendered agent preferences.
+
+Older complete local configs still override shared values. Remove a field from
+the local JSON only when you intentionally want it to inherit again; onboarding
+does not guess which previously stored values were deliberate choices.
+
+
 ## Privacy Review
 
 Before sharing any configured workspace, confirm:

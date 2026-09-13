@@ -43,11 +43,11 @@ function stagePackageSource() {
   return stageRoot;
 }
 
-export function runNpmPackDryRun(args) {
+export function runNpmPack(args) {
   const stageRoot = stagePackageSource();
 
   try {
-    return spawnSync(npmCommand(), npmArgs(["pack", "--dry-run", ...args]), {
+    return spawnSync(npmCommand(), npmArgs(["pack", ...args]), {
       cwd: stageRoot,
       encoding: "utf8",
       timeout: PACKAGE_PACK_TIMEOUT_MS,
@@ -67,4 +67,8 @@ export function runNpmPackDryRun(args) {
   } finally {
     rmSync(stageRoot, { force: true, recursive: true });
   }
+}
+
+export function runNpmPackDryRun(args) {
+  return runNpmPack(["--dry-run", ...args]);
 }

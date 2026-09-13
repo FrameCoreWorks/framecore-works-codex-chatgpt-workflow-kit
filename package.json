@@ -84,7 +84,7 @@
     "smoke:profiles": "node --test tests/user-profile-installation.test.mjs",
     "syntax:check": "node scripts/syntax-check.mjs",
     "test": "node --test",
-    "validate": "node scripts/validate.mjs",
+    "validate": "node scripts/validate.mjs --scope source",
     "workflow:appledouble:audit:all": "node tools/cleanup-appledouble.mjs",
     "workflow:appledouble:clean:all": "node tools/cleanup-appledouble.mjs --apply",
     "workflow:context-budget": "node tools/context-budget-audit.mjs",

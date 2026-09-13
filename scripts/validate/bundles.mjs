@@ -86,6 +86,7 @@ export function run(ctx) {
             addFinding("INVALID_BUNDLE_MAP", `Bundle ${bundleId} source path must not include private runtime path: ${sourcePath}`, [bundleMapPath]);
           }
           if (!existsSync(join(ctx.root, sourcePath))) {
+            if (ctx.packageOnly && /^(?:tests|\.github)\//.test(sourcePath)) continue;
             addFinding("BUNDLE_MAP_PATH_MISSING", `Bundle ${bundleId} source path does not exist: ${sourcePath}`, [bundleMapPath]);
           }
         }

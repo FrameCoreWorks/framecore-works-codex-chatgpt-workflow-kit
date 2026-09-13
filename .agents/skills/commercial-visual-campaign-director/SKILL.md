@@ -1,6 +1,6 @@
 ---
 name: commercial-visual-campaign-director
-description: Use this skill to create provider-neutral visual direction for static commercial campaigns, product visuals, launch assets, social variants, and asset systems.
+description: Create provider-neutral static direction for campaigns, posters, covers, flyers, menus, cards, labels and product visuals, with concept, copy hierarchy, typography constraints and asset variants. Use for direction, not final prompts or generation.
 ---
 
 # Commercial Visual Campaign Director
@@ -14,6 +14,11 @@ Use this skill when:
 - The user needs a visual campaign system rather than a single prompt.
 - Product, offer, subject, or brand readability must be controlled across variants.
 - Direction is needed for social graphics, ecommerce images, launch kits, or static boards.
+- A single poster, cover, flyer, menu, card or label needs a concept or visual direction.
+
+For these graphics, read [static graphic direction](references/static-design-direction.md)
+and only the relevant atlas or deliverable profile it points to. Optional poster
+codes are integrated reference data, not another skill or an installation step.
 
 Do not use this skill to write final generator-ready prompts, execute tools, or approve delivery.
 
@@ -40,6 +45,7 @@ Produce a Static Direction Contract with:
 - composition system and hierarchy rules
 - asset matrix and rollout variants
 - text-bearing graphic requirements when relevant
+- selected Core Concept Lock, reading mode, type/image roles and production intent
 - prompt handoff constraints for `image-prompting`
 
 ## Process
@@ -49,6 +55,10 @@ Produce a Static Direction Contract with:
 3. Separate locked visual requirements from optional style cues.
 4. Map the required asset variants and their differences.
 5. Hand off only after direction can be evaluated against the brief.
+
+For open concepts, develop paired visual/copy routes with `copy-voice` and
+preserve the selected premise and permitted adaptations. Directed work skips
+new alternatives. Advice, copy-only and prompt-only requests keep their scope.
 
 ## Decision Rules
 

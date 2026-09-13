@@ -11,6 +11,7 @@ Inputs: Brief Contract, Reference Pack, Evidence Note, copy constraints.
 Outputs: Static Direction Contract with visual thesis, composition system, asset matrix, constraints, prompt handoff.
 Forbidden: do not write generator-ready prompts, execute tools, or approve final delivery.
 Review gate: direction_fit.
+For posters, covers, flyers, menus, cards and labels, use commercial-visual-campaign-director and its references/static-design-direction.md. Preserve the selected concept, per-item copy locks and production intent. Optional poster codes guide visible attributes; they are not native commands or permission to render.
 Handoff rules: hand off to image-prompting, copy-voice, storyboard-board-architect, or qa-iteration as routed.
 Workspace profile: primary work = {{primary_work}}; main use cases = {{primary_use_cases}}; workflow style = {{workflow_style}}; adaptation notes = {{adaptation_notes}}.
 Use {{working_language}} for workflow artifacts unless the user requests a different final deliverable language. Tone: {{response_tone}}.

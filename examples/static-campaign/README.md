@@ -79,6 +79,8 @@ Use fictional or generic product context only. Do not include private references
 
 ## Related Docs And Skills
 
+- [Integrated Static Design Walkthrough](static-design-walkthrough.md)
+- [Integrated Static Graphic Design](../../docs/static-graphic-design.md)
 - [Text-Bearing Image Policy](../../docs/text-image-policy.md)
 - [Workflow Stages](../../docs/workflow-stages.md)
 - [Image Prompt Architect](../../.agents/skills/image-prompt-architect/SKILL.md)

@@ -17,6 +17,10 @@ Use this skill when:
 
 Do not use this skill to write final prompts, change the brief, or invent reference authority.
 
+For poster rebuilds, packaging, logos, identity or narrow graphic edits, read
+[static graphic source authority](references/static-graphic-source-authority.md).
+Assign protection per property and preserve the actual current edit source.
+
 ## Inputs
 
 Required:

@@ -26,7 +26,7 @@ function safeTemplateValue(value) {
  * Writes one rendered agent file with the same ownership, backup, and symlink
  * protections used by the main installer.
  */
-function writeRenderedFile({ target, destination, content, dryRun, previousManaged, previousHashes = {}, force, backupEvents = [] }) {
+function writeRenderedFile({ target, destination, content, dryRun, previousManaged, previousHashes = {}, protectUnhashed = false, force, backupEvents = [] }) {
   const rel = toManifestPath(target, destination);
   assertNoSymlinkPath(target, destination);
   if (existsSync(destination) && !previousManaged.has(rel) && !force) {
@@ -34,7 +34,8 @@ function writeRenderedFile({ target, destination, content, dryRun, previousManag
   }
   const unchanged = existsSync(destination) && statSync(destination).isFile() && fileContentEquals(destination, content);
   const expectedHash = previousManaged.has(rel) ? previousHashes[rel] : null;
-  const drifted = expectedHash && existsSync(destination) && statSync(destination).isFile() && sha256File(destination) !== expectedHash;
+  const needsIntegrityCheck = expectedHash || (protectUnhashed && previousManaged.has(rel));
+  const drifted = needsIntegrityCheck && existsSync(destination) && statSync(destination).isFile() && sha256File(destination) !== expectedHash;
   if (drifted && !unchanged && !force) {
     throw new Error(`managed file has local changes: ${rel}. Re-run with --force to overwrite after creating a backup.`);
   }
@@ -60,6 +61,7 @@ export function renderAgents({
   dryRun = false,
   previousManaged = new Set(),
   previousHashes = {},
+  protectUnhashed = false,
   force = false,
   includeManagedPath = () => true,
   backupEvents = [],
@@ -116,7 +118,7 @@ export function renderAgents({
     const managedPath = toManifestPath(target, destination);
     if (!includeManagedPath(managedPath)) continue;
     managed.push(destination);
-    if (writeRenderedFile({ target, destination, content: rendered, dryRun, previousManaged, previousHashes, force, backupEvents })) {
+    if (writeRenderedFile({ target, destination, content: rendered, dryRun, previousManaged, previousHashes, protectUnhashed, force, backupEvents })) {
       changed.push(destination);
     }
   }

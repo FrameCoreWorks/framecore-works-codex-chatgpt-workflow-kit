@@ -17,6 +17,11 @@ Use this skill when:
 
 Do not use this skill to approve unchecked, uncertain, or rejected assets for delivery.
 
+For static graphics, read [static graphic review](references/static-graphic-review.md)
+and the material diagnosis only when an observed defect calls for it. One
+incorrect required string or protected-property drift blocks acceptance;
+prompt completeness is not evidence of rendered quality.
+
 ## Inputs
 
 Required:

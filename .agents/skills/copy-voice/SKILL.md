@@ -12,6 +12,12 @@ dialogue, product text, campaign lines, CTA variants, or tone polish. Use it
 after the brief, audience, claim boundaries, and output format are clear enough
 to write without inventing missing facts.
 
+For static graphic headlines, support lines, labels and concept/copy pairing,
+read [static graphic copy](references/copy-development-and-human-voice.md).
+Keep wording selection separate from typography feasibility and claim evidence.
+Use the existing Human Voice review before locking newly written copy; later
+polish must not silently change selected words.
+
 ## Inputs
 
 - Brief, audience, platform, format, language, and desired tone.
