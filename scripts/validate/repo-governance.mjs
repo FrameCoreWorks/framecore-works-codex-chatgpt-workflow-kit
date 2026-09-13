@@ -71,6 +71,7 @@ export function run(ctx) {
     "tests/governance.test.mjs",
     "tests/install-onboarding.test.mjs",
     "tests/lifecycle-language.test.mjs",
+    "tests/native-codex-route.test.mjs",
     "tests/install-safety.test.mjs",
     "tests/config-layers.test.mjs",
     "tests/package-cli.test.mjs",

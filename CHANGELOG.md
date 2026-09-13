@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Made native `$skill-installer` the primary Codex route, using the existing
+  Skill profiles and source inventory with a pinned commit and saved-byte checks.
+  Kept project agents, config and manifest tooling as an explicit advanced mode.
+- Separated native `$skill-creator` updates from fresh installation, preserving
+  Skill identity and personal changes with approval, snapshots and readback.
+- Adapted onboarding and role resolution for personal Codex Skills without
+  assuming project agent files or a managed manifest; retained all 35 Skills.
+
 - Grouped README entry points into install, update and personal extension, each
   with adjacent ChatGPT Work and Codex prompts before technical documentation.
   Kept prompt copies synchronized and wrapped them for readable copying.

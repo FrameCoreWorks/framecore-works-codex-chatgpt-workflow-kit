@@ -8,7 +8,7 @@ Customization is local preference tuning. It should not change the public source
 
 For a guided change to an existing Skill, use the complete
 [Codex and ChatGPT extension prompts](skill-customization.md). Keep personal
-extensions separate from [upstream Codex updates](../CODEX_UPDATE.md) and
+extensions separate from [upstream project updates](codex-project-update.md) and
 [native ChatGPT updates](../CHATGPT_UPDATE.md).
 
 ## Local Config File

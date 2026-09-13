@@ -8,17 +8,23 @@ This FAQ answers the questions a new user is most likely to ask before installin
 
 ### Do I paste the GitHub link into Codex or run commands myself?
 
-Both paths are supported. Beginners can paste the README instruction into Codex and ask it to clone the repo into a temporary or tools folder outside the target workspace. Advanced users can clone the repo manually and run the guided installer.
+Paste the [native Codex prompt](../CODEX_INSTALL.md) with its leading
+`$skill-installer` mention. It installs approved Skill bundles into the actual
+personal Skills directory, not a project clone. Only users choosing optional
+project agents and config need the [advanced CLI](codex-project-install.md).
 
 ### Should beginners install GitHub Desktop?
 
-Yes, it is recommended when Terminal or Git commands feel unfamiliar. GitHub Desktop gives a visual way to clone this repository, choose where it lives locally, inspect changed files, commit, and push. It is optional and does not run the FrameCore installer by itself, so installation still needs a shell-capable Codex workspace or terminal with Node.js and npm.
+Not for native `$skill-installer` installation. GitHub Desktop is an optional
+visual way to clone the repository for the advanced project-local CLI, which requires Node.js
+and npm. It does not perform either installation by itself.
 
 When cloning with GitHub Desktop, clone this repo into a temporary, tools, or GitHub folder outside the project where you want to install the kit.
 
 ### What is the safest install command?
 
-Use the guided installer:
+For native Codex Skills, use `$skill-installer` and [CODEX_INSTALL.md](../CODEX_INSTALL.md).
+For the optional advanced project mode, use the guided installer:
 
 ```bash
 npm run install:guided -- --target /path/to/your/project
@@ -28,11 +34,14 @@ It runs checks, doctor/preflight, onboarding, dry-run, and project-local install
 
 ### Does setup require global install?
 
-No. Project-local install is the default and recommended path. Global install is advanced-only and requires an explicit `--confirm-global` flag.
+Native `$skill-installer` uses the personal `$CODEX_HOME/skills` directory by
+default. That is not the project CLI's `--mode global`, which writes a home
+workspace and requires `--confirm-global`. Do not confuse these scopes.
 
 ### Can I install into a missing folder?
 
-The beginner path expects the target workspace to already exist. Lower-level scripts can create a target only when `--create-target` is explicitly passed, but that should be intentional.
+Native installation manages its own personal Skills destination. The optional
+project CLI expects the target workspace to already exist. Lower-level scripts can create a target only when `--create-target` is explicitly passed, but that should be intentional.
 
 ### Can I install these as native ChatGPT Skills?
 
@@ -69,15 +78,20 @@ Use @skill-creator to help me create a skill.
 
 ### Where are my preferences stored?
 
-Onboarding writes `framecore.config.json` in the target workspace. It stores local choices such as language, tone, output directory, QA strictness, delivery behavior, local display names, and optional workflow self-improvement preference.
+Native Skill onboarding keeps a visible Workflow Profile; private persistence
+requires approval and an available host mechanism. Advanced project onboarding
+writes `framecore.config.json` in the target workspace. It stores local choices such as language, tone, output directory, QA strictness, delivery behavior, local display names, and optional workflow self-improvement preference.
 
 ### Can I rename the agents?
 
-Yes. Public source uses neutral role IDs, while onboarding can render local display names into the installed workspace. Those local display names should not be committed back to the public repo.
+Public source uses neutral role IDs. Native Skills can use your chosen labels
+in the visible Workflow Profile. Advanced project onboarding can render local
+display names into the installed workspace. Those local display names should not be committed back to the public repo.
 
 ### What happens if my project already has `AGENTS.md`?
 
-The installer preserves the existing project instructions and writes FrameCore instructions to `AGENTS.framecore.md`. The user or maintainer can then decide how to merge local project instructions.
+Native `$skill-installer` does not edit project instructions. The advanced
+project installer preserves them and writes FrameCore instructions to `AGENTS.framecore.md`. The user or maintainer can then decide how to merge local project instructions.
 
 ## Workflow Questions
 
@@ -125,17 +139,28 @@ HyperFrames is treated as a coded-video workflow path, not as a paid media-provi
 
 ### How do updates work?
 
-Use `node scripts/doctor.mjs --mode update --target <path>` first, then `node scripts/install.mjs --mode update --target <path>` if preflight is clean. Update requires `.framecore/manifest.json` so it can distinguish FrameCore-managed files from user-owned files. It can add new managed files from the current kit, such as new skills, docs, examples, gates, handoffs, or agent templates.
+Native Codex Skills use [CODEX_UPDATE.md](../CODEX_UPDATE.md) and `$skill-creator`:
+read-only comparison, exact proposal, approval, snapshot and verified saved bytes.
+Never use `$skill-installer` to overwrite an existing Skill.
 
-Beginner path: open Codex in the already installed project and ask it to follow the [Update An Existing Workspace](../README.md#codex-update) prompt from the README.
+Advanced project installations use [project update](codex-project-update.md):
+refresh the source checkout, run checks, doctor and dry-run, then approve the
+concrete update. That CLI requires `.framecore/manifest.json` and updates managed
+Skill bundles, rendered agents and project instructions, not the repository docs tree.
 
 ### How does repair differ from update?
 
-Repair recreates only manifest-recorded files. Update can expand the managed file set when the kit adds new managed files.
+These commands apply only to advanced project installations. Repair rewrites
+manifest-recorded files from the current checkout; update can expand the managed
+set. Neither is a native personal Skill updater.
 
 ### How do I uninstall?
 
-Run uninstall first as a preview:
+For native personal Skills, locate the exact installed scope, preserve personal
+resources and obtain approval for removing only the selected Skill. Do not run
+project manifest commands against personal Skills.
+
+For an advanced project installation, run uninstall first as a preview:
 
 ```bash
 node scripts/install.mjs --mode uninstall --target /path/to/your/project

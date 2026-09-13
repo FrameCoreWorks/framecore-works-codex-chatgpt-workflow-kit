@@ -1,6 +1,9 @@
 # Architecture
 
-This workflow skill kit is a provider-neutral workflow layer with two supported surfaces. Codex receives a project-local install with instructions, role-agent files, skills, templates, gates, and a manifest. ChatGPT creates selected native skills from declared public repository sources, with temporary task roles and conversation-visible state.
+This provider-neutral workflow layer supports native Codex Skills through
+`$skill-installer` and native ChatGPT Skills through `@skill-creator`. Both reuse
+the same portable Skill bundles and role contracts. Codex additionally offers an
+optional advanced project-local installer with agent files, config and a manifest.
 
 ## Human-In-The-Loop Boundary
 
@@ -18,9 +21,15 @@ reviewed.
 
 ## System Layers
 
+Native Skill entry points route directly to the workflow contracts below.
+The project instructions and rendered-agent branches are optional and appear
+only in the advanced project mode.
+
 ```mermaid
 flowchart TD
-  User["User request"] --> Instructions["Project instructions<br/>AGENTS.md or AGENTS.framecore.md"]
+  User["User request"] --> Native["Installed native Skills"]
+  Native --> Orchestrator
+  User --> Instructions["Project instructions<br/>AGENTS.md or AGENTS.framecore.md"]
   Instructions --> Orchestrator["Pipeline core<br/>routing, gates, handoffs, project state"]
   Orchestrator --> Agents["Rendered Codex agents<br/>.codex/agents/*.toml"]
   Orchestrator --> Skills["Workflow skills<br/>.agents/skills/*/SKILL.md"]
@@ -71,6 +80,20 @@ Example routes are tracked in `examples/*/workflow.json`. Validation checks that
 
 ## Installation Model
 
+The primary Codex route uses the system `$skill-installer` with a pinned commit
+and approved `.agents/skills/<skill-name>` source directories. It writes only
+personal Skills in `$CODEX_HOME/skills`; it does not install the project CLI,
+agent TOMLs, AGENTS files, config or `.framecore/manifest.json`. A private receipt
+outside the bundles records verified source and saved digests. Native updates
+use `$skill-creator` and [CODEX_UPDATE.md](../CODEX_UPDATE.md), not the CLI.
+
+Reuse `profiles` from `config/chatgpt-skills.json` and the existing Skill source
+inventory for selection and integrity, not the ChatGPT-specific creation rules.
+Roles are bounded task responsibilities unless the current Codex host actually
+exposes agents. No permanent agent registration is implied by native installation.
+
+The remaining installation model describes the optional project-local CLI.
+
 Project-local install copies only FrameCore-managed files into the target workspace:
 
 - `.agents/skills/<framecore-skill>/...`
@@ -89,7 +112,9 @@ Onboarding writes `framecore.config.json` before installation. The installer rea
 
 ## Ownership And Safety
 
-The manifest is the source of truth for FrameCore-owned files in a target workspace. Repair and uninstall use `.framecore/manifest.json` to avoid touching user-owned files. New manifests also include managed file hashes so `doctor` can warn when a FrameCore-managed file is missing or differs from the last install/update/repair. During real install, update, or repair, the installer first writes the manifest with `incomplete: true`, then rewrites it with `incomplete: false` after all managed files are written successfully.
+For an advanced project installation, the manifest is the source of truth for
+FrameCore-owned files in that target workspace. Native personal Skills are not
+owned by a project manifest. Repair and uninstall use `.framecore/manifest.json` to avoid touching user-owned files. New manifests also include managed file hashes so `doctor` can warn when a FrameCore-managed file is missing or differs from the last install/update/repair. During real install, update, or repair, the installer first writes the manifest with `incomplete: true`, then rewrites it with `incomplete: false` after all managed files are written successfully.
 
 The installer:
 

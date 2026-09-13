@@ -1,11 +1,14 @@
-# Quickstart
+# Advanced Project-Local Quickstart
 
-This guide installs this Codex workflow skill kit into one Codex workspace. The recommended path is project-local installation, which keeps the workflow assets inside the target project instead of changing your global Codex setup.
+This guide is an optional CLI path for installing project agents, configuration
+and lifecycle tooling into one Codex workspace. Native Skills do not need it.
 
-For the canonical install contract, see [Codex installation](../CODEX_INSTALL.md).
-For an existing installation, use [Codex update](../CODEX_UPDATE.md) or
-[personal Skill extension](skill-customization.md). Installation stays English;
-the host resolves user language only after verified installation.
+For the default native `$skill-installer` route, use [CODEX_INSTALL.md](../CODEX_INSTALL.md).
+Everything below describes the optional advanced project-local installer.
+Its install contract is [project install](codex-project-install.md); existing
+project installations use [project update](codex-project-update.md). For personal
+Skill changes, see [Skill customization](skill-customization.md). Installation
+stays English; the workflow resolves language after verified installation.
 
 ## No-Terminal Beginner Start
 
@@ -193,7 +196,8 @@ For a full command map, including which commands write files and which are read-
 
 ## Advanced Global Install
 
-Project-local install is the default and recommended path. Global install writes to the current user's home workspace, so use it only when you intentionally want FrameCore available outside a single project.
+For this optional CLI, project-local install is the default and recommended path.
+This is distinct from native personal Skill installation. Global install writes to the current user's home workspace, so use it only when you intentionally want FrameCore available outside a single project.
 
 Preview the home-workspace impact first:
 
@@ -365,7 +369,7 @@ your-project/
 - Keep `framecore.config.json` local to the target workspace. Teams that intentionally share reviewed defaults can use `framecore.config.shared.json`, with local config still taking precedence.
 - Read [Team Configuration](team-configuration.md) before committing installed workflow files or local config.
 - Use `.framecore/manifest.json` to see which files are FrameCore-managed.
-- To update an already installed workspace, first follow [CODEX_UPDATE.md](../CODEX_UPDATE.md) to refresh and verify the source checkout. Then run checks, doctor, dry-run and the approved update. `update` reads that checkout and can add new managed skills, agent files and embedded contracts; it does not fetch GitHub or install the repository docs tree. It requires `.framecore/manifest.json`:
+- To update an already installed workspace, first follow [project update](codex-project-update.md) to refresh and verify the source checkout. Then run checks, doctor, dry-run and the approved update. `update` reads that checkout and can add new managed skills, agent files and embedded contracts; it does not fetch GitHub or install the repository docs tree. It requires `.framecore/manifest.json`:
 
   ```bash
   node scripts/doctor.mjs --mode update --target "$FRAMECORE_TARGET"

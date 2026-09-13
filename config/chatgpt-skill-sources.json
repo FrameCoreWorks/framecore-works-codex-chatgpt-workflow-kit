@@ -21,7 +21,7 @@
           "path": "SKILL.md",
           "repository_path": ".agents/skills/onboarding-preference-tuning/SKILL.md",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/.agents/skills/onboarding-preference-tuning/SKILL.md",
-          "sha256": "f0c4fae3b5570655b3ce87fc8d560feca4ffe434b2f35b0eb17250fa914fdd79"
+          "sha256": "55eaa687ad33b537d79749128630d727d32a71aaea2c260eeef535bbf74d7677"
         },
         {
           "path": "agents/openai.yaml",
@@ -39,7 +39,7 @@
           "path": "SKILL.md",
           "repository_path": ".agents/skills/pipeline-core/SKILL.md",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/.agents/skills/pipeline-core/SKILL.md",
-          "sha256": "1700ec966f2aeb3972d985916b09761fb2fa92f8af7778619f92df768e593b1b"
+          "sha256": "d636c3c8889909fbb7b5459e01f0caaf261dd744cb751772497c1d0d94d837ea"
         },
         {
           "path": "agents/openai.yaml",
@@ -111,7 +111,7 @@
           "path": "references/role-skill-map.md",
           "repository_path": ".agents/skills/pipeline-core/references/role-skill-map.md",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/.agents/skills/pipeline-core/references/role-skill-map.md",
-          "sha256": "d7a3d80f582845156d70c62ab1307717881fcb358242fdc25accb110eb497836"
+          "sha256": "b69d185e1b7c9ff781ab90cf87e988c5cdb35bdc1b1fc3b6d61d548c2ed29c53"
         },
         {
           "path": "references/text-image-generation-policy.md",
@@ -159,7 +159,7 @@
           "path": "SKILL.md",
           "repository_path": ".agents/skills/workflow-orchestrator/SKILL.md",
           "raw_url": "https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/.agents/skills/workflow-orchestrator/SKILL.md",
-          "sha256": "f0950a6eff2edd4e1df51bf91af0c3702fadf5c5543d40a64da4b7e260ef8ae0"
+          "sha256": "1ec11ba8c6d049129775b1eaa66e5e3d7112e00cd4a795f4a1934c6da786fa38"
         },
         {
           "path": "agents/openai.yaml",

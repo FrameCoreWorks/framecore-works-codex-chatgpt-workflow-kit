@@ -13,7 +13,8 @@ Keep the upstream source identity unchanged when making personal edits.
 
 ## Codex Copy-Paste Prompt
 
-Open the project where the kit is installed. Replace the Skill placeholder:
+Open Codex with the existing Skill available, in its actual personal or project scope.
+Replace the Skill placeholder:
 
 ```text
 Use $skill-creator to help me extend my existing installed FrameCore Skill: <skill-name>.
@@ -23,9 +24,9 @@ Locate the exact existing Skill and confirm its installation scope. Do not creat
 clone another repository into my project. Resolve my working language from my explicit preference
 and own conversation because this Skill is already installed.
 
-First inspect its current instructions, relevant resources and managed-file status. Ask what I want
-to add, change or specialize, and request only the real examples or constraints needed to define the
-change.
+First inspect its instructions and resources. Check personal and project scopes for collisions;
+inspect managed-file status only if a project manifest owns this Skill. Ask what I want to add,
+change or specialize, using only the examples and constraints needed to define the change.
 
 Before writing, propose the objective, exact files, preserved behavior, expected benefit, conflicts,
 acceptance test, rollback and stop condition. Prepare exact changes read-only and wait for my

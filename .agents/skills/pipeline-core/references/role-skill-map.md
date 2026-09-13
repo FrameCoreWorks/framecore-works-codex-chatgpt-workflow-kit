@@ -8,6 +8,12 @@ workflow responsibility, artifact, review gate, handoff target, and stop
 condition. A skill supplies reusable instructions, knowledge, templates, or
 guardrails that can support one or more roles.
 
+Native Codex Skills installed through `$skill-installer` do not register project
+agents. Resolve supporting Skills from their actual installed directories.
+Without a matching host-registered agent, perform the bounded responsibility
+in the current task, as with temporary roles below. Do not require a project
+manifest or invent a role-named Skill.
+
 In a Codex project-local install, a role ID may resolve to a rendered
 `.codex/agents/<role-id>.toml` file. In ChatGPT, the same role ID becomes a
 temporary responsibility inside the current task. Some role IDs also have
@@ -21,7 +27,7 @@ direction responsibility." It does not require ChatGPT to invent an
 here, create a bounded temporary responsibility, produce the expected artifact,
 then stop or hand off.
 
-| Role ID | Codex implementation | ChatGPT implementation | Supporting skills |
+| Role ID | Optional Codex project agent | ChatGPT implementation | Supporting skills |
 | --- | --- | --- | --- |
 | `intent-confirmation` | `.codex/agents/intent-confirmation.toml` | temporary responsibility | `pipeline-core`, `workflow-orchestrator` |
 | `workflow-orchestrator` | `.codex/agents/workflow-orchestrator.toml` | temporary responsibility | `workflow-orchestrator`, `pipeline-core` |
@@ -73,7 +79,7 @@ need supporting skills beyond their same-named contract:
 When a workflow mentions a role ID:
 
 1. Resolve the role ID against this map.
-2. In Codex, use the rendered role agent when available.
+2. In Codex, use a corresponding registered role agent only when actually available. Otherwise use a bounded responsibility with the installed supporting Skills; the native installer does not register agents.
 3. In ChatGPT, create only a temporary responsibility with clear scope,
    required inputs, expected output artifact, review gate, handoff target, and
    stop condition.

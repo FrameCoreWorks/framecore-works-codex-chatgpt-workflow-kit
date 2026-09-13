@@ -26,6 +26,7 @@ Do not use this skill to bypass specialist skills, run tools, upload files, or r
 
 ## Surface Model
 
+- Native personal Codex Skills use `$CODEX_HOME/skills` via `$skill-installer`. They do not require project config, rendered agents or `.framecore/manifest.json`. Keep a visible Workflow Profile; persist project state only with approval. Role IDs are bounded responsibilities unless the host actually exposes a matching registered agent.
 - In a project-local Codex install, role IDs may resolve to rendered `.codex/agents/*.toml`, and Project State may be stored in approved workspace files.
 - In ChatGPT, role IDs are temporary responsibilities for the current task. Keep state visible in the conversation or in a user-provided artifact. Do not claim a local install, shell access, persistent agents, manifests, or Memory Cache.
 - On either surface, use only capabilities that are actually available. A workflow route never grants provider, upload, API, file-system, or publishing permission.
@@ -35,7 +36,7 @@ Do not use this skill to bypass specialist skills, run tools, upload files, or r
 Required:
 
 - `user_request`: the current task, goal, and any explicit exclusions.
-- `workspace_context`: installed config and current files in Codex, or visible conversation context and user-provided artifacts in ChatGPT.
+- `workspace_context`: actual installed Skills, visible preferences and accessible artifacts. Include Codex project config only when it exists; use conversation context and user-provided artifacts in ChatGPT.
 - `mode`: analyze, plan, edit, generate, review, install, or deliver.
 
 Optional:
@@ -91,6 +92,7 @@ Read only what is needed:
 ## Decision Rules
 
 - Prefer the smallest route that preserves gates and handoffs.
+- Resolve installed Skills through the active host, not a hard-coded project path. Relative resources belong to the actual Skill directory. Native installation does not supply the repository CLI or register project agents. Map role IDs through `references/role-skill-map.md`; report missing supporting Skills without inventing or installing them.
 - A direct request for one prompt, brief, storyboard, caption plan, review, or other bounded artifact should route to the relevant specialist skill when its inputs are sufficient. Do not start the full pipeline merely because implicit invocation is available.
 - Use a multi-stage route when the user explicitly asks for an end-to-end or full workflow, or when the task genuinely spans dependent stages that require shared state, gates, handoffs, or QA.
 - An explicit `$pipeline-core` invocation requests governed multi-stage routing, but it does not require irrelevant stages and does not authorize unavailable tools or protected actions.

@@ -1,91 +1,88 @@
 # Getting Started In 5 Minutes
 
-For the canonical install contract, see [Codex installation](../CODEX_INSTALL.md).
-For an existing installation, use [Codex update](../CODEX_UPDATE.md) or
-[personal Skill extension](skill-customization.md). Installation stays English;
-the host resolves user language only after verified installation.
-
 ## Purpose
 
-Use this page if someone sent you this repo and you want the shortest safe path to try it in Codex.
+Install selected FrameCore workflow Skills through Codex's built-in
+`$skill-installer`. No project clone, Node.js setup or project agent installation
+is required for this native route. Static graphic design is already integrated
+into the existing Skills. Providers, uploads and API keys are not installed.
 
-If you want native skills in ChatGPT instead, use [Native ChatGPT Skills](chatgpt-skills-onboarding.md). Switch ChatGPT from Chat to Work, then paste the repository setup prompt with its leading `@skill-creator` mention. ChatGPT runs onboarding, shows the selected skill list, and asks whether you want one conversational approval for the full batch or a guided explanation and approval for each skill. It does not wait for a separate install modal. After setup, the guide explains how to invoke, edit, expand, and create skills.
-
-This Codex workflow skill kit adds a project-local workflow layer to Codex for creative and delivery work: briefs, references, campaign direction, image and video prompt planning, storyboard work, QA, delivery notes, and long-session recovery.
-
-It does not install paid providers, API keys, uploads, or global tools by default.
+For ChatGPT Work, use the separate [native ChatGPT guide](chatgpt-skills-onboarding.md)
+and its `@skill-creator` prompt. The two hosts do not share an installation mechanism.
 
 ## Before You Start
 
-Use a shell-capable Codex workspace, not a regular ChatGPT chat window.
-
-Recommended beginner setup:
-
-1. Open Codex.
-2. Create a new empty project folder in your Codex workspace, for example `Workflow Test`.
-3. Open that folder in Codex.
-4. If Codex asks you to configure the sandbox or workspace, choose that new project folder.
-5. Paste the prompt below into Codex.
-
-If you do not know how to clone a repo, install [GitHub Desktop](https://desktop.github.com/) and use it only as a visual helper. GitHub Desktop does not run the installer by itself.
+Open Codex with `$skill-installer` available. The host needs permission to fetch
+the public source and write its personal Skills directory. Do not create a
+project clone or install GitHub Desktop just to use this route.
 
 ## Copy-Paste Prompt
 
 ```text
-Install FrameCore Works Skill Kit for Codex from:
+Use $skill-installer to install selected FrameCore workflow Skills from this public repository:
 https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
-I am new to this repo. Use the safe beginner path:
+First read CODEX_INSTALL.md. Confirm that this is Codex and that the built-in $skill-installer is
+available. Keep installation guidance in English; do not infer my language from this copied prompt.
 
-1. Confirm this is a shell-capable Codex workspace, not a regular ChatGPT chat.
-2. Clone the repo into a temporary or tools folder outside my project.
-3. Read README.md, docs/quickstart.md, and docs/codex-assisted-install.md.
-4. Explain in plain language what will be installed and what will not be installed.
-5. Run repository checks.
-6. Run doctor/preflight against my current workspace.
-7. Run onboarding for my current workspace and explain each question before I answer.
-8. Run install dry-run after onboarding.
-9. Install project-local only after showing me the planned writes.
-10. Ask whether I want Context/ and Memory Cache/ for long-session recovery.
-11. Show changed files, the installed tree, and my first post-install prompt.
+Resolve the latest main commit once. Read the guide, profiles and source inventory at that same
+full commit. Recommend the smallest useful core, creative or full profile, show the exact Skill
+list and destination, and obtain my approval before installation.
 
-Do not use global install.
-Do not use providers, uploads, API keys, or external execution tools.
+Use the native $skill-installer helper with --repo, the pinned --ref and only the approved
+.agents/skills/<skill-name> paths. Install into $CODEX_HOME/skills, using the host's actual default.
+Do not clone this repository into my project, run the project-local installer or install agent
+TOMLs, AGENTS files, project config or a .framecore manifest.
+
+Preflight every selected destination and verify every declared source file and SHA-256 before
+writes. If a Skill already exists in the destination or another active scope, stop and follow
+CODEX_UPDATE.md for that existing installation; do not overwrite it or create a duplicate.
+Do not treat a multi-Skill installation as atomic. After any failure, inspect actual saved state
+and report which Skills succeeded, failed or were not attempted before proposing recovery.
+
+After installation, verify the complete saved inventory and bytes against the pinned source.
+Record source identity and verification outside the Skill bundles. Only then resolve my working
+language from my explicit preference or own conversation, excluding copied setup prompts; use a
+reliably exposed locale only as a fallback, otherwise English. Explain the installed Skills and
+give one useful starter prompt. Tell me they will be available on my next turn without claiming
+that host activation was observed. Do not use providers, upload files or publish anything.
 ```
 
 ## What Should Happen
 
-Codex should first confirm that it is running in the right environment. Then it should explain the install, ask onboarding questions, show planned file writes, and install only into your current project folder.
+Codex reads [CODEX_INSTALL.md](../CODEX_INSTALL.md), pins one source commit,
+recommends a profile and shows the exact Skill list and destination. After your
+approval, the system installer copies only those bundles into
+`$CODEX_HOME/skills/<skill-name>`. Each remains a separate Skill.
 
-The install is project-local. It should not modify unrelated projects.
+Existing Skills must not be overwritten or duplicated. Use
+[CODEX_UPDATE.md](../CODEX_UPDATE.md) for updates with a read-only proposal and
+approval. A partial failure requires inspection of real files before retrying.
 
-After install, you should see local workflow files such as `AGENTS.md`, `AGENTS.framecore.md`, `.codex/agents/`, `.agents/skills/`, `framecore.config.json`, and `.framecore/manifest.json`, depending on the selected options.
+## If Installation Is Blocked
 
-## If Codex Cannot Run Commands
-
-If Codex says `git` or `gh` is missing, nothing has been installed yet.
-
-Beginner fallback:
-
-1. Clone the repo with GitHub Desktop into a temporary, tools, or GitHub folder outside your project.
-2. Return to Codex.
-3. Ask Codex to continue the FrameCore install from the cloned repo.
+A conversation, source read or approval alone is not installation. If the
+installer, source access, permissions or complete readback is unavailable,
+report the actual blocker and installed state. Do not silently switch to a
+project install or claim that no files were written after a partial failure.
 
 ## After Install
 
-Use this starter prompt in your project:
+After verified saved content, the workflow resolves your language from your own
+conversation or explicit preference, not the copied English setup prompt. The
+Skills will be available on your next turn. No `.framecore` manifest or project
+agent files are required. If your approved profile includes the orchestrator:
 
 ```text
-Read AGENTS.md and AGENTS.framecore.md if both exist. Use the installed FrameCore workflow for this task. Start by confirming the task, choose the smallest useful route, name the expected artifacts and gates, and do not use external providers, uploads, API keys, or global install.
+Use $workflow-orchestrator with my installed FrameCore Skills. Help me choose the smallest useful
+workflow for my next task. Do not assume project agent files, a manifest or uninstalled Skills exist.
 ```
 
 ## When To Use The Full Docs
 
-Use the full docs when you want more control:
-
-- [README](../README.md) for the complete repo overview and install prompt.
-- [Quickstart](quickstart.md) for beginner and terminal paths.
-- [Codex-Assisted Install](codex-assisted-install.md) for the safe Codex-guided install flow.
-- [Included Agents And Skills](included-agents-and-skills.md) for the full inventory.
-- [Workflow Map](workflow-map.md) for roles, skills, gates, artifacts, and handoffs.
-- [Troubleshooting](troubleshooting.md) if something stops or looks unclear.
+- [Codex installation](../CODEX_INSTALL.md): source integrity, native helper and readback.
+- [Codex update](../CODEX_UPDATE.md): preserve existing Skills and personal edits.
+- [Skill customization](skill-customization.md): guided personal extensions.
+- [Using The Kit](using-the-kit.md): concrete starter requests.
+- [Advanced project install](codex-project-install.md): optional agents, config and CLI lifecycle.
+- [Included Agents And Skills](included-agents-and-skills.md): inventory and responsibilities.

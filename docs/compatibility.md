@@ -8,6 +8,15 @@ Use it before opening support issues, before changing installer behavior, and be
 
 ## Runtime Requirements
 
+The default Codex route needs the built-in `$skill-installer`, public source
+access and permission to write the actual personal Skills directory. Follow its
+active host instructions for the helper runtime. Native Skill installation does
+not require this repository's Node CLI or a project clone. Optional bundled
+Node checks need Node.js only when run.
+
+The following requirements apply to repository maintenance and the optional
+advanced project-local CLI:
+
 - Node.js 20 or newer.
 - npm available from the same shell that runs the scripts.
 - A local clone or downloaded copy of this repository.
@@ -29,7 +38,11 @@ The default `validate` workflow runs on Ubuntu for fast push and pull-request fe
 
 ## Codex Environment
 
-This kit targets Codex workspaces that can read project instructions from `AGENTS.md`.
+The default route installs selected native Skills in `$CODEX_HOME/skills`.
+See [CODEX_INSTALL.md](../CODEX_INSTALL.md). Role IDs remain task responsibilities
+unless the actual host exposes a corresponding agent.
+
+The advanced project-local mode targets workspaces that can read `AGENTS.md`.
 
 Project-local install writes rendered role files to `.codex/agents/*.toml`. A Codex environment that supports custom agents can use those role files for routed subagent work. If a local Codex environment does not expose custom-agent spawning, the installed skills, project instructions, templates, gates, and examples still provide the workflow contract, but agent spawning depends on that local environment.
 
@@ -37,7 +50,7 @@ If a target project already has `AGENTS.md`, project-local install writes `AGENT
 
 ## Install Modes
 
-Supported install modes:
+The following modes belong to the optional project CLI, not `$skill-installer`:
 
 - `dry-run`, previews planned writes without creating managed workflow files.
 - `project-local`, the recommended default for one workspace.
@@ -58,7 +71,7 @@ Account eligibility, workspace permissions, public repository access, native Ski
 
 ## Manifest Compatibility
 
-New installs write `.framecore/manifest.json` with managed paths, file hashes, and an `incomplete` state flag.
+New advanced project installs write `.framecore/manifest.json` with managed paths, file hashes, and an `incomplete` state flag.
 
 `doctor` uses the manifest to warn about interrupted installs, missing or changed managed files, and incomplete hash coverage. `update`, `repair`, and `uninstall` require a manifest. Legacy manifests without hashes can still be inspected, but hash-based drift checks need a manifest written by a current install, update, or repair.
 
@@ -79,8 +92,8 @@ For the full boundary, see [Provider-Neutral Boundary](provider-neutral-boundary
 When reporting compatibility issues, include only sanitized information:
 
 - operating system name
-- Node.js version
-- install mode
+- Node.js version when using the project CLI or bundled Node checks
+- native personal Skills or advanced project CLI, including selected mode
 - whether `.framecore/manifest.json` exists
 - sanitized command output with private paths, URLs, emails, and project context removed
 

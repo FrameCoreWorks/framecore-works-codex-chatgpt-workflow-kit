@@ -57,45 +57,51 @@ source files, approval modes and troubleshooting, see
 
 ### Codex
 
-This kit uses its own **project-local installer**, not the standalone
-`$skill-installer` route. Open the project that should receive the workflow in
-a shell-capable Codex workspace, then paste:
+Use the built-in **`$skill-installer` route** to install the selected Skills into
+your personal Codex Skills directory. Open Codex and paste:
 
 ```text
-Install FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT into my current Codex
-project:
+Use $skill-installer to install selected FrameCore workflow Skills from this public repository:
 https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
-First read CODEX_INSTALL.md from that repository. Confirm the actual host, shell access and
-destination project. Keep installation guidance in English. Do not infer my language from this
-pasted prompt.
+First read CODEX_INSTALL.md. Confirm that this is Codex and that the built-in $skill-installer is
+available. Keep installation guidance in English; do not infer my language from this copied prompt.
 
-Use the repository's project-local installer, not a standalone Skill installer. Obtain a clean
-current-main checkout outside my project, verify its origin, record its full commit ID, and read its
-instructions. If this project already has .framecore/manifest.json, stop the fresh-install path and
-follow CODEX_UPDATE.md instead.
+Resolve the latest main commit once. Read the guide, profiles and source inventory at that same
+full commit. Recommend the smallest useful core, creative or full profile, show the exact Skill
+list and destination, and obtain my approval before installation.
 
-Run repository checks, doctor/preflight, English preference onboarding and dry-run. Show the
-destination, managed files and conflicts, then obtain my approval before installation. Preserve my
-existing AGENTS.md and unrelated files. Never use --force, global install, providers, API keys or
-uploads without separate explicit approval.
+Use the native $skill-installer helper with --repo, the pinned --ref and only the approved
+.agents/skills/<skill-name> paths. Install into $CODEX_HOME/skills, using the host's actual default.
+Do not clone this repository into my project, run the project-local installer or install agent
+TOMLs, AGENTS files, project config or a .framecore manifest.
 
-After installation, verify the manifest and actual installed files. Only then resolve my working
-language from an explicit preference or my own conversation text, excluding pasted setup prompts;
-use a reliably exposed host locale only as a fallback, otherwise English. Explain the installed
-workflow and give me one useful starter prompt in that language. If host activation requires
-reopening the project or a new conversation, say so without claiming a reload you did not observe.
+Preflight every selected destination and verify every declared source file and SHA-256 before
+writes. If a Skill already exists in the destination or another active scope, stop and follow
+CODEX_UPDATE.md for that existing installation; do not overwrite it or create a duplicate.
+Do not treat a multi-Skill installation as atomic. After any failure, inspect actual saved state
+and report which Skills succeeded, failed or were not attempted before proposing recovery.
+
+After installation, verify the complete saved inventory and bytes against the pinned source.
+Record source identity and verification outside the Skill bundles. Only then resolve my working
+language from my explicit preference or own conversation, excluding copied setup prompts; use a
+reliably exposed locale only as a fallback, otherwise English. Explain the installed Skills and
+give one useful starter prompt. Tell me they will be available on my next turn without claiming
+that host activation was observed. Do not use providers, upload files or publish anything.
 ```
 
-Codex keeps the source checkout outside your project and installs the managed
-skills, role agents and project instructions into the selected project. It does
-not install a separate Static Graphic Design Creator skill.
+This installs the existing Skills, including integrated static-design knowledge.
+It does not create a project checkout or install a separate Static Graphic Design
+Creator asset. Full source, collision and readback rules: [CODEX_INSTALL.md](CODEX_INSTALL.md).
+If the installer or required access is unavailable, nothing was installed.
 
-For manual commands, use [CODEX_INSTALL.md](CODEX_INSTALL.md). For a first setup,
-see [Quickstart](docs/quickstart.md) or [Codex-assisted install](docs/codex-assisted-install.md).
-If shell access or Git is unavailable, stop: nothing was installed.
-[GitHub Desktop](https://desktop.github.com/) is an optional visual cloning tool,
-not an installer.
+The optional **advanced project-local installer** additionally provides agent
+TOMLs, project config, instructions and a managed manifest. Choose it explicitly:
+[project install](docs/codex-project-install.md),
+[CLI Quickstart](docs/quickstart.md) or
+[Codex-assisted project install](docs/codex-assisted-install.md).
+[GitHub Desktop](https://desktop.github.com/) is an optional visual cloning tool
+for that advanced route, not a requirement for native Skill installation.
 
 ## Update an existing installation
 
@@ -145,40 +151,47 @@ Source comparison, recovery and readback rules: [CHATGPT_UPDATE.md](CHATGPT_UPDA
 
 ### Codex update
 
-Open the project where the kit is already installed, then paste:
+For existing native Codex Skills, use `$skill-creator`, not a fresh
+`$skill-installer` run. Paste:
 
 ```text
-Update my existing project-local FrameCore workflow to the latest main commit from:
+Use $skill-creator to update my existing installed FrameCore Skills from:
 https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
-First read CODEX_UPDATE.md. Find my current project's .framecore/manifest.json and confirm the
-actual host and destination. This is an update, not a fresh or global install.
+First read CODEX_UPDATE.md. Confirm the actual Codex host, exact existing Skill paths and source
+evidence. This updates the same Skills; do not use $skill-installer as an updater, create duplicates
+or clone a repository into my project. If a project .framecore/manifest.json owns these files, use
+docs/codex-project-update.md for that scope instead. Do not silently move between installation
+scopes.
 
-Find the kit checkout outside my project. Verify its origin and Git status. Fetch origin/main and
-use a clean checkout at that exact full commit; do not reset, discard, stash or overwrite anyone's
-uncommitted work. If the checkout is dirty or diverged, stop or propose a separate clean source
-checkout outside my project. Report the previous known source identity and the fetched target
-commit; do not infer a precise source commit from package version alone.
+Resolve the latest main commit once and pin the guide, configuration, inventory and all source
+reads to that same full commit. Verify source paths and SHA-256 hashes. Compare the actual installed
+content, the previous verified source when available, and the new source. If the old baseline is
+unknown, say so; do not invent a three-way comparison or infer provenance from a Skill name.
 
-Run release checks, doctor in update mode and install dry-run. Compare actual installed files with
-manifest hashes and available old source evidence. Show changed, new, retired and unchanged files,
-local modifications and any conflicts. Preserve personal additions. The built-in updater does not
-perform a three-way merge: do not describe backups or --force as a conflict-safe merge.
+Prepare the complete proposal read-only: changed, new, retired and unchanged files, exact conflict
+diffs, personal additions, preserved behavior, validation and rollback. An upstream update does not
+authorize installing extra Skills. Preserve existing Skill identity and local extensions. If there
+is no update to apply, report already_up_to_date or local_customizations_preserved without writing.
 
-Ask for approval of the concrete update. If local modifications conflict, prepare the exact proposed
-resolution read-only and stop before writes until I approve it. Do not use --force just to make the
-command succeed.
+Show Delta and verification, then wait for my approval before any saved change. Unresolved conflicts
+block the update. After approval, recheck the source and installed bytes for drift, preserve a
+recoverable snapshot outside the bundles and apply only the approved changes to the same paths.
 
-Apply the approved update to this same project. Verify doctor, managed hashes, preserved local files
-and the final manifest, then repeat dry-run to check for remaining changes. Report the source
-commit, changes, backup locations and verification. Use my resolved working language only because
-this is an already installed environment. Do not upload, publish, activate providers or change
-global installations.
+Read back the complete result, verify hashes and preserved resources, run relevant bundled checks
+when available, and repeat comparison against the same source without another save. Record actual
+source identity, local deviations and saved digests outside the bundles only after verification.
+If saving or verification fails, inspect actual state before recovery; do not blindly retry or
+roll back over later user edits.
+
+Use my resolved working language because the Skills are already installed. Keep public sources in
+English. Do not upload, publish, activate providers or change unrelated configuration.
 ```
 
-Refreshing the source checkout and updating installed files are separate steps.
-The CLI does not fetch GitHub, and `--force` does not merge personal edits.
-Commands and recovery rules: [CODEX_UPDATE.md](CODEX_UPDATE.md).
+Read-only comparison, approval and saved-file verification:
+[CODEX_UPDATE.md](CODEX_UPDATE.md). For an advanced project-local installation
+owned by `.framecore/manifest.json`, use the separate
+[project update guide](docs/codex-project-update.md).
 
 <a id="extend-your-installed-skills"></a>
 
@@ -225,7 +238,7 @@ updates.
 
 ### Codex personal extension
 
-Open the installed project in Codex with `$skill-creator` available, then paste:
+Open Codex with the existing Skill and `$skill-creator` available, then paste:
 
 ```text
 Use $skill-creator to help me extend my existing installed FrameCore Skill: <skill-name>.
@@ -235,9 +248,9 @@ Locate the exact existing Skill and confirm its installation scope. Do not creat
 clone another repository into my project. Resolve my working language from my explicit preference
 and own conversation because this Skill is already installed.
 
-First inspect its current instructions, relevant resources and managed-file status. Ask what I want
-to add, change or specialize, and request only the real examples or constraints needed to define the
-change.
+First inspect its instructions and resources. Check personal and project scopes for collisions;
+inspect managed-file status only if a project manifest owns this Skill. Ask what I want to add,
+change or specialize, using only the examples and constraints needed to define the change.
 
 Before writing, propose the objective, exact files, preserved behavior, expected benefit, conflicts,
 acceptance test, rollback and stop condition. Prepare exact changes read-only and wait for my
@@ -256,7 +269,7 @@ to test it and how to undo it. Do not publish, upload, use providers or modify g
 
 ## What This Repo Gives You
 
-This skill kit adds a project-local creative workflow layer to Codex and exposes the same public skill contracts as repository-source native ChatGPT Skills. It does not install paid providers or API-key tooling. It gives the active surface a structured way to move work from request intake to brief, references, direction, prompts, QA, and delivery notes. Codex additionally supports local agents, manifests, and long-session recovery files.
+This skill kit provides native Codex Skills through `$skill-installer` and the same public skill contracts as repository-source native ChatGPT Skills. It does not install paid providers or API-key tooling. It gives the active surface a structured way to move work from request intake to brief, references, direction, prompts, QA, and delivery notes. An optional advanced Codex project-local install additionally supplies agents, manifests, and long-session recovery tooling.
 
 ## Human-In-The-Loop Boundary
 
@@ -279,8 +292,8 @@ decision.
 At a glance, the repo includes:
 
 - **20 Codex role-agent templates** for routing, creative planning, prompting, QA, delivery, and execution documentation.
-- **35 portable workflow skills** for brief building, research evidence, copy and voice, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, safe tool-routing and cost planning, image and video prompting, storyboard work, Humanizer, integrated HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for creation through the active `@skill-creator` workflow.
-- **Project-local install and onboarding** with doctor/preflight, dry-run, manifest tracking, update, repair, and uninstall.
+- **35 portable workflow skills** for brief building, research evidence, copy and voice, ecommerce strategy, screenplay development, creative video production, captions, OpenCut and Remotion production, safe tool-routing and cost planning, image and video prompting, storyboard work, Humanizer, integrated HyperFrames planning, Hipson-style packets, QA, delivery, onboarding, and workflow self-improvement. Every skill includes native UI metadata and a public source mapping for the Codex `$skill-installer` or ChatGPT `@skill-creator` route.
+- **Optional advanced project-local install and onboarding** with doctor/preflight, dry-run, manifest tracking, update, repair, and uninstall.
 - **Workflow contracts** for gates, handoffs, artifact schemas, examples, Loop Protocol, and provider-neutral safety boundaries.
 
 For the full inventory, see [Included Agents And Skills](docs/included-agents-and-skills.md). For iterative QA and repair discipline, see [Loop Protocol](docs/loop-protocol.md). For ready-to-use copy, voice, captions, and editorial delivery rules, see [Human Voice And Copy Delivery](docs/human-voice-and-copy-delivery.md). For the staged adoption plan, see [Loop Protocol Integration Plan](docs/loop-protocol-integration-plan.md).
@@ -325,7 +338,8 @@ Use @skill-creator to help me create a skill.
 
 | Surface | What works | Notes |
 | --- | --- | --- |
-| OpenAI Codex CLI with custom-agent support | Full project-local install, `AGENTS.md`, skills, rendered `.codex/agents/*.toml`, guided install, doctor, update, repair, uninstall | Recommended full experience. |
+| Codex with built-in `$skill-installer` | Selected personal Skills in `$CODEX_HOME/skills` | Default Codex route. Does not create project agents, config or a managed manifest. |
+| OpenAI Codex CLI with custom-agent support | Full project-local install, `AGENTS.md`, skills, rendered `.codex/agents/*.toml`, guided install, doctor, update, repair, uninstall | Optional advanced mode for explicitly requested project agents and lifecycle tooling. |
 | OpenAI Codex or ChatGPT environments that read project instructions but do not expose custom-agent spawning | `AGENTS.md`, installed skills, workflow docs, examples, artifact contracts | `.codex/agents/*.toml` may be inert, but the workflow contracts remain useful. |
 | Native ChatGPT Skills | Repository-source skill creation, UI metadata, guided onboarding, reusable workflow instructions, and temporary task roles | Requires native Skills, ChatGPT Work, `@skill-creator`, public GitHub source access, conversational approval in batch or guided mode, and a real creation result for each selected skill. |
 | Other AGENTS-aware coding agents or editors | `AGENTS.md`, docs, examples, and reusable skill files when read manually | Custom-agent `.toml` files are Codex-specific and may not be consumed. |
@@ -353,16 +367,17 @@ Use @skill-creator to help me create a skill.
 
 Skills are workflow contracts, not personality presets. A skill defines when a workflow role should act, what input it needs, what artifact it must produce, which QA gate applies, and where the handoff goes next.
 
-Onboarding does not rewrite that workflow logic. In Codex it tunes local workspace preferences. In ChatGPT it creates a visible neutral Workflow Profile, temporary role rules, safety boundaries, and a reusable starter prompt.
+Onboarding does not rewrite that workflow logic. In native Codex Skills it produces a visible Workflow Profile; the optional project-local CLI can render that profile into workspace configuration. In ChatGPT it creates a visible neutral Workflow Profile, temporary role rules, safety boundaries, and a reusable starter prompt.
 
 ## Start Here
 
 - First installation: read [Getting Started In 5 Minutes](docs/getting-started-5-minutes.md).
-- New to the kit: read [Quickstart](docs/quickstart.md).
-- Installing by pasting a GitHub link into Codex: read [Codex-Assisted Install](docs/codex-assisted-install.md).
+- Installing native Codex Skills: use [CODEX_INSTALL.md](CODEX_INSTALL.md) and `$skill-installer`.
+- Choosing the advanced project-local CLI: read [Quickstart](docs/quickstart.md).
+- Adding project agents and configuration: read [Codex-Assisted Project Install](docs/codex-assisted-install.md).
 - Using native ChatGPT Skills instead of Codex: read [Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md).
 - Already installed and ready to work: read [Using The Kit](docs/using-the-kit.md).
-- Already installed and want the newest repo changes: use [Update An Existing Workspace](#codex-update).
+- Already installed and want the newest repo changes: use [Codex update](#codex-update).
 - Installation failed or produced an unexpected result: read [Troubleshooting](docs/troubleshooting.md).
 - Need quick answers first: read [FAQ](docs/faq.md).
 - Want to see exactly what is included: read [Included Agents And Skills](docs/included-agents-and-skills.md).
@@ -393,6 +408,12 @@ Onboarding does not rewrite that workflow logic. In Codex it tunes local workspa
 
 ## What It Installs
 
+The default native Codex route installs only approved Skill bundles in
+`$CODEX_HOME/skills/<skill-name>`. ChatGPT creates the equivalent selected native
+entries. Neither route installs project agents, configuration or a manifest.
+
+The optional advanced project-local installer can additionally provide:
+
 - Role-based Codex agent templates with local display-name customization.
 - Workflow skills for intake, references, research, direction, copy, prompts, QA, delivery, and retrospectives.
 - Humanizer for natural copy polish and voice consistency.
@@ -401,7 +422,7 @@ Onboarding does not rewrite that workflow logic. In Codex it tunes local workspa
 - Project State templates for durable run-state, context recovery, blockers, touched files, and next-action handoff.
 - Memory Cache templates and local tools for long-session recovery, context-budget checks, semantic lookup, and report-only self-improvement queues.
 
-Project-local install writes only exact FrameCore-managed files:
+The advanced project-local install writes only exact FrameCore-managed files:
 
 - `.agents/skills/<framecore-skill>/...`
 - `.codex/agents/<role-id>.toml`
@@ -419,7 +440,10 @@ Public documentation, source instructions, metadata and installation prompts are
 
 ## Install Flow
 
-For the beginner-safe guided path, run:
+The commands below are for the optional advanced project-local installer only.
+For the default native Skills route, use [CODEX_INSTALL.md](CODEX_INSTALL.md).
+
+For guided project setup, run:
 
 ```bash
 npm run install:guided -- --target /path/to/your/project
@@ -478,7 +502,8 @@ Manual fallback:
 
 If your project already has `AGENTS.md`, the installer writes `AGENTS.framecore.md` instead. Use `--force` only when you intentionally want FrameCore to overwrite a conflicting user-owned file.
 
-Global install is available only for advanced users. It writes to the current user's home workspace, so preview it first:
+Global install is available only for advanced users. This CLI home-workspace
+mode is separate from the default native `$CODEX_HOME/skills` route. It writes to the current user's home workspace, so preview it first:
 
 ```bash
 npm run doctor -- --mode global
@@ -494,6 +519,11 @@ node scripts/install.mjs --mode global --confirm-global
 Use `--mode dry-run` first for every install target.
 
 ## Update, Repair, And Uninstall
+
+These CLI commands manage advanced project installations only. They are not
+updaters for native personal Skills; those use [CODEX_UPDATE.md](CODEX_UPDATE.md).
+Refresh and verify the CLI source via [project update](docs/codex-project-update.md)
+before using the commands below.
 
 Update requires an existing `.framecore/manifest.json`, upgrades the current FrameCore-managed set, and refuses user-owned conflicts. It also refuses locally edited managed files when their manifest hashes changed; rerun with `--force` only when you intentionally want to overwrite those local edits after creating backups:
 
@@ -527,7 +557,11 @@ Backup files are not added to the manifest and are preserved for manual review o
 
 ## First-Run Onboarding
 
-Onboarding collects:
+Native Skill onboarding keeps a visible Workflow Profile and requires no project
+config. Save personal preferences only through an approved host-supported route.
+The following CLI onboarding and generated files apply to the advanced project mode.
+
+Project onboarding collects:
 
 - response tone
 - local display names for role-based agents

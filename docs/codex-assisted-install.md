@@ -1,13 +1,16 @@
-# Codex-Assisted Install
+# Codex-Assisted Project Install
 
-For the canonical install contract, see [Codex installation](../CODEX_INSTALL.md).
-For an existing installation, use [Codex update](../CODEX_UPDATE.md) or
-[personal Skill extension](skill-customization.md). Installation stays English;
-the host resolves user language only after verified installation.
+For the default native `$skill-installer` route, use [CODEX_INSTALL.md](../CODEX_INSTALL.md).
+Everything below describes the optional advanced project-local installer.
+Its install contract is [project install](codex-project-install.md); existing
+project installations use [project update](codex-project-update.md). For personal
+Skill changes, see [Skill customization](skill-customization.md). Installation
+stays English; the workflow resolves language after verified installation.
 
 ## Purpose
 
-This guide is for users who want Codex to install the kit for them from a GitHub link.
+This guide is for users who explicitly choose the advanced project-local mode
+and want Codex to run its CLI sequence. It is not the default native Skills route.
 
 The user should paste the install instruction into Codex from the workspace where the kit should be installed. Codex should then clone the repo into a temporary or tools folder outside the target workspace, read the docs, run checks, run onboarding, preview the install, and install project-locally.
 
@@ -29,7 +32,7 @@ If this is a regular ChatGPT chat window or any chat-only environment without wo
 If Codex asks me to configure the agent sandbox or workspace, stop and tell me to click the Configure sandbox button, choose the project folder where I want to install the workflow, then continue only after the sandbox is configured.
 
 First check whether this Codex environment can clone repositories and run local shell commands.
-If it can, clone the repo into a temporary or tools folder outside my project, read CODEX_INSTALL.md, README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in English what will be installed and how it will improve my workflow. Keep installation and onboarding in English. Resolve my language only after verified installation; this copied English prompt is not a language preference.
+If it can, clone the repo into a temporary or tools folder outside my project, read docs/codex-project-install.md, README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in English what will be installed and how it will improve my workflow. Keep installation and onboarding in English. Resolve my language only after verified installation; this copied English prompt is not a language preference.
 Start by telling me that this workflow kit was created for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, but can be adapted to other use cases.
 
 Then follow the safe install path:

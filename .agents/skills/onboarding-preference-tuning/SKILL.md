@@ -5,7 +5,7 @@ description: Use this skill for first-run workflow setup in Codex or ChatGPT, in
 
 # Onboarding Preference Tuning
 
-Use this skill to guide first-run setup and preference tuning. Detect whether the active surface is a project-local Codex workspace or native ChatGPT Skills, explain that boundary in plain language, and personalize the workflow without renaming it after the source repo.
+Use this skill to guide first-run setup and preference tuning. Detect whether the active surface is native personal Codex Skills, an advanced project-local Codex installation, or native ChatGPT Skills, explain that boundary in plain language, and personalize the workflow without renaming it after the source repo.
 
 ## Language Policy
 
@@ -30,8 +30,8 @@ Required:
 
 Optional:
 
-- `install_scope`: Codex project-local by default; not applicable to ChatGPT.
-- `workspace_target`: the Codex workspace where files will be installed; not applicable to ChatGPT.
+- `install_scope`: for `codex-local`, personal Skills via `$skill-installer` by default, or an explicitly selected advanced project-local install; not applicable to ChatGPT.
+- `workspace_target`: only for an approved advanced project-local install. Native personal Skills use the host's actual `$CODEX_HOME/skills` destination; ChatGPT has no local target.
 - `agent_display_names`: local Codex names or current-conversation ChatGPT labels for neutral role IDs.
 - `workflow_types`: common work such as graphics, video, ecommerce, storyboard, documents, or coded video.
 - `hipson_interest`: whether the user wants only the adapter or later full Hipson expansion.
@@ -51,17 +51,22 @@ Produce a Workflow Profile with:
 - lightweight Hipson Adapter default
 - optional recurring review recipe only when opted in
 
-For `codex-local`, the profile may render local config after the normal install checks. For `chatgpt-native`, keep the profile visible in the conversation and provide a reusable starter prompt. Do not claim local files were created.
+For native personal Codex Skills and `chatgpt-native`, keep the profile visible
+in the conversation and provide a reusable starter prompt. No project config,
+rendered agents or `.framecore/manifest.json` are required. Save private preferences
+only through an approved host-supported mechanism. For an explicitly selected
+advanced project-local Codex install, the profile may render config after the
+normal CLI checks. Do not claim files or agents were created without evidence.
 
 ## Process
 
 1. Determine whether this is installation preparation or preference tuning in an already verified installation. Keep installation guidance and work-profile questions in English; do not ask for a setup language or infer one from a pasted prompt. Resolve the working language only after verified installation.
 2. Give a short beginner preflight before asking about work. Explain what the workflow is, what questions will follow, what will be created, and what the active surface cannot do. In an already installed environment, use the resolved user language for preference tuning.
 3. Ask one question at a time about work type, main use cases, usual outputs, workflow depth, QA depth, priorities, collaboration context, and forbidden actions.
-4. State that skills and roles are workflow contracts. In ChatGPT, roles are temporary responsibilities inside the current task, not permanent custom agents.
+4. State that skills and roles are workflow contracts. Native Skill installation does not create permanent agents. In Codex, use registered agents only when actually available; otherwise keep responsibilities within the current task. ChatGPT roles remain temporary.
 5. Default to standard workflow depth and standard QA when the user gives no strong preference.
-6. For `codex-local`, keep project-local installation as the default and render local config only through the approved installer path.
-7. For `chatgpt-native`, produce a visible neutral Workflow Profile, compact operating guide, allowed temporary roles, safety boundaries, and reusable starter prompt.
+6. For `codex-local`, confirm the actual scope. Native fresh installation uses `$skill-installer` for approved existing Skill directories; existing Skills require an update proposal, not overwrite or duplicate installation. Render local config only when the advanced project-local CLI was explicitly selected.
+7. For native Codex Skills and `chatgpt-native`, produce a visible neutral Workflow Profile, compact operating guide, bounded role responsibilities, safety boundaries, and reusable starter prompt. Do not suggest CLI commands that native Skill installation did not supply.
 8. Do not recommend invoking other skills until onboarding is complete.
 
 ## Decision Rules
@@ -69,7 +74,7 @@ For `codex-local`, the profile may render local config after the normal install 
 - Use defaults when the user presses enter or gives no strong preference.
 - Keep recurring workflow review disabled unless the user opts in.
 - Keep full Hipson separate and optional.
-- If the user asks for global install, explain scope before applying it.
+- Distinguish native personal Skills from the advanced CLI's home-workspace global mode. Never silently switch installation scope. Check existing active Skill copies before proposing any installation.
 - If the surface is ChatGPT, do not request a workspace path or output directory and do not run Codex install logic.
 
 ## Guardrails
@@ -97,14 +102,16 @@ Hand off to installer or renderer with:
 - `qa_strictness`
 - `optional_features`
 
-On ChatGPT, hand off to `workflow-orchestrator` in the conversation with the visible Workflow Profile and reusable starter prompt instead of installer fields that do not apply.
+For native Codex Skills and ChatGPT, hand off to `workflow-orchestrator` only
+when it is installed, using the visible Workflow Profile and starter prompt.
+Do not require project installer fields, or install missing Skills without approval.
 
 ## QA Checklist
 
 - User understands what is being installed.
 - Installation remains in English; user-language detection starts only after verified installation.
 - The beginner preflight accurately describes the active surface.
-- Project-local is the default Codex scope; ChatGPT does not claim a local install.
+- Native `$skill-installer` is the default Codex route; advanced project-local is explicit. ChatGPT does not claim a local install.
 - Personalization is local and not committed.
 - Hipson Adapter is lightweight by default.
 - Recurring review is opt-in and report-only.

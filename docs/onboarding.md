@@ -2,6 +2,12 @@
 
 ## Purpose
 
+For native Codex Skills installed through `$skill-installer`, use the installed
+`onboarding-preference-tuning` Skill to keep a visible Workflow Profile. It does
+not require `framecore.config.json`, rendered agents or a project manifest.
+The CLI procedures and generated files below apply only to the optional advanced
+project-local mode. See [native installation](../CODEX_INSTALL.md).
+
 Onboarding creates local configuration for one workspace. It should run before installation unless the user explicitly provides a complete `framecore.config.json`.
 
 The workflow was created for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation. It can be adapted to other use cases by profiling the workspace during onboarding.

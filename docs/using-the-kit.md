@@ -2,19 +2,28 @@
 
 ## Purpose
 
-This guide shows what to ask Codex after this Codex workflow skill kit is installed in a project-local workspace.
+This guide shows what to ask Codex after installing native FrameCore Skills or
+the optional advanced project-local workflow.
 
-Use it after [Quickstart](quickstart.md) or [Codex-Assisted Install](codex-assisted-install.md). Installation gives Codex the workflow contracts. Your next prompt tells Codex which route to use and how deep the workflow should go.
+Use it after [native Skill installation](../CODEX_INSTALL.md) or the optional
+[project installation](codex-project-install.md). Installation gives Codex the workflow contracts. Your next prompt tells Codex which route to use and how deep the workflow should go.
 
 ## First Prompt After Install
 
-Open the target project in Codex and start with:
+For native Skills, start on the next turn with `$workflow-orchestrator` if it
+was included in your approved selection. Ask it to confirm the actual available
+Skills and choose the smallest useful route. A project manifest or rendered
+agent files are not required. Do not install missing Skills implicitly.
+
+For an advanced project-local installation, open its target project and start with:
 
 ```text
 Read AGENTS.md before continuing. If this project also has AGENTS.framecore.md, read both files. Then confirm which FrameCore workflow assets are available in this workspace.
 ```
 
-If Codex reports that `.codex/agents`, `.agents/skills`, or `.framecore/manifest.json` are missing, return to [Troubleshooting](troubleshooting.md).
+Only for the advanced project-local mode, missing `.codex/agents`,
+`.agents/skills` or `.framecore/manifest.json` may indicate incomplete setup.
+Use [Troubleshooting](troubleshooting.md). Their absence is normal for native Skills.
 
 ## Starter Prompts
 
@@ -23,7 +32,8 @@ Use one of these as your first real task. Replace bracketed text with your proje
 ### Route A Rough Idea
 
 ```text
-Read AGENTS.md before continuing. If this project also has AGENTS.framecore.md, read both files.
+Use my installed FrameCore Skills. Read AGENTS.md if present; also read AGENTS.framecore.md if this
+project has it. Do not assume project agents or a manifest exist.
 
 Use the FrameCore workflow to turn this rough idea into a clear brief and next-step plan:
 
@@ -35,7 +45,8 @@ Start with intent confirmation, choose the smallest safe workflow route, create 
 ### Build An Ecommerce Static Graphic Prompt Pack
 
 ```text
-Read AGENTS.md before continuing. If this project also has AGENTS.framecore.md, read both files.
+Use my installed FrameCore Skills. Read AGENTS.md if present; also read AGENTS.framecore.md if this
+project has it. Do not assume project agents or a manifest exist.
 
 Use FrameCore for an ecommerce static campaign or product visual.
 
@@ -54,7 +65,8 @@ Build the brief, reference needs, visual direction, exact visible text if needed
 ### Build A Video Storyboard Or Shot Plan
 
 ```text
-Read AGENTS.md before continuing. If this project also has AGENTS.framecore.md, read both files.
+Use my installed FrameCore Skills. Read AGENTS.md if present; also read AGENTS.framecore.md if this
+project has it. Do not assume project agents or a manifest exist.
 
 Use FrameCore for a short video storyboard.
 
@@ -73,7 +85,8 @@ Build direction, shot structure, scene beats, copy or caption needs, video promp
 ### Review Existing Assets Before Delivery
 
 ```text
-Read AGENTS.md before continuing. If this project also has AGENTS.framecore.md, read both files.
+Use my installed FrameCore Skills. Read AGENTS.md if present; also read AGENTS.framecore.md if this
+project has it. Do not assume project agents or a manifest exist.
 
 Use FrameCore QA and delivery review for these existing local artifacts:
 
@@ -85,7 +98,8 @@ Create an asset manifest, QA report, pass/fail decision, known limitations, and 
 ### Start A Long Session With Recovery
 
 ```text
-Read AGENTS.md before continuing. If this project also has AGENTS.framecore.md, read both files.
+Use my installed FrameCore Skills. Read AGENTS.md if present; also read AGENTS.framecore.md if this
+project has it. Do not assume project agents or a manifest exist.
 
 This will be a long multi-step task:
 
@@ -97,7 +111,8 @@ Use FrameCore to choose the workflow route and offer to initialize Context/ and 
 ### Run A Report-Only Workflow Retrospective
 
 ```text
-Read AGENTS.md before continuing. If this project also has AGENTS.framecore.md, read both files.
+Use my installed FrameCore Skills. Read AGENTS.md if present; also read AGENTS.framecore.md if this
+project has it. Do not assume project agents or a manifest exist.
 
 Use FrameCore workflow-self-improvement to review this completed task:
 
@@ -207,7 +222,12 @@ If `Memory Cache/` is missing or stale, Codex should proactively offer to initia
 This looks like a long or resumable session. I can initialize Context/ and Memory Cache/ for this workspace so future Codex sessions can resume safely. Should I create and validate those recovery folders now?
 ```
 
-If you agree, Codex should run:
+Native Skill installation does not supply the repository CLI. Keep Project State
+visible or save an approved private recovery artifact using available host tools.
+Do not clone or install extra tooling just because a session needs recovery.
+
+If you agree and the separately obtained project tooling is actually available,
+run from that source checkout, not from an arbitrary destination project:
 
 ```bash
 npm run memory:init -- --target <current-workspace-or-operational-folder>

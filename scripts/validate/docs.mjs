@@ -12,6 +12,8 @@ export function run(ctx) {
     "CODEX_UPDATE.md",
     "CHATGPT_UPDATE.md",
     "docs/skill-customization.md",
+    "docs/codex-project-install.md",
+    "docs/codex-project-update.md",
     "docs/getting-started-5-minutes.md",
     "docs/quickstart.md",
     "docs/codex-assisted-install.md",
@@ -62,8 +64,10 @@ export function run(ctx) {
   }
 
   const lifecycleContracts = {
-    "CODEX_INSTALL.md": ["project-local installer", "After installation, verify", "Only then resolve my working language", "--defaults --yes"],
-    "CODEX_UPDATE.md": ["git fetch origin main", "git merge --ff-only origin/main", "git rev-parse origin/main", "does not perform a three-way merge", "before writes until I approve"],
+    "CODEX_INSTALL.md": ["Use $skill-installer", "$CODEX_HOME/skills", "--ref", "SHA-256", "do not overwrite it or create a duplicate", "not atomic", "Only then resolve my working language", "verification_unavailable", "docs/codex-project-install.md"],
+    "CODEX_UPDATE.md": ["Use $skill-creator", "do not use $skill-installer as an updater", "same full commit", "exact conflict diffs", "wait for my approval before any saved change", "recheck the source and installed bytes for drift", "baseline_unknown", "without another save", "docs/codex-project-update.md"],
+    "docs/codex-project-install.md": ["project-local installer", "After installation, verify", "Only then resolve my working language", "--defaults --yes"],
+    "docs/codex-project-update.md": ["git fetch origin main", "git merge --ff-only origin/main", "git rev-parse origin/main", "does not perform a three-way merge", "before writes until I approve"],
     "CHATGPT_UPDATE.md": ["same full commit", "actual installed content", "do not create duplicate Skills", "read back", "verification_unavailable"],
     "docs/skill-customization.md": ["Use $skill-creator", "Use @skill-creator", "Do not create a duplicate", "wait for my approval", "Do not change manifest hashes", "do not invent automatic extension-folder support"]
   };
@@ -373,7 +377,7 @@ export function run(ctx) {
     for (const section of ["Purpose", "Required State", "Install And Lifecycle", "Onboarding", "Examples", "Documentation", "Validation Gates", "Halt Conditions", "Sign-Off"]) {
       if (!sections.has(section)) addFinding("WEAK_V1_READINESS_DOC", `v1.0 readiness guide is missing required section: ${section}`, [v1ReadinessDoc]);
     }
-    for (const phrase of ["project-local install is the default", "global install is clearly marked advanced", "provider-neutral boundary is documented and validated", "GPT Image 2 one-pass policy", "Full Hipson remains separate and optional", "workflow.json", "npm run release:readiness -- --tag v1.0.0", "npm run syntax:check", "npm run agent:check", "path-sensitive cross-platform GitHub Actions workflow", "Do not tag v1.0"]) {
+    for (const phrase of ["native `$skill-installer` is the default Codex route", "project-local install is the default only within the optional advanced CLI", "global install is clearly marked advanced", "provider-neutral boundary is documented and validated", "GPT Image 2 one-pass policy", "Full Hipson remains separate and optional", "workflow.json", "npm run release:readiness -- --tag v1.0.0", "npm run syntax:check", "npm run agent:check", "path-sensitive cross-platform GitHub Actions workflow", "Do not tag v1.0"]) {
       if (!text.includes(phrase)) addFinding("WEAK_V1_READINESS_DOC", `v1.0 readiness guide is missing required release-readiness phrase: ${phrase}`, [v1ReadinessDoc]);
     }
   }
@@ -418,6 +422,10 @@ export function run(ctx) {
   if (existsSync(readmePath)) {
     const text = read(readmePath);
     const flatText = text.replace(/\s+/g, " ");
+    const codexInstall = text.match(/### Codex\n([\s\S]*?)(?=## Update an existing installation)/)?.[1]?.replace(/\s+/g, " ") ?? "";
+    for (const phrase of ["Use $skill-installer", "$CODEX_HOME/skills", "CODEX_INSTALL.md", "--ref", "do not overwrite it or create a duplicate"]) {
+      if (!codexInstall.includes(phrase)) addFinding("WEAK_README_CODEX_SKILLS", `README Codex section must retain the native route: ${phrase}`, [readmePath]);
+    }
     for (const phrase of ["CODEX_INSTALL.md", "docs/quickstart.md", "docs/codex-assisted-install.md", "project-local installer", "approval before installation", "nothing was installed"]) {
       if (!flatText.includes(phrase)) addFinding("WEAK_README_INSTALL_PROMPT", `README install prompt is missing required safety phrase: ${phrase}`, [readmePath]);
     }

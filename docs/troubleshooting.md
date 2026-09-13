@@ -2,6 +2,21 @@
 
 This page covers common installation and workflow issues for this Codex workflow skill kit.
 
+## Native Codex Skills
+
+The default route uses [`$skill-installer`](../CODEX_INSTALL.md), not the project CLI.
+An existing destination, including a dangling link, blocks fresh installation;
+check the active scopes and use [CODEX_UPDATE.md](../CODEX_UPDATE.md) for existing
+Skills. Do not delete or rename a Skill to force installation.
+
+For missing Skills, verify the actual host destination and complete saved bundle,
+then check discovery on the next turn. No project manifest, config or agent TOMLs
+are expected. If a multi-Skill run failed, inspect all destinations before retrying;
+earlier copies may already exist. Report partial state and preserve personal files.
+If the system installer is unavailable, stop without silently switching routes.
+
+The project CLI diagnostics below apply only to the optional advanced mode.
+
 If you are reporting test feedback instead of fixing the issue yourself, use [Tester Feedback Guide](tester-feedback.md). It gives a short template for environment, prompt, command, screenshot, exact error, and privacy-safe notes.
 
 ## Guided Install Fails At A Step

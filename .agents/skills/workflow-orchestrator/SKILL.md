@@ -7,6 +7,14 @@ description: Use this skill to route multi-stage work in Codex or ChatGPT, maint
 
 Use this skill to route the active workflow, maintain visible state, assign bounded roles, enforce gates, and decide loopbacks. It owns workflow state, not specialist deliverables.
 
+Native personal Codex Skills installed through `$skill-installer` do not require
+project config, rendered agents or `.framecore/manifest.json`. Resolve the actual
+installed Skill paths and keep the Workflow Profile and state visible; save
+project files only with approval. Role IDs are task responsibilities unless the
+host actually exposes the corresponding registered agents. Use the installed
+`pipeline-core` role-to-skill map for supporting Skills, not invented role-named
+Skill directories. Report unavailable dependencies; do not silently install them.
+
 In a project-local Codex install, roles may resolve to rendered `.codex/agents/*.toml`. In ChatGPT, treat the same role IDs as temporary responsibilities inside the current task. Do not claim that ChatGPT created permanent agents or local project files.
 
 ## Language Policy

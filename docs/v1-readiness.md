@@ -10,7 +10,8 @@ It is stricter than the normal release checklist. A patch or prerelease can ship
 
 Before v1.0, the repo should satisfy all of these:
 
-- project-local install is the default and documented first
+- native `$skill-installer` is the default Codex route and documented first
+- project-local install is the default only within the optional advanced CLI
 - global install is clearly marked advanced and requires explicit confirmation
 - guided install, manual install, update, repair, and uninstall are documented and tested
 - onboarding explains what is installed, what is not installed, and how local preferences affect the workspace
