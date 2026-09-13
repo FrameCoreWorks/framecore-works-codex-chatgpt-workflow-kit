@@ -1,5 +1,10 @@
 # Getting Started In 5 Minutes
 
+For the canonical install contract, see [Codex installation](../CODEX_INSTALL.md).
+For an existing installation, use [Codex update](../CODEX_UPDATE.md) or
+[personal Skill extension](skill-customization.md). Installation stays English;
+the host resolves user language only after verified installation.
+
 ## Purpose
 
 Use this page if someone sent you this repo and you want the shortest safe path to try it in Codex.

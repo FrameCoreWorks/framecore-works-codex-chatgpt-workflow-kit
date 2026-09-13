@@ -1,12 +1,17 @@
 # Codex-Assisted Install
 
+For the canonical install contract, see [Codex installation](../CODEX_INSTALL.md).
+For an existing installation, use [Codex update](../CODEX_UPDATE.md) or
+[personal Skill extension](skill-customization.md). Installation stays English;
+the host resolves user language only after verified installation.
+
 ## Purpose
 
 This guide is for users who want Codex to install the kit for them from a GitHub link.
 
 The user should paste the install instruction into Codex from the workspace where the kit should be installed. Codex should then clone the repo into a temporary or tools folder outside the target workspace, read the docs, run checks, run onboarding, preview the install, and install project-locally.
 
-For a fresh Codex setup, the user may need to configure the agent sandbox before installation can start. If the UI shows `Configure sandbox`, `Configure agent sandbox`, or `Skonfiguruj piaskownicę agenta`, the installer should stop and tell the user to click that button, choose the local project folder, and continue only after workspace file access is configured. If shell commands work but `git` and `gh` are unavailable, the installer should not treat that as a completed installation. It should tell the user nothing was installed yet and recommend cloning this repo with GitHub Desktop into a temporary, tools, or GitHub folder outside the target project.
+For a fresh Codex setup, the user may need to configure the agent sandbox before installation can start. If the UI shows `Configure sandbox` or `Configure agent sandbox` (or its localized equivalent), the installer should stop and tell the user to click that button, choose the local project folder, and continue only after workspace file access is configured. If shell commands work but `git` and `gh` are unavailable, the installer should not treat that as a completed installation. It should tell the user nothing was installed yet and recommend cloning this repo with GitHub Desktop into a temporary, tools, or GitHub folder outside the target project.
 
 ## Beginner Paste-In Instruction
 
@@ -24,7 +29,7 @@ If this is a regular ChatGPT chat window or any chat-only environment without wo
 If Codex asks me to configure the agent sandbox or workspace, stop and tell me to click the Configure sandbox button, choose the project folder where I want to install the workflow, then continue only after the sandbox is configured.
 
 First check whether this Codex environment can clone repositories and run local shell commands.
-If it can, clone the repo into a temporary or tools folder outside my project, read README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in plain language what will be installed and how it will improve my workflow.
+If it can, clone the repo into a temporary or tools folder outside my project, read CODEX_INSTALL.md, README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in English what will be installed and how it will improve my workflow. Keep installation and onboarding in English. Resolve my language only after verified installation; this copied English prompt is not a language preference.
 Start by telling me that this workflow kit was created for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, but can be adapted to other use cases.
 
 Then follow the safe install path:
@@ -93,7 +98,7 @@ Codex should:
 
 During interactive onboarding, Codex should explain the setup and ask for:
 
-- onboarding prompt language only, defaulting to English for international users and allowing the user to type their preferred setup language
+- English installation prompts, followed by user-language detection after verified installation
 - what kind of work the user does
 - the user's main use cases for the pipeline
 - how the pipeline should fit the user's work style

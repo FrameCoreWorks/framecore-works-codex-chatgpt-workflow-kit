@@ -13,7 +13,6 @@ function yesNo(value) {
 
 function onboardingAnswers(profile) {
   return [
-    profile.setupLanguage ?? "",
     "",
     profile.primaryWork,
     profile.primaryUseCases,

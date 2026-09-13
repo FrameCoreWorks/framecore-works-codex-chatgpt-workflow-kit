@@ -128,7 +128,7 @@ Skills are portable workflow contracts. They define when a capability should be 
 | `scripts/guided-install.mjs` | Beginner-safe guided install path with checks, onboarding, dry-run, and confirmation. |
 | `scripts/doctor.mjs` | Preflight and install-health diagnostics. |
 | `scripts/validate.mjs` | Repository workflow validation. |
-| `CHATGPT_INSTALL.md` | Canonical language-first ChatGPT onboarding and native installation contract. |
+| `CHATGPT_INSTALL.md` | Canonical English ChatGPT installation and post-install language contract. |
 | `scripts/chatgpt-skill-sources.mjs` | Deterministic source-manifest generation and repository setup validation. |
 | `config/chatgpt-skills.json` | Core, creative, and full ChatGPT repository-install profiles. |
 | `config/chatgpt-skill-sources.json` | Exact raw source URLs and SHA-256 hashes for all public skills. |

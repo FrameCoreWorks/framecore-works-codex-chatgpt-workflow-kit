@@ -36,7 +36,7 @@ The beginner path expects the target workspace to already exist. Lower-level scr
 
 ### Can I install these as native ChatGPT Skills?
 
-Yes, when the ChatGPT account exposes native Skills and Work. Switch the top selector from Chat to Work, then paste the repository-source prompt from README with its leading `@skill-creator` mention. ChatGPT first asks for the setup language, runs onboarding, recommends the smallest useful profile, reads each selected skill from the declared raw GitHub sources, and creates the native skills through Create with chat. The alternate path is Plugins > Skills > Create > Create with chat. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
+Yes, when the ChatGPT account exposes native Skills and Work. Switch the top selector from Chat to Work, then paste the repository-source prompt from README with its leading `@skill-creator` mention. ChatGPT runs onboarding in English, recommends the smallest useful profile, reads each selected skill from the declared raw GitHub sources, and creates the native skills through Create with chat. The alternate path is Plugins > Skills > Create > Create with chat. See [Native ChatGPT Skills](chatgpt-skills-onboarding.md).
 
 ### Does one ChatGPT prompt install all 35 skills automatically?
 
@@ -127,7 +127,7 @@ HyperFrames is treated as a coded-video workflow path, not as a paid media-provi
 
 Use `node scripts/doctor.mjs --mode update --target <path>` first, then `node scripts/install.mjs --mode update --target <path>` if preflight is clean. Update requires `.framecore/manifest.json` so it can distinguish FrameCore-managed files from user-owned files. It can add new managed files from the current kit, such as new skills, docs, examples, gates, handoffs, or agent templates.
 
-Beginner path: open Codex in the already installed project and ask it to follow the [Update An Existing Workspace](../README.md#update-an-existing-workspace) prompt from the README.
+Beginner path: open Codex in the already installed project and ask it to follow the [Update An Existing Workspace](../README.md#codex-update) prompt from the README.
 
 ### How does repair differ from update?
 

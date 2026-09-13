@@ -102,88 +102,8 @@ Next steps:
 3. Install project-locally.
    node scripts/install.mjs --mode project-local --target <target-workspace>
 4. Open the target project in Codex and ask it to read AGENTS.md and AGENTS.framecore.md if both exist.
-5. Use docs/using-the-kit.md for starter prompts and route selection.
-`,
-  },
-  pl: {
-    intro: `
-Konfiguracja kreatywnego workflow
-
-Ten instalator dodaje uporządkowany kreatywny workflow do wybranego workspace'u Codexa.
-Został zaprojektowany z myślą o pracy kreatywnej: grafika, wideo, storyboardy,
-kampanie, e-commerce, prompty, QA i przygotowanie materiałów do oddania. Można
-go też zaadaptować do innych zastosowań, jeśli dobrze opiszesz swój styl pracy.
-
-Co zostanie zainstalowane lokalnie w projekcie:
-- role agentów Codexa do planowania, referencji, kierunku, promptów, QA i oddania
-- skille i szablony dla briefów, paczek referencji, prompt packów, bramek review i manifestów
-- Humanizer do naturalnego przepisywania i dopracowania tonu
-- wiedza HyperFrames do planowania kodowanego wideo
-- lokalny plik konfiguracyjny z Twoimi preferencjami
-- lokalny manifest, żeby update, repair i uninstall wiedziały, co należy do tego workflow
-
-Czego instalator nie skonfiguruje:
-- zewnętrznych płatnych providerów wykonawczych
-- credentiali ani API key
-- prywatnych ustawień delivery do chmury
-- automatycznych uploadów, chyba że później wyraźnie włączysz takie lokalne zachowanie
-
-Jak to ma pomagać w pracy:
-- Codex zaczyna od potwierdzenia zadania zamiast od razu produkować output
-- większe zadania są dzielone na etapy i bramki review
-- prompty, assety, notatki QA i delivery summary używają powtarzalnych szablonów
-- wygenerowane lub przygotowane materiały można sprawdzić przed oddaniem
-- workspace może trzymać spójny styl pracy między projektami
-
-Hipson w tym setupie:
-Dołączony Hipson Adapter jest lekką warstwą pakietów instrukcji. Pomaga Codexowi przygotować
-mapy researchu, pakiety internet mapping, ograniczone instrukcje dla agentów, review packets
-i execution packets wewnątrz tego workflow.
-
-Pełny Hipson jest osobny i opcjonalny:
-https://github.com/Hipson47/Hipson.git
-
-Jeśli podłączysz pełny system Hipson później, może dodać szersze skanowanie repozytoriów,
-delta reviews, sidecar review agents, cross-repo orchestration, komendy CLI
-i większą bazę wiedzy Hipsona. Adapter wystarczy, żeby używać tego workflow już teraz.
-Onboarding tylko zapisuje, czy planujesz podłączyć to opcjonalne rozszerzenie później;
-nie klonuje, nie instaluje i nie aktywuje pełnego Hipsona.
-`,
-    continuePrompt: "Press Enter to continue setup. / Naciśnij Enter, aby kontynuować konfigurację. ",
-    profileIntro: "\nNajpierw sprofiluj ten workspace, żeby pipeline pasował do Twojej pracy zamiast działać generycznie.",
-    profileHelp: "Te odpowiedzi zostają lokalnie w wygenerowanym pliku konfiguracyjnym i pomagają orkiestratorowi dobrać głębokość ścieżki, artefakty, poziom QA i pierwsze kroki workflow.",
-    primaryWork: "Czym się zajmujesz?",
-    primaryUseCases: "W czym ten pipeline ma pomagać najbardziej?",
-    workflowStyle: "Jak pipeline ma pasować do Twojego stylu pracy?",
-    adaptationNotes: "Czy masz uwagi do adaptacji pod inne lub specjalistyczne zastosowania?",
-    responseTone: "Ton odpowiedzi",
-    outputDir: "Folder na wygenerowane pliki i raporty workflow (bezpieczna ścieżka względna, np. output/workflow)",
-    unsafeOutputDir: "Użyj bezpiecznej ścieżki względnej wewnątrz workspace'u, np. output/workflow. Nie używaj ścieżek absolutnych, ~, URL-i ani segmentów ../.",
-    qaStrictness: "Poziom QA",
-    chooseOne: (choices) => `Wybierz jedną opcję: ${choices.join(", ")}`,
-    yes: "tak",
-    no: "nie",
-    chooseYesNo: "Wybierz tak albo nie.",
-    autoUpload: "Czy pozwolić na automatyczne uploady delivery, jeśli później dodasz integrację delivery? tak/nie",
-    deliveryRequiresRequest: "Czy wymagać wyraźnej prośby usera przed delivery/export? tak/nie",
-    requireQaAllowlist: "Czy wymagać akceptacji QA przed oddaniem wygenerowanych assetów? tak/nie",
-    recurringReview: "Czy włączyć 24-godzinny report workflow self-improvement? tak/nie",
-    fullHipsonHelp: "\nPełny Hipson to osobne, opcjonalne repozytorium, nie część tej instalacji. Może później dodać szersze skanowanie repozytoriów, recenzje zmian i delta reviews, sidecar review agents, cross-repo orchestration, komendy CLI i większą bazę wiedzy Hipsona. W tym workflow pełni rolę opcjonalnej warstwy rozszerzenia do głębszej analizy i uporządkowanych pakietów instrukcji. Wybór tak teraz tylko zapisuje przyszłą intencję w lokalnej konfiguracji; niczego nie klonuje, nie instaluje, nie aktywuje, nie uploaduje i nie uruchamia.",
-    fullHipson: "Czy chcesz zapisać intencję podłączenia osobnego pełnego systemu Hipson później? tak/nie",
-    roleNamesIntro: "\nAgenci domyślnie używają neutralnych role ID. Możesz je zostawić albo lokalnie nazwać po swojemu.",
-    defaultRoleNames: "Czy użyć domyślnych nazw ról? tak/nie",
-    roleNamesHelp: "Wpisz lokalne nazwy wyświetlane. Naciśnij Enter, żeby zostawić role ID.",
-    wrote: "zapisano",
-    hipsonDone: "Hipson Adapter jest włączony. Pełny Hipson pozostaje opcjonalny i zewnętrzny; onboarding go nie sklonował, nie zainstalował ani nie aktywował.",
-    nextSteps: `
-Następne kroki:
-1. Uruchom install dry-run dla tego target workspace.
-   npm run install:dry-run -- --target <target-workspace>
-2. Sprawdź planowane zapisy i rozwiąż ewentualne konflikty z plikami usera.
-3. Zainstaluj project-locally.
-   node scripts/install.mjs --mode project-local --target <target-workspace>
-4. Otwórz target project w Codexie i poproś go o przeczytanie AGENTS.md oraz AGENTS.framecore.md, jeśli oba istnieją.
-5. Użyj docs/using-the-kit.md do starter promptów i wyboru ścieżki.
+5. After verified installation, the host resolves your working language from your own conversation or explicit preference.
+6. Use docs/using-the-kit.md for starter prompts and route selection.
 `,
   },
 };
@@ -191,16 +111,6 @@ Następne kroki:
 async function ask(rl, prompt, fallback) {
   const answer = await rl.question(`${prompt} (${fallback}): `);
   return answer.trim() || fallback;
-}
-
-async function askOnboardingLanguage(rl) {
-  while (true) {
-    const value = (await ask(rl, "Onboarding language. Press Enter for English, or type your preferred language for the setup conversation", "en")).toLowerCase();
-    if (["en", "english", "angielski"].includes(value)) return "en";
-    if (["pl", "polish", "polski"].includes(value)) return "pl";
-    console.log("This CLI currently includes built-in English and Polish setup text. Continuing in English.");
-    return "en";
-  }
 }
 
 async function askChoice(rl, prompt, fallback, choices, copy) {
@@ -245,11 +155,10 @@ export async function runOnboarding({ target = process.cwd(), defaults = false, 
   assertValidFrameCoreConfig(loaded.config);
   const config = structuredClone(loaded.config);
   const roles = readJson(join(repoRoot, "config/agent-naming.schema.json")).roles;
-  let onboardingLanguage = "en";
+  const onboardingLanguage = "en";
 
   if (!defaults) {
     const rl = readline.createInterface({ input, output });
-    onboardingLanguage = await askOnboardingLanguage(rl);
     const copy = onboardingCopy[onboardingLanguage];
     printIntro(onboardingLanguage);
     await rl.question(copy.continuePrompt);

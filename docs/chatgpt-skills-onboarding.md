@@ -1,5 +1,8 @@
 # Native ChatGPT Skills From The Repository
 
+For upstream refreshes, use [ChatGPT update](../CHATGPT_UPDATE.md). To specialize
+an installed Skill, use the [personal extension prompt](skill-customization.md#chatgpt-copy-paste-prompt).
+
 ## Purpose
 
 This guide explains how a user can paste one instruction into ChatGPT and create native ChatGPT Skills directly from the public source files in this repository.
@@ -27,7 +30,7 @@ The Codex path remains the full local workflow:
 The ChatGPT path provides:
 
 - native skills created from public repository sources;
-- a language-first onboarding flow;
+- a English installation and post-install language detection flow;
 - core, creative, full, or smaller custom skill selection;
 - conversation-visible workflow state;
 - temporary workflow roles instead of permanent Codex agents;
@@ -50,41 +53,32 @@ Every public skill keeps its canonical contract in `.agents/skills/<skill-name>/
 Open ChatGPT, switch the top selector from **Chat** to **Work**, and paste the complete prompt below. Do not paste it into the regular Chat surface.
 
 ```text
-Use @skill-creator to help me create and install native ChatGPT Skills from this public repository. Keep the setup conversational and follow the repository's onboarding contract:
-
+Use @skill-creator to create and save selected native ChatGPT Skills from this public repository:
 https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
-This is a ChatGPT repository-source setup, not a Codex project-local install.
+First read and follow CHATGPT_INSTALL.md, config/chatgpt-skills.json and
+config/chatgpt-skill-sources.json. Follow the English onboarding, confirm my Workflow Profile and
+the exact skill list, and let me choose guided or batch installation. Obtain the required
+conversational approval before creation.
 
-First read and follow the canonical setup contract:
-https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/CHATGPT_INSTALL.md
+Read every declared source file for the selected skills. Use the actual native creation and save
+workflow, keep each skill separate, and check the saved result. Do not create duplicates, substitute
+a Codex installation, clone a workspace or run shell commands. If Skills, @skill-creator, source
+access or saving are unavailable, stop and report the concrete blocker. A draft or approval is not a
+completed installation.
 
-Then read the setup configuration and exact skill source inventory referenced by that contract. Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup.
-
-This prompt is intended for ChatGPT Work with @skill-creator selected. If this conversation is in the regular Chat surface or @skill-creator is unavailable, stop and tell me to switch to Work and paste this complete prompt again.
-
-After onboarding and approval of the exact skill list, ask me to choose one installation mode:
-1. Full batch installation: one conversational approval authorizes creation of every skill on the approved list. Create them in order without asking again between skills.
-2. Guided installation: explain what the next skill does and when it is useful, ask for conversational approval, create it, report the result, and then continue to the next skill.
-
-Accept a clear reply in the conversation, such as yes, approve, install, tak, zatwierdzam, or instaluj. Do not wait for a separate install button, modal, host callback, function tool, or invisible native action. Use the already active @skill-creator workflow to create and save every selected native Skill. Approval authorizes creation, but mark a skill installed only after @skill-creator reports that it created and saved it or the skill is visible in the ChatGPT Skills library. If only a draft was produced, report created_not_installed.
-
-When setup finishes, explain in simple language:
-- how ordinary requests can use eligible skills automatically;
-- how to select a skill explicitly by typing @ and its name;
-- how to edit or expand an installed skill with @skill-creator;
-- how to create a new skill by starting in Work with: Use @skill-creator to help me create a skill.
-
-Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. Treat @skill-creator as the active native Skill creation workflow, not as a shell command, dollar command, MCP tool, or function tool.
-
-If you cannot read the public repository files, @skill-creator is unavailable, or @skill-creator fails to create and save a skill after a real attempt, stop and tell me which capability is unavailable. The absence of a separate install button or native action is not a blocker. Do not substitute a Codex installation or pretend setup succeeded.
+Keep installation in English. Only after verified installation, resolve my working language from my
+own conversation or explicit preference, not this copied English prompt. Explain how to use and
+extend the installed skills. Do not activate providers, upload files or publish anything.
 ```
 
 The GitHub link identifies the source. The `@skill-creator` mention selects the native creation skill, and the explicit instruction to read `CHATGPT_INSTALL.md` authorizes ChatGPT to use the repository's setup contract for this task.
 
+Installation uses conversational approval. Do not wait for a separate install button or invent a hidden save action. Follow the actual creation workflow and report its result.
+
 ## Onboarding Flow
 
-ChatGPT must not create or invoke workflow skills immediately. It first asks which language should be used for setup. After the user answers, it switches to that language and gives a short beginner preflight explaining:
+ChatGPT must not create or invoke workflow skills immediately. It keeps installation and onboarding in English, starts user-language detection only after verified installation, and gives a short beginner preflight explaining:
 
 - that these are reusable ChatGPT Skills, which are small workflow helpers ChatGPT can use later in normal conversations;
 - that the skills can help turn an idea into a brief, plan creative work, write image or video prompts, build storyboard or campaign plans, review work, and prepare simple notes or checklists for a client or team;
@@ -128,7 +122,7 @@ After the exact list is approved, ChatGPT offers:
 - **Full batch installation:** one conversational approval covers the exact approved list. `@skill-creator` creates the selected skills in order without asking again between skills.
 - **Guided installation:** ChatGPT explains the next skill in plain language, including its responsibility and typical use, asks for conversational approval, creates it, reports the result, and proceeds to the next skill.
 
-For either mode, approval is typed or spoken in the conversation. Replies such as `yes`, `approve`, `install`, `tak`, `zatwierdzam`, or `instaluj` are valid when they clearly answer the current approval question. Silence and unrelated text are not approval. A changed skill list requires a new approval.
+For either mode, approval is typed or spoken in the conversation. Replies such as `yes`, `approve`, or `install` are valid when they clearly answer the current approval question. Silence and unrelated text are not approval. A changed skill list requires a new approval.
 
 ## Source Resolution
 
@@ -245,7 +239,7 @@ The final setup response should include one ordinary starter prompt, one explici
 
 ## Voice Mode
 
-Voice setup is valid for decision steps. A spoken answer can select the language, answer onboarding, approve the Workflow Profile, approve the selected skill list, choose the installation mode, approve the batch, or approve the current guided skill.
+Voice setup is valid for decision steps. A spoken answer can answer onboarding, approve the Workflow Profile, approve the selected skill list, choose the installation mode, approve the batch, or approve the current guided skill.
 
 Voice approval authorizes creation but does not prove success. The assistant must not claim it sees an install button or native panel, and it must not wait for one. Installation is complete only when `@skill-creator` reports that it created and saved the skill or the skill is visible in the Skills library.
 
@@ -260,7 +254,7 @@ Do not store API keys, private URLs, account data, or provider credentials in a 
 Repository validation proves source completeness and contract consistency, but it cannot prove the behavior of a live ChatGPT account. Before broad promotion, test the current `main` commit in an account that exposes native Skills and Create with chat:
 
 1. Switch a new ChatGPT conversation from Chat to Work and paste the README prompt with its leading `@skill-creator` mention.
-2. Confirm that the first response asks only for the setup language.
+2. Confirm that installation starts with an English beginner preflight and resolves user language only after verified installation.
 3. Complete onboarding and approve a profile without allowing existing skills to skip setup.
 4. Test batch mode with a small approved list and confirm that one conversational approval starts the complete run without additional approval questions.
 5. Test guided mode and confirm that ChatGPT explains and requests conversational approval for each skill.
@@ -284,7 +278,7 @@ Before publishing changes to ChatGPT-facing skill sources:
 4. Run `npm run check`.
 5. Run `npm run release:check` before a release.
 6. Test the README copy-paste prompt in ChatGPT Work with `@skill-creator` available.
-7. Confirm that the first response asks only for setup language, conversational approvals control the chosen mode, and installation claims match real `@skill-creator` results.
+7. Confirm that installation stays in English, language detection follows verified installation, conversational approvals control the chosen mode, and installation claims match real `@skill-creator` results.
 8. Run the live E2E invocation checks for one bounded request, one multi-stage request, explicit routing, and explicit-only guards.
 
 Do not commit user-specific Workflow Profiles, conversations, private context, local state, or generated ChatGPT account data.

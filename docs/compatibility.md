@@ -50,7 +50,7 @@ Guided install always uses the project-local path. It refuses missing targets an
 
 ## Native ChatGPT Skills
 
-ChatGPT users do not run the Codex installer. They switch ChatGPT from Chat to Work, paste the repository setup prompt from README with its leading `@skill-creator` mention, choose a setup language, complete onboarding, approve a skill profile, and let Create with chat build each selected skill from its declared public GitHub sources. The alternate path is Plugins > Skills > Create > Create with chat. The `@` mention is a native Skill invocation, not a `$skill-creator` command.
+ChatGPT users do not run the Codex installer. They switch ChatGPT from Chat to Work, paste the repository setup prompt from README with its leading `@skill-creator` mention, complete onboarding in English, approve a skill profile, and let Create with chat build each selected skill from its declared public GitHub sources. The alternate path is Plugins > Skills > Create > Create with chat. The `@` mention is a native Skill invocation, not a `$skill-creator` command.
 
 `CHATGPT_INSTALL.md`, `config/chatgpt-skills.json`, and `config/chatgpt-skill-sources.json` define the behavior, profile order, exact source files, raw URLs, and hashes. `.codex/agents`, `AGENTS.md`, local preferences, Context, Memory Cache, and private workspace state are excluded from the ChatGPT skill route.
 

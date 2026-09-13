@@ -64,13 +64,13 @@ Fictional book exchange with no fee:
 
 | Candidate | Assessment | Next action |
 | --- | --- | --- |
-| 'Odkryj świat niezwykłych możliwości' | Abstract and interchangeable; no exchange-specific observation | Reject and return to the thesis |
-| 'Twój regał zna już zakończenie.' | Reader observation; an outgoing book can carry the exchange mechanism | Offer with a plain explanatory support line |
-| 'Przeczytane u Ciebie. Nowe dla kogoś.' | Perspective shift; image can connect two reading contexts | Offer as a distinct route |
-| 'Oddaj jedną historię. Zabierz następną.' | Clear action with parallel rhythm; less indirect | Offer when immediate comprehension matters |
-| 'Największa wymiana książek w mieście' | Unverified comparative claim | Do not use without evidence |
+| 'Discover a world of extraordinary possibilities' | Abstract and interchangeable; no exchange-specific observation | Reject and return to the thesis |
+| 'Your bookshelf already knows the ending.' | Reader observation; an outgoing book can carry the exchange mechanism | Offer with a plain explanatory support line |
+| 'Read by you. New to someone else.' | Perspective shift; image can connect two reading contexts | Offer as a distinct route |
+| 'Give one story. Take the next.' | Clear action with parallel rhythm; less indirect | Offer when immediate comprehension matters |
+| 'The city's biggest book exchange' | Unverified comparative claim | Do not use without evidence |
 
-A refinement request for 'Profesjonalna jakość, której możesz zaufać' should uncover what the service actually does differently. If that evidence is absent, ask for one useful fact or write a concrete service/action line from the supplied facts; do not invent 'w 24 godziny'. A headline can be polished and still fail the brief. Explain the mismatch, not just which wording sounds better.
+A refinement request for 'Professional quality you can trust' should uncover what the service actually does differently. If that evidence is absent, ask for one useful fact or write a concrete service/action line from the supplied facts; do not invent 'within 24 hours'. A headline can be polished and still fail the brief. Explain the mismatch, not just which wording sounds better.
 
 For a user-locked 'WSTĘP WOLNY', keep the string. Do not change it to 'Wejdź za darmo' to sound more conversational. For a factual event title plus date and venue, additional slogan-writing may be unnecessary.
 

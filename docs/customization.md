@@ -6,6 +6,11 @@ This guide explains what users can safely customize after installing this Codex 
 
 Customization is local preference tuning. It should not change the public source model: neutral role IDs, provider-neutral boundaries, gates, handoffs, artifact contracts, privacy rules, and installer safety behavior stay intact.
 
+For a guided change to an existing Skill, use the complete
+[Codex and ChatGPT extension prompts](skill-customization.md). Keep personal
+extensions separate from [upstream Codex updates](../CODEX_UPDATE.md) and
+[native ChatGPT updates](../CHATGPT_UPDATE.md).
+
 ## Local Config File
 
 Onboarding writes local preferences to:
@@ -18,7 +23,7 @@ This file is validated before agent rendering and installation. If it is invalid
 
 The main fields are:
 
-- `working_language`
+- `working_language`: `auto` by default; resolve the user's language after verified installation. An explicit existing value remains an override.
 - `response_tone`
 - `output_dir`
 - `qa_strictness`
@@ -29,6 +34,13 @@ The main fields are:
 - `workflow_self_improvement`
 
 Use [Onboarding](onboarding.md) to regenerate a valid config instead of hand-editing JSON when possible.
+
+To enable automatic language selection in an older installation with an explicit
+English default, review the local/shared config and set `working_language` to
+`"auto"` in the intended layer. Preserve other preferences. Run the approved
+project update to refresh rendered agents; changing public source defaults alone
+does not replace a stored local override. This is conversational behavior, not
+OS-language detection by the installer.
 
 ## Safe Customizations
 

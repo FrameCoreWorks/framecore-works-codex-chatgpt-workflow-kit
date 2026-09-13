@@ -40,7 +40,7 @@ export function sha256(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
-export function runInteractiveOnboarding(dir, answers = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "yes"]) {
+export function runInteractiveOnboarding(dir, answers = ["", "", "", "", "", "", "", "", "", "", "", "", "", "yes"]) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(node, ["scripts/onboard.mjs", "--target", dir], {
       cwd: root,

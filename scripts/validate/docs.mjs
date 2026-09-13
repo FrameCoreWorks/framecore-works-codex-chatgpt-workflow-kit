@@ -8,6 +8,10 @@ export function run(ctx) {
   const validationRoot = ctx.root;
 
   const requiredDocs = [
+    "CODEX_INSTALL.md",
+    "CODEX_UPDATE.md",
+    "CHATGPT_UPDATE.md",
+    "docs/skill-customization.md",
     "docs/getting-started-5-minutes.md",
     "docs/quickstart.md",
     "docs/codex-assisted-install.md",
@@ -57,6 +61,21 @@ export function run(ctx) {
     if (!existsSync(join(validationRoot, doc))) addFinding("MISSING_DOC", `Required documentation file is missing: ${doc}`, [join(validationRoot, doc)]);
   }
 
+  const lifecycleContracts = {
+    "CODEX_INSTALL.md": ["project-local installer", "After installation, verify", "Only then resolve my working language", "--defaults --yes"],
+    "CODEX_UPDATE.md": ["git fetch origin main", "git merge --ff-only origin/main", "git rev-parse origin/main", "does not perform a three-way merge", "before writes until I approve"],
+    "CHATGPT_UPDATE.md": ["same full commit", "actual installed content", "do not create duplicate Skills", "read back", "verification_unavailable"],
+    "docs/skill-customization.md": ["Use $skill-creator", "Use @skill-creator", "Do not create a duplicate", "wait for my approval", "Do not change manifest hashes", "do not invent automatic extension-folder support"]
+  };
+  for (const [doc, phrases] of Object.entries(lifecycleContracts)) {
+    const path = join(validationRoot, doc);
+    if (!existsSync(path)) continue;
+    const text = read(path).replace(/\s+/g, " ");
+    for (const phrase of phrases) {
+      if (!text.includes(phrase)) addFinding("WEAK_LIFECYCLE_DOC", `Lifecycle guide is missing required boundary: ${phrase}`, [path]);
+    }
+  }
+
   const creativePromptingDoc = join(validationRoot, "docs/creative-prompting-workflow.md");
   if (existsSync(creativePromptingDoc)) {
     const text = read(creativePromptingDoc);
@@ -91,7 +110,7 @@ export function run(ctx) {
     for (const phrase of ["Allow automatic delivery uploads", "Require an explicit user request before delivery/export", "Require QA approval before generated asset delivery", "Delivery preferences only shape local behavior"]) {
       if (!text.includes(phrase)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required delivery-preference phrase: ${phrase}`, [onboardingDoc]);
     }
-    for (const phrase of ["created for creative work", "adapted to other use cases", "What kind of work do you do?", "What should this pipeline help with most?", "How should the pipeline fit your work style?", "work_profile", "type your preferred language", "does not lock the later conversation language"]) {
+    for (const phrase of ["created for creative work", "adapted to other use cases", "What kind of work do you do?", "What should this pipeline help with most?", "How should the pipeline fit your work style?", "work_profile", "after verified installation", "copied English setup prompt"]) {
       if (!text.includes(phrase)) addFinding("WEAK_ONBOARDING_DOC", `Onboarding guide is missing required work-profile phrase: ${phrase}`, [onboardingDoc]);
     }
     for (const phrase of ["safe relative path", "do not use absolute paths", "does not clone, install, or activate full Hipson"]) {
@@ -234,7 +253,7 @@ export function run(ctx) {
     for (const section of ["Purpose", "Product Boundary", "Repository Contract", "Copy-Paste Prompt", "Onboarding Flow", "Onboarding Context Choice", "Profile Selection", "Installation Modes", "Source Resolution", "State Model", "Native Installation Flow", "Existing Skill Guard", "Temporary Role Model", "Post-Install Use, Editing, And New Skills", "Voice Mode", "Provider Cost Preflight", "Live E2E Test", "Maintainer Validation", "Stop Conditions", "Related Docs"]) {
       if (!sections.has(section)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required section: ${section}`, [chatGptSkillsDoc]);
     }
-    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "ChatGPT > Work", "Use @skill-creator", "Plugins > Skills > Create > Create with chat", "native Skill mention", "Full batch installation", "Guided installation", "created_not_installed", "Do not wait for a separate install button", "estimated cost or `Unknown`", "History-assisted onboarding", "provisional", "confirmation or correction", "unresolved questions", "small workflow helpers", "edited, expanded", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "setup language", "temporary responsibility", "must not report batch success", "allow_implicit_invocation: true", "smallest sufficient route", "@workflow-orchestrator", "@pipeline-core", "Use @skill-creator to help me create a skill.", "explicit-only", "all 35"]) {
+    for (const phrase of ["CHATGPT_INSTALL.md", "config/chatgpt-skills.json", "config/chatgpt-skill-sources.json", "agents/openai.yaml", "ChatGPT > Work", "Use @skill-creator", "Plugins > Skills > Create > Create with chat", "native Skill mention", "Full batch installation", "Guided installation", "created_not_installed", "Do not wait for a separate install button", "estimated cost or `Unknown`", "History-assisted onboarding", "provisional", "confirmation or correction", "unresolved questions", "small workflow helpers", "edited, expanded", "npm run chatgpt:skills:check", "npm run chatgpt:skills:sources:update", "after verified installation", "temporary responsibility", "must not report batch success", "allow_implicit_invocation: true", "smallest sufficient route", "@workflow-orchestrator", "@pipeline-core", "Use @skill-creator to help me create a skill.", "explicit-only", "all 35"]) {
       if (!text.includes(phrase)) addFinding("WEAK_CHATGPT_SKILLS_DOC", `Native ChatGPT Skills guide is missing required phrase: ${phrase}`, [chatGptSkillsDoc]);
     }
   }
@@ -398,23 +417,24 @@ export function run(ctx) {
   const readmePath = join(validationRoot, "README.md");
   if (existsSync(readmePath)) {
     const text = read(readmePath);
-    for (const phrase of ["docs/quickstart.md", "docs/codex-assisted-install.md", "If guided install completes successfully", "manual fallback", "Show me the changed files", "npm run memory:init", "regular ChatGPT chat", "nothing was installed"]) {
-      if (!text.includes(phrase)) addFinding("WEAK_README_INSTALL_PROMPT", `README install prompt is missing required safety phrase: ${phrase}`, [readmePath]);
+    const flatText = text.replace(/\s+/g, " ");
+    for (const phrase of ["CODEX_INSTALL.md", "docs/quickstart.md", "docs/codex-assisted-install.md", "project-local installer", "approval before installation", "nothing was installed"]) {
+      if (!flatText.includes(phrase)) addFinding("WEAK_README_INSTALL_PROMPT", `README install prompt is missing required safety phrase: ${phrase}`, [readmePath]);
     }
     for (const phrase of ["## Supported Agent Surfaces", "OpenAI Codex CLI with custom-agent support", "Chat-only environments without native Skills", "GitHub Desktop", "created by FrameCore Works", "https://buycoffee.to/framecoreworks", "This kit ships the routing and contract layer", "symlinks"]) {
-      if (!text.includes(phrase)) addFinding("WEAK_README_POSITIONING", `README is missing required positioning phrase: ${phrase}`, [readmePath]);
+      if (!flatText.includes(phrase)) addFinding("WEAK_README_POSITIONING", `README is missing required positioning phrase: ${phrase}`, [readmePath]);
     }
     for (const phrase of ["## Human-In-The-Loop Boundary", "not an autonomous agent system", "not background workers", "not start hidden background work", "user remains responsible", "cannot certify the quality of a model response"]) {
-      if (!text.includes(phrase)) addFinding("WEAK_HUMAN_IN_THE_LOOP_BOUNDARY", `README is missing required human-in-the-loop boundary phrase: ${phrase}`, [readmePath]);
+      if (!flatText.includes(phrase)) addFinding("WEAK_HUMAN_IN_THE_LOOP_BOUNDARY", `README is missing required human-in-the-loop boundary phrase: ${phrase}`, [readmePath]);
     }
-    for (const phrase of ["Install Directly From The Repo In ChatGPT", "CHATGPT_INSTALL.md", "config/chatgpt-skill-sources.json", "docs/chatgpt-skills-onboarding.md", "switch the top selector from **Chat** to **Work**", "Use @skill-creator", "Plugins > Skills > Create > Create with chat", "Your first response must ask only which language", "History-assisted onboarding", "provisional", "confirm or correct", "remaining unresolved questions"]) {
-      if (!text.includes(phrase)) addFinding("WEAK_README_CHATGPT_SKILLS", `README is missing required native ChatGPT Skills phrase: ${phrase}`, [readmePath]);
+    for (const phrase of ["### ChatGPT Work", "CHATGPT_INSTALL.md", "config/chatgpt-skill-sources.json", "docs/chatgpt-skills-onboarding.md", "switch the top selector from **Chat** to **Work**", "Use @skill-creator", "Keep installation in English", "guided or batch installation", "Do not create duplicates"]) {
+      if (!flatText.includes(phrase)) addFinding("WEAK_README_CHATGPT_SKILLS", `README is missing required native ChatGPT Skills phrase: ${phrase}`, [readmePath]);
     }
     for (const phrase of ["Global install is available only for advanced users", "writes to the current user's home workspace", "npm run doctor -- --mode global", "node scripts/install.mjs --mode dry-run --target \"$HOME\"", "node scripts/install.mjs --mode global --confirm-global"]) {
-      if (!text.includes(phrase)) addFinding("WEAK_README_GLOBAL_INSTALL", `README must document global install safety: ${phrase}`, [readmePath]);
+      if (!flatText.includes(phrase)) addFinding("WEAK_README_GLOBAL_INSTALL", `README must document global install safety: ${phrase}`, [readmePath]);
     }
-    if (!appearsInOrder(text, ["Run the repository checks", "Run doctor/preflight", "Run onboarding", "Run install dry-run", "after onboarding", "Install project-local only"])) {
-      addFinding("WEAK_README_INSTALL_PROMPT", "README install prompt must keep canonical order: check, doctor, onboarding, post-onboarding dry-run, project-local install.", [readmePath]);
+    if (!appearsInOrder(text, ["## Install from this repository", "### ChatGPT Work", "### Codex", "## Update an existing installation", "### ChatGPT Work update", "### Codex update", "## Extend your own installed skills", "### ChatGPT Work personal extension", "### Codex personal extension", "## What This Repo Gives You"])) {
+      addFinding("WEAK_README_LIFECYCLE_LAYOUT", "README must group all six install/update/extension prompts before the workflow overview.", [readmePath]);
     }
   }
 

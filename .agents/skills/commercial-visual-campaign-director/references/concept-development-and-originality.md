@@ -50,7 +50,7 @@ During production, change only the allowed crop, format, scale, supporting arran
 
 ## Calibration examples
 
-Fictional book-exchange brief: readers bring a finished book and choose another, without a fee. 'Discover a world of possibilities' has no exchange-specific premise. 'Twój regał zna już zakończenie.' uses a reader observation; a book leaving its shelf can make the exchange visible. 'Przeczytane u Ciebie. Nowe dla kogoś.' uses a change of perspective and suggests two readers linked by one book. Neither candidate is selected until the user chooses; neither proves campaign effectiveness.
+Fictional book-exchange brief: readers bring a finished book and choose another, without a fee. 'Discover a world of possibilities' has no exchange-specific premise. 'Your bookshelf already knows the ending.' uses a reader observation; a book leaving its shelf can make the exchange visible. 'Read by you. New to someone else.' uses a change of perspective and suggests two readers linked by one book. Neither candidate is selected until the user chooses; neither proves campaign effectiveness.
 
 Directed one-word civic poster: the supplied word and deliberate surrounding absence can constitute the whole mechanism. Adding a crowd, icon, CTA and textured hero solely to fill the eight stages would weaken it.
 

@@ -77,7 +77,7 @@ Each example should have a validated `workflow.json` manifest and should avoid p
 
 v1.0 docs should give a new user a complete path:
 
-- README starts with a Codex-assisted install instruction and points to Quickstart
+- README groups install, update and personal extension prompts by ChatGPT Work and Codex, and points to Quickstart
 - Quickstart covers guided install, manual install, global install safety, Windows target setup, installed tree, update, repair, and uninstall
 - Using The Kit gives post-install starter prompts, route choice guidance, execution boundaries, Hipson Adapter prompts, and safety reminders
 - Troubleshooting covers common install, privacy, package, config, Codex loading, update, repair, uninstall, and text-image issues

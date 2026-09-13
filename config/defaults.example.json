@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "product": "FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT",
-  "working_language": "en",
+  "working_language": "auto",
   "response_tone": "calm, direct, practical",
   "output_dir": "output/workflow",
   "qa_strictness": "standard",

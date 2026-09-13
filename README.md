@@ -7,66 +7,252 @@
 
 Licensed under Apache-2.0. See [NOTICE](NOTICE) for redistribution notice details.
 
-New to Codex or this repo? Start with [Getting Started In 5 Minutes](docs/getting-started-5-minutes.md).
+A creative workflow kit for Codex and ChatGPT Work: briefs, references, direction,
+image and video prompts, QA and delivery. Static graphic design is integrated
+into the existing skills, not installed as a separate asset.
 
-Just want to install in Codex? Jump to the [copy-paste install prompt](#copy-paste-install-prompt).
+## Install from this repository
 
-Using ChatGPT Skills? Jump to [Install Directly From The Repo In ChatGPT](#install-directly-from-the-repo-in-chatgpt).
+Installation guidance is English. After verified installation, the workflow
+adapts to your language without treating this page's copied prompts as your
+language preference.
 
-## Install Directly From The Repo In ChatGPT
+<a id="install-directly-from-the-repo-in-chatgpt"></a>
 
-This path is for ChatGPT users who have native Skills and access to **Work**. It creates the selected skills from the public repository source. It does not run the Codex installer or require local repository files.
+### ChatGPT Work
 
-1. Open ChatGPT and switch the top selector from **Chat** to **Work**.
-2. Paste the complete prompt below. Its first line explicitly selects `@skill-creator`.
-3. Answer the onboarding questions one at a time.
-4. Review the proposed skill profile and choose:
-   - **Full batch installation:** approve the complete list once and let `@skill-creator` create all selected skills in one continuous run.
-   - **Guided installation:** review a plain-language description and approve each skill separately.
+Your account and workspace must expose native Skills and `@skill-creator`.
+Opening Work alone is not enough. Access depends on product availability and
+workspace permissions; see [Skills in ChatGPT](https://help.openai.com/en/articles/20001066-skills-in-chatgpt).
+If those capabilities are missing, use an eligible workspace or the Codex route below.
 
-Approval happens in the conversation. Type a clear reply such as `yes`, `approve`, `install`, `tak`, `zatwierdzam`, or `instaluj`. Do not wait for a separate install button or modal.
-
-Alternative entry: open **Plugins > Skills > Create > Create with chat**. That route should open the same Work creation surface. For the simplest beginner flow, switching directly to **Work** and pasting the prompt below is enough.
+Open ChatGPT, switch the top selector from **Chat** to **Work**, and paste:
 
 ```text
-Use @skill-creator to help me create and install native ChatGPT Skills from this public repository. Keep the setup conversational and follow the repository's onboarding contract:
-
+Use @skill-creator to create and save selected native ChatGPT Skills from this public repository:
 https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
 
-This is a ChatGPT repository-source setup, not a Codex project-local install.
+First read and follow CHATGPT_INSTALL.md, config/chatgpt-skills.json and
+config/chatgpt-skill-sources.json. Follow the English onboarding, confirm my Workflow Profile and
+the exact skill list, and let me choose guided or batch installation. Obtain the required
+conversational approval before creation.
 
-First read and follow the canonical setup contract:
-https://raw.githubusercontent.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit/main/CHATGPT_INSTALL.md
+Read every declared source file for the selected skills. Use the actual native creation and save
+workflow, keep each skill separate, and check the saved result. Do not create duplicates, substitute
+a Codex installation, clone a workspace or run shell commands. If Skills, @skill-creator, source
+access or saving are unavailable, stop and report the concrete blocker. A draft or approval is not a
+completed installation.
 
-Then read the setup configuration and exact skill source inventory referenced by that contract. Start with onboarding before creating or invoking any workflow skill. Your first response must ask only which language I want to use for setup.
-
-After the beginner preflight, ask me how to build my Workflow Profile:
-1. Fresh onboarding: ask every onboarding question from the beginning.
-2. History-assisted onboarding: with my approval, use only ChatGPT Memory and previous conversations that are actually available in this ChatGPT surface.
-3. Current profile: use a Workflow Profile I provide in this setup conversation.
-
-Do not silently infer answers. In history-assisted mode, show a concise list of provisional work-pattern observations, ask me to confirm or correct them, and use only confirmed observations as answers. Then ask only the remaining unresolved questions one at a time. If memory or chat history is unavailable, say so and continue with fresh questions. Existing installed skills do not mean setup is complete.
-
-This prompt is intended for ChatGPT Work with @skill-creator selected. If this conversation is in the regular Chat surface or @skill-creator is unavailable, stop and tell me to switch to Work and paste this complete prompt again.
-
-After onboarding and approval of the exact skill list, ask me to choose one installation mode:
-1. Full batch installation: one conversational approval authorizes creation of every skill on the approved list. Create them in order without asking again between skills.
-2. Guided installation: explain what the next skill does and when it is useful, ask for conversational approval, create it, report the result, and then continue to the next skill.
-
-Accept a clear reply in the conversation, such as yes, approve, install, tak, zatwierdzam, or instaluj. Do not wait for a separate install button, modal, host callback, function tool, or invisible native action. Use the already active @skill-creator workflow to create and save every selected native Skill. Approval authorizes creation, but mark a skill installed only after @skill-creator reports that it created and saved it or the skill is visible in the ChatGPT Skills library. If only a draft was produced, report created_not_installed.
-
-When setup finishes, explain in simple language:
-- how ordinary requests can use eligible skills automatically;
-- how to select a skill explicitly by typing @ and its name;
-- how to edit or expand an installed skill with @skill-creator;
-- how to create a new skill by starting in Work with: Use @skill-creator to help me create a skill.
-
-Do not clone the repository, run shell commands, create AGENTS.md, create .codex/agents files, initialize Memory Cache, or use Codex skill-installer. Treat @skill-creator as the active native Skill creation workflow, not as a shell command, dollar command, MCP tool, or function tool.
-
-If you cannot read the public repository files, @skill-creator is unavailable, or @skill-creator fails to create and save a skill after a real attempt, stop and tell me which capability is unavailable. The absence of a separate install button or native action is not a blocker. Do not substitute a Codex installation or pretend setup succeeded.
+Keep installation in English. Only after verified installation, resolve my working language from my
+own conversation or explicit preference, not this copied English prompt. Explain how to use and
+extend the installed skills. Do not activate providers, upload files or publish anything.
 ```
 
-The canonical behavior is defined in [CHATGPT_INSTALL.md](CHATGPT_INSTALL.md). The exact profile order is in [config/chatgpt-skills.json](config/chatgpt-skills.json), and [config/chatgpt-skill-sources.json](config/chatgpt-skill-sources.json) lists every source file and SHA-256 hash ChatGPT should read.
+This creates the selected native skills, without a local clone or Codex agent
+files. Full setup rules: [CHATGPT_INSTALL.md](CHATGPT_INSTALL.md). For profiles,
+source files, approval modes and troubleshooting, see
+[Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md).
+
+<a id="copy-paste-install-prompt"></a>
+
+### Codex
+
+This kit uses its own **project-local installer**, not the standalone
+`$skill-installer` route. Open the project that should receive the workflow in
+a shell-capable Codex workspace, then paste:
+
+```text
+Install FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT into my current Codex
+project:
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
+
+First read CODEX_INSTALL.md from that repository. Confirm the actual host, shell access and
+destination project. Keep installation guidance in English. Do not infer my language from this
+pasted prompt.
+
+Use the repository's project-local installer, not a standalone Skill installer. Obtain a clean
+current-main checkout outside my project, verify its origin, record its full commit ID, and read its
+instructions. If this project already has .framecore/manifest.json, stop the fresh-install path and
+follow CODEX_UPDATE.md instead.
+
+Run repository checks, doctor/preflight, English preference onboarding and dry-run. Show the
+destination, managed files and conflicts, then obtain my approval before installation. Preserve my
+existing AGENTS.md and unrelated files. Never use --force, global install, providers, API keys or
+uploads without separate explicit approval.
+
+After installation, verify the manifest and actual installed files. Only then resolve my working
+language from an explicit preference or my own conversation text, excluding pasted setup prompts;
+use a reliably exposed host locale only as a fallback, otherwise English. Explain the installed
+workflow and give me one useful starter prompt in that language. If host activation requires
+reopening the project or a new conversation, say so without claiming a reload you did not observe.
+```
+
+Codex keeps the source checkout outside your project and installs the managed
+skills, role agents and project instructions into the selected project. It does
+not install a separate Static Graphic Design Creator skill.
+
+For manual commands, use [CODEX_INSTALL.md](CODEX_INSTALL.md). For a first setup,
+see [Quickstart](docs/quickstart.md) or [Codex-assisted install](docs/codex-assisted-install.md).
+If shell access or Git is unavailable, stop: nothing was installed.
+[GitHub Desktop](https://desktop.github.com/) is an optional visual cloning tool,
+not an installer.
+
+## Update an existing installation
+
+Updates start with a read-only comparison and need approval before replacement.
+They preserve the existing installation and personal changes; they do not run
+in the background or create a second copy.
+
+<a id="update-native-chatgpt-skills"></a>
+
+### ChatGPT Work update
+
+In Work with the existing native skills and `@skill-creator` available, paste:
+
+```text
+Use @skill-creator to update my existing native ChatGPT Skills from:
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
+
+First read CHATGPT_UPDATE.md. Identify the actual installed Skills, their source evidence and the
+active host's supported editing and readback capabilities. Update the existing entries only; do not
+create duplicate Skills or substitute a Codex installation.
+
+Resolve the latest main commit once and pin all configuration, source inventory and source reads to
+that same full commit. Compare the previous verified source when available, the new source and the
+actual installed content. Report the target commit, changed/new/removed/already-current files,
+personal edits, conflicts and verification limits. Do not infer exact upstream identity from names
+or package version.
+
+Prepare a complete conflict-safe proposal read-only. Preserve personal additions and unrelated
+behavior. If there is no upstream change, report already_up_to_date or
+local_customizations_preserved without saving. Otherwise show the exact Delta and obtain my approval
+before editing any saved Skill.
+
+After approval, use the actual native editing workflow for the same entries, then read back and
+verify the intended content and preserved resources. Approval, a local draft or an already visible
+library entry alone is not proof of a successful update. If a save response fails or is lost,
+inspect actual saved state before considering another attempt; do not retry or roll back blindly.
+
+Explain results in my resolved working language because the Skills are already installed, but keep
+public source descriptions in English. Do not use shell commands, global installs, providers,
+uploads, publishing or background updates.
+```
+
+The existing native entries are updated through the supported save workflow.
+Source comparison, recovery and readback rules: [CHATGPT_UPDATE.md](CHATGPT_UPDATE.md).
+
+<a id="update-an-existing-workspace"></a>
+
+### Codex update
+
+Open the project where the kit is already installed, then paste:
+
+```text
+Update my existing project-local FrameCore workflow to the latest main commit from:
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
+
+First read CODEX_UPDATE.md. Find my current project's .framecore/manifest.json and confirm the
+actual host and destination. This is an update, not a fresh or global install.
+
+Find the kit checkout outside my project. Verify its origin and Git status. Fetch origin/main and
+use a clean checkout at that exact full commit; do not reset, discard, stash or overwrite anyone's
+uncommitted work. If the checkout is dirty or diverged, stop or propose a separate clean source
+checkout outside my project. Report the previous known source identity and the fetched target
+commit; do not infer a precise source commit from package version alone.
+
+Run release checks, doctor in update mode and install dry-run. Compare actual installed files with
+manifest hashes and available old source evidence. Show changed, new, retired and unchanged files,
+local modifications and any conflicts. Preserve personal additions. The built-in updater does not
+perform a three-way merge: do not describe backups or --force as a conflict-safe merge.
+
+Ask for approval of the concrete update. If local modifications conflict, prepare the exact proposed
+resolution read-only and stop before writes until I approve it. Do not use --force just to make the
+command succeed.
+
+Apply the approved update to this same project. Verify doctor, managed hashes, preserved local files
+and the final manifest, then repeat dry-run to check for remaining changes. Report the source
+commit, changes, backup locations and verification. Use my resolved working language only because
+this is an already installed environment. Do not upload, publish, activate providers or change
+global installations.
+```
+
+Refreshing the source checkout and updating installed files are separate steps.
+The CLI does not fetch GitHub, and `--force` does not merge personal edits.
+Commands and recovery rules: [CODEX_UPDATE.md](CODEX_UPDATE.md).
+
+<a id="extend-your-installed-skills"></a>
+
+## Extend your own installed skills
+
+Use this when you want an existing skill to fit your work better: add examples,
+formats, references, decision rules or QA checks. This is a **personal extension**,
+not an upstream update or a new skill. The assistant first asks what should
+change, prepares a proposal and waits for approval.
+
+Replace `<skill-name>` with one installed skill, such as
+`image-prompt-architect`. The kit has no automatic extension-folder convention;
+supporting resources must be explicitly loaded by that skill. Personal overrides
+remain visible during later updates. See [Skill customization](docs/skill-customization.md).
+
+### ChatGPT Work personal extension
+
+In a Work conversation with the existing skill and `@skill-creator` available, paste:
+
+```text
+Use @skill-creator to help me extend my existing native FrameCore Skill: <skill-name>.
+
+This is a guided personal extension, not a fresh install, upstream update or public repository edit.
+Identify the existing native entry and use this host's actual edit/save workflow. Do not create a
+duplicate or substitute a Codex filesystem installation. Resolve my working language from my
+explicit preference and own conversation because this Skill is already installed.
+
+Inspect the current Skill and its accessible resources. Ask what I want to add, change or
+specialize, then request only the necessary examples and constraints. Prepare a read-only Change
+Proposal: objective, exact scope, preserved behavior, expected benefit, conflicts, acceptance test,
+rollback and stop condition. Wait for my approval before any saved change.
+
+Preserve a recoverable baseline using a supported private mechanism. Apply only the approved
+extension, keep the upstream source identity unchanged and preserve unrelated behavior. A supporting
+file must be explicitly loaded by the Skill; do not invent automatic extension-folder support.
+
+Verify the actual saved identity, complete intended content and preserved resources. A draft,
+approval or existing library entry is not proof of persistence. If saving fails or the response is
+lost, inspect actual saved state first. Do not blindly retry, roll back, force-push or switch save
+services. Report preparation, persistence and verification separately, and stop if reliable readback
+is unavailable. Do not publish personal files, upload assets, activate providers or run background
+updates.
+```
+
+### Codex personal extension
+
+Open the installed project in Codex with `$skill-creator` available, then paste:
+
+```text
+Use $skill-creator to help me extend my existing installed FrameCore Skill: <skill-name>.
+
+This is a guided personal extension, not a fresh install, upstream update or public repository edit.
+Locate the exact existing Skill and confirm its installation scope. Do not create a duplicate or
+clone another repository into my project. Resolve my working language from my explicit preference
+and own conversation because this Skill is already installed.
+
+First inspect its current instructions, relevant resources and managed-file status. Ask what I want
+to add, change or specialize, and request only the real examples or constraints needed to define the
+change.
+
+Before writing, propose the objective, exact files, preserved behavior, expected benefit, conflicts,
+acceptance test, rollback and stop condition. Prepare exact changes read-only and wait for my
+approval.
+
+Prefer supporting resources inside the existing Skill when appropriate. Do not assume that
+local/SKILL_EXTENSIONS.md or any other filename is automatically loaded: include the smallest
+explicit loading instruction in the approved change when needed. Explain that editing kit-managed
+files is a personal override that can block a later upstream update.
+
+After approval, preserve a recoverable snapshot, apply only the agreed changes, validate the
+complete resulting Skill and read back the saved bytes. Preserve unrelated files and the upstream
+source identity. Do not change manifest hashes merely to hide local drift. Report what changed, how
+to test it and how to undo it. Do not publish, upload, use providers or modify global configuration.
+```
 
 ## What This Repo Gives You
 
@@ -135,111 +321,6 @@ Installed ChatGPT Skills remain editable. In Work, use `@skill-creator` and ask 
 Use @skill-creator to help me create a skill.
 ```
 
-## Which Path Should I Choose?
-
-| If you are... | Use this path | What happens |
-| --- | --- | --- |
-| New and want the shortest safe path | [Getting Started In 5 Minutes](docs/getting-started-5-minutes.md) | You get a compact beginner checklist, copy-paste prompt, and expected result. |
-| New to Codex and want the full workflow in one project | [Copy-Paste Install Prompt](#copy-paste-install-prompt) | Codex guides cloning, checks, onboarding, dry-run, and project-local install. |
-| Comfortable with terminal commands | [Install Flow](#install-flow) | You run the guided installer or manual command sequence yourself. |
-| Already installed and want the newest repo changes | [Update An Existing Workspace](#update-an-existing-workspace) | Codex or terminal updates only FrameCore-managed files recorded in `.framecore/manifest.json`. |
-| Using native ChatGPT Skills | [Install Directly From The Repo In ChatGPT](#install-directly-from-the-repo-in-chatgpt) | Switch to Work, paste the `@skill-creator` prompt, complete onboarding, select a profile, then choose one batch approval or guided skill-by-skill installation. |
-| Only reviewing before install | [Included Agents And Skills](docs/included-agents-and-skills.md) and [Workflow Map](docs/workflow-map.md) | You can inspect the inventory, routes, gates, artifacts, examples, and safety boundaries first. |
-| Testing and sending feedback | [Tester Feedback Guide](docs/tester-feedback.md) and [Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md#live-e2e-test) | Use the live checklists and a short report format that tells maintainers what happened and where it stopped. |
-
-## Beginner Start
-
-If someone sent you this repo and you do not know Terminal, start here.
-
-For the shortest version, use [Getting Started In 5 Minutes](docs/getting-started-5-minutes.md). The longer prompt below gives Codex more context and more safety checks.
-
-There are two beginner paths:
-
-- **Codex install:** use this when you want the full local workflow in a shell-capable Codex workspace. Codex can clone the repo, run onboarding, install project-local files, render `.codex/agents/*.toml`, and optionally initialize `Context/` plus `Memory Cache/`.
-- **Native ChatGPT Skills:** switch ChatGPT from **Chat** to **Work**, paste the repository setup prompt above, and keep the `@skill-creator` mention in its first line. Complete onboarding, approve the smallest useful profile, then choose full batch or guided installation. Approval is typed in the conversation, not in a separate modal. After installation you can use, edit, expand, or create skills with `@skill-creator`. ChatGPT does not install `.codex/agents`; role-agent concepts become temporary responsibilities inside the current task. See [Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md).
-
-Recommended helper: install [GitHub Desktop](https://desktop.github.com/) if cloning a repository feels unfamiliar. It gives you a visual way to clone this repo, choose where it lives on your computer, see changed files, commit changes, and push to GitHub without memorizing Git commands. GitHub Desktop is optional; it does not run the installer by itself, and the kit can still be installed from a shell-capable Codex workspace or terminal.
-
-Fresh Codex note: if Codex shows a button such as `Configure sandbox`, `Configure agent sandbox`, or `Skonfiguruj piaskownicę agenta`, click it first and choose the local project folder where you want to use this workflow. If Codex can run shell commands but says `git` or `gh` is not available, nothing has been installed yet. Clone this repo with GitHub Desktop into a temporary, tools, or GitHub folder outside your project, then return to Codex and continue from the cloned repo.
-
-## Copy-Paste Install Prompt
-
-1. Open Codex.
-2. Open the project folder where you want to use this workflow.
-3. Paste this into Codex:
-
-```text
-Install FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT from this GitHub repo:
-
-https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
-
-I am a beginner. Please guide me step by step.
-
-Before doing anything else, confirm that I am using a shell-capable Codex workspace, not a regular ChatGPT chat window.
-If this is a regular ChatGPT chat window or any chat-only environment without workspace files and shell commands, stop and tell me this cannot install the repo here. Tell me to open Codex, open or create a local project folder, then paste this prompt there.
-If Codex asks me to configure the agent sandbox or workspace, stop and tell me to click the Configure sandbox button, choose the project folder where I want to install the workflow, then continue only after the sandbox is configured.
-
-First check whether this Codex environment can clone repositories and run local shell commands.
-If it can, clone the repo into a temporary or tools folder outside my project, read README.md, docs/quickstart.md, and docs/codex-assisted-install.md, then explain in plain language what will be installed and how it will improve my workflow.
-Start by telling me that this workflow kit was created for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, but can be adapted to other use cases.
-
-Then follow the safe install path:
-1. Run the repository checks.
-2. Run doctor/preflight against my current workspace.
-3. Run onboarding for my current workspace and explain each question before I answer, including questions about what I do, my main use cases, and how the pipeline should fit my work style.
-4. Run install dry-run after onboarding.
-5. Install project-local only after showing me the planned writes.
-6. Ask whether I want to initialize Context/ and Memory Cache/ for long-session recovery. If I say yes, run npm run memory:init and npm run memory:validate for my current workspace.
-7. Show me the changed files, final installed tree, and first prompt I should use after installation.
-
-Do not use global install.
-Do not enable paid external execution tools.
-Do not upload anything.
-Do not use API keys.
-Do not run provider tools.
-Stop and ask me before overwriting any existing file.
-
-If this Codex environment cannot run shell commands, tell me that I need a shell-capable Codex workspace or help from a technical user, then show me the manual Quickstart link.
-If shell commands work but git and gh are not installed or not available, tell me nothing was installed yet. Recommend GitHub Desktop as the easiest visual cloning tool, tell me to clone this repo into a temporary, tools, or GitHub folder outside my project, then come back to Codex and continue from the cloned repo.
-If I do not know how to clone the repository, recommend GitHub Desktop as the easiest visual cloning tool and remind me to clone this repo into a temporary or tools folder outside my project.
-```
-
-If you pasted this Codex-specific prompt into ChatGPT and only received an explanation, nothing was installed. Use the separate [ChatGPT repository-source prompt](#install-directly-from-the-repo-in-chatgpt), or open a shell-capable Codex workspace for the full local install.
-
-If you intentionally want to use this in native ChatGPT Skills instead of Codex, paste the prompt from [Install Directly From The Repo In ChatGPT](#install-directly-from-the-repo-in-chatgpt). That path creates selected skills from repository sources and uses temporary task roles inside the chat. It does not create `.codex/agents` files or a fixed agent roster.
-
-If Codex says it cannot run commands, ask a technical user to follow [Quickstart](docs/quickstart.md) for you.
-
-If your Codex environment can clone repositories and run local shell commands, for example OpenAI Codex CLI with workspace write access, give Codex this instruction from the workspace where you want to install the kit.
-If your agent or chat surface cannot run shell commands, use the manual [Install Flow](#install-flow) instead.
-
-```text
-Clone https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit.git into a temporary or tools folder outside the target workspace, read its README, docs/quickstart.md, and docs/codex-assisted-install.md, then install it into my current workspace.
-
-Follow this order:
-1. Run the guided project-local installer if available.
-2. If guided install completes successfully, show me the changed files and final installed tree, then stop.
-3. If guided install is not available or fails before writing managed files, use this manual fallback:
-   - Run the repository checks.
-   - Run doctor/preflight against my current workspace.
-   - Run onboarding for my current workspace.
-   - Run install dry-run against my current workspace after onboarding.
-   - Install project-local only.
-   - Show me the changed files and final installed tree.
-
-Do not use global install and do not enable external execution tools unless I explicitly ask for them.
-```
-
-This Codex workflow skill kit is a provider-neutral workflow system for Codex. It was created by FrameCore Works for creative work such as graphics, video, storyboards, campaign assets, e-commerce assets, prompt workflows, QA, and delivery preparation, and it can be adapted to other use cases during onboarding. It installs role-based agents, skills, templates, handoff rules, QA gates, Humanizer, HyperFrames workflow knowledge, a lightweight Hipson Adapter, and an explicit workflow self-improvement loop.
-
-If this repo helps your work and you want to support the project, you can buy me a coffee: https://buycoffee.to/framecoreworks.
-
-Provider-neutral means this kit does not ship external paid media-provider clients, endpoint catalogs, provider CLIs, API-key workflows, or paid execution routes. The text-bearing image rule may still route to the native Codex/ChatGPT image generator when that built-in capability is available. See [Provider-Neutral Boundary](docs/provider-neutral-boundary.md).
-
-This kit ships the routing and contract layer for creative work. It gives Codex roles, gates, handoffs, artifact templates, examples, QA discipline, and safety boundaries. It does not replace your own domain knowledge, brand context, references, or user-configured execution tools.
-
-Onboarding writes `framecore.config.json` before the managed install so local preferences can be used during dry-run and agent rendering. For long sessions, ask Codex after installation whether you want to initialize `Context/` and `Memory Cache/` with `npm run memory:init`.
-
 ## Supported Agent Surfaces
 
 | Surface | What works | Notes |
@@ -276,11 +357,12 @@ Onboarding does not rewrite that workflow logic. In Codex it tunes local workspa
 
 ## Start Here
 
+- First installation: read [Getting Started In 5 Minutes](docs/getting-started-5-minutes.md).
 - New to the kit: read [Quickstart](docs/quickstart.md).
 - Installing by pasting a GitHub link into Codex: read [Codex-Assisted Install](docs/codex-assisted-install.md).
 - Using native ChatGPT Skills instead of Codex: read [Native ChatGPT Skills](docs/chatgpt-skills-onboarding.md).
 - Already installed and ready to work: read [Using The Kit](docs/using-the-kit.md).
-- Already installed and want the newest repo changes: use [Update An Existing Workspace](#update-an-existing-workspace).
+- Already installed and want the newest repo changes: use [Update An Existing Workspace](#codex-update).
 - Installation failed or produced an unexpected result: read [Troubleshooting](docs/troubleshooting.md).
 - Need quick answers first: read [FAQ](docs/faq.md).
 - Want to see exactly what is included: read [Included Agents And Skills](docs/included-agents-and-skills.md).
@@ -333,7 +415,7 @@ The repo also includes validation and privacy audit scripts for checking this ki
 
 This kit contains reusable workflow assets: role-based agents, skills, templates, onboarding, validation, and project-local configuration.
 
-Public docs and source assets are English. Interactive onboarding starts in English for international users. Press Enter to keep English setup prompts, or type your preferred language for the setup conversation. This does not lock the later conversation language.
+Public documentation, source instructions, metadata and installation prompts are English. Only after verified installation does the host resolve the user's working language: explicit preference, then user-authored conversation, then reliably exposed locale, otherwise English. Copied English setup prompts do not set the user's language. Do not infer hidden account settings. Deliverable-language requests and exact artwork copy remain separate. The CLI stays English; the installed conversational workflow adapts without translating public source files.
 
 ## Install Flow
 
@@ -410,48 +492,6 @@ node scripts/install.mjs --mode global --confirm-global
 ```
 
 Use `--mode dry-run` first for every install target.
-
-## Update An Existing Workspace
-
-Use this when you already installed the kit into a Codex project and want that project to receive the newest managed agents, skills, docs, examples, gates, handoffs, and workflow contracts from the current repo.
-
-For beginners, open Codex in the project where the kit is already installed, then paste:
-
-```text
-Update my existing Codex workflow skill kit install from the current GitHub repo.
-
-I already installed this kit before. Please guide me step by step.
-
-First confirm that this is a shell-capable Codex workspace, not a regular ChatGPT chat.
-Then find the existing `.framecore/manifest.json` in my current project.
-If there is no manifest, stop and tell me this does not look like an existing project-local install.
-
-Before changing files:
-1. Read README.md and docs/quickstart.md from the cloned kit repo.
-2. Run the repository checks.
-3. Run doctor/preflight in update mode against my current project.
-4. Explain what update will do in plain language.
-5. Show whether any managed files have local edits or conflicts.
-
-Only if preflight is clean, run the project-local update.
-Do not use global install.
-Do not upload anything.
-Do not use API keys.
-Do not enable external provider tools.
-Do not overwrite locally edited managed files unless I explicitly approve `--force`.
-
-After update, show me the changed files, the final managed tree, and the first prompt I should use to continue working.
-```
-
-For advanced users:
-
-```bash
-npm run check
-node scripts/doctor.mjs --mode update --target /path/to/your/project
-node scripts/install.mjs --mode update --target /path/to/your/project
-```
-
-Run `repair` instead of `update` only when you want to recreate files already listed in the existing manifest without adding new managed paths from the current kit.
 
 ## Update, Repair, And Uninstall
 
@@ -631,3 +671,8 @@ See also:
 - [Support](SUPPORT.md)
 - [Maintainers](MAINTAINERS.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
+
+## About the Project
+
+This kit ships the routing and contract layer for creative work and was created by FrameCore Works.
+To support its development, visit https://buycoffee.to/framecoreworks.

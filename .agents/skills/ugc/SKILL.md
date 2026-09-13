@@ -7,6 +7,10 @@ description: Use this skill for provider-neutral UGC-style creator ads, talking-
 
 Use this skill to plan UGC-style creator ads, talking-head scripts, social proof concepts, direct-response hooks, objection handling, and creator-read copy while keeping claims honest and provider-neutral.
 
+## Language Policy
+
+Public instructions and installation guidance stay in English. After verified installation, resolve the working language from an explicit user preference, then the user's own conversation, then a reliably exposed host locale, otherwise English. Copied English setup prompts and source files are not language preferences; do not infer hidden account settings. Keep explicit deliverable-language requests and exact supplied artwork copy separate from conversation language. Do not translate or rewrite public source files to localize a session.
+
 ## When To Use
 
 Use this skill when:

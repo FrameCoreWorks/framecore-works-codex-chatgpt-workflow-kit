@@ -129,14 +129,16 @@
   },
   "installation_rules": {
     "onboarding_before_creation": true,
-    "first_question_is_setup_language": true,
+    "first_question_is_setup_language": false,
     "create_each_skill_separately": true,
     "allow_batch_mode_after_one_conversational_approval": true,
     "allow_guided_mode_with_per_skill_conversational_approval": true,
     "wait_for_separate_host_install_action": false,
     "allow_unconfirmed_completion_claim": false,
     "codex_agent_files_are_sources": false,
-    "roles_are_temporary_in_chatgpt": true
+    "roles_are_temporary_in_chatgpt": true,
+    "installation_language": "en",
+    "user_language_detection": "after_verified_installation"
   },
   "post_install_invocation": {
     "allow_implicit_routing_for_eligible_skills": true,

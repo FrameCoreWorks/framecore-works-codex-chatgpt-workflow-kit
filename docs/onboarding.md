@@ -36,7 +36,7 @@ npm run install:guided -- --target /path/to/your/project --defaults --yes
 
 Interactive onboarding asks:
 
-- `Onboarding language`, the setup language for the onboarding questions only. English is the default for international users; type your preferred language for the setup conversation. This does not lock the later conversation language.
+- Installation guidance and all CLI prompts are English. The default `working_language` is `auto`: the host resolves it after verified installation from an explicit preference, the user's own conversation, a reliably exposed host locale, or English as fallback. A copied English setup prompt is not a language preference. Existing explicit config values are preserved.
 - `What kind of work do you do?`, the user's primary work context. The default is creative production: graphics, video, storyboards, campaign assets, and e-commerce assets.
 - `What should this pipeline help with most?`, the user's main use cases, such as briefs, references, visual direction, prompt packs, QA review, and delivery preparation.
 - `How should the pipeline fit your work style?`, the preferred operating style for route depth, checkpointing, and output shape.
@@ -143,6 +143,18 @@ Onboarding does not change public workflow logic:
 Delivery preferences only shape local behavior. They do not add cloud credentials, upload targets, external execution tools, or provider-specific delivery integrations.
 
 Existing project instructions are protected. If a target workspace already has `AGENTS.md`, project-local install writes the workflow instructions to `AGENTS.framecore.md` unless the user explicitly passes `--force`.
+
+## Post-Install Language Checks
+
+After verified installation, try an ordinary task in the user's own language
+while leaving the copied English setup prompt in the conversation. Explanations
+should follow the user, not the copied prompt. Then request a different language
+for one deliverable and confirm that only that deliverable switches. Exact
+artwork copy must remain unchanged. Confirm that an explicit stored preference
+is preserved and that unavailable locale information is not invented.
+
+These are live host behavior checks. Passing source, metadata and CLI tests
+does not prove native activation or model language selection.
 
 ## Generated Files
 

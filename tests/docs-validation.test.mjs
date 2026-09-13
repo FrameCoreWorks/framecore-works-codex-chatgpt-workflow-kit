@@ -13,8 +13,7 @@ test("validation rejects weak onboarding guide and assisted install prompt", () 
   writeFileSync(
     readme,
     readFileSync(readme, "utf8")
-      .replaceAll(", docs/quickstart.md,", "")
-      .replaceAll("Run doctor/preflight", "Run install dry-run")
+      .replaceAll("CODEX_INSTALL.md", "MISSING_INSTALL.md")
   );
   writeFileSync(
     onboardingDoc,

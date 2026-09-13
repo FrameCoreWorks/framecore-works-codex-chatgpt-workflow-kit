@@ -20,6 +20,9 @@ test("actual npm tarball runs every exported CLI without maintainer files", (t) 
   const payload = join(dir, "package");
   assert.equal(existsSync(join(payload, ".github")), false);
   assert.equal(existsSync(join(payload, "tests")), false);
+  for (const guide of ["CODEX_INSTALL.md", "CODEX_UPDATE.md", "CHATGPT_INSTALL.md", "CHATGPT_UPDATE.md", "docs/skill-customization.md"]) {
+    assert.ok(existsSync(join(payload, guide)), `missing packaged lifecycle guide: ${guide}`);
+  }
   const bins = JSON.parse(readFileSync(join(payload, "package.json"), "utf8")).bin;
   const invoke = (name, args = []) => spawnSync(process.execPath, [join(payload, bins[name]), ...args], { cwd: dir, encoding: "utf8", maxBuffer: 4 * 1024 * 1024, timeout: 30_000 });
   for (const name of Object.keys(bins)) {

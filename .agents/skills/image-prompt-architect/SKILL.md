@@ -7,6 +7,10 @@ description: Use this skill to create final provider-neutral image prompt packs 
 
 Use this skill to create final provider-neutral image prompt packs from approved brief, references, direction, and copy. It prepares prompts for review or user-selected execution, but it does not execute generation.
 
+## Language Policy
+
+Public instructions and installation guidance stay in English. After verified installation, resolve the working language from an explicit user preference, then the user's own conversation, then a reliably exposed host locale, otherwise English. Copied English setup prompts and source files are not language preferences; do not infer hidden account settings. Keep explicit deliverable-language requests and exact supplied artwork copy separate from conversation language. Do not translate or rewrite public source files to localize a session.
+
 ## When To Use
 
 Use this skill when:

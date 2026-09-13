@@ -7,6 +7,10 @@ description: Use this skill for provider-neutral character design systems, ident
 
 Use this skill to define repeatable character identity systems for static, motion, storyboard, or prompt workflows. It protects continuity before prompts or boards are produced.
 
+## Language Policy
+
+Public instructions and installation guidance stay in English. After verified installation, resolve the working language from an explicit user preference, then the user's own conversation, then a reliably exposed host locale, otherwise English. Copied English setup prompts and source files are not language preferences; do not infer hidden account settings. Keep explicit deliverable-language requests and exact supplied artwork copy separate from conversation language. Do not translate or rewrite public source files to localize a session.
+
 ## When To Use
 
 Use this skill when:

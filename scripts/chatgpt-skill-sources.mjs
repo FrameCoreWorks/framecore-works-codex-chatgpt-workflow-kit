@@ -38,7 +38,7 @@ const REQUIRED_BOOTSTRAP_PHRASES = [
   "skill-creator",
   "config/chatgpt-skills.json",
   "config/chatgpt-skill-sources.json",
-  "Which language should I use for setup?",
+  "only after verified installation",
   "ask these questions one at a time",
   "History-assisted onboarding",
   "provisional",
@@ -346,6 +346,9 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
   for (const key of ["onboarding_before_creation", "first_question_is_setup_language", "create_each_skill_separately", "codex_agent_files_are_sources"]) {
     if (typeof rules[key] !== "boolean") errors.push({ message: `ChatGPT installation rule must be boolean: ${key}`, file: configPath });
   }
+  if (rules.first_question_is_setup_language !== false || rules.installation_language !== "en" || rules.user_language_detection !== "after_verified_installation") {
+    errors.push({ message: "ChatGPT installation must stay English and resolve user language only after verified installation.", file: configPath });
+  }
   if ("require_visible_install_confirmation" in rules) errors.push({ message: "ChatGPT installation rules must not require assistant-visible install UI introspection.", file: configPath });
   if (rules.codex_agent_files_are_sources !== false || rules.allow_batch_mode_after_one_conversational_approval !== true || rules.allow_guided_mode_with_per_skill_conversational_approval !== true || rules.wait_for_separate_host_install_action !== false || rules.allow_unconfirmed_completion_claim !== false || rules.roles_are_temporary_in_chatgpt !== true) {
     errors.push({ message: "ChatGPT installation rules must keep Codex agent files out, roles temporary, and completion evidence-based.", file: configPath });
@@ -400,7 +403,11 @@ export function validateChatGptRepositorySetup(root = repoRoot) {
     const { files, errors: fileErrors } = collectSkillFiles(root, config, name);
     errors.push(...fileErrors);
     const skillPath = join(skillDir, "SKILL.md");
-    const parsed = parseSkillFrontmatter(readFileSync(skillPath, "utf8"));
+    const skillText = readFileSync(skillPath, "utf8");
+    const parsed = parseSkillFrontmatter(skillText);
+    for (const phrase of ["## Language Policy", "After verified installation", "Copied English setup prompts", "do not infer hidden account settings"]) {
+      if (!skillText.includes(phrase)) errors.push({ message: `Skill language policy is missing ${phrase}: ${name}`, file: skillPath });
+    }
     if (parsed.error) errors.push({ message: parsed.error, file: skillPath });
     if (parsed.name !== name || !SKILL_NAME.test(parsed.name ?? "")) errors.push({ message: `Skill name must match its directory: ${name}`, file: skillPath });
     if (!parsed.description || parsed.description.length > 1024) errors.push({ message: `Skill description is missing or too long: ${name}`, file: skillPath });

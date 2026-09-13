@@ -1,5 +1,29 @@
 # Install Native ChatGPT Skills From This Repository
 
+## Copy-Paste Install Prompt
+
+In ChatGPT Work with native Skills and `@skill-creator` available, paste:
+
+```text
+Use @skill-creator to create and save selected native ChatGPT Skills from this public repository:
+https://github.com/FrameCoreWorks/framecore-works-codex-chatgpt-workflow-kit
+
+First read and follow CHATGPT_INSTALL.md, config/chatgpt-skills.json and
+config/chatgpt-skill-sources.json. Follow the English onboarding, confirm my Workflow Profile and
+the exact skill list, and let me choose guided or batch installation. Obtain the required
+conversational approval before creation.
+
+Read every declared source file for the selected skills. Use the actual native creation and save
+workflow, keep each skill separate, and check the saved result. Do not create duplicates, substitute
+a Codex installation, clone a workspace or run shell commands. If Skills, @skill-creator, source
+access or saving are unavailable, stop and report the concrete blocker. A draft or approval is not a
+completed installation.
+
+Keep installation in English. Only after verified installation, resolve my working language from my
+own conversation or explicit preference, not this copied English prompt. Explain how to use and
+extend the installed skills. Do not activate providers, upload files or publish anything.
+```
+
 ## Purpose
 
 This is the canonical ChatGPT setup contract for this repository. Follow it only when the user explicitly asks ChatGPT to install, create, or update native ChatGPT Skills from:
@@ -22,19 +46,13 @@ Use the declared `main` ref and the exact repository paths from the source inven
 
 ## First Response
 
-Your first response must ask only this question:
-
-```text
-Which language should I use for setup? Type any language, or type "default" for English.
-```
-
-Do not inspect existing skills, summarize the repository, recommend a profile, perform capability preflight, or invoke another skill before the user answers.
+Keep installation guidance and work-profile onboarding in English. Start with the beginner preflight, then ask which onboarding context source to use. Do not ask for a setup language or invoke workflow skills before the profile and installation approvals. Resolve user language only after verified installation.
 
 Do not silently assume onboarding answers from memory, history, existing skills, or another setup run. After the beginner preflight, ask the user which onboarding context source to use.
 
 ## Beginner Preflight
 
-After the user selects a language, continue in that language and briefly explain:
+During installation, briefly explain in English:
 
 - this repository contains reusable ChatGPT Skills, which are small workflow helpers ChatGPT can use later in normal conversations;
 - these skills can help turn an idea into a clear brief, plan creative work, write image or video prompts, build storyboard or campaign plans, check work before final output, and prepare simple notes or checklists for sharing with a client or team;
@@ -44,7 +62,7 @@ After the user selects a language, continue in that language and briefly explain
 - ordinary requests can use eligible installed skills automatically, while typing `@` followed by a skill name selects one explicitly;
 - the user entered through ChatGPT **Work** and explicitly selected the native creation workflow with `@skill-creator`;
 - `@skill-creator` is a Skill mention, not a `$skill-creator` command, shell command, MCP tool, or function tool;
-- installation approval happens in the conversation: the user types a clear reply such as `yes`, `approve`, `install`, `tak`, `zatwierdzam`, or `instaluj`;
+- installation approval happens in the conversation: the user types a clear reply such as `yes`, `approve`, or `install`;
 - the user will choose between one batch approval for the complete selected skill list and a guided mode that explains and approves one skill at a time;
 - do not wait for a separate install button, modal, host action, or invisible tool result;
 - Codex-specific role-agent files are not installed in ChatGPT; equivalent roles are temporary responsibilities used only inside the current task;
@@ -101,7 +119,7 @@ You may recommend a smaller custom selection when the user's needs are narrower 
 
 After the user approves the exact skill list, ask them to choose one of these modes:
 
-1. **Full batch installation:** explain that one conversational approval authorizes creation of every skill on the approved list. Ask once for a clear reply such as `yes`, `approve`, `install`, `tak`, `zatwierdzam`, or `instaluj`. Then create the selected skills in order without asking again between skills. Keep every skill separate and report progress.
+1. **Full batch installation:** explain that one conversational approval authorizes creation of every skill on the approved list. Ask once for a clear reply such as `yes`, `approve`, or `install`. Then create the selected skills in order without asking again between skills. Keep every skill separate and report progress.
 2. **Guided installation:** before each skill, explain in plain language what it does, when ChatGPT may use it, and why it is included. Ask for a clear conversational approval. Create that skill, report its result, and only then continue to the next one.
 
 If the user does not choose a mode, recommend guided installation for beginners and batch installation for users who already reviewed the exact list. A user may stop the run at any time. Do not interpret silence, unrelated text, or an earlier approval from another setup session as approval.
@@ -175,6 +193,9 @@ Typical temporary responsibilities are task confirmation, workflow orchestration
 
 ## Post-Install Use And Customization
 
+Use [CHATGPT_UPDATE.md](CHATGPT_UPDATE.md) for newer upstream sources. For
+personal changes, use the [complete extension prompt](docs/skill-customization.md#chatgpt-copy-paste-prompt). Both edit the existing entry, not a duplicate.
+
 After onboarding and native installation are complete, natural-language requests may invoke skills whose `agents/openai.yaml` metadata allows implicit invocation. Treat this as host-managed routing, not a guarantee that every phrasing will select the same skill.
 
 - Prefer the smallest sufficient route. A direct request for one prompt, brief, storyboard, caption plan, or review should use the relevant specialist skill instead of starting the full pipeline.
@@ -184,7 +205,9 @@ After onboarding and native installation are complete, natural-language requests
 - `onboarding-preference-tuning`, `hipson-adapter`, and `workflow-self-improvement` are explicit-only. Do not invoke them from an unrelated natural-language request.
 - An implicit or explicit skill invocation never grants permission to use providers, API keys, uploads, publishing, shell commands, or unavailable local files.
 
-Explain these options in the user's setup language:
+After verified installation, resolve the working language from an explicit user preference, then the user's own conversation, then a reliably exposed host locale, otherwise English. Copied English setup prompts and source files are not language preferences. Do not infer hidden account settings. Preserve explicit deliverable-language requests and exact supplied artwork copy. Keep public source instructions in English.
+
+Explain these options in the resolved user language:
 
 - **Use automatically:** describe the task normally. ChatGPT may select a relevant eligible skill.
 - **Use explicitly:** type `@` and choose the skill name, then describe the task.
@@ -205,7 +228,7 @@ End setup with one short starter prompt for ordinary use, one explicit `@workflo
 
 ## Voice Mode
 
-Voice responses can approve the setup language, Workflow Profile, exact skill list, installation mode, batch creation, or the current guided skill. Voice approval authorizes the same scope as written approval, but it is not proof of successful creation.
+Voice responses can approve the Workflow Profile, exact skill list, installation mode, batch creation, or the current guided skill. Voice approval authorizes the same scope as written approval, but it is not proof of successful creation.
 
 Do not claim to see a button, panel, or install status. Do not wait for a separate interface prompt. Mark the skill installed only when the active `@skill-creator` workflow reports that it created and saved the skill, or the skill is visible in the Skills library.
 

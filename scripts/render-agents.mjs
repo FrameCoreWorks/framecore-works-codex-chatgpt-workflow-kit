@@ -75,7 +75,8 @@ export function renderAgents({
   const names = config.agent_display_names ?? {};
   const profile = config.work_profile ?? {};
   const delivery = config.delivery ?? {};
-  const language = safeTemplateValue(config.working_language ?? "en");
+  const configuredLanguage = config.working_language ?? "auto";
+  const language = safeTemplateValue(configuredLanguage === "auto" ? "the user's resolved language" : configuredLanguage);
   const tone = safeTemplateValue(config.response_tone ?? "calm, direct, practical");
   const outputDir = safeTemplateValue(config.output_dir ?? "output/workflow");
   const qaStrictness = safeTemplateValue(config.qa_strictness ?? "standard");

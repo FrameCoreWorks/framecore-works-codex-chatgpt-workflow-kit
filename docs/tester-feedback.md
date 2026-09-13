@@ -61,11 +61,11 @@ If using ChatGPT Skills:
 - Setup prompt used: README / custom
 - Selected profile: core / creative / full / custom
 - Installation mode: full batch / guided
-- Conversational approval used: yes / approve / install / tak / zatwierdzam / instaluj / other
+- Conversational approval used: yes / approve / install / other
 - Native skill statuses: installed / created_not_installed / existing needs review / blocked
 - Did the skill name, description, and starter prompt display correctly? yes / no / partly
 - Did onboarding start before setup was called complete? yes / no
-- Was the setup language the first question? yes / no
+- Did installation stay in English until verified completion, followed by user-language detection? yes / no
 - Onboarding context: fresh / history-assisted / current profile
 - If history-assisted, did ChatGPT show provisional observations and ask for confirmation before using them? yes / no / not applicable
 - Did ChatGPT avoid claiming access to unavailable history or inventing prior answers? yes / no / not sure

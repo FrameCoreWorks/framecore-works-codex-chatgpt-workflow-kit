@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Grouped README entry points into install, update and personal extension, each
+  with adjacent ChatGPT Work and Codex prompts before technical documentation.
+  Kept prompt copies synchronized and wrapped them for readable copying.
+
+- Added canonical Codex install/update and native ChatGPT update guides, plus
+  complete personal-extension prompts that preserve installed Skill identity.
+- Kept public documentation, source instructions and CLI setup in English.
+  User-language detection now starts after verified installation, with `auto`
+  defaults, explicit preference preservation and copied-prompt safeguards.
+- Clarified source checkout refresh versus installed-file updates, personal
+  conflicts, actual native save/readback and the limits of repair/backups.
+
 - Fixed manifest path containment for doctor, update, repair and uninstall,
   including metadata links, dangling links and file-identity aliases.
 - Made numbered backups exclusive and shared with onboarding; preserved
@@ -32,7 +44,7 @@
 - Added a versioned Creative Prompt Contract layer for image, edit, and video work, including reference ownership, exact text layout, bounded edit deltas, continuity carriers, rewrite-forward rules, target adaptation checks, execution evidence, public fixtures, and validator coverage.
 - Consolidated HyperFrames into a single public `hyperframes-workflow` skill that now covers workflow structure, implementation prompting, GSAP/timeline guidance, captions, overlays, render QA, and delivery handoff.
 - Added repository-source native ChatGPT setup for all 35 public workflow skills, with core, creative, and full profiles.
-- Added a canonical `CHATGPT_INSTALL.md` contract that starts with language selection, runs onboarding, and creates selected skills through an active `@skill-creator` workflow in ChatGPT Work.
+- Added a canonical `CHATGPT_INSTALL.md` contract that runs onboarding, and creates selected skills through an active `@skill-creator` workflow in ChatGPT Work.
 - Added full batch and guided ChatGPT installation modes, using scoped conversational approval instead of a separate install button, modal, native action, or host callback.
 - Added state-model rules for ChatGPT setup: mode selection, conversational approval, creation, `created_not_installed`, `installed`, existing-skill review, and `blocked` remain separate.
 - Added beginner guidance for automatic and explicit skill invocation, editing and expanding installed skills, and creating new personal skills with `@skill-creator`.

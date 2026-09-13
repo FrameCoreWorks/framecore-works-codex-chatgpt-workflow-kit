@@ -77,7 +77,7 @@ test("interactive onboarding records only changed answers and retains nested ove
   const target = workspace(t);
   writeFileSync(join(target, "framecore.config.shared.json"), JSON.stringify({ working_language: "pl", output_dir: "artifacts/team" }));
   writeFileSync(join(target, "framecore.config.json"), JSON.stringify({ response_tone: "personal" }));
-  const result = await runInteractiveOnboarding(target, ["", "", "", "", "", "", "", "artifacts/mine", "", "", "", "", "", "", "yes"]);
+  const result = await runInteractiveOnboarding(target, ["", "", "", "", "", "", "artifacts/mine", "", "", "", "", "", "", "yes"]);
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(JSON.parse(readFileSync(join(target, "framecore.config.json"), "utf8")), {
     response_tone: "personal", output_dir: "artifacts/mine"

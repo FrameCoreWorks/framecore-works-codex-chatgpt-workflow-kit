@@ -2,11 +2,16 @@
 
 This guide installs this Codex workflow skill kit into one Codex workspace. The recommended path is project-local installation, which keeps the workflow assets inside the target project instead of changing your global Codex setup.
 
+For the canonical install contract, see [Codex installation](../CODEX_INSTALL.md).
+For an existing installation, use [Codex update](../CODEX_UPDATE.md) or
+[personal Skill extension](skill-customization.md). Installation stays English;
+the host resolves user language only after verified installation.
+
 ## No-Terminal Beginner Start
 
 If you do not know Terminal, use a Codex environment that can run local shell commands and paste this into Codex from the project folder where you want the kit installed:
 
-Fresh Codex setup note: if Codex shows a button such as `Configure sandbox`, `Configure agent sandbox`, or `Skonfiguruj piaskownicę agenta`, click it first and choose the project folder where you want to use this workflow. If Codex can run shell commands but says `git` or `gh` is missing, clone this repository with GitHub Desktop into a temporary, tools, or GitHub folder outside your project, then return to Codex and continue from the cloned repo.
+Fresh Codex setup note: if Codex shows a button such as `Configure sandbox` or `Configure agent sandbox` (or its localized equivalent), click it first and choose the project folder where you want to use this workflow. If Codex can run shell commands but says `git` or `gh` is missing, clone this repository with GitHub Desktop into a temporary, tools, or GitHub folder outside your project, then return to Codex and continue from the cloned repo.
 
 ```text
 Install FrameCore Works: Creative Workflow Skill Kit for Codex and ChatGPT from this GitHub repo:
@@ -32,7 +37,7 @@ Do not use global install. Do not enable paid external execution tools. Do not u
 If this Codex environment cannot run shell commands, tell me I need a shell-capable Codex workspace or help from a technical user. If shell commands work but git and gh are not installed or not available, tell me nothing was installed yet, recommend GitHub Desktop as the easiest visual cloning tool, and tell me to clone this repository into a temporary, tools, or GitHub folder outside my project. If I do not know how to clone this repository, recommend GitHub Desktop as the easiest visual cloning tool and remind me to clone into a temporary or tools folder outside my project.
 ```
 
-If you paste this Codex prompt into the ChatGPT Chat surface and only receive an explanation, nothing was installed. For the Codex installation, use a shell-capable Codex workspace. For native ChatGPT Skills, switch ChatGPT to Work and use the separate `@skill-creator` prompt from [README](../README.md#install-directly-from-the-repo-in-chatgpt).
+If you paste this Codex prompt into the ChatGPT Chat surface and only receive an explanation, nothing was installed. For the Codex installation, use a shell-capable Codex workspace. For native ChatGPT Skills, switch ChatGPT to Work and use the separate `@skill-creator` prompt from [README](../README.md#chatgpt-work).
 
 If Codex cannot run local commands, this kit still remains documented, but installation needs a terminal-capable environment or a technical helper.
 
@@ -146,7 +151,7 @@ For a full command map, including which commands write files and which are read-
    node scripts/onboard.mjs --target "$FRAMECORE_TARGET"
    ```
 
-   Onboarding creates `framecore.config.json` in the target workspace. It asks for onboarding prompt language, response tone, output folder, QA strictness, local agent display names, and optional workflow self-improvement settings. The onboarding prompt language affects setup text only and does not lock the later conversation language. Use a safe relative output path such as `output/workflow`; do not use absolute paths, `~`, URLs, cloud sync paths, or machine-specific folders. Do not describe this as a folder for this kit's files; describe it as a folder for the user's generated files and workflow reports.
+   Onboarding creates `framecore.config.json` in the target workspace. It asks in English for response tone, output folder, QA strictness, local agent display names, and optional workflow self-improvement settings. The default `working_language: "auto"` is resolved by the host only after verified installation, excluding copied setup prompts as language evidence. Explicit existing language preferences remain overrides. Use a safe relative output path such as `output/workflow`; do not use absolute paths, `~`, URLs, cloud sync paths, or machine-specific folders. Do not describe this as a folder for this kit's files; describe it as a folder for the user's generated files and workflow reports.
 
    At the end, onboarding prints the next safe steps: dry-run, review planned writes, install project-local, open the target project in Codex, and use [Using The Kit](using-the-kit.md) for starter prompts.
 
@@ -360,10 +365,12 @@ your-project/
 - Keep `framecore.config.json` local to the target workspace. Teams that intentionally share reviewed defaults can use `framecore.config.shared.json`, with local config still taking precedence.
 - Read [Team Configuration](team-configuration.md) before committing installed workflow files or local config.
 - Use `.framecore/manifest.json` to see which files are FrameCore-managed.
-- To update an already installed workspace, run doctor first, then update. `update` can add new FrameCore-managed paths from the current kit, such as new skills, docs, examples, gates, handoffs, or agent templates. It requires `.framecore/manifest.json`:
+- To update an already installed workspace, first follow [CODEX_UPDATE.md](../CODEX_UPDATE.md) to refresh and verify the source checkout. Then run checks, doctor, dry-run and the approved update. `update` reads that checkout and can add new managed skills, agent files and embedded contracts; it does not fetch GitHub or install the repository docs tree. It requires `.framecore/manifest.json`:
 
   ```bash
   node scripts/doctor.mjs --mode update --target "$FRAMECORE_TARGET"
+  node scripts/install.mjs --mode dry-run --target "$FRAMECORE_TARGET"
+  # Review the preview and approve before applying.
   node scripts/install.mjs --mode update --target "$FRAMECORE_TARGET"
   ```
 

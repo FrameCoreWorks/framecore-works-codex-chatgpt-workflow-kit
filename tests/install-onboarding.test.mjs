@@ -45,7 +45,7 @@ test("onboarding renders project-local config and agent templates", () => {
   assert.match(sample, /Workspace profile: primary work = creative production/);
   const assetManifest = readFileSync(join(dir, ".codex/agents/asset-manifest.toml"), "utf8");
   assert.match(assetManifest, /Workspace profile: primary work = creative production/);
-  assert.match(assetManifest, /Use en for workflow artifacts/);
+  assert.match(assetManifest, /Use the user's resolved language for workflow artifacts/);
   const orchestrator = readFileSync(join(dir, ".codex/agents/workflow-orchestrator.toml"), "utf8");
   assert.match(orchestrator, /Use this profile when choosing route depth/);
   assert.match(orchestrator, /openai\/gpt-image-2 through native Codex\/ChatGPT image generation/);
@@ -206,7 +206,8 @@ test("interactive onboarding explains the workflow and can keep default role nam
   const dir = mkdtempSync(join(tmpdir(), "framecore-interactive-"));
   const result = await runInteractiveOnboarding(dir);
   assert.equal(result.status, 0);
-  assert.match(result.stdout, /Onboarding language\. Press Enter for English/);
+  assert.doesNotMatch(result.stdout, /Onboarding language|Which language should I use for setup/);
+  assert.match(result.stdout, /After verified installation, the host resolves your working language/);
   assert.match(result.stdout, /This installer adds a structured creative workflow/);
   assert.doesNotMatch(result.stdout, /FrameCore Works/);
   assert.doesNotMatch(result.stdout, /FrameCore files/);
@@ -237,31 +238,25 @@ test("interactive onboarding explains the workflow and can keep default role nam
   assert.equal(config.work_profile.primary_use_cases, "briefs, references, visual direction, prompt packs, QA review, and delivery preparation");
 });
 
-test("interactive onboarding can run in Polish", async () => {
-  const dir = mkdtempSync(join(tmpdir(), "framecore-interactive-pl-"));
-  const answers = ["Polish", "", "", "", "", "", "", "", "", "", "", "", "", "", "tak"];
+test("interactive onboarding stays English while preserving an explicit language preference", async () => {
+  const dir = mkdtempSync(join(tmpdir(), "framecore-interactive-language-"));
+  writeFileSync(join(dir, "framecore.config.shared.json"), JSON.stringify({ working_language: "pl" }));
+  const answers = ["", "", "", "", "", "", "", "", "", "", "", "", "", "tak"];
   const result = await runInteractiveOnboarding(dir, answers);
   assert.equal(result.status, 0);
-  assert.match(result.stdout, /Konfiguracja kreatywnego workflow/);
-  assert.doesNotMatch(result.stdout, /FrameCore Works/);
-  assert.match(result.stdout, /output\/workflow/);
-  assert.match(result.stdout, /Czym się zajmujesz/);
-  assert.match(result.stdout, /W czym ten pipeline ma pomagać najbardziej/);
-  assert.match(result.stdout, /Pełny Hipson to osobne, opcjonalne repozytorium/);
-  assert.match(result.stdout, /opcjonalnej warstwy rozszerzenia do głębszej analizy/);
-  assert.match(result.stdout, /nie klonuje, nie instaluje, nie aktywuje, nie uploaduje i nie uruchamia/);
-  assert.match(result.stdout, /Czy użyć domyślnych nazw ról/);
-  assert.match(result.stdout, /Następne kroki:/);
+  assert.match(result.stdout, /Creative Workflow Skill Kit setup/);
+  assert.match(result.stdout, /What kind of work do you do/);
+  assert.match(result.stdout, /Use default role names/);
+  assert.match(result.stdout, /Next steps:/);
+  assert.doesNotMatch(result.stdout, /Onboarding language|Konfiguracja|Następne kroki/);
   const config = loadFrameCoreConfig({ target: dir }).config;
-  assert.equal(config.working_language, "en");
-  assert.equal(config.response_tone, "calm, direct, practical");
-  assert.equal(config.work_profile.primary_use_cases, "briefs, references, visual direction, prompt packs, QA review, and delivery preparation");
+  assert.equal(config.working_language, "pl");
   assert.deepEqual(config.agent_display_names, {});
 });
 
 test("interactive onboarding re-prompts unsafe output directories", async () => {
   const dir = mkdtempSync(join(tmpdir(), "framecore-interactive-output-dir-"));
-  const answers = ["", "", "", "", "", "", "", "../outside", "output/safe", "", "", "", "", "", "", "yes"];
+  const answers = ["", "", "", "", "", "", "../outside", "output/safe", "", "", "", "", "", "", "yes"];
   const result = await runInteractiveOnboarding(dir, answers);
   assert.equal(result.status, 0);
   assert.match(result.stdout, /Use a safe relative path inside the workspace/);

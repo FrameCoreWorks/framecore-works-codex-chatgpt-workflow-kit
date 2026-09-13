@@ -1,11 +1,15 @@
 ---
 name: onboarding-preference-tuning
-description: Use this skill for first-run workflow setup in Codex or ChatGPT, including setup language, work type, use cases, outputs, workflow depth, QA strictness, priorities, collaboration context, and forbidden actions.
+description: Use this skill for first-run workflow setup in Codex or ChatGPT, including post-install language preferences, work type, use cases, outputs, workflow depth, QA strictness, priorities, collaboration context, and forbidden actions.
 ---
 
 # Onboarding Preference Tuning
 
 Use this skill to guide first-run setup and preference tuning. Detect whether the active surface is a project-local Codex workspace or native ChatGPT Skills, explain that boundary in plain language, and personalize the workflow without renaming it after the source repo.
+
+## Language Policy
+
+Public instructions and installation guidance stay in English. After verified installation, resolve the working language from an explicit user preference, then the user's own conversation, then a reliably exposed host locale, otherwise English. Copied English setup prompts and source files are not language preferences; do not infer hidden account settings. Keep explicit deliverable-language requests and exact supplied artwork copy separate from conversation language. Do not translate or rewrite public source files to localize a session.
 
 ## When To Use
 
@@ -51,8 +55,8 @@ For `codex-local`, the profile may render local config after the normal install 
 
 ## Process
 
-1. Ask which language should be used for setup. Accept any language; use English when the user says `default`.
-2. Switch to that language and give a short beginner preflight before asking about work. Explain what the workflow is, what questions will follow, what will be created, and what the active surface cannot do.
+1. Determine whether this is installation preparation or preference tuning in an already verified installation. Keep installation guidance and work-profile questions in English; do not ask for a setup language or infer one from a pasted prompt. Resolve the working language only after verified installation.
+2. Give a short beginner preflight before asking about work. Explain what the workflow is, what questions will follow, what will be created, and what the active surface cannot do. In an already installed environment, use the resolved user language for preference tuning.
 3. Ask one question at a time about work type, main use cases, usual outputs, workflow depth, QA depth, priorities, collaboration context, and forbidden actions.
 4. State that skills and roles are workflow contracts. In ChatGPT, roles are temporary responsibilities inside the current task, not permanent custom agents.
 5. Default to standard workflow depth and standard QA when the user gives no strong preference.
@@ -98,7 +102,7 @@ On ChatGPT, hand off to `workflow-orchestrator` in the conversation with the vis
 ## QA Checklist
 
 - User understands what is being installed.
-- Setup language is chosen before the work-profile questions.
+- Installation remains in English; user-language detection starts only after verified installation.
 - The beginner preflight accurately describes the active surface.
 - Project-local is the default Codex scope; ChatGPT does not claim a local install.
 - Personalization is local and not committed.
